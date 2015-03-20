@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__.'/../vendor/autoload.php'; 
+
+use upload\command\DemoCommand;
+use Knp\Provider\ConsoleServiceProvider;
+
+
+$app = new Silex\Application();
+
+
+
+$app->register(new ConsoleServiceProvider(), array(
+    'console.name'              => 'MyApplication',
+    'console.version'           => '1.0.0',
+    'console.project_directory' => __DIR__.'/..'
+));
+
+
+
+
+$app->register(new ConsoleServiceProvider(),
+                array('console.name'              => 'Console',
+                      'console.version'           => '1.0.0',
+                      'console.project_directory' => __DIR__.'/..'));
+$console = $app['console'];
+
+// agregar commandos
+$console->add(new DemoCommand());
+
+
+$console->run();
+
+
+
