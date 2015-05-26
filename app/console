@@ -3,6 +3,9 @@
 require_once __DIR__.'/../vendor/autoload.php'; 
 
 use upload\command\DemoCommand;
+use upload\command\ContableCommand;
+use upload\command\EmpleadosCommand;
+use upload\command\DocumentCommand;
 use Knp\Provider\ConsoleServiceProvider;
 
 
@@ -18,7 +21,6 @@ $app->register(new ConsoleServiceProvider(), array(
 
 
 
-
 $app->register(new ConsoleServiceProvider(),
                 array('console.name'              => 'Console',
                       'console.version'           => '1.0.0',
@@ -27,7 +29,9 @@ $console = $app['console'];
 
 // agregar commandos
 $console->add(new DemoCommand());
-
+$console->add(new EmpleadosCommand());
+$console->add(new ContableCommand());
+$console->add(new DocumentCommand());
 
 $console->run();
 

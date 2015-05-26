@@ -1,10 +1,11 @@
 <?php
-
+namespace upload\lib;
 
 class api {
     
     private $_url ;
     private $_headers;
+  
     
     function __construct ($url,$headers )
     {
@@ -14,7 +15,16 @@ class api {
         
     }
     
+     public function set($param){
         
+        if(array_key_exists('url',$param) ) {
+             $this->_url=$param['url'];
+        }
+        
+        if(array_key_exists('headers',$param) ) {
+             $this->_headers=$param['headers'];
+        }
+    }    
     
     public function get($id=null){
         
@@ -40,6 +50,32 @@ class api {
         
         
     }
+    
+    
+   
+    public function postfile($file,$mimetype,$name){
+        
+        $file_name_with_full_path = realpath($file);
+               
+          
+        $cfile = $this->getCurlValue($file_name_with_full_path,$mimetype,$name);
+ 
+
+        $data = array('file' => $cfile);
+          
+        
+        print_r($data);
+        //$data = array('extra_info' => '123456','file_contents'=>'@'.$file_name_with_full_path);
+                
+        $headers = $this->_headers;
+        $headers[1]='Content-Type: multipart/form-data';
+        
+        print_r($headers);
+        return $this->_callapi('POST', $this->_url, $headers, json_encode($data));
+                
+    }
+   
+    
     
     public function delete($id=null){
         
@@ -74,10 +110,7 @@ class api {
     
     public function _callapi($method, $url,$headers,$data)
    {
-       
-
-
-    $handle = curl_init();
+     $handle = curl_init();
     curl_setopt($handle, CURLOPT_URL, $url);
     curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
@@ -102,15 +135,33 @@ class api {
 
         $response = curl_exec($handle);
         $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-
-
-
-
-           return $response;
+        
+     
+        return $response;
    }
 
     
     
+  private  function getCurlValue($filename, $contentType, $postname)
+{
+   
+    if (function_exists('curl_file_create')) {
+        return curl_file_create($filename, $contentType, $postname);
+    }
+ 
+    // Use the old style if using an older version of PHP
+    $value = "@{$this->filename};filename=" . $postname;
+    if ($contentType) {
+        $value .= ';type=' . $contentType;
+    }
+ 
+    return $value;
+}
+ 
+
+
+   
+   
     
     
 }

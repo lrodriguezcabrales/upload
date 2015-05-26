@@ -1,5 +1,8 @@
 <?php
 
+namespace upload\lib;
+
+
 class data {
 
 private $_server = "";
@@ -67,6 +70,10 @@ private function _connect(){
             
             
            $selected = $this->_selectdb();
+           
+          
+           
+           
             break;
           
        case "mysql":
@@ -138,7 +145,12 @@ private function _selectdb(){
               ini_set('mssql.charset', 'UTF-8');
            
              $result=mssql_select_db($this->_database, $this->_dbhandle);
-              break;
+             mssql_query("SET TEXTSIZE 2147483647");
+                ini_set ( 'mssql.textlimit' , '2147483647' );
+                ini_set ( 'mssql.textsize' , '2147483647' ); 
+             
+             
+             break;
         
         
     }
@@ -157,7 +169,7 @@ public function _getData($r){
    
             foreach ($row as $key => $value) {
              
-                if(is_string($value)){
+                if(is_string($value) && $key <> 'image'){
                     $row[$key]= utf8_encode($value);
                 }
 
