@@ -5,8 +5,7 @@ class api {
     
     private $_url ;
     private $_headers;
-  
-    
+      
     function __construct ($url,$headers )
     {
         

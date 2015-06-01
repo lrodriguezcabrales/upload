@@ -6,6 +6,7 @@ use upload\command\DemoCommand;
 use upload\command\ContableCommand;
 use upload\command\EmpleadosCommand;
 use upload\command\DocumentCommand;
+use upload\command\GetDocumentsCommand;
 use Knp\Provider\ConsoleServiceProvider;
 
 
@@ -32,6 +33,7 @@ $console->add(new DemoCommand());
 $console->add(new EmpleadosCommand());
 $console->add(new ContableCommand());
 $console->add(new DocumentCommand());
+$console->add(new GetDocumentsCommand());
 
 $console->run();
 

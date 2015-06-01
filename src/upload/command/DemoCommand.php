@@ -6,12 +6,13 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
+
 class DemoCommand extends Command
 {	
     protected function configure()
     {
         $this->setName('demo')
-		             ->setDescription('Comando para proposito de pruebas')
+		            ->setDescription('Comando para proposito de pruebas')
                             ->addArgument(
                                    'name',
                                    InputArgument::OPTIONAL,
