@@ -1,0 +1,468 @@
+[] Logging in as 'Araujo y Segovia SA' (573145892664)
+tx  <stream:features>
+tx    <readreceipts></readreceipts>
+tx    <groups_v2></groups_v2>
+tx    <privacy></privacy>
+tx    <presence></presence>
+tx  </stream:features>
+
+tx  <auth mechanism="WAUTH-2" user="573145892664">⁄¯˝Ã573145892664Ø◊y3…“?ﬂÔÌ·Ü√àXÈ®‡1433366524</auth>
+
+rx  <start from="s.whatsapp.net"></start>
+
+rx  <stream:features></stream:features>
+
+rx  <challenge>W@ÿ/÷åy£`f–iÛ¡Ï˜“\¥</challenge>
+
+tx  <response>Óπb:ÁÌ0Z^&dZÓ~tú  ÒRáJ≤U∏k,Ä∞¸Ô˛Í</response>
+
+rx  <success t="1433366528" props="4" kind="free" status="active" creation="1433284697" expiration="1464820697">≠™Oõ}Í√õﬂ'5–mŒv'÷ê</success>
+
+tx  <presence name="Araujo y Segovia SA"></presence>
+
+
+[] Listen mode:
+rx  <receipt from="573013248324@s.whatsapp.net" id="1433284947-8" retry="1" offline="1" t="1433284967"></receipt>
+
+tx  <ack to="573013248324@s.whatsapp.net" id="1433284947-8" type="read" t="1433366524"></ack>
+
+rx  <receipt from="573013248324@s.whatsapp.net" id="1433284947-8" offline="0" type="read" t="1433284970">
+rx    <list>
+rx      <item id="1433284947-6"></item>
+rx    </list>
+rx  </receipt>
+
+tx  <ack to="573013248324@s.whatsapp.net" id="1433284947-8" type="read" t="1433366525"></ack>
+
+rx  <receipt from="573175102281@s.whatsapp.net" id="1433284947-2" offline="0" t="1433284972"></receipt>
+
+tx  <ack to="573175102281@s.whatsapp.net" id="1433284947-2" type="read" t="1433366526"></ack>
+
+rx  <receipt from="573175102281@s.whatsapp.net" id="1433284947-5" offline="0" t="1433284972"></receipt>
+
+tx  <ack to="573175102281@s.whatsapp.net" id="1433284947-5" type="read" t="1433366527"></ack>
+
+rx  <receipt from="573164539256@s.whatsapp.net" id="1433284947-9" offline="0" t="1433284975"></receipt>
+
+tx  <ack to="573164539256@s.whatsapp.net" id="1433284947-9" type="read" t="1433366528"></ack>
+
+rx  <receipt from="573164539256@s.whatsapp.net" id="1433284947-11" offline="0" t="1433284976"></receipt>
+
+tx  <ack to="573164539256@s.whatsapp.net" id="1433284947-11" type="read" t="1433366529"></ack>
+
+rx  <receipt from="573175102281@s.whatsapp.net" id="1433284947-5" offline="0" type="read" t="1433284981"></receipt>
+
+tx  <ack to="573175102281@s.whatsapp.net" id="1433284947-5" type="read" t="1433366530"></ack>
+
+rx  <receipt from="573175102281@s.whatsapp.net" id="1433284947-2" offline="0" type="read" t="1433284981"></receipt>
+
+tx  <ack to="573175102281@s.whatsapp.net" id="1433284947-2" type="read" t="1433366531"></ack>
+
+rx  <receipt from="573164539256@s.whatsapp.net" id="1433284947-11" offline="0" type="read" t="1433284991">
+rx    <list>
+rx      <item id="1433284947-9"></item>
+rx    </list>
+rx  </receipt>
+
+tx  <ack to="573164539256@s.whatsapp.net" id="1433284947-11" type="read" t="1433366532"></ack>
+
+rx  <receipt from="573175102281@s.whatsapp.net" id="1433285351-2" offline="0" t="1433285357"></receipt>
+
+tx  <ack to="573175102281@s.whatsapp.net" id="1433285351-2" type="read" t="1433366533"></ack>
+
+rx  <receipt from="573175102281@s.whatsapp.net" id="1433285351-4" offline="0" t="1433285359"></receipt>
+
+tx  <ack to="573175102281@s.whatsapp.net" id="1433285351-4" type="read" t="1433366534"></ack>
+
+rx  <receipt from="573013248324@s.whatsapp.net" id="1433285351-5" offline="0" t="1433285381"></receipt>
+
+tx  <ack to="573013248324@s.whatsapp.net" id="1433285351-5" type="read" t="1433366535"></ack>
+
+rx  <receipt from="573013248324@s.whatsapp.net" id="1433285351-7" offline="0" t="1433285383"></receipt>
+
+tx  <ack to="573013248324@s.whatsapp.net" id="1433285351-7" type="read" t="1433366536"></ack>
+
+rx  <receipt from="573014001125@s.whatsapp.net" id="1433285457-2" offline="0" t="1433285464"></receipt>
+
+tx  <ack to="573014001125@s.whatsapp.net" id="1433285457-2" type="read" t="1433366537"></ack>
+
+rx  <receipt from="573014001125@s.whatsapp.net" id="1433285457-4" offline="0" t="1433285469"></receipt>
+
+tx  <ack to="573014001125@s.whatsapp.net" id="1433285457-4" type="read" t="1433366538"></ack>
+
+rx  <receipt from="573202846649@s.whatsapp.net" id="1433285457-14" offline="0" t="1433285576"></receipt>
+
+tx  <ack to="573202846649@s.whatsapp.net" id="1433285457-14" type="read" t="1433366539"></ack>
+
+rx  <receipt from="573202846649@s.whatsapp.net" id="1433285457-16" offline="0" t="1433285577"></receipt>
+
+tx  <ack to="573202846649@s.whatsapp.net" id="1433285457-16" type="read" t="1433366540"></ack>
+
+rx  <receipt from="573176485630@s.whatsapp.net" id="1433285457-20" offline="0" t="1433285623"></receipt>
+
+tx  <ack to="573176485630@s.whatsapp.net" id="1433285457-20" type="read" t="1433366541"></ack>
+
+rx  <receipt from="573176485630@s.whatsapp.net" id="1433285457-22" offline="0" t="1433285631"></receipt>
+
+tx  <ack to="573176485630@s.whatsapp.net" id="1433285457-22" type="read" t="1433366542"></ack>
+
+rx  <receipt from="573008172931@s.whatsapp.net" id="1433285457-26" offline="0" t="1433285681"></receipt>
+
+tx  <ack to="573008172931@s.whatsapp.net" id="1433285457-26" type="read" t="1433366543"></ack>
+
+rx  <receipt from="573008172931@s.whatsapp.net" id="1433285457-28" offline="0" t="1433285682"></receipt>
+
+tx  <ack to="573008172931@s.whatsapp.net" id="1433285457-28" type="read" t="1433366544"></ack>
+
+rx  <receipt from="573017193357@s.whatsapp.net" id="1433285457-32" offline="0" t="1433285731"></receipt>
+
+tx  <ack to="573017193357@s.whatsapp.net" id="1433285457-32" type="read" t="1433366545"></ack>
+
+rx  <receipt from="573017193357@s.whatsapp.net" id="1433285457-34" offline="0" t="1433285737"></receipt>
+
+tx  <ack to="573017193357@s.whatsapp.net" id="1433285457-34" type="read" t="1433366546"></ack>
+
+rx  <receipt from="573205435209@s.whatsapp.net" id="1433285457-35" offline="0" t="1433285761"></receipt>
+
+tx  <ack to="573205435209@s.whatsapp.net" id="1433285457-35" type="read" t="1433366547"></ack>
+
+rx  <receipt from="573205435209@s.whatsapp.net" id="1433285457-37" offline="0" t="1433285763"></receipt>
+
+tx  <ack to="573205435209@s.whatsapp.net" id="1433285457-37" type="read" t="1433366548"></ack>
+
+rx  <receipt from="573205435209@s.whatsapp.net" id="1433285457-37" offline="0" type="read" t="1433285799">
+rx    <list>
+rx      <item id="1433285457-35"></item>
+rx    </list>
+rx  </receipt>
+
+tx  <ack to="573205435209@s.whatsapp.net" id="1433285457-37" type="read" t="1433366549"></ack>
+
+rx  <receipt from="573013248324@s.whatsapp.net" id="1433285351-7" offline="0" type="read" t="1433285867">
+rx    <list>
+rx      <item id="1433285351-5"></item>
+rx    </list>
+rx  </receipt>
+
+tx  <ack to="573013248324@s.whatsapp.net" id="1433285351-7" type="read" t="1433366550"></ack>
+
+rx  <receipt from="573017193357@s.whatsapp.net" id="1433285457-34" offline="0" type="read" t="1433285995">
+rx    <list>
+rx      <item id="1433285457-32"></item>
+rx    </list>
+rx  </receipt>
+
+tx  <ack to="573017193357@s.whatsapp.net" id="1433285457-34" type="read" t="1433366551"></ack>
+
+rx  <receipt from="573003855153@s.whatsapp.net" id="1433285457-11" offline="0" t="1433286004"></receipt>
+
+tx  <ack to="573003855153@s.whatsapp.net" id="1433285457-11" type="read" t="1433366552"></ack>
+
+rx  <receipt from="573003855153@s.whatsapp.net" id="1433285457-13" offline="0" t="1433286004"></receipt>
+
+tx  <ack to="573003855153@s.whatsapp.net" id="1433285457-13" type="read" t="1433366554"></ack>
+
+rx  <receipt from="573003855153@s.whatsapp.net" id="1433285457-13" offline="0" type="read" t="1433286026"></receipt>
+
+tx  <ack to="573003855153@s.whatsapp.net" id="1433285457-13" type="read" t="1433366555"></ack>
+
+rx  <receipt from="573003855153@s.whatsapp.net" id="1433285457-11" offline="0" type="read" t="1433286026"></receipt>
+
+tx  <ack to="573003855153@s.whatsapp.net" id="1433285457-11" type="read" t="1433366556"></ack>
+
+rx  <receipt from="573008172931@s.whatsapp.net" id="1433285457-28" offline="0" type="read" t="1433286035"></receipt>
+
+tx  <ack to="573008172931@s.whatsapp.net" id="1433285457-28" type="read" t="1433366557"></ack>
+
+rx  <receipt from="573008172931@s.whatsapp.net" id="1433285457-26" offline="0" type="read" t="1433286035"></receipt>
+
+tx  <ack to="573008172931@s.whatsapp.net" id="1433285457-26" type="read" t="1433366558"></ack>
+
+rx  <receipt from="573202846649@s.whatsapp.net" id="1433285457-16" offline="0" type="read" t="1433286132">
+rx    <list>
+rx      <item id="1433285457-14"></item>
+rx    </list>
+rx  </receipt>
+
+tx  <ack to="573202846649@s.whatsapp.net" id="1433285457-16" type="read" t="1433366559"></ack>
+
+rx  <receipt from="573188566051@s.whatsapp.net" id="1433285457-17" offline="0" t="1433286378"></receipt>
+
+tx  <ack to="573188566051@s.whatsapp.net" id="1433285457-17" type="read" t="1433366560"></ack>
+
+rx  <receipt from="573188566051@s.whatsapp.net" id="1433285457-19" offline="0" t="1433286378"></receipt>
+
+tx  <ack to="573188566051@s.whatsapp.net" id="1433285457-19" type="read" t="1433366561"></ack>
+
+rx  <receipt from="573006779181@s.whatsapp.net" id="1433285457-29" offline="0" t="1433290571"></receipt>
+
+tx  <ack to="573006779181@s.whatsapp.net" id="1433285457-29" type="read" t="1433366562"></ack>
+
+rx  <receipt from="573006779181@s.whatsapp.net" id="1433285457-31" offline="0" t="1433290571"></receipt>
+
+tx  <ack to="573006779181@s.whatsapp.net" id="1433285457-31" type="read" t="1433366563"></ack>
+
+rx  <receipt from="573006779181@s.whatsapp.net" id="1433285457-31" offline="0" type="read" t="1433290859">
+rx    <list>
+rx      <item id="1433285457-29"></item>
+rx    </list>
+rx  </receipt>
+
+tx  <ack to="573006779181@s.whatsapp.net" id="1433285457-31" type="read" t="1433366564"></ack>
+
+rx  <receipt from="573176485630@s.whatsapp.net" id="1433285457-22" offline="0" type="read" t="1433291543">
+rx    <list>
+rx      <item id="1433285457-20"></item>
+rx    </list>
+rx  </receipt>
+
+tx  <ack to="573176485630@s.whatsapp.net" id="1433285457-22" type="read" t="1433366565"></ack>
+
+rx  <message from="573006779181@s.whatsapp.net" id="1433249906-30" offline="0" type="text" t="1433292578" notify="Dra Diana">
+rx    <body>Hola buenas noches</body>
+rx  </message>
+
+tx  <receipt type="read" to="573006779181@s.whatsapp.net" id="1433249906-30" t="1433366566"></receipt>
+
+Array
+(
+    [0] => ProtocolNode Object
+        (
+            [tag:ProtocolNode:private] => message
+            [attributeHash:ProtocolNode:private] => Array
+                (
+                    [from] => 573006779181@s.whatsapp.net
+                    [id] => 1433249906-30
+                    [offline] => 0
+                    [type] => text
+                    [t] => 1433292578
+                    [notify] => Dra Diana
+                )
+
+            [children:ProtocolNode:private] => Array
+                (
+                    [0] => ProtocolNode Object
+                        (
+                            [tag:ProtocolNode:private] => body
+                            [attributeHash:ProtocolNode:private] => Array
+                                (
+                                )
+
+                            [children:ProtocolNode:private] => 
+                            [data:ProtocolNode:private] => Hola buenas noches
+                        )
+
+                )
+
+            [data:ProtocolNode:private] => 
+        )
+
+)
+rx  <message from="573006779181@s.whatsapp.net" id="1433249906-31" offline="0" type="text" t="1433292603" notify="Dra Diana">
+rx    <body>El dia de ma√±ana a mas tardar pasado ma√±ana me pongo al dia</body>
+rx  </message>
+
+tx  <receipt type="read" to="573006779181@s.whatsapp.net" id="1433249906-31" t="1433366567"></receipt>
+
+Array
+(
+    [0] => ProtocolNode Object
+        (
+            [tag:ProtocolNode:private] => message
+            [attributeHash:ProtocolNode:private] => Array
+                (
+                    [from] => 573006779181@s.whatsapp.net
+                    [id] => 1433249906-31
+                    [offline] => 0
+                    [type] => text
+                    [t] => 1433292603
+                    [notify] => Dra Diana
+                )
+
+            [children:ProtocolNode:private] => Array
+                (
+                    [0] => ProtocolNode Object
+                        (
+                            [tag:ProtocolNode:private] => body
+                            [attributeHash:ProtocolNode:private] => Array
+                                (
+                                )
+
+                            [children:ProtocolNode:private] => 
+                            [data:ProtocolNode:private] => El dia de ma√±ana a mas tardar pasado ma√±ana me pongo al dia
+                        )
+
+                )
+
+            [data:ProtocolNode:private] => 
+        )
+
+)
+rx  <message from="573006779181@s.whatsapp.net" id="1433249906-32" offline="0" type="text" t="1433292641" notify="Dra Diana">
+rx    <body>Hubo un retraso en el pago donde trabajo.. situacion que nunca se habia presentado</body>
+rx  </message>
+
+tx  <receipt type="read" to="573006779181@s.whatsapp.net" id="1433249906-32" t="1433366568"></receipt>
+
+Array
+(
+    [0] => ProtocolNode Object
+        (
+            [tag:ProtocolNode:private] => message
+            [attributeHash:ProtocolNode:private] => Array
+                (
+                    [from] => 573006779181@s.whatsapp.net
+                    [id] => 1433249906-32
+                    [offline] => 0
+                    [type] => text
+                    [t] => 1433292641
+                    [notify] => Dra Diana
+                )
+
+            [children:ProtocolNode:private] => Array
+                (
+                    [0] => ProtocolNode Object
+                        (
+                            [tag:ProtocolNode:private] => body
+                            [attributeHash:ProtocolNode:private] => Array
+                                (
+                                )
+
+                            [children:ProtocolNode:private] => 
+                            [data:ProtocolNode:private] => Hubo un retraso en el pago donde trabajo.. situacion que nunca se habia presentado
+                        )
+
+                )
+
+            [data:ProtocolNode:private] => 
+        )
+
+)
+rx  <message from="573006779181@s.whatsapp.net" id="1433249906-33" offline="0" type="text" t="1433292696" notify="Dra Diana">
+rx    <body>Me podria aclarar algo? Ese es el valor a pagar.. 1.317.333?</body>
+rx  </message>
+
+tx  <receipt type="read" to="573006779181@s.whatsapp.net" id="1433249906-33" t="1433366569"></receipt>
+
+Array
+(
+    [0] => ProtocolNode Object
+        (
+            [tag:ProtocolNode:private] => message
+            [attributeHash:ProtocolNode:private] => Array
+                (
+                    [from] => 573006779181@s.whatsapp.net
+                    [id] => 1433249906-33
+                    [offline] => 0
+                    [type] => text
+                    [t] => 1433292696
+                    [notify] => Dra Diana
+                )
+
+            [children:ProtocolNode:private] => Array
+                (
+                    [0] => ProtocolNode Object
+                        (
+                            [tag:ProtocolNode:private] => body
+                            [attributeHash:ProtocolNode:private] => Array
+                                (
+                                )
+
+                            [children:ProtocolNode:private] => 
+                            [data:ProtocolNode:private] => Me podria aclarar algo? Ese es el valor a pagar.. 1.317.333?
+                        )
+
+                )
+
+            [data:ProtocolNode:private] => 
+        )
+
+)
+rx  <message from="573006779181@s.whatsapp.net" id="1433249906-34" offline="0" type="text" t="1433292713" notify="Dra Diana">
+rx    <body>A que se debe el aumento?</body>
+rx  </message>
+
+tx  <receipt type="read" to="573006779181@s.whatsapp.net" id="1433249906-34" t="1433366570"></receipt>
+
+Array
+(
+    [0] => ProtocolNode Object
+        (
+            [tag:ProtocolNode:private] => message
+            [attributeHash:ProtocolNode:private] => Array
+                (
+                    [from] => 573006779181@s.whatsapp.net
+                    [id] => 1433249906-34
+                    [offline] => 0
+                    [type] => text
+                    [t] => 1433292713
+                    [notify] => Dra Diana
+                )
+
+            [children:ProtocolNode:private] => Array
+                (
+                    [0] => ProtocolNode Object
+                        (
+                            [tag:ProtocolNode:private] => body
+                            [attributeHash:ProtocolNode:private] => Array
+                                (
+                                )
+
+                            [children:ProtocolNode:private] => 
+                            [data:ProtocolNode:private] => A que se debe el aumento?
+                        )
+
+                )
+
+            [data:ProtocolNode:private] => 
+        )
+
+)
+rx  <receipt from="573182914729@s.whatsapp.net" id="1433285457-23" offline="0" type="read" t="1433294209"></receipt>
+
+tx  <ack to="573182914729@s.whatsapp.net" id="1433285457-23" type="read" t="1433366571"></ack>
+
+rx  <receipt from="573182914729@s.whatsapp.net" id="1433285457-25" offline="0" t="1433294214"></receipt>
+
+tx  <ack to="573182914729@s.whatsapp.net" id="1433285457-25" type="read" t="1433366572"></ack>
+
+rx  <receipt from="573182914729@s.whatsapp.net" id="1433285457-25" offline="0" type="read" t="1433299970"></receipt>
+
+tx  <ack to="573182914729@s.whatsapp.net" id="1433285457-25" type="read" t="1433366573"></ack>
+
+rx  <receipt from="573174353005@s.whatsapp.net" id="1433285457-38" offline="0" t="1433333995"></receipt>
+
+tx  <ack to="573174353005@s.whatsapp.net" id="1433285457-38" type="read" t="1433366574"></ack>
+
+rx  <receipt from="573174353005@s.whatsapp.net" id="1433285457-40" offline="0" t="1433333995"></receipt>
+
+tx  <ack to="573174353005@s.whatsapp.net" id="1433285457-40" type="read" t="1433366575"></ack>
+
+rx  <receipt from="573174353005@s.whatsapp.net" id="1433285457-40" offline="0" type="read" t="1433334161"></receipt>
+
+tx  <ack to="573174353005@s.whatsapp.net" id="1433285457-40" type="read" t="1433366576"></ack>
+
+rx  <receipt from="573174353005@s.whatsapp.net" id="1433285457-38" offline="0" type="read" t="1433334161"></receipt>
+
+tx  <ack to="573174353005@s.whatsapp.net" id="1433285457-38" type="read" t="1433366577"></ack>
+
+rx  <ib from="s.whatsapp.net">
+rx    <offline count="53"></offline>
+rx  </ib>
+
+rx  <presence from="573145892664@s.whatsapp.net"></presence>
+
+rx  <ack from="573006779181@s.whatsapp.net" id="1433249906-30" class="receipt" type="read"></ack>
+
+rx  <ack from="573006779181@s.whatsapp.net" id="1433249906-31" class="receipt" type="read"></ack>
+
+rx  <ack from="573006779181@s.whatsapp.net" id="1433249906-32" class="receipt" type="read"></ack>
+
+rx  <ack from="573006779181@s.whatsapp.net" id="1433249906-33" class="receipt" type="read"></ack>
+
+rx  <ack from="573006779181@s.whatsapp.net" id="1433249906-34" class="receipt" type="read"></ack>
+
+rx  <stream:error>
+rx    <ack></ack>
+rx  </stream:error>
+

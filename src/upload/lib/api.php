@@ -44,7 +44,6 @@ class api {
     
     public function post($data){
         
-        
         return $this->_callapi('POST', $this->_url, $this->_headers, json_encode($data));
         
         
@@ -134,8 +133,8 @@ class api {
 
         $response = curl_exec($handle);
         $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        
-     
+        echo "response\n";
+        print_r($response);
         return $response;
    }
 
