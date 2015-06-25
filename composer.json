@@ -1,0 +1,16 @@
+{
+    "name": "Upload/importar y exportar datos",
+    "description": "symfony/console interface de importacion y exportación de datos",
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/console": "2.4.x-dev",
+        "knplabs/console-service-provider": "dev-master",
+        "silex/silex": "~1.2",
+        "monolog/monolog": "1.11.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
