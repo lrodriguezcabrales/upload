@@ -32,18 +32,11 @@ class EmpleadosCommand extends Command
                'Cedula del empleado'
             )
                 
-                 ->addOption(
-               'update',
-               null,
-               InputOption::VALUE_REQUIRED,
-               'Actualizar base de empleados'
-            )
-                
                 ->addOption(
                 'post',
                 null,
-                InputOption::VALUE_REQUIRED,
-                'Nombre del Archivo '
+                InputOption::VALUE_NONE,
+                'Actualizar empleados '
                 
             );
         
@@ -54,9 +47,6 @@ class EmpleadosCommand extends Command
             
         
         $output->writeln('Cargar datos de empleados de metadatos de Archivos de Sifinca 2.0 ');
-        
-   
-                     
            
         $conn = new data(array(
              'server' =>'10.102.1.3'
@@ -82,12 +72,13 @@ class EmpleadosCommand extends Command
                 $empleados=$e->getEmpleados(array('id'=>$id));       
                
            }
-           
-           if($input->getOption('terceros')){
+                    
              $terceros =$e->getTerceros();
-           }
+         
           
            if($input->getOption('post')){
+               
+               
                
                $this->postEmpleados($empleados);
                
@@ -112,14 +103,19 @@ class EmpleadosCommand extends Command
           
         }
         
+              
+        
         
         protected function postEmpleados($empleados){
             
             $url='http://www.sifinca.net/sifinca/web/app.php/archive/main/history/payroll';
+            
+            //$urlget ='http://www.sifinca.net/sifinca/web/app.php/index/tag/payroll';
             $user='sifinca@araujoysegovia.com';
             $pass='araujo123';
             $api = $this->SetupApi($url,$user,$pass);
-            
+            //$api2 =$this->SetupApi($urlget,$user,$pass);
+              $n=0;
             foreach ($empleados as $row) {
                 
                
@@ -130,9 +126,28 @@ class EmpleadosCommand extends Command
                 "idThird"=> "",
                 "third"=> "" 
              );
-            
            
-             print_r($api->post($map));
+                
+                // verificar si esta? GET
+                $id ='?filter=[{%22value%22:%22'.$row['Codigo'].'%22,%20%22operator%22:%22equal%22,%20%22property%22:%22idContract%22}]';
+                
+                              
+                $result = json_decode($api->get($id),true);
+                
+             
+                
+             
+               if ($result['total']<1){
+                  $n++;
+                  
+                   print_r($api->post($map));
+                  
+               }else{
+                   echo $row['Codigo']." -> OK \n";
+               }
+
+               
+             //;
             }
             
             
@@ -147,11 +162,12 @@ class EmpleadosCommand extends Command
         
         protected function postTerceros($terceros){
             
+            $urlget ='http://www.sifinca.net/sifinca/web/app.php/index/tag/payroll';
             $url='http://www.sifinca.net/sifinca/web/app.php/archive/main/history/payroll';
             $user='sifinca@araujoysegovia.com';
             $pass='araujo123';
             $api = $this->SetupApi($url,$user,$pass);
-            
+             $api2 =$this->SetupApi($urlget,$user,$pass);
             foreach ($terceros as $row) {
                 
                
@@ -163,8 +179,22 @@ class EmpleadosCommand extends Command
                 "third"=> $row['Nombre'] 
              );
             
-           
-             print_r($api->post($map));
+              // verificar si esta? GET
+                $id ='?filter=[{%22value%22:%22'.$row['Codigo'].'%22,%20%22operator%22:%22equal%22,%20%22property%22:%22idThird%22}]';
+                
+                              
+                $result = json_decode($api2->get($id),true);
+                
+               
+               if ($result['total']==0){
+                  print_r($api->post($map));
+               }else{
+                   echo $row['Codigo']." -> OK \n";
+               }
+   
+                
+                
+            
             }
             
             

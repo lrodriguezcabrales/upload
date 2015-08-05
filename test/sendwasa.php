@@ -24,11 +24,9 @@ $db = new data (array(
 
 
 $c= new cartera($db);
-
-$param=array('label'=>'30-60','year'=>2015,'month'=>6);
+$param=array('label'=>'30-60','year'=>2015,'month'=>7);
 
 $list=$c->getListforLabel($param);
-
 
 echo "[] Logging in as '$nickname' ($sender)\n";
 $wa = new WhatsProt($sender, $nickname, TRUE);

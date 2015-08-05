@@ -19,13 +19,13 @@ class documento {
             
             ## obtener el radicado
             
-            $query="select top 2  * from documentos where archivador='".$this->_archivador."' and id ='".$param['id']."'";
+            $query="select   * from documentos where archivador='".$this->_archivador."' and id ='".$param['id']."'";
             
             
         }else{
             
             ## obtener todos los documentos
-            $query="select top 2 "
+            $query="select  "
                     . " * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
             
             

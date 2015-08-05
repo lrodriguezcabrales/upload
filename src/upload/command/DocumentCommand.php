@@ -106,9 +106,6 @@ class DocumentCommand extends Command
         $log = new Logger('name');
         $log->pushHandler(new StreamHandler('/var/www/html/upload/files/app.log', Logger::WARNING));
 
-        
-        
-        
         $tt1 = microtime(true);
         $output->writeln('Descargar documentos de archivadores de sifinca 1.0 y carga en sifinca 2.0 ');
         
@@ -184,8 +181,8 @@ class DocumentCommand extends Command
                }else{
                
                ### buscar si el documento ya esta -> verficar si esta el "file" y el "documento" 
-              echo "2\n";
-                   echo $row['radicacion'];
+              echo "2:\n";
+              echo $row['radicacion'];
               $d=$this->getDocument($row['radicacion']); 
               
               print_r($d);
@@ -230,7 +227,7 @@ class DocumentCommand extends Command
                  
                  if( $input->getOption('post')){
                            
-                         echo "Nuevo!!!!";
+                         echo "Nuevo!!!! - ";
                            
                           $destinyUser=$input->getOption('destinyUser');
                           
@@ -242,7 +239,7 @@ class DocumentCommand extends Command
                           
                         $h ="x-sifinca:SessionToken SessionID=\"$token\", Username=\"sifinca@araujoysegovia.com\"";
                         
-                         $result=$this->postfile($filepdf,$h ,$user, $urlapi1);
+                         $result=$this->postfile($filepdf,$h , $urlapi1);
                         
                          // add records to the log
                       
@@ -263,9 +260,7 @@ class DocumentCommand extends Command
                                       array("idContract"=> $tag['codigo']),
                                       array("third"=> $tag['tercero']),
                                       array("idThird"=> $tag['idtercero']),
-                                     
-
-
+           
                                     ); 
                             }
 
@@ -368,11 +363,11 @@ protected function getIdTypeDoc($id, $archivador){
 }
 
 
-protected function postfile($f,$data,$h,$url){
+protected function postfile($f,$h,$url){
     
     
     
-    $cmd="curl --form \"filename=@$f\" --data $data  -H '$h'  $url";
+    $cmd="curl --form \"filename=@$f\"  -H '$h'  $url";
     $result= shell_exec($cmd);
     
     

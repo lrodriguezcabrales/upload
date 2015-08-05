@@ -44,6 +44,7 @@ class api {
     
     public function post($data){
         
+        
         return $this->_callapi('POST', $this->_url, $this->_headers, json_encode($data));
         
         
@@ -62,7 +63,7 @@ class api {
         $data = array('file' => $cfile);
           
         
-        print_r($data);
+     
         //$data = array('extra_info' => '123456','file_contents'=>'@'.$file_name_with_full_path);
                 
         $headers = $this->_headers;
@@ -133,8 +134,8 @@ class api {
 
         $response = curl_exec($handle);
         $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        echo "response\n";
-        print_r($response);
+        
+     
         return $response;
    }
 
