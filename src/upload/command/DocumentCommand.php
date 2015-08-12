@@ -10,8 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use GearmanClient;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
+
 
 
 
@@ -91,7 +90,10 @@ class DocumentCommand extends Command
                null,
                InputOption::VALUE_REQUIRED,
                'Nombre de la base de datos'
-            )  ;
+            )  
+                
+              
+                ;
             
         
         
@@ -101,22 +103,25 @@ class DocumentCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
 	{
         
-        
-         // create a log channel
-        $log = new Logger('name');
-        $log->pushHandler(new StreamHandler('/var/www/html/upload/files/app.log', Logger::WARNING));
+         
+        // 
 
         $tt1 = microtime(true);
         $output->writeln('Descargar documentos de archivadores de sifinca 1.0 y carga en sifinca 2.0 ');
         
         $archivador = $input->getArgument('archivador');
          
+      $container = "37d5ff73-83f2-477a-b65c-d8792993a205";
+      $container = "47dd8c91-6bf7-4728-87fc-ecf8a4ed1771"; 
+        
+        
         if ($archivador) {
            
          ##   conectar a sifinca
          $output->writeln('<info>Conectando a base de datos ...</info>');
             
-        ## conectar a base de zeus -> convertir luego a opciones 
+       /*
+         ## conectar a base de zeus -> convertir luego a opciones 
         $conn = new data(array(
           'server' =>'10.102.1.3'
           ,'user' =>'sa'
@@ -125,10 +130,33 @@ class DocumentCommand extends Command
           ,'engine'=>'mssql'
 
          ));
-  
+        * */
+       
+         $server ='10.102.1.3';
+         if($input->getOption('server')){
+             $server = $input->getOption('server');
+         }
+         
+         $database='docflow';
+           if($input->getOption('database')){
+             $database = $input->getOption('database');
+         }
+         $user= 'sa';
+         $pass='75080508360';
+         
+    ## conectar a base de zeus -> convertir luego a opciones  ---> MONTERIA
+        $conn = new data(array(
+          'server' =>$server
+          ,'user' =>$user
+          ,'pass' =>$pass
+          ,'database' =>$database
+          ,'engine'=>'mssql'
+
+         ));
         ### descargar documentos
         
          $path= $input->getOption('path');
+         
          if($path){
              
             $path = "/var/www/html/upload/files/".$path."/"; 
@@ -143,6 +171,7 @@ class DocumentCommand extends Command
            mkdir($path);
        }
        $tasks = $input->getOption('tasks');
+      
        $thumano = new documento($conn,$archivador);
     
        if( $input->getOption('download')){
@@ -181,11 +210,11 @@ class DocumentCommand extends Command
                }else{
                
                ### buscar si el documento ya esta -> verficar si esta el "file" y el "documento" 
-              echo "2:\n";
-              echo $row['radicacion'];
-              $d=$this->getDocument($row['radicacion']); 
+            
+            
+              $d=$this->getDocument($row['radicacion'],$container); 
               
-              print_r($d);
+             
               
               if($d->total==0)   
               
@@ -227,23 +256,23 @@ class DocumentCommand extends Command
                  
                  if( $input->getOption('post')){
                            
-                         echo "Nuevo!!!! - ";
+                         echo "Nuevo!!!! - \n";
                            
                           $destinyUser=$input->getOption('destinyUser');
                           
                           if( $destinyUser){
-                            $user = json_encode(array("destinyUser"=> $destinyUser));     
+                            $user = $destinyUser;     
                         }else{
-                            $user = json_encode(array("destinyUser"=> ''));
+                            $user = "sifinca@araujoysegovia.com";
                         }
                           
                         $h ="x-sifinca:SessionToken SessionID=\"$token\", Username=\"sifinca@araujoysegovia.com\"";
                         
-                         $result=$this->postfile($filepdf,$h , $urlapi1);
+                         $result=$this->postfile($filepdf,$user,$h , $urlapi1);
                         
                          // add records to the log
                       
-                        echo json_encode($result)."\n";
+                        //echo json_encode($result)."\n";
                        
                         if(is_array($result)){
                        
@@ -287,7 +316,7 @@ class DocumentCommand extends Command
                          $result2=$document->post($doc);
                          $msg=json_encode($result2);
                         
-                         echo $msg ."\n";
+                       
                          
                         }
                  
@@ -363,11 +392,11 @@ protected function getIdTypeDoc($id, $archivador){
 }
 
 
-protected function postfile($f,$h,$url){
+protected function postfile($f,$u,$h,$url){
     
     
     
-    $cmd="curl --form \"filename=@$f\"  -H '$h'  $url";
+    $cmd="curl --form \"filename=@$f\" --form showForIndexed=true --form destinyUser=$u -H '$h'   $url";
     $result= shell_exec($cmd);
     
     
@@ -376,7 +405,7 @@ protected function postfile($f,$h,$url){
 
 
 
-protected function getDocument($rad) {
+protected function getDocument($rad, $container) {
     
    $urlapi = 'http://www.sifinca.net/sifinca/web/app.php/archive/main/document/metadata?skip=0&page=1&pageSize=10';
               $user= "sifinca@araujoysegovia.com";
@@ -387,7 +416,7 @@ protected function getDocument($rad) {
    ### aplica solo thumano
    
    $data = array(
-                "container"=> "37d5ff73-83f2-477a-b65c-d8792993a205",
+                "container"=> $container,
                 "documentType"=> null,
                 "nameDocument"=> $rad,
                 "initialDate"=> null,

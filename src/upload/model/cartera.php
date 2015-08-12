@@ -23,9 +23,7 @@ class cartera {
                $query = "select c.diasmora_a,c.saldo_a,c.label,c.canon_a,a.* from vwarr_activos a , lstcobro c
                     where a.id_contrato = c.id_contrato
              and c.mes = ".$param['month']." and ano=".$param['year']." and c.label ='".$param['label']."'  and len(rtrim(a.tel_celular))=10";
-              
-        
-
+           
         
         }
         
@@ -36,6 +34,22 @@ class cartera {
         
     }
 
+    public function getAllphonenumbers(){
+        
+        
+         $query = "select  id_cliente,nombre +' '+ apellido as nombre, tel_trabajo,tel_residencia,tel_celular,"
+                 . "tel_co,tel_celular_r, tel_r,tel_trabajo2, tel_residencia2 "
+                 . " from clientes c ";
+                   
+        $r = $this->_conn->_query($query);
+        
+        $data =$this->_conn->_getData($r);
+        return $data;
+        
+        
+        
+    }
+    
      
      
 }

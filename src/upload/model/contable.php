@@ -118,24 +118,4 @@ class contable {
          
      }
      
-     public function  getAccount(array $param){
-     
-     	 
-     	$query ="SELECT     CODICTA, DESCCTA, NIVELCTA, TIPOCTA, CODDCTA, CATFCTA, FEAPCTA, INDPG3CTA, INDCPICTA, IDBANCO, INDCCOCTA, CIERRECTA, AJUINFCTA, 
-                      CONINFCTA, NCDPGCTA, UNIADIC1, CODIAJU1, UNIADIC2, CODIAJU2, UNIADIC3, CODIAJU3, INDUNCAL, FORMUCAL, CONTROLPRESU, 
-                      DISTRIBUCION, IDMONEDA, CODIAJUSTE, PORCEIMPUESTO, DATOSIMPUESTOS, CTACORRIENTE, IDENTICTA, CIERRE3ROCTA, HABILITARCTA, 
-                      NATURALEZACTA, GRUPO, TasaAjuste, IndBaseP0, IndNCF, NIVELPARAMAYOR, CtaAjusteMonPerdida, ExigeItem
-				FROM         MAECONT
-				WHERE     (CODICTA = '".$param['CODICTA']."')";
-     
-     	 
-     	 
-     	 
-     	$r = $this->_conn->_query($query);
-     	 
-     	return $this->_conn->_getData($r);
-     	 
-     	 
-     }
-     
 }

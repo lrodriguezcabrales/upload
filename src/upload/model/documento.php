@@ -25,8 +25,8 @@ class documento {
         }else{
             
             ## obtener todos los documentos
-            $query="select  "
-                    . " * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
+            $query="select "
+             . " * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
             
             
         }
@@ -39,9 +39,9 @@ class documento {
         $result=$this->_conn->_getData($r);
         
         
-        foreach ($result as $key => $value) {
+       // foreach ($result as $key => $value) {
             
-        }
+        //}
         
         //$metadata = $this->getMetadata($result['']);
         
