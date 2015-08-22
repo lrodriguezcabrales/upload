@@ -1,0 +1,22 @@
+[
+	{
+	   "name": "levelStudy", 
+	   "idSource": "1", 
+	   "idTarget": "9903550d-9268-4396-aec1-a48cc81e060b" 
+	},
+	{
+	   "name": "levelStudy",
+	   "idSource": "2",
+	   "idTarget": "8ec58b06-9657-4dea-869f-8689df3a3180" 
+	},
+	{
+	   "name": "levelStudy",
+	   "idSource": "3",
+	   "idTarget": "6a057dd4-355b-4ee9-878d-1c214310c9e5" 
+	},
+	{
+	   "name": "levelStudy",
+	   "idSource": "4",
+	   "idTarget": "5a45dcda-704f-4154-ab90-70f38e940ac7" 
+	}
+]
