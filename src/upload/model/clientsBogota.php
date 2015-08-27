@@ -18,18 +18,18 @@ class clientsBogota {
 //         $query = "SELECT TOP 1 * FROM clientes
 //         		  WHERE id_cliente = '1072645983'";   
          
-    	$query = "SELECT TOP 1 * FROM clientes
-WHERE id_cliente IS NOT NULL
-AND id_cliente != ''
-AND id_cliente != '0'
-AND id_cliente != '000000'";
+    	$query = "SELECT * FROM clientes
+		WHERE id_cliente IS NOT NULL
+		AND id_cliente != ''
+		AND id_cliente != '0'
+		AND id_cliente != '000000'
+    	AND nat_juridica = 'J'";
     	
         $r = $this->_conn->_query($query);
         
         $clients = $this->_conn->_getData($r); 
 		//print_r($clients);
-        echo "Total clientes SF1: ".count($clients);
-          
+        echo "Total clientes SF1: ".count($clients);         
                 
         return $clients;
 
