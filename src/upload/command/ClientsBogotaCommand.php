@@ -388,11 +388,12 @@ class ClientsBogotaCommand extends Command
     		
     	}
     	
-    	echo "\nTotal de clintes creados en SF2: ".$total."\n";
+    	
     	
     	echo "\nCliente con error\n";
     	print_r($clientErrors);
-    	
+    	echo "\nTotal de clintes creados en SF2: ".$total."\n";
+    	echo "\nTotal de clintes con error en SF2: ".count($clientErrors)."\n";
     }
     
     function buildClintePersona($client) {
