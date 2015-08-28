@@ -52,8 +52,8 @@ class ClientsBogotaCommand extends Command
         //$this->mapperEstadosCiviles($cb);
         //$this->mapperNivelDeEstudio($cb);
         //$this->mapperTipoDeContribuyente($cb);
-       	$clients = $cb->getClients();
-		$this->buildClients($clients);
+       	//$clients = $cb->getClients();
+		//$this->buildClients($clients);
         //print_r($clients);
 
     }
@@ -64,54 +64,60 @@ class ClientsBogotaCommand extends Command
     	
     	//print_r($identificacionesSF1);
     	
-    	$urlapi = 'http://10.102.1.22/sifinca/web/app_dev.php/admin/sifinca/idtype';
-    	$user= "sifinca@araujoysegovia.com";
-    	$pass="araujo123";
-    	
-    	$api = $this->SetupApi($urlapi, $user, $pass);
+    	$urlapi = $this->server.'admin/sifinca/idtype';
+    	    	
+    	$api = $this->SetupApi($urlapi, $this->user, $this->pass);
     	
     	$identificacionesSF2 = $api->get();
     	//print_r($identificacionesSF2);
     	
-    	$urlapi2 = 'http://10.102.1.22/sifinca/web/app_dev.php/admin/sifinca/mapper';
-    	$api2 = $this->SetupApi($urlapi2, $user, $pass);
+    	$urlapi2 = $this->server.'admin/sifinca/mapper';
+    	$api2 = $this->SetupApi($urlapi2, $this->user, $this->pass);
     	
     	$idsTypeMapper = array();
     	
    		$cedula = array(
    				'name' => 'idType',
    				'idSource' => '1',
-   				'idTarget' => '3bf118f6-643a-4c54-83d4-b0b331e7594d'
+   				'idTarget' => '6f80343e-f629-492a-80d1-a7e197c7cf48'
    		);
    		$idsTypeMapper[] = $cedula;
    		
    		$nit = array(
    				'name' => 'idType',
    				'idSource' => '2',
-   				'idTarget' => '6e718eca-9571-4d50-87c8-05769534af00'
+   				'idTarget' => '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'
    		);
    		$idsTypeMapper[] = $nit;
    		
    		$pasaporte = array(
    				'name' => 'idType',
    				'idSource' => '3',
-   				'idTarget' => '4a2f2bf5-178b-496f-8602-5dfe8a0c4d97'
+   				'idTarget' => '484cb0cb-29cd-4aa6-91c5-c246332112ff'
    		);
    		$idsTypeMapper[] = $pasaporte;
    		
    		$cedulaExtranjeria = array(
    				'name' => 'idType',
    				'idSource' => '4',
-   				'idTarget' => '40e92463-c9bb-4829-8d9b-97bfff1cd604'
+   				'idTarget' => 'd904096d-a740-44a5-a554-44e50bfbca00'
    		);
    		$idsTypeMapper[] = $cedulaExtranjeria;
    		
    		$tarjetaIdentidad = array(
    				'name' => 'idType',
    				'idSource' => '6',
-   				'idTarget' => 'bdc00835-0407-4064-b8ea-c398075768f7'
+   				'idTarget' => '1513066b-6599-4f4d-acd9-c51012a9c121'
    		);
    		$idsTypeMapper[] = $tarjetaIdentidad;
+   		
+   		$nuip = array(
+   				'name' => 'idType',
+   				'idSource' => '6',
+   				'idTarget' => '1513066b-6599-4f4d-acd9-c51012a9c121'
+   		);
+   		$idsTypeMapper[] = $nuip;
+   		
    		
    		$total = 0;
 		foreach ($idsTypeMapper as $value) {
