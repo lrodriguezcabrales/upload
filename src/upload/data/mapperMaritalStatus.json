@@ -2,101 +2,101 @@
 	{
 	   "name": "maritalStatus",
 	   "idSource": "1",
-	   "idTarget": "78205717-1d01-4859-9c26-4185b5d1479a" 
+	   "idTarget": "210397fb-1291-4db0-b673-94b5bb6827f9" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "Soltero(a)",
-	   "idTarget": "78205717-1d01-4859-9c26-4185b5d1479a" 
+	   "idTarget": "210397fb-1291-4db0-b673-94b5bb6827f9" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "S",
-	   "idTarget": "78205717-1d01-4859-9c26-4185b5d1479a" 
+	   "idTarget": "210397fb-1291-4db0-b673-94b5bb6827f9" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "SOLTERO(A)",
-	   "idTarget": "78205717-1d01-4859-9c26-4185b5d1479a" 
+	   "idTarget": "210397fb-1291-4db0-b673-94b5bb6827f9" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "2",
-	   "idTarget": "59843b24-4449-4450-a462-e3a3b4b002c4" 
+	   "idTarget": "11263a47-66e2-47cf-9ff8-6f5f2e8845be" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "Casado(a)",
-	   "idTarget": "59843b24-4449-4450-a462-e3a3b4b002c4" 
+	   "idTarget": "11263a47-66e2-47cf-9ff8-6f5f2e8845be" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "C",
-	   "idTarget": "59843b24-4449-4450-a462-e3a3b4b002c4" 
+	   "idTarget": "11263a47-66e2-47cf-9ff8-6f5f2e8845be" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "CASADO(A)",
-	   "idTarget": "59843b24-4449-4450-a462-e3a3b4b002c4" 
+	   "idTarget": "11263a47-66e2-47cf-9ff8-6f5f2e8845be" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "3",
-	   "idTarget": "0e50d165-db1b-4a09-9bec-b35ec8ea1d36" 
+	   "idTarget": "6d0a7c0d-7b50-480b-a4a4-3d9fbac42302" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "Separado(a)",
-	   "idTarget": "0e50d165-db1b-4a09-9bec-b35ec8ea1d36" 
+	   "idTarget": "6d0a7c0d-7b50-480b-a4a4-3d9fbac42302" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "S",
-	   "idTarget": "0e50d165-db1b-4a09-9bec-b35ec8ea1d36" 
+	   "idTarget": "6d0a7c0d-7b50-480b-a4a4-3d9fbac42302" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "SEPARADO(A)",
-	   "idTarget": "0e50d165-db1b-4a09-9bec-b35ec8ea1d36" 
+	   "idTarget": "6d0a7c0d-7b50-480b-a4a4-3d9fbac42302" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "4",
-	   "idTarget": "2586aa74-3adb-4103-a8dd-0022e3000b8a" 
+	   "idTarget": "799af33e-bb28-437f-9b37-68c9c7f3f72c" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "Viudo(a)",
-	   "idTarget": "2586aa74-3adb-4103-a8dd-0022e3000b8a" 
+	   "idTarget": "799af33e-bb28-437f-9b37-68c9c7f3f72c" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "V",
-	   "idTarget": "2586aa74-3adb-4103-a8dd-0022e3000b8a" 
+	   "idTarget": "799af33e-bb28-437f-9b37-68c9c7f3f72c" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "VIUDO(A)",
-	   "idTarget": "2586aa74-3adb-4103-a8dd-0022e3000b8a" 
+	   "idTarget": "799af33e-bb28-437f-9b37-68c9c7f3f72c" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "5",
-	   "idTarget": "1f9a495b-cab0-42df-9aeb-37a2d07b17e8" 
+	   "idTarget": "c5de7b2f-5a85-4deb-80d0-a8b17015cb41" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "Union Libre",
-	   "idTarget": "1f9a495b-cab0-42df-9aeb-37a2d07b17e8" 
+	   "idTarget": "c5de7b2f-5a85-4deb-80d0-a8b17015cb41" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "U",
-	   "idTarget": "1f9a495b-cab0-42df-9aeb-37a2d07b17e8" 
+	   "idTarget": "c5de7b2f-5a85-4deb-80d0-a8b17015cb41" 
 	},
 	{
 	   "name": "maritalStatus",
 	   "idSource": "UNION LIBRE",
-	   "idTarget": "1f9a495b-cab0-42df-9aeb-37a2d07b17e8" 
+	   "idTarget": "c5de7b2f-5a85-4deb-80d0-a8b17015cb41" 
 	}
 ]

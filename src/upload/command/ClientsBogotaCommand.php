@@ -16,14 +16,16 @@ use Monolog\Handler\StreamHandler;
 class ClientsBogotaCommand extends Command
 {	
 	
-	public $server = 'http://10.102.1.22/sifinca/web/app_dev.php/';
-	public $serverRoot = 'http://10.102.1.22/';
+	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+	public $serverRoot = 'http://www.sifinca.net/';
 	public $user= "sifinca@araujoysegovia.com";
 	public $pass="araujo123";
 		
-	public $colombia = '9ced8f51-6caf-4d6f-bdaf-e72d9a246bc7';
-	public $idTypeCedula = '3bf118f6-643a-4c54-83d4-b0b331e7594d';
+	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
+	public $idTypeCedula = '6f80343e-f629-492a-80d1-a7e197c7cf48';
 	
+	public $contactTypeOther = 'ac76deff-6371-4264-b724-b24b98803b94';
+	public  $typeAddressHome = '8b8b75ae-6338-461f-8bbd-fc1283621d83';
     protected function configure()
     {
         $this->setName('clientsBogota')
@@ -45,7 +47,7 @@ class ClientsBogotaCommand extends Command
 
         $cb = new clientsBogota($conn);
 
-        //$this->mapperIdentificaciones($cb);
+        $this->mapperIdentificaciones($cb);
         //$this->mapperPaises($cb);
         //$this->mapperCiudades($cb);
         //$this->mapperCiudadesNotFound($cb);
@@ -118,6 +120,20 @@ class ClientsBogotaCommand extends Command
    		);
    		$idsTypeMapper[] = $nuip;
    		
+   		$idFiscalTributaria = array(
+   				'name' => 'idType',
+   				'idSource' => '7',
+   				'idTarget' => '41e4a290-db12-484d-a7c3-74e466021a82'
+   		);
+   		$idsTypeMapper[] = $idFiscalTributaria;
+   		
+   		$tarjetaExtranjeria = array(
+   				'name' => 'idType',
+   				'idSource' => '8',
+   				'idTarget' => '5eeb377b-93d5-4fa8-9217-6ac68871a9ca'
+   		);
+   		$idsTypeMapper[] = $tarjetaExtranjeria;
+   		
    		
    		$total = 0;
 		foreach ($idsTypeMapper as $value) {
@@ -135,10 +151,7 @@ class ClientsBogotaCommand extends Command
      * @param unknown $cb
      */
     function mapperPaises($cb) {
-    	
-    	$user= "sifinca@araujoysegovia.com";
-    	$pass="araujo123";
-    	 
+    	    	    	 
     	$paisesSF1 = $cb->getPaises();
 
     	$total = 0;
@@ -155,7 +168,7 @@ class ClientsBogotaCommand extends Command
     	
     		$urlapiConuntry = $this->server.'crm/main/country?filter='.$filter;
 
-    		$apiCountry = $this->SetupApi($urlapiConuntry, $user, $pass);
+    		$apiCountry = $this->SetupApi($urlapiConuntry, $this->user, $this->pass);
     		
     		$countrySF2 = $apiCountry->get();
     		
@@ -163,13 +176,14 @@ class ClientsBogotaCommand extends Command
     		
     		if(count($countrySF2['data']) > 0){
     			$mapper = array(
-    					'name' => 'country.BOG',
+    					//'name' => 'country.BOG',
+    					'name' => 'country.CTG',
     					'idSource' => $pais,
     					'idTarget' => $countrySF2['data'][0]['id']
     			); 
     			
     			$urlapiMapper = $this->server.'admin/sifinca/mapper';
-    			$apiMapper = $this->SetupApi($urlapiMapper, $user, $pass);
+    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     			
     			$apiMapper->post($mapper);
     			$total++;
@@ -187,10 +201,7 @@ class ClientsBogotaCommand extends Command
      * @param unknown $cb
      */
     function mapperCiudades($cb) {
-    
-    	$user= "sifinca@araujoysegovia.com";
-    	$pass="araujo123";
-    
+        
     	$ciudadesSF1 = $cb->getCiudades();
     	
     	$sinCoincidencia = array();
@@ -198,8 +209,7 @@ class ClientsBogotaCommand extends Command
     	foreach ($ciudadesSF1 as $ciudad) {
     		
     		$ciudad = utf8_encode($ciudad);
-    		
-    		
+    		    		
     		$filter = array(
     				'value' => $ciudad,
     				'operator' => 'start_with',
@@ -210,7 +220,7 @@ class ClientsBogotaCommand extends Command
     		
     		$urlapiTown = $this->server.'crm/main/town?filter='.$filter;
     		//echo $urlapiTown."\n";
-    		$apiTown = $this->SetupApi($urlapiTown, $user, $pass);
+    		$apiTown = $this->SetupApi($urlapiTown, $this->user, $this->pass);
     		
     		$townSF2 = $apiTown->get();
     		
@@ -224,13 +234,14 @@ class ClientsBogotaCommand extends Command
     		
     		if($townSF2['total'] == 1){
     			$mapper = array(
-    					'name' => 'town.BOG',
+    					//'name' => 'town.BOG',
+    					'name' => 'town.CTG',
     					'idSource' => $ciudad,
     					'idTarget' => $townSF2['data'][0]['id']
     			);
     		
     			$urlapiMapper = $this->server.'admin/sifinca/mapper';
-    			$apiMapper = $this->SetupApi($urlapiMapper, $user, $pass);
+    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     		
     			$apiMapper->post($mapper);
     			$total++;
@@ -537,7 +548,7 @@ class ClientsBogotaCommand extends Command
     		$contacto = array(
     				'name' => $client['nombre_cto'],
     				'phone' => $telefonosContacto,
-    				'contactType' => array('id'=>'ae983aff-801f-4cc0-8634-70d956fbd9e9') //Otro
+    				'contactType' => array('id'=> $this->contactTypeOther) //Otro
     		);
     	}else{
     		$contacto = null;
@@ -590,18 +601,22 @@ class ClientsBogotaCommand extends Command
     	$dirResidencia = null;
     	$dirTrabajo = null;
     	 
+    	
+    	
     	if($client['dir_residencia']){
     
     
     		$address = $client['dir_residencia'].", ".$client['barrio_residencia'].", ".$client['edificio_residencia'];
     
-    		$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.BOG/'.$client['pais_residencia'];
+    		//$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.BOG/'.$client['pais_residencia'];
+    		$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.CTG/'.$client['pais_residencia'];
     		$apiMapper = $this->SetupApi($urlapiMapperCountry, $this->user, $this->pass);
     		 
     		$country = $apiMapper->get();
     		$country = json_decode($country, true);
     
-    		$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.BOG/'.$client['ciudad_residencia'];
+    		//$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.BOG/'.$client['ciudad_residencia'];
+    		$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.CTG/'.$client['ciudad_residencia'];
     		$apiMapper = $this->SetupApi($urlapiMapperTown, $this->user, $this->pass);
     		 
     		$town = $apiMapper->get();
@@ -637,7 +652,7 @@ class ClientsBogotaCommand extends Command
     						'department' => $deparment,
     						'town' => $town,
     						'district' => null,
-    						'typeAddress' => array('id'=>'c86fbba2-4643-4caa-9549-75f301627fdb') //CASA
+    						'typeAddress' => array('id'=>$this->typeAddressHome) //CASA
     				);
     			}    			
     		}
