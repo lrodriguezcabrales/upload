@@ -1,97 +1,81 @@
 [
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Edificio",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "0",
     "idTarget": "a1edab94-0edc-44bd-a3be-35954e0af555"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Apartamento",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "1",
     "idTarget": "21b26da4-18ea-492f-954f-2562c2e074c7"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Casa",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "2",
     "idTarget": "f138ad09-5efc-4bae-9d77-9ee198b99af9"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Local",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "3",
     "idTarget": "f49c642b-71f2-43c9-bc82-16e1d3b76673"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Bodega",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "4",
     "idTarget": "5cca94f0-13e7-44c1-b027-ba63837d5906"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Oficina",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "5",
     "idTarget": "493ef167-fb9f-49f7-b09f-9681b590d4c2"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Consultorio",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "6",
     "idTarget": "bf48d911-ea9a-4b5c-9e1b-d0da4ce2821b"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Lote",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "7",
     "idTarget": "79194b81-910f-45fa-8d54-faae188323fb"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Parqueadero",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "8",
     "idTarget": "57439798-71a8-4786-9838-4e5b75b076d6"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Finca",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "9",
     "idTarget": "751a51c0-04fd-4b5b-b2ab-8b475c63b519"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Casa Lote",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "10",
     "idTarget": "b1532926-45a7-4f50-9d29-8b54c50f2334"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Instalaciones industriales",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "11",
     "idTarget": "9476e82b-490f-4e82-b52a-14f921efeed6"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Edificios especiales",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "12",
     "idTarget": "bd1ef030-4769-47fc-9438-ca67aaea0fdf"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Zona comœn",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "13",
     "idTarget": "064bc34b-3451-4881-b96d-ec5010d4e9ef"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Suite hotelera",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "14",
     "idTarget": "33e96b14-2dd4-4e8f-9ec1-a482bd81dc80"
   },
   {
-    "name": "propertyTypeCatchmentdeleteCTG",
-    "mean": "Caba–a",
+    "name": "propertyTypeCatchmentCTG",
     "idSource": "15",
     "idTarget": "fbf0b8f6-face-4116-87a7-c3110b43d3bc"
   }
