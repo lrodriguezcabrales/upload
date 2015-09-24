@@ -50,8 +50,8 @@ class InmueblesCartagenaCommand extends Command
 
         $inmueblesCtg = new inmueblesCartagena($conn);
 
-        $this->mapperTipoInmueble($inmueblesCtg);
-        //$this->mapperPaises($cb);
+        //$this->mapperTipoInmueble($inmueblesCtg);
+        $this->mapperTipoInscripcion($inmueblesCtg);
         //$this->mapperCiudades($cb);
         //$this->mapperCiudadesNotFound($cb);
         //$this->mapperEstadosCiviles($cb);
@@ -80,6 +80,25 @@ class InmueblesCartagenaCommand extends Command
     	}
     	
     	echo "tipos de inmuebles mapeados: ".$total."\n";
+    }
+    
+    function mapperTipoInscripcion($inmueblesCtg) {
+    
+    	$fileJson = file_get_contents($this->serverRoot."upload/src/upload/data/mapperTipoInscripcion.json");
+    	//echo $fileJson;
+    	$data = json_decode($fileJson, true);
+    
+    	//print_r($data);
+    	$total = 0;
+    	foreach ($data as $d) {
+    		$urlapiMapper = $this->server.'admin/sifinca/mapper';
+    		$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    		 
+    		$apiMapper->post($d);
+    		$total++;
+    	}
+    	 
+    	echo "tipos de incripcion mapeados: ".$total."\n";
     }
     
     protected function SetupApi($urlapi,$user,$pass){
