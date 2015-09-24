@@ -48,6 +48,7 @@ class ClientsBogotaCommand extends Command
         $cb = new clientsBogota($conn);
 
         //$this->mapperIdentificaciones($cb);
+
         //$this->mapperPaises($cb);
         //$this->mapperCiudades($cb);
         //$this->mapperCiudadesNotFound($cb);
