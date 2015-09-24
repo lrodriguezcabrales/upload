@@ -47,15 +47,15 @@ class ClientsBogotaCommand extends Command
 
         $cb = new clientsBogota($conn);
 
-        $this->mapperIdentificaciones($cb);
+        //$this->mapperIdentificaciones($cb);
         //$this->mapperPaises($cb);
         //$this->mapperCiudades($cb);
         //$this->mapperCiudadesNotFound($cb);
         //$this->mapperEstadosCiviles($cb);
         //$this->mapperNivelDeEstudio($cb);
         //$this->mapperTipoDeContribuyente($cb);
-       	//$clients = $cb->getClients();
-		//$this->buildClients($clients);
+       	$clients = $cb->getClients();
+		$this->buildClients($clients);
         //print_r($clients);
 
     }
@@ -106,19 +106,19 @@ class ClientsBogotaCommand extends Command
    		);
    		$idsTypeMapper[] = $cedulaExtranjeria;
    		
+   		$nuip = array(
+   				'name' => 'idType',
+   				'idSource' => '5',
+   				'idTarget' => '552311ae-169e-4822-aac7-4f15c162f4e7'
+   		);
+   		$idsTypeMapper[] = $nuip;
+   		
    		$tarjetaIdentidad = array(
    				'name' => 'idType',
    				'idSource' => '6',
    				'idTarget' => '1513066b-6599-4f4d-acd9-c51012a9c121'
    		);
    		$idsTypeMapper[] = $tarjetaIdentidad;
-   		
-   		$nuip = array(
-   				'name' => 'idType',
-   				'idSource' => '6',
-   				'idTarget' => '1513066b-6599-4f4d-acd9-c51012a9c121'
-   		);
-   		$idsTypeMapper[] = $nuip;
    		
    		$idFiscalTributaria = array(
    				'name' => 'idType',
@@ -137,7 +137,8 @@ class ClientsBogotaCommand extends Command
    		
    		$total = 0;
 		foreach ($idsTypeMapper as $value) {
-			$api2->post($value);
+			$r = $api2->post($value);
+			print_r($r);
 			$total++;
 		} 	
    		   		
@@ -252,8 +253,9 @@ class ClientsBogotaCommand extends Command
 
     	}
     
+    	print_r($sinCoincidencia);
     	echo "Ciudades SF1: ".count($ciudadesSF1)."\n";
-    	echo "Ciudades mapeados: ".$total."\n";
+    	echo "Ciudades mapeados: ".$total."\n";	
     	echo "Ciudades no mapeados: ".count($sinCoincidencia)."\n";
     	//print_r($sinCoincidencia);
     	
@@ -382,7 +384,7 @@ class ClientsBogotaCommand extends Command
     				$total++;
     			}else{
     				echo "\nError cliente juridico\n";
-    				echo $result;
+    				///echo $result;
     				
     				$clientError = array(
     						'id' => $client['id_cliente'],
@@ -548,6 +550,7 @@ class ClientsBogotaCommand extends Command
     		$contacto = array(
     				'name' => $client['nombre_cto'],
     				'phone' => $telefonosContacto,
+    				'position' => 'N/A',
     				'contactType' => array('id'=> $this->contactTypeOther) //Otro
     		);
     	}else{
@@ -592,8 +595,7 @@ class ClientsBogotaCommand extends Command
     	 
     	return $result;
     }
-    
-    
+     
     function buildDirecciones($client) {
     	 
     	$direccionesSF1 = array();
@@ -821,7 +823,7 @@ class ClientsBogotaCommand extends Command
     		if(strlen($telefono) >= 10){
     			$phone = array(
     					'number' => $telefono,
-    					'phoneType' => array('id' => '8c7c99e4-7cad-4b10-9181-543c5221ec9a'), //Id phoneType SF2, celular
+    					'phoneType' => array('id' => '0b2981d1-f038-4391-9258-015f95b2bf0f'), //Id phoneType SF2, movil
     					'country' => array('id' => $this->colombia)
     					
     			);
@@ -830,7 +832,7 @@ class ClientsBogotaCommand extends Command
     		if( (strlen($telefono) > 0) && (strlen($telefono) < 10) ){
     			$phone = array(
     					'number' => $telefono,
-    					'phoneType' => array('id' => '0fb57090-7f0c-4b95-9494-353717fc53a8'), //Id phoneType SF2, fijo
+    					'phoneType' => array('id' => '2f49f417-9db1-4cb6-98c6-7f7f6af21399'), //Id phoneType SF2, fijo
     					'country' => array('id' => $this->colombia)
     					
     			);
@@ -982,10 +984,15 @@ class ClientsBogotaCommand extends Command
     	);
     
     	$a = new api($url, $headers);
-    
+    	    	
     	$result= $a->post(array("user"=>$user,"password"=>$pass));
     	
+//     	echo "aqui";
+//     	print_r($result);
+    	 
+    	
     	$data=json_decode($result);
+    
     
     	$token = $data->id;
     

@@ -18,12 +18,19 @@ class clientsBogota {
 //         $query = "SELECT TOP 1 * FROM clientes
 //         		  WHERE id_cliente = '1072645983'";   
          
+//     	$query = "SELECT * FROM clientes
+// 		WHERE id_cliente IS NOT NULL
+// 		AND id_cliente != ''
+// 		AND id_cliente != '0'
+// 		AND id_cliente != '000000'
+//     	AND nat_juridica = 'J'";
+    	
     	$query = "SELECT * FROM clientes
-		WHERE id_cliente IS NOT NULL
-		AND id_cliente != ''
-		AND id_cliente != '0'
-		AND id_cliente != '000000'
-    	AND nat_juridica = 'J'";
+    			WHERE id_cliente IS NOT NULL
+    			AND id_cliente != ''
+    			AND id_cliente != '0'
+    			AND id_cliente != '000000'
+    	    	AND nat_juridica = 'N'";
     	
         $r = $this->_conn->_query($query);
         
