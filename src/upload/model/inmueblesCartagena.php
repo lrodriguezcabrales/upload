@@ -41,4 +41,30 @@ class inmueblesCartagena {
     	return $identificaciones;
     
     }
+    
+    public function getCiudades(){
+    
+    	$query = "SELECT * FROM ciudades";
+    
+    	$r = $this->_conn->_query($query);
+    
+    	$ciudades = $this->_conn->_getData($r);
+    
+    	print_r($ciudades);
+    	 
+    	return $ciudades;
+    }
+    
+    public function getBarrios(){
+    
+    	$query = "SELECT * FROM barrios";
+    
+    	$r = $this->_conn->_query($query);
+    
+    	$ciudades = $this->_conn->_getData($r);
+    
+    	//print_r($ciudades);
+    
+    	return $ciudades;
+    }
 }
