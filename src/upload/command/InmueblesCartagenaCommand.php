@@ -52,17 +52,13 @@ class InmueblesCartagenaCommand extends Command
 
         //$this->mapperTipoInmueble($inmueblesCtg);
         //$this->mapperTipoInscripcion($inmueblesCtg);
-       // $this->mapperCiudades($inmueblesCtg);
-        
+        //$this->mapperCiudades($inmueblesCtg);  
         //$this->mapperBarrios($inmueblesCtg);
+        //$this->mapperDestinacion($inmueblesCtg);
+        $this->mapperEstratos($inmueblesCtg);
         
-        $this->mapperDestinacion($inmueblesCtg);
-        
-        //$this->mapperEstadosCiviles($cb);
-        //$this->mapperNivelDeEstudio($cb);
-        //$this->mapperTipoDeContribuyente($cb);
-       	//$clients = $cb->getClients();
-	    //$this->buildClients($clients);
+//        	$inmuebles = $inmueblesCtg->getInmuebles();
+// 	    $this->buildInmuebles($inmuebles);
         //print_r($clients);
 
     }
@@ -277,6 +273,258 @@ class InmueblesCartagenaCommand extends Command
     	}
     
     	echo "destinos mapeados: ".$total."\n";
+    }
+    
+    
+    function mapperEstratos($inmueblesCtg) {
+    
+    	$fileJson = file_get_contents($this->serverRoot."upload/src/upload/data/mapperEstratos.json");
+    	//echo $fileJson;
+    	$data = json_decode($fileJson, true);
+    
+    	//print_r($data);
+    	$total = 0;
+    	foreach ($data as $d) {
+    		$urlapiMapper = $this->server.'admin/sifinca/mapper';
+    		$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    		 
+    		$apiMapper->post($d);
+    		$total++;
+    	}
+    
+    	echo "destinos mapeados: ".$total."\n";
+    }
+    
+    
+    function buildInmuebles($inmuebles) {
+    	
+    	$urlapiInmueble = $this->server.'catchment/main/property';
+    	 
+    	$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
+    	
+    	$officeCentro = array(
+    		'id' => 'bee55884-15dc-406f-94f7-547288ebe20d'
+    	);
+    	
+    	$total = 0;
+    	
+    	foreach ($inmuebles as $inmueble) {
+    		
+    		$edificio = null;
+    		
+//     		if($inmueble['id_edificio']){
+//     			$this->buildEdificio($inmueble);
+//     		}
+    		
+    		$urlPropertyType = $this->server.'admin/sifinca/mapper/propertyTypeCatchment/'.$inmueble['id_tipo_inmueble'];
+    		//echo "\n".$urlPropertyType."\n";
+    		$apiPropertyType = $this->SetupApi($urlPropertyType, $this->user, $this->pass);
+    		 
+    		$propertyTypeMapper = $apiPropertyType->get();
+    		$propertyTypeMapper = json_decode($propertyTypeMapper, true);
+    		//print_r($propertyTypeMapper);
+    		$propertyType = null;
+    		if($propertyTypeMapper['total'] > 0){
+    			$propertyType = $propertyTypeMapper['data']['0']['idTarget'];
+    			if(!is_null($propertyType)){
+    		
+    				$propertyType = array('id'=>$propertyType);
+    		
+    				if($propertyTypeMapper['total'] == 0){
+    					$propertyType = null;
+    				}
+    		
+    			}
+    		}
+    		
+
+    		$urlInscriptionType = $this->server.'admin/sifinca/mapper/propertyInscriptionType/'.$inmueble['tipo_inscripcion'];
+    		$apiInscriptionType = $this->SetupApi($urlInscriptionType, $this->user, $this->pass);
+    		 
+    		$inscriptionTypeMapper = $apiInscriptionType->get();
+    		$inscriptionTypeMapper = json_decode($inscriptionTypeMapper, true);
+    		print_r($inscriptionTypeMapper);
+    		$inscriptionType = null;
+    		if($inscriptionTypeMapper['total'] > 0){
+    			$inscriptionType = $inscriptionTypeMapper['data']['0']['idTarget'];
+    			if(!is_null($inscriptionType)){
+    		
+    				$inscriptionType = array('id'=>$inscriptionType);
+    		
+    				if($inscriptionTypeMapper['total'] == 0){
+    					$inscriptionType = null;
+    				}
+    		
+    			}
+    		}
+    		
+    		
+    		
+    		$urlDestiny = $this->server.'admin/sifinca/mapper/propertyDestiny/'.$inmueble['id_destinacion'];
+    		$apiDestiny = $this->SetupApi($urlDestiny, $this->user, $this->pass);
+    		 
+    		$destinyMapper = $apiDestiny->get();
+    		$destinyMapper = json_decode($destinyMapper, true);
+    		//print_r($maritalStatusMapper);
+    		$destiny = null;
+    		if($destinyMapper['total'] > 0){
+    			$destiny = $destinyMapper['data']['0']['idTarget'];
+    			if(!is_null($destiny)){
+    		
+    				$destiny = array('id'=>$destiny);
+    		
+    				if($destinyMapper['total'] == 0){
+    					$destiny = null;
+    				}
+    		
+    			}
+    		}
+    		
+    		$urlStratum = $this->server.'admin/sifinca/mapper/stratum/'.$inmueble['estrato'];
+    		echo $urlStratum;
+    		$apiStratum = $this->SetupApi($urlStratum, $this->user, $this->pass);
+    		 
+    		$stratumMapper = $apiStratum->get();
+    		$stratumMapper = json_decode($stratumMapper, true);
+    		print_r($stratumMapper);
+    		$stratum = null;
+    		if($stratumMapper['total'] > 0){
+    			$stratum = $stratumMapper['data']['0']['idTarget'];
+    			if(!is_null($stratum)){
+    		
+    				$stratum = array('id'=>$destiny);
+    		
+    				if($stratumMapper['total'] == 0){
+    					$stratum = null;
+    				}
+    		
+    			}
+    		}
+    		
+    		$address = $this->buidDireccion($inmueble);
+    		
+    		$bInmueble = array(
+    				"cadastralReference" => $inmueble['referencia_catastral'],
+    				"folioRegistration" => $inmueble['folio_matricula'],
+    				"priceSale" => $inmueble['valor_venta'],
+    				//"priceLease": 0,
+    				"priceAdministration" => $inmueble['admin'],
+    				"includeAdministration" => $inmueble['adm_incl'],
+    				"exclusive" => $inmueble['exclusivo'],
+    				"constructArea" => $inmueble['area_construida'],
+    				//"totalArea": ,
+    				"outstanding" => $inmueble['destacado'],
+    				"boundaries" => $inmueble['linderos'],
+    				//"published": "false",
+    				"numberKeys" => $inmueble['Llaves'],
+    				"locationKeys"=> $inmueble['ubillave'],
+    				"keyName" => $inmueble['NoLLaves'],
+    				"furnished" => $inmueble['amoblado'],
+    				"propertyDescription" => $inmueble['texto_inmu'],
+    				"consignmentdate" => $inmueble['fecha_consignacion'],
+    				"dateAvailable" => $inmueble['fecha_disponible'],
+    				//"dateUpdated": "2015-09-28",
+    				"building" => $edificio,
+    				"publicService" => null,
+    				"propertyTypeCatchment" => $propertyType,
+    				"inscriptionType" => $inscriptionType,
+    				"destiny" => $destiny,
+    				"office" => $officeCentro,
+    				"stratum" => $stratum,
+    				//"propertyCondition"
+    				//"classificationOfProperty" => $inmueble['clasificacion'],
+    				//"propertyAttribute" 
+    				"address" => $address
+    		);
+    		
+    		
+    		$json = json_encode($bInmueble);
+    		//echo "\n".$json."\n";
+    		 
+    		$result = $apiInmueble->post($bInmueble);
+    		
+    		$result = json_decode($result, true);
+    		
+    		
+    		if($result['success'] == true){
+    			$total++;
+    		}else{
+    			echo "\nError\n";
+    			print_r($result);
+    		}
+    		
+    	}
+    	
+    	
+    	echo "\n\nTotal inmuebles pasados ".$total."\n";
+    }
+    
+    
+    function buildEdificio($inmueble) {
+    	
+    	$bEdificio = array(
+    		   			
+    	);
+    	
+    }
+    
+    
+    function buidDireccion($inmueble){
+    	
+    	$urlTown = $this->server.'admin/sifinca/mapper/propertyTown.CTG/'.$inmueble['id_ciudad'];
+    	$apiTown= $this->SetupApi($urlTown, $this->user, $this->pass);
+    	 
+    	$townMapper = $apiTown->get();
+    	$townMapper = json_decode($townMapper, true);
+    	//print_r($maritalStatusMapper);
+    	$town = null;
+    	if($townMapper['total'] > 0){
+    		$town = $townMapper['data']['0']['idTarget'];
+    		if(!is_null($town)){
+    	
+    			$town = array('id'=>$town);
+    	
+    			if($townMapper['total'] == 0){
+    				$town = null;
+    			}
+    	
+    		}
+    	}
+
+    	
+    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.CTG/'.$inmueble['id_ciudad'];
+    	$apiDistrict= $this->SetupApi($urlDistrict, $this->user, $this->pass);
+    	
+    	$districtMapper = $apiDistrict->get();
+    	$districtMapper = json_decode($districtMapper, true);
+    	//print_r($maritalStatusMapper);
+    	$district = null;
+    	if($districtMapper['total'] > 0){
+    		$district = $districtMapper['data']['0']['idTarget'];
+    		if(!is_null($district)){
+    			 
+    			$district = array('id'=>$district);
+    			 
+    			if($districtMapper['total'] == 0){
+    				$district = null;
+    			}
+    			 
+    		}
+    	}
+    		 
+    		 
+
+    	$bAddress = array(
+    		'address' => $inmueble['direccion'],
+    		'country' => array('id' => $this->colombia),
+    		'department' => null,
+    		'town' => $town,
+    		'district' => $district,
+    		'typeAddress' => array('id'=>$this->typeAddressHome) //CASA
+    	);
+    		
+
+    	return $bAddress;
     }
     
     

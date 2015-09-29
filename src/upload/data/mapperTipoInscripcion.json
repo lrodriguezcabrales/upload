@@ -1,17 +1,17 @@
 [
   {
     "name": "propertyInscriptionType",
-    "idSource": "0",
-    "idTarget": ""
-  },
-  {
-    "name": "propertyInscriptionType",
     "idSource": "1",
-    "idTarget": "21b26da4-18ea-492f-954f-2562c2e074c7"
+    "idTarget": "bf49243c-b1d9-4e0a-9fb5-0ebe7e1d2d8d"
   },
   {
     "name": "propertyInscriptionType",
     "idSource": "2",
-    "idTarget": "f138ad09-5efc-4bae-9d77-9ee198b99af9"
+    "idTarget": "ae5bb922-df1e-4043-b1c7-4e636a2d666a"
+  },
+  {
+    "name": "propertyInscriptionType",
+    "idSource": "3",
+    "idTarget": "19196300-d674-4c9f-b290-35534afcdf3d"
   }
 ]

@@ -14,12 +14,8 @@ class inmueblesCartagena {
 
     public function getInmuebles(){
         	 
-    	$query = "SELECT * FROM clientes
-    			WHERE id_cliente IS NOT NULL
-    			AND id_cliente != ''
-    			AND id_cliente != '0'
-    			AND id_cliente != '000000'
-    	    	AND nat_juridica = 'N'";
+    	$query = "SELECT TOP 1 * FROM inmuebles
+					WHERE id_barrio = '0004'";
    
         $r = $this->_conn->_query($query);
         $clients = $this->_conn->_getData($r);
