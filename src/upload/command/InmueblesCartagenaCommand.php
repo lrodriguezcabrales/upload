@@ -55,7 +55,8 @@ class InmueblesCartagenaCommand extends Command
         //$this->mapperCiudades($inmueblesCtg);  
         //$this->mapperBarrios($inmueblesCtg);
         //$this->mapperDestinacion($inmueblesCtg);
-        $this->mapperEstratos($inmueblesCtg);
+        //$this->mapperEstratos($inmueblesCtg);
+        $this->mapperSucursales($inmueblesCtg);
         
 //        	$inmuebles = $inmueblesCtg->getInmuebles();
 // 	    $this->buildInmuebles($inmuebles);
@@ -295,6 +296,25 @@ class InmueblesCartagenaCommand extends Command
     	echo "destinos mapeados: ".$total."\n";
     }
     
+    function mapperSucursales($inmueblesCtg) {
+    
+    	$fileJson = file_get_contents($this->serverRoot."upload/src/upload/data/mapperSucursales.json");
+    	//echo $fileJson;
+    	$data = json_decode($fileJson, true);
+    
+    	//print_r($data);
+    	$total = 0;
+    	foreach ($data as $d) {
+    		$urlapiMapper = $this->server.'admin/sifinca/mapper';
+    		$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    		 
+    		$apiMapper->post($d);
+    		$total++;
+    	}
+    
+    	echo "sucursales mapeados: ".$total."\n";
+    }
+    
     
     function buildInmuebles($inmuebles) {
     	
@@ -308,7 +328,13 @@ class InmueblesCartagenaCommand extends Command
     	
     	$total = 0;
     	
-    	foreach ($inmuebles as $inmueble) {
+    	//$totalInmueblesSF1 = count($inmuebles);
+    	$totalInmueblesSF1 = 1;
+    	
+    	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
+    		
+    		$inmueble = $inmuebles[$i];
+    	//foreach ($inmuebles as $inmueble) {
     		
     		$edificio = null;
     		
@@ -343,7 +369,7 @@ class InmueblesCartagenaCommand extends Command
     		 
     		$inscriptionTypeMapper = $apiInscriptionType->get();
     		$inscriptionTypeMapper = json_decode($inscriptionTypeMapper, true);
-    		print_r($inscriptionTypeMapper);
+    		//print_r($inscriptionTypeMapper);
     		$inscriptionType = null;
     		if($inscriptionTypeMapper['total'] > 0){
     			$inscriptionType = $inscriptionTypeMapper['data']['0']['idTarget'];
@@ -381,18 +407,18 @@ class InmueblesCartagenaCommand extends Command
     		}
     		
     		$urlStratum = $this->server.'admin/sifinca/mapper/stratum/'.$inmueble['estrato'];
-    		echo $urlStratum;
+    		//echo $urlStratum;
     		$apiStratum = $this->SetupApi($urlStratum, $this->user, $this->pass);
     		 
     		$stratumMapper = $apiStratum->get();
     		$stratumMapper = json_decode($stratumMapper, true);
-    		print_r($stratumMapper);
+    		//print_r($stratumMapper);
     		$stratum = null;
     		if($stratumMapper['total'] > 0){
     			$stratum = $stratumMapper['data']['0']['idTarget'];
     			if(!is_null($stratum)){
     		
-    				$stratum = array('id'=>$destiny);
+    				$stratum = array('id'=>$stratum);
     		
     				if($stratumMapper['total'] == 0){
     					$stratum = null;
@@ -403,16 +429,23 @@ class InmueblesCartagenaCommand extends Command
     		
     		$address = $this->buidDireccion($inmueble);
     		
+    		$consignmentdate = new \DateTime($inmueble['fecha_consignacion']);
+    		$consignmentdate = $consignmentdate->format('Y-m-d');
+    		
+    		$dateAvailable = new \DateTime($inmueble['fecha_disponible']);
+    		$dateAvailable = $dateAvailable->format('Y-m-d');
+    		
     		$bInmueble = array(
+    				"consecutive" => $inmueble['id_inmueble'],
     				"cadastralReference" => $inmueble['referencia_catastral'],
     				"folioRegistration" => $inmueble['folio_matricula'],
     				"priceSale" => $inmueble['valor_venta'],
-    				//"priceLease": 0,
+    				"priceLease"=> $inmueble['canon'],
     				"priceAdministration" => $inmueble['admin'],
     				"includeAdministration" => $inmueble['adm_incl'],
     				"exclusive" => $inmueble['exclusivo'],
     				"constructArea" => $inmueble['area_construida'],
-    				//"totalArea": ,
+    				"totalArea"=> $inmueble['area_lote'],
     				"outstanding" => $inmueble['destacado'],
     				"boundaries" => $inmueble['linderos'],
     				//"published": "false",
@@ -421,9 +454,9 @@ class InmueblesCartagenaCommand extends Command
     				"keyName" => $inmueble['NoLLaves'],
     				"furnished" => $inmueble['amoblado'],
     				"propertyDescription" => $inmueble['texto_inmu'],
-    				"consignmentdate" => $inmueble['fecha_consignacion'],
-    				"dateAvailable" => $inmueble['fecha_disponible'],
-    				//"dateUpdated": "2015-09-28",
+    				"consignmentdate" => $consignmentdate,
+    				"dateAvailable" => $dateAvailable,
+    				"dateUpdated" => $dateAvailable,
     				"building" => $edificio,
     				"publicService" => null,
     				"propertyTypeCatchment" => $propertyType,
@@ -439,7 +472,7 @@ class InmueblesCartagenaCommand extends Command
     		
     		
     		$json = json_encode($bInmueble);
-    		//echo "\n".$json."\n";
+    		echo "\n\n".$json."\n\n";
     		 
     		$result = $apiInmueble->post($bInmueble);
     		
@@ -447,6 +480,7 @@ class InmueblesCartagenaCommand extends Command
     		
     		
     		if($result['success'] == true){
+    			echo "\nOk";
     			$total++;
     		}else{
     			echo "\nError\n";
@@ -471,6 +505,8 @@ class InmueblesCartagenaCommand extends Command
     
     function buidDireccion($inmueble){
     	
+    	$deparment = null;
+    	    	
     	$urlTown = $this->server.'admin/sifinca/mapper/propertyTown.CTG/'.$inmueble['id_ciudad'];
     	$apiTown= $this->SetupApi($urlTown, $this->user, $this->pass);
     	 
@@ -483,7 +519,19 @@ class InmueblesCartagenaCommand extends Command
     		if(!is_null($town)){
     	
     			$town = array('id'=>$town);
-    	
+    			
+    			$urlTownSF2 = $this->server.'crm/main/town/'.$town['id'];
+    			//echo "\n".$urlTownSF2."\n";
+    			$apiTownSF2 = $this->SetupApi($urlTownSF2, $this->user, $this->pass);
+    			
+    			$townSF2 = $apiTownSF2->get();
+    			$townSF2 = json_decode($townSF2, true);
+    			
+    			$deparment = $townSF2['department'];
+    			
+    			//print_r($deparment);
+    			
+    			
     			if($townMapper['total'] == 0){
     				$town = null;
     			}
@@ -492,12 +540,18 @@ class InmueblesCartagenaCommand extends Command
     	}
 
     	
-    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.CTG/'.$inmueble['id_ciudad'];
+    	
+    	
+    	
+    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.CTG/'.$inmueble['id_barrio'];
+    	//echo "\n".$urlDistrict."\n";
     	$apiDistrict= $this->SetupApi($urlDistrict, $this->user, $this->pass);
     	
     	$districtMapper = $apiDistrict->get();
     	$districtMapper = json_decode($districtMapper, true);
-    	//print_r($maritalStatusMapper);
+    	
+    	//print_r($districtMapper);
+    	
     	$district = null;
     	if($districtMapper['total'] > 0){
     		$district = $districtMapper['data']['0']['idTarget'];
@@ -517,10 +571,12 @@ class InmueblesCartagenaCommand extends Command
     	$bAddress = array(
     		'address' => $inmueble['direccion'],
     		'country' => array('id' => $this->colombia),
-    		'department' => null,
+    		'department' => $deparment,
     		'town' => $town,
     		'district' => $district,
-    		'typeAddress' => array('id'=>$this->typeAddressHome) //CASA
+    		'typeAddress' => array('id'=>$this->typeAddressHome), //CASA
+    		'latitude' => $inmueble['latitud'],
+    		'longitude' => $inmueble['longitud']
     	);
     		
 

@@ -14,9 +14,12 @@ class inmueblesCartagena {
 
     public function getInmuebles(){
         	 
-    	$query = "SELECT TOP 1 * FROM inmuebles
-					WHERE id_barrio = '0004'";
+//     	$query = "SELECT TOP 4 * FROM inmuebles
+// 					WHERE id_barrio = '0004'";
    
+    	$query = "SELECT TOP 1 * FROM inmuebles
+					WHERE id_ciudad = 'CTG'";
+    	
         $r = $this->_conn->_query($query);
         $clients = $this->_conn->_getData($r);
         //print_r($clients);
