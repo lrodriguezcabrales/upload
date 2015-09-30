@@ -335,7 +335,7 @@ class InmueblesCartagenaCommand extends Command
     	echo "clasificaciones mapeados: ".$total."\n";
     }
     
-    function mapperRazonesDeCierre($inmueblesCtg) {
+    function mapperRazonesDeRetiro($inmueblesCtg) {
     	
     	$fileJson = file_get_contents($this->serverRoot."upload/src/upload/data/closingReason.json");
     	$data = json_decode($fileJson, true);
@@ -356,7 +356,7 @@ class InmueblesCartagenaCommand extends Command
     		$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     		
     		$m = array(
-				    "name" => "closingReason",
+				    "name" => "retirementReason",
 				    "idSource" => $cont,
 				    "idTarget" => $result['data'][0]
     		);
