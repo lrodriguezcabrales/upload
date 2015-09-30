@@ -427,6 +427,27 @@ class InmueblesCartagenaCommand extends Command
     			}
     		}
     		
+    		$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.CTG/'.$inmueble['estrato'];
+    		//echo $urlStratum;
+    		$apiOffice = $this->SetupApi($urlOffice, $this->user, $this->pass);
+    		 
+    		$officeMapper = $apiOffice->get();
+    		$officeMapper = json_decode($officeMapper, true);
+    		//print_r($stratumMapper);
+    		$office = null;
+    		if($officeMapper['total'] > 0){
+    			$office = $officeMapper['data']['0']['idTarget'];
+    			if(!is_null($office)){
+    		
+    				$office = array('id'=>$office);
+    		
+    				if($officeMapper['total'] == 0){
+    					$office = null;
+    				}
+    		
+    			}
+    		}
+    		
     		$address = $this->buidDireccion($inmueble);
     		
     		$consignmentdate = new \DateTime($inmueble['fecha_consignacion']);
@@ -462,7 +483,7 @@ class InmueblesCartagenaCommand extends Command
     				"propertyTypeCatchment" => $propertyType,
     				"inscriptionType" => $inscriptionType,
     				"destiny" => $destiny,
-    				"office" => $officeCentro,
+    				"office" => $office,
     				"stratum" => $stratum,
     				//"propertyCondition"
     				//"classificationOfProperty" => $inmueble['clasificacion'],
