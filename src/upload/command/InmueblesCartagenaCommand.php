@@ -56,12 +56,13 @@ class InmueblesCartagenaCommand extends Command
         //$this->mapperBarrios($inmueblesCtg);
         //$this->mapperDestinacion($inmueblesCtg);
         //$this->mapperEstratos($inmueblesCtg);
-        $this->mapperSucursales($inmueblesCtg);
+        //$this->mapperSucursales($inmueblesCtg);
+        //$this->mapperClasificaciones($inmueblesCtg);
+        $this->mapperRazonesDeCierre($inmueblesCtg);
         
 //        	$inmuebles = $inmueblesCtg->getInmuebles();
 // 	    $this->buildInmuebles($inmuebles);
-        //print_r($clients);
-
+      
     }
     
     function mapperTipoInmueble($inmueblesCtg) {
@@ -315,6 +316,59 @@ class InmueblesCartagenaCommand extends Command
     	echo "sucursales mapeados: ".$total."\n";
     }
     
+    function mapperClasificaciones($inmueblesCtg) {
+    
+    	$fileJson = file_get_contents($this->serverRoot."upload/src/upload/data/mapperClasificacion.json");
+    	//echo $fileJson;
+    	$data = json_decode($fileJson, true);
+    
+    	//print_r($data);
+    	$total = 0;
+    	foreach ($data as $d) {
+    		$urlapiMapper = $this->server.'admin/sifinca/mapper';
+    		$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    		 
+    		$apiMapper->post($d);
+    		$total++;
+    	}
+    
+    	echo "clasificaciones mapeados: ".$total."\n";
+    }
+    
+    function mapperRazonesDeCierre($inmueblesCtg) {
+    	
+    	$fileJson = file_get_contents($this->serverRoot."upload/src/upload/data/closingReason.json");
+    	$data = json_decode($fileJson, true);
+    	
+    	$url = $this->server.'admin/sifinca/attributelist';
+    	
+    	$apiClosingReason = $this->SetupApi($url, $this->user, $this->pass);
+    	    	
+    	
+    	$total = 0;
+    	$cont = 1;
+    	foreach ($data as $d) {
+    		
+    		$result = $apiClosingReason->post($d);
+    		$result = json_decode($result, true);
+    		
+    		$urlapiMapper = $this->server.'admin/sifinca/mapper';
+    		$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    		
+    		$m = array(
+				    "name" => "closingReason",
+				    "idSource" => $cont,
+				    "idTarget" => $result['data'][0]
+    		);
+    		
+    		$apiMapper->post($m);
+    		
+    		$total++;
+    		$cont++;
+    	}
+    	
+    }
+    
     
     function buildInmuebles($inmuebles) {
     	
@@ -448,6 +502,27 @@ class InmueblesCartagenaCommand extends Command
     			}
     		}
     		
+    		$urlClassification = $this->server.'admin/sifinca/mapper/propertyClassification/'.$inmueble['clasificacion'];
+    		//echo $urlStratum;
+    		$apiClassification = $this->SetupApi($urlClassification, $this->user, $this->pass);
+    		 
+    		$classificationMapper = $apiClassification->get();
+    		$classificationMapper = json_decode($classificationMapper, true);
+    		//print_r($stratumMapper);
+    		$classification = array('id' => 'cfd4fe35-5ced-4df1-a361-37457244223b');
+    		if($classificationMapper['total'] > 0){
+    			$classification = $classificationMapper['data']['0']['idTarget'];
+    			if(!is_null($classification)){
+    		
+    				$classification = array('id'=>$classification);
+    		
+    				if($classificationMapper['total'] == 0){
+    					$classification = null;
+    				}
+    		
+    			}
+    		}
+    		
     		$address = $this->buidDireccion($inmueble);
     		
     		$consignmentdate = new \DateTime($inmueble['fecha_consignacion']);
@@ -455,6 +530,9 @@ class InmueblesCartagenaCommand extends Command
     		
     		$dateAvailable = new \DateTime($inmueble['fecha_disponible']);
     		$dateAvailable = $dateAvailable->format('Y-m-d');
+    		
+    		$retirementDate= new \DateTime($inmueble['fecha_retiro']);
+    		$retirementDate = $retirementDate->format('Y-m-d');
     		
     		$bInmueble = array(
     				"consecutive" => $inmueble['id_inmueble'],
@@ -485,10 +563,11 @@ class InmueblesCartagenaCommand extends Command
     				"destiny" => $destiny,
     				"office" => $office,
     				"stratum" => $stratum,
-    				//"propertyCondition"
-    				//"classificationOfProperty" => $inmueble['clasificacion'],
+    				//"propertyCondition"  //Estado
+    				"classificationOfProperty" => $classification,
     				//"propertyAttribute" 
-    				"address" => $address
+    				"address" => $address,
+    				"retirementDate" => $retirementDate
     		);
     		
     		

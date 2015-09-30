@@ -5,12 +5,12 @@
     "idTarget": "037afd0f-938c-4d4c-96de-24f1b2d63baf"
   },
   {
-    "name": "propertyOffice.CTG",
+    "name": "propertyClassification",
     "idSource": "B",
     "idTarget": "5b4e7ca3-5b1e-4822-878a-83dcc6f06979"
   },
   {
-    "name": "propertyOffice.CTG",
+    "name": "propertyClassification",
     "idSource": "C",
     "idTarget": "cc725d6d-d56b-46ac-b1ac-8b5c7adf1eab"
   }
