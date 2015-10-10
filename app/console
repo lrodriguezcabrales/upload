@@ -9,6 +9,7 @@ use upload\command\DocumentCommand;
 use upload\command\GetDocumentsCommand;
 use upload\command\ClientsBogotaCommand;
 use upload\command\InmueblesCartagenaCommand;
+use upload\command\FotosInmueblesCartagenaCommand;
 use Knp\Provider\ConsoleServiceProvider;
 
 
@@ -38,6 +39,7 @@ $console->add(new DocumentCommand());
 $console->add(new GetDocumentsCommand());
 $console->add(new ClientsBogotaCommand());
 $console->add(new InmueblesCartagenaCommand());
+$console->add(new FotosInmueblesCartagenaCommand());
 $console->run();
 
 

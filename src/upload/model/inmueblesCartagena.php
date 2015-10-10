@@ -13,13 +13,13 @@ class inmueblesCartagena {
     }
 
     public function getInmuebles(){
-        	 
-//     	$query = "SELECT TOP 4 * FROM inmuebles
-// 					WHERE id_barrio = '0004'";
-   
-    	$query = "SELECT TOP 1 * FROM inmuebles
-					WHERE id_ciudad = 'CTG'";
-    	
+        	    
+//     	$query = "SELECT TOP 5 * FROM inmuebles
+// 					WHERE id_ciudad = 'CTG'";
+    	$query = "SELECT TOP 18000 * FROM inmuebles
+ 				  WHERE id_ciudad = 'CTG'
+    			  AND (id_edificio IS NULL OR id_edificio = '')";
+    			
         $r = $this->_conn->_query($query);
         $clients = $this->_conn->_getData($r);
         //print_r($clients);
@@ -65,5 +65,52 @@ class inmueblesCartagena {
     	//print_r($ciudades);
     
     	return $ciudades;
+    }
+    
+    
+    public function getCaracteristasDeInmueble($inmueble) {
+    	
+    	//print_r($inmueble);
+    	
+    	$query = "SELECT * FROM caracteristicas_inmueble
+				  WHERE id_inmueble = ".$inmueble['id_inmueble'];
+    	
+    	$r = $this->_conn->_query($query);
+    	
+    	$caracteristicas = $this->_conn->_getData($r);
+    	    	
+    	return $caracteristicas;
+    }
+    
+    
+    public function getServiciosDeInmueble($inmueble) {
+    	 
+    	 
+    	$query = "SELECT * FROM servicios
+				  WHERE id_inmueble = ".$inmueble['id_inmueble'];
+    	 
+    	$r = $this->_conn->_query($query);
+    	 
+    	$servicios = $this->_conn->_getData($r);
+    
+    	return $servicios;
+    }
+    
+    public function getFotosDeInmueble($inmueble) {
+        	
+    	//echo "\naqui\n";
+    	
+    	$query = "SELECT TOP 1 id, tipo, descripcion, nkey, ext, fecha, publicar, publicada, 
+    			  fecha_publicada, orden, carpeta, slot, id_user
+    			  FROM fotos
+    			  WHERE(id = ".$inmueble['consecutive'].") AND (tipo = 'I')";
+    
+    	//echo "\n".$query."\n";
+    	
+    	$r = $this->_conn->_query($query);
+    
+    	$fotos = $this->_conn->_getData($r);
+    
+    	return $fotos;
     }
 }
