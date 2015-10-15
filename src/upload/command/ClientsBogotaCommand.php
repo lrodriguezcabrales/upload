@@ -18,7 +18,8 @@ class ClientsBogotaCommand extends Command
 	
 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
 	public $serverRoot = 'http://www.sifinca.net/';
-	public $user= "sifinca@araujoysegovia.com";
+	//public $user= "sifinca@araujoysegovia.com";
+	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 		
 	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
@@ -350,8 +351,14 @@ class ClientsBogotaCommand extends Command
     	$clientErrors = array(); 
     	
     	$total = 0;
-    	foreach ($clients as $key => $client) {
+    	
+    	//$totalClients = count($clients);
+    	$totalClients = 1;
+    	
+    	//foreach ($clients as $key => $client) {
+    	for ($i = 0; $i < $totalClients; $i++) {
     		
+    		$client = $clients[$i];
 			//print_r($client);
     		
     		$clientType = null;

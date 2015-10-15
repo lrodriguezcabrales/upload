@@ -16,10 +16,14 @@ class inmueblesCartagena {
         	    
 //     	$query = "SELECT TOP 5 * FROM inmuebles
 // 					WHERE id_ciudad = 'CTG'";
-    	$query = "SELECT TOP 18000 * FROM inmuebles
- 				  WHERE id_ciudad = 'CTG'
-    			  AND (id_edificio IS NULL OR id_edificio = '')";
-    			
+//     	$query = "SELECT TOP 21661 * FROM inmuebles
+//  				  WHERE id_ciudad = 'CTG'
+//     			  AND (id_edificio IS NULL OR id_edificio = '')";
+
+    	$query = "SELECT TOP 5 * FROM inmuebles
+  			      WHERE id_ciudad = 'CTG'
+     			  AND (id_edificio IS NOT NULL)";
+
         $r = $this->_conn->_query($query);
         $clients = $this->_conn->_getData($r);
         //print_r($clients);

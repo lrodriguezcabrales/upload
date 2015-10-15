@@ -70,11 +70,14 @@ class InmueblesCartagenaCommand extends Command
         //$this->mapperEstadosInmueble($inmueblesCtg);
         //$this->mapperTiposServicio($inmueblesCtg);
         
-        $inmuebles = $inmueblesCtg->getInmuebles();
-	    $this->buildInmuebles($inmuebles, $inmueblesCtg);
-      
+        //$inmuebles = $inmueblesCtg->getInmuebles();
+	    //$this->buildInmuebles($inmuebles, $inmueblesCtg);
+              
         //$this->buildFotos($inmueblesCtg);
+
+        //$this->subirInmueblesConError();
         
+        $this->buildEdificio($inmueblesCtg);
     }
     
     function mapperTipoInmueble($inmueblesCtg) {
@@ -432,19 +435,19 @@ class InmueblesCartagenaCommand extends Command
     	$total = 0;
     	
     	//$totalInmueblesSF1 = count($inmuebles);
-    	$totalInmueblesSF1 = 18000;
+    	$totalInmueblesSF1 = 1;
     	    	
     	
-    	for ($i = 15000; $i < $totalInmueblesSF1; $i++) {
+    	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
     		
     		$inmueble = $inmuebles[$i];
     		//foreach ($inmuebles as $inmueble) {
     		
     		$edificio = null;
     		
-			//     		if($inmueble['id_edificio']){
-			//     			$this->buildEdificio($inmueble);
-			//     		}
+    		if($inmueble['id_edificio']){
+    			$this->buildEdificio($inmueble);
+    		}
     		
     		$urlPropertyType = $this->server.'admin/sifinca/mapper/propertyTypeCatchment/'.$inmueble['id_tipo_inmueble'];
     		//echo "\n".$urlPropertyType."\n";
@@ -745,7 +748,9 @@ class InmueblesCartagenaCommand extends Command
     	echo "\n\nTotal inmuebles pasados ".$total."\n";
     }
     
-    function buildEdificio($inmueble) {
+    function buildEdificio($inmueblesCtg) {
+    	
+    	$edificiosSF1 = $inmueblesCtg->getInmuebles();
     	
     	$bEdificio = array(
     		   			
@@ -991,9 +996,17 @@ class InmueblesCartagenaCommand extends Command
     	$apiMapper = $this->SetupApi($urlPublication, $this->user, $this->pass);
     	
     	$datePublication = new \DateTime($inmuebleSF1['fecha_consignacion']);
+    	//$datePublication = new \DateTime($inmuebleSF1['consignmentdate']);
     	$datePublication = $datePublication->format('Y-m-d');
-
-    	//echo "\n".$inmuebleSF1['fecha_promocion']."\n";
+    	
+    	
+//     	if(!empty($inmuebleSF1['dateAvailable'])){
+//     		//echo "\nentro";
+//     		if(!is_null($inmuebleSF1['dateAvailable'])){
+//     			$datePublication = new \DateTime($inmuebleSF1['dateAvailable']);
+//     			$datePublication = $datePublication->format('Y-m-d');
+//     		}
+//     	}
     	
     	if(!empty($inmuebleSF1['fecha_promocion'])){
     		//echo "\nentro";
@@ -1098,7 +1111,77 @@ class InmueblesCartagenaCommand extends Command
 	}    
     
 
-    
+    function subirInmueblesConError() {
+    	
+    	$urlInmueblesSF2 = $this->server.'catchment/main/errorproperty';
+    	
+    	$apiInmueblesSF2 = $this->SetupApi($urlInmueblesSF2, $this->user, $this->pass);
+    	    	 
+    	$inmueblesSF2 = $apiInmueblesSF2->get();
+    	$inmueblesSF2 = json_decode($inmueblesSF2, true);
+    	
+    	$total = 0;
+    	
+    	$totalInmueblesLog = $inmueblesSF2['total'];
+    	
+    	//$totalInmueblesLog = 1;
+    	
+    	for ($i = 0; $i < $totalInmueblesLog; $i++) {
+    		
+    		$logInmueble = $inmueblesSF2['data'][$i];
+    		
+    		
+    		$urlapiInmueble = $this->server.'catchment/main/property';
+    		
+    		$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
+
+    		
+    		//echo $logInmueble['objectJson'];
+    		
+    		$inm = json_decode($logInmueble['objectJson'], true);
+    		
+    		$result = $apiInmueble->post($inm);
+    		
+    		$result = json_decode($result, true);
+    		
+    		
+    		if($result['success'] == true){
+    			echo "\nOk";
+    			$total++;
+    			 
+    			$idInmuebleSF2 = $result['data'][0];
+    			 
+    			//print_r($inm);
+    			 
+    			if($inm['propertyStatus']['id'] == '49147d17-fc80-4eb1-ad34-90622938138e'){
+    				$this->buildPublicacion($idInmuebleSF2, $inm);
+    			}
+    			 
+    			 
+    			 
+    		}else{
+    			echo "\nError\n";
+    			//print_r($result);
+    			 
+    			$urlapiMapper = $this->server.'catchment/main/errorproperty';
+    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    		
+    			$error = array(
+    					'property' => $inmueble['id_inmueble'],
+    					'objectJson' => $json
+    			);
+    			 
+    			$apiMapper->post($error);
+    			 
+    		}
+    		
+    	}
+    	
+    	echo "\n\nTotal inmuebles pasados ".$total."\n";
+    	
+    }
+	
+	
     protected function SetupApi($urlapi,$user,$pass){
     
     	$url= $this->server."login";
