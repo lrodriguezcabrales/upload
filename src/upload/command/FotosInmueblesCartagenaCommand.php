@@ -25,7 +25,7 @@ class FotosInmueblesCartagenaCommand extends Command
 // 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
 // 	public $serverRoot = 'http:/10.102.1.22/';
 	
-	public $user= "sifinca@araujoysegovia.com";
+	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 	
 	public $headerCurl = null;
@@ -88,11 +88,11 @@ class FotosInmueblesCartagenaCommand extends Command
     	
     	//$totalInmueblesSF2 = $inmueblesSF2['total'];
     	
-    	$totalInmueblesSF2 = 1;   	   	
+    	$totalInmueblesSF2 = 100;   	   	
     	
     	if($totalInmueblesSF2 > 0){
     		
-    		for ($i = 0; $i < $totalInmueblesSF2; $i++) {
+    		for ($i = 1; $i < $totalInmueblesSF2; $i++) {
     			
     			$inmueble = $inmueblesSF2['data'][$i];
     			
@@ -172,7 +172,7 @@ class FotosInmueblesCartagenaCommand extends Command
 	    			
 	    			$error = array(
 	    					'photo' => $foto['nkey'],
-	    					//'objectJson' => $inmueble['consecutive']
+	    					'objectJson' => $inmueble['consecutive']
 	    			);
 	    			 
 	    			$apiMapper->post($error);
@@ -238,8 +238,8 @@ class FotosInmueblesCartagenaCommand extends Command
     
     	$result= $a->post(array("user"=>$user,"password"=>$pass));
     	 
-    	echo "\nresult\n";
-    	print_r($result);
+//     	echo "\nresult\n";
+//     	print_r($result);
     
     	 
     	$data=json_decode($result);

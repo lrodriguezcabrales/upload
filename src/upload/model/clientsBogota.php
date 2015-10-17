@@ -27,6 +27,7 @@ class clientsBogota {
     	
     	$query = "SELECT * FROM clientes
     			WHERE id_cliente IS NOT NULL
+    			AND id_cliente = '00073101842'
     			AND id_cliente != ''
     			AND id_cliente != '0'
     			AND id_cliente != '000000'

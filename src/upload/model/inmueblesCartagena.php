@@ -104,7 +104,7 @@ class inmueblesCartagena {
         	
     	//echo "\naqui\n";
     	
-    	$query = "SELECT TOP 1 id, tipo, descripcion, nkey, ext, fecha, publicar, publicada, 
+    	$query = "SELECT id, tipo, descripcion, nkey, ext, fecha, publicar, publicada, 
     			  fecha_publicada, orden, carpeta, slot, id_user
     			  FROM fotos
     			  WHERE(id = ".$inmueble['consecutive'].") AND (tipo = 'I')";

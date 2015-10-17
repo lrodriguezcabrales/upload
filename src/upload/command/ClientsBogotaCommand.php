@@ -353,8 +353,8 @@ class ClientsBogotaCommand extends Command
     	$total = 0;
     	
     	//$totalClients = count($clients);
+    	//$totalClients = 100;
     	$totalClients = 1;
-    	
     	//foreach ($clients as $key => $client) {
     	for ($i = 0; $i < $totalClients; $i++) {
     		
@@ -368,14 +368,46 @@ class ClientsBogotaCommand extends Command
     		if($client['nat_juridica'] == 'N'){
     			$clientType = 2;
     			      			   			
-    			$result = $this->buildClintePersona($client);
+    			//$result = $this->buildClintePersona($client);
+    			
+    			$urlapiClient = $this->server.'crm/main/clientperson';
+    			 
+    			$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
+    			
+    			$bClient = $this->buildClintePersona($client);
+    			 
+    			$result = $apiClient->post($bClient);
+    			
     			$result = json_decode($result, true);
-    			if($result['success'] == true){
-    				$total++;
+    			
+    			
+    			if(isset($result['success'])){
+    				if($result['success'] == true){
+    					echo "\nOk\n";
+    					$total++;
+    				}
     			}else{
-    				echo "\nError\n";
-    				print_r($result);
+    					echo "\nError\n";
+    					
+    					print_r($result);
+    				
+    					
+    					echo "\nclient\n";
+    					print_r($bClient);
+    					
+    					$urlapiMapper = $this->server.'crm/main/errorclient';
+    					$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    				
+    					$error = array(
+    							'client' => $client['id_cliente'],
+    							'objectJson' => json_encode($bClient),
+    							'error' => $result['message']
+    					);
+    						
+    					$apiMapper->post($error);
+    				
     			}
+    			
     			
     			
     		}else if($client['nat_juridica'] == 'J'){
@@ -394,14 +426,26 @@ class ClientsBogotaCommand extends Command
     				echo "\nError cliente juridico\n";
     				///echo $result;
     				
-    				$clientError = array(
-    						'id' => $client['id_cliente'],
-    						'name' => $client['nombre']
+//     				$clientError = array(
+//     						'id' => $client['id_cliente'],
+//     						'name' => $client['nombre']
+//     				);
+    				
+//     				$clientErrors[] = $clientError;
+    				
+//     				print_r($result);
+
+    				$urlapiMapper = $this->server.'crm/main/errorclient';
+    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    				
+    				$error = array(
+    						'client' => $client['id_cliente'],
+    						'objectJson' => json_encode($client),
+    						'error' => $result['message']
     				);
+    					
+    				$apiMapper->post($error);
     				
-    				$clientErrors[] = $clientError;
-    				
-    				print_r($result);
     			}
     		}
     		
@@ -411,10 +455,10 @@ class ClientsBogotaCommand extends Command
     	
     	
     	
-    	echo "\nCliente con error\n";
-    	print_r($clientErrors);
+//     	echo "\nCliente con error\n";
+//     	print_r($clientErrors);
     	echo "\nTotal de clintes creados en SF2: ".$total."\n";
-    	echo "\nTotal de clintes con error en SF2: ".count($clientErrors)."\n";
+//     	echo "\nTotal de clintes con error en SF2: ".count($clientErrors)."\n";
     }
     
     function buildClintePersona($client) {
@@ -495,33 +539,78 @@ class ClientsBogotaCommand extends Command
     	
     	
     	
+    	$email = null;
+    	
+    	if(!empty($client['e_mail'])){
+    		
+    		$trimmed = trim($client['e_mail'], " ");
+    		
+    		$lenght = strlen($trimmed);
+    		
+    		if($lenght > 0){
+    			$email = $client['e_mail'];
+    		}else{
+    			$email = null;
+    		}
+    		    		
+    	}
+    	
+    	
+    	$contribuyente = $this->buildTipoContribuyente($client);
+    	
+    	$explodeName = explode(" ", $client['nombre']);
+    	$explodeApellido = explode(" ", $client['apellido']);
+    	
+    	$firstname = $client['nombre'];
+    	$lastname = $client['apellido'];
+    	
+    	$secondname = '';
+    	$secondLastname = '';
+    	
+    	
+    	if(count($explodeName) > 0){
+    		$firstname = $explodeName[0];
+    		if(isset($explodeName[1])){
+    			$secondname = $explodeName[1];
+    		}
+    		
+    	}
+    	
+    	if(count($explodeApellido) > 0){
+    		$lastname = $explodeApellido[0];
+    		if(isset($explodeApellido[1])){
+    			$secondLastname = $explodeApellido[1];
+    		}
+    		
+    	}
+    	
     	$bClient = array(
-    			'firstname' => $client['nombre'],
-    			'secondname' => '',
-    			'lastname' => $client['apellido'],
-    			"secondLastname" => '',
+    			'firstname' => $firstname,
+    			'secondname' => $secondname,
+    			'lastname' => $lastname,
+    			"secondLastname" => $secondLastname,
     			//'client_type' => $clientType,
     			'identity' => $identity,
     			'adress' => $direcciones,
     			'phones' => $telefonos,
     			'civilState' => $maritalStatus,
-    			'email' => $client['e_mail'],
+    			'email' => $email,
     			'profession' => $levelStudy,
+    			'contributor' => $contribuyente
     	);
     	
     	
-    	//print_r($bClient);
+//     	//print_r($bClient);
     	
-    	$json = json_encode($bClient);
-    	//echo "\n".$json."\n";
+//     	$json = json_encode($bClient);
+//     	//echo "\n".$json."\n";
     	
-    	$result = $apiClient->post($bClient);
+//     	$result = $apiClient->post($bClient);
     	
-  
-    	//echo "\nCliente creado\n";
+
+//     	return $result;
     	
-    	return $result;
-    	
+    	return $bClient;
     }
     
     function buildClintePersonaJuridica($client) {
@@ -687,32 +776,83 @@ class ClientsBogotaCommand extends Command
     		$town = $apiMapper->get();
     		$town = json_decode($town, true);
     
-    		if($country['total'] == 1){
-    			 
+    		if(isset($country['total'])){
     			
-    			if($town['total'] == 1){
-    				$town = array('id' => $town['data'][0]['idTarget']);
+    			if($country['total'] == 1){
     			
-    				$urlTownSF2 = $this->server.'crm/main/town/'.$town['id'];
-    			
-    				//echo "\n".$urlTownSF2."\n";
-    			
-    				$apiTownSF2 = $this->SetupApi($urlTownSF2, $this->user, $this->pass);
+    				if(isset($town['total'])){
     					
-    				$townSF2 = $apiTownSF2->get();
-    				$townSF2 = json_decode($townSF2, true);
-    			
-    				$deparment = array('id' => $townSF2['department']['id']);
-    			
-    			}else{
-    				$town = null;
-    				$deparment = null;
+    					if($town['total'] == 1){
+    						$town = array('id' => $town['data'][0]['idTarget']);
+    					
+    						$urlTownSF2 = $this->server.'crm/main/town/'.$town['id'];
+    					
+    						//echo "\n".$urlTownSF2."\n";
+    					
+    						$apiTownSF2 = $this->SetupApi($urlTownSF2, $this->user, $this->pass);
+    					
+    						$townSF2 = $apiTownSF2->get();
+    						$townSF2 = json_decode($townSF2, true);
+    					
+    						$deparment = array('id' => $townSF2['department']['id']);
+    					
+    					}else{
+    						$town = null;
+    						$deparment = null;
+    					}
+    					
+    				}else{
+    					$town = null;
+    					$deparment = null;
+    				}
+    					
+    						
+    				if(strlen($address) > 7){
+    					$dirTrabajo = array(
+    						'address' => $address,
+    						'country' => array('id' => $country['data'][0]['idTarget']),
+    						'department' => $deparment,
+    						'town' => $town,
+    						'district' => null,
+    						'typeAddress' => array('id'=>'26f76dc7-4204-4972-9d47-30360735514b') //OFICINA
+    					);
+    				}
+    					
+    				
+    				 
     			}
     			
+    		}else{
+
+    			if(isset($town['total'])){
+    				if($town['total'] == 1){
+    					$town = array('id' => $town['data'][0]['idTarget']);
+    					 
+    					$urlTownSF2 = $this->server.'crm/main/town/'.$town['id'];
+    					 
+    					//echo "\n".$urlTownSF2."\n";
+    					 
+    					$apiTownSF2 = $this->SetupApi($urlTownSF2, $this->user, $this->pass);
+    					 
+    					$townSF2 = $apiTownSF2->get();
+    					$townSF2 = json_decode($townSF2, true);
+    					 
+    					$deparment = array('id' => $townSF2['department']['id']);
+    					 
+    				}else{
+    					$town = null;
+    					$deparment = null;
+    				}
+    			}else{
+    					$town = null;
+    					$deparment = null;
+    			}
+    			
+    				
     			if(strlen($address) > 7){
     				$dirTrabajo = array(
     						'address' => $address,
-    						'country' => array('id' => $country['data'][0]['idTarget']),
+    						'country' => array('id' => $this->colombia),
     						'department' => null,
     						'town' => $town,
     						'district' => null,
@@ -721,6 +861,8 @@ class ClientsBogotaCommand extends Command
     			}
     			
     		}
+    		
+    		
     	}
     
     	//print_r($dirTrabajo);
@@ -953,7 +1095,7 @@ class ClientsBogotaCommand extends Command
     	}
     
     	
-    	//echo "\nContribuyente SF1: ".$type;
+    	//echo "\nContribuyente SF1: ".$type."\n";
     
     	$urlapiMapperContributor = $this->server.'admin/sifinca/mapper/contributor/'.$type;
     	$apiMapperContributor = $this->SetupApi($urlapiMapperContributor, $this->user, $this->pass);
