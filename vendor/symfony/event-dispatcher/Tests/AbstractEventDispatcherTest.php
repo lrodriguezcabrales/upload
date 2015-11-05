@@ -12,7 +12,10 @@
 namespace Symfony\Component\EventDispatcher\Tests;
 
 use Symfony\Component\EventDispatcher\Event;
+<<<<<<< HEAD
 use Symfony\Component\EventDispatcher\EventDispatcher;
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 abstract class AbstractEventDispatcherTest extends \PHPUnit_Framework_TestCase
@@ -136,7 +139,11 @@ abstract class AbstractEventDispatcherTest extends \PHPUnit_Framework_TestCase
     {
         $invoked = 0;
         $listener = function () use (&$invoked) {
+<<<<<<< HEAD
             ++$invoked;
+=======
+            $invoked++;
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         };
         $this->dispatcher->addListener('pre.foo', $listener);
         $this->dispatcher->addListener('post.foo', $listener);

@@ -110,8 +110,13 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $tdispatcher->addListener('foo', $listener1 = function () {; });
         $tdispatcher->addListener('foo', $listener2 = function () {; });
 
+<<<<<<< HEAD
         $logger->expects($this->at(0))->method('debug')->with('Notified event "foo" to listener "closure".');
         $logger->expects($this->at(1))->method('debug')->with('Notified event "foo" to listener "closure".');
+=======
+        $logger->expects($this->at(0))->method('debug')->with("Notified event \"foo\" to listener \"closure\".");
+        $logger->expects($this->at(1))->method('debug')->with("Notified event \"foo\" to listener \"closure\".");
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
         $tdispatcher->dispatch('foo');
     }
@@ -125,9 +130,15 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $tdispatcher->addListener('foo', $listener1 = function (Event $event) { $event->stopPropagation(); });
         $tdispatcher->addListener('foo', $listener2 = function () {; });
 
+<<<<<<< HEAD
         $logger->expects($this->at(0))->method('debug')->with('Notified event "foo" to listener "closure".');
         $logger->expects($this->at(1))->method('debug')->with('Listener "closure" stopped propagation of the event "foo".');
         $logger->expects($this->at(2))->method('debug')->with('Listener "closure" was not called for event "foo".');
+=======
+        $logger->expects($this->at(0))->method('debug')->with("Notified event \"foo\" to listener \"closure\".");
+        $logger->expects($this->at(1))->method('debug')->with("Listener \"closure\" stopped propagation of the event \"foo\".");
+        $logger->expects($this->at(2))->method('debug')->with("Listener \"closure\" was not called for event \"foo\".");
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
         $tdispatcher->dispatch('foo');
     }

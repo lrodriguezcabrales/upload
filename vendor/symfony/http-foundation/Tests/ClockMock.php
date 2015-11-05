@@ -11,13 +11,18 @@
 
 namespace Symfony\Component\HttpFoundation;
 
+<<<<<<< HEAD
 function time()
+=======
+function time($asFloat = false)
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 {
     return Tests\time();
 }
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+<<<<<<< HEAD
 function with_clock_mock($enable = null)
 {
     static $enabled;
@@ -35,5 +40,9 @@ function time()
         return \time();
     }
 
+=======
+function time()
+{
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     return $_SERVER['REQUEST_TIME'];
 }

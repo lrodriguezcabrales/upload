@@ -98,9 +98,15 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
                     } elseif (isset($trace[$i]['object']) && $trace[$i]['object'] instanceof \Twig_Template) {
                         $info = $trace[$i]['object'];
                         $name = $info->getTemplateName();
+<<<<<<< HEAD
                         $src = method_exists($info, 'getSource') ? $info->getSource() : $info->getEnvironment()->getLoader()->getSource($name);
                         $info = $info->getDebugInfo();
                         if (null !== $src && isset($info[$trace[$i - 1]['line']])) {
+=======
+                        $src = $info->getEnvironment()->getLoader()->getSource($name);
+                        $info = $info->getDebugInfo();
+                        if (isset($info[$trace[$i - 1]['line']])) {
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                             $file = false;
                             $line = $info[$trace[$i - 1]['line']];
                             $src = explode("\n", $src);
@@ -120,7 +126,11 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
         }
 
         if (false === $name) {
+<<<<<<< HEAD
             $name = str_replace('\\', '/', $file);
+=======
+            $name = strtr($file, '\\', '/');
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             $name = substr($name, strrpos($name, '/') + 1);
         }
 

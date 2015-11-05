@@ -136,7 +136,11 @@ class DebugClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
+<<<<<<< HEAD
      * @expectedExceptionMessage Case mismatch between class and real file names
+=======
+     * @expectedExceptionMessage Case mismatch between class and source file names
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      */
     public function testFileCaseMismatch()
     {

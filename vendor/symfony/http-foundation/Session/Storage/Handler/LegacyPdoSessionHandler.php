@@ -260,7 +260,11 @@ class LegacyPdoSessionHandler implements \SessionHandlerInterface
     }
 
     /**
+<<<<<<< HEAD
      * Return a PDO instance.
+=======
+     * Return a PDO instance
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      *
      * @return \PDO
      */

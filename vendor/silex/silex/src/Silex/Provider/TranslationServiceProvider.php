@@ -40,6 +40,7 @@ class TranslationServiceProvider implements ServiceProviderInterface
             $translator->addLoader('array', new ArrayLoader());
             $translator->addLoader('xliff', new XliffFileLoader());
 
+<<<<<<< HEAD
             if (isset($app['validator'])) {
                 $r = new \ReflectionClass('Symfony\Component\Validator\Validation');
                 $file = dirname($r->getFilename()).'/Resources/translations/validators.'.$app['locale'].'.xlf';
@@ -56,6 +57,8 @@ class TranslationServiceProvider implements ServiceProviderInterface
                 }
             }
 
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             // Register default resources
             foreach ($app['translator.resources'] as $resource) {
                 $translator->addResource($resource[0], $resource[1], $resource[2], $resource[3]);

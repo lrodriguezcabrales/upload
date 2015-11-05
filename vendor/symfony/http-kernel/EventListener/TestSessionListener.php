@@ -48,7 +48,11 @@ abstract class TestSessionListener implements EventSubscriberInterface
 
     /**
      * Checks if session was initialized and saves if current request is master
+<<<<<<< HEAD
      * Runs on 'kernel.response' in test environment.
+=======
+     * Runs on 'kernel.response' in test environment
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      *
      * @param FilterResponseEvent $event
      */

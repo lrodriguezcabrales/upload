@@ -92,6 +92,7 @@ class EsiTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($response->headers->has('x-body-eval'));
     }
 
+<<<<<<< HEAD
     public function testMultilineEsiRemoveTagsAreRemoved()
     {
         $esi = new Esi();
@@ -114,6 +115,8 @@ class EsiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(' Keep this', $response->getContent());
     }
 
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     public function testProcess()
     {
         $esi = new Esi();

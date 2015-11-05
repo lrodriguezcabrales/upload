@@ -13,7 +13,10 @@ namespace Symfony\Component\Routing\Tests\Loader;
 
 use Symfony\Component\Routing\Loader\AnnotationFileLoader;
 use Symfony\Component\Config\FileLocator;
+<<<<<<< HEAD
 use Symfony\Component\Routing\Annotation\Route;
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
 class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
 {
@@ -35,6 +38,7 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
         $this->loader->load(__DIR__.'/../Fixtures/AnnotatedClasses/FooClass.php');
     }
 
+<<<<<<< HEAD
     /**
      * @requires PHP 5.6
      */
@@ -48,6 +52,8 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
         $this->loader->load(__DIR__.'/../Fixtures/OtherAnnotatedClasses/VariadicClass.php');
     }
 
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     public function testSupports()
     {
         $fixture = __DIR__.'/../Fixtures/annotated.php';

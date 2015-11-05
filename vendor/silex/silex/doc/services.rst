@@ -189,7 +189,11 @@ Silex defines a range of services.
   that is used internally. You can add, modify, read routes.
 
 * **controllers**: The ``Silex\ControllerCollection`` that is used internally.
+<<<<<<< HEAD
   Check the :doc:`Internals chapter <internals>` for more information.
+=======
+  Check the *Internals* chapter for more information.
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
 * **dispatcher**: The `EventDispatcher
   <http://api.symfony.com/master/Symfony/Component/EventDispatcher/EventDispatcher.html>`_
@@ -207,16 +211,26 @@ Silex defines a range of services.
   Request as input and returns a Response as output.
 
 * **request_context**: The request context is a simplified representation of
+<<<<<<< HEAD
   the request that is used by the Router and the :doc:`UrlGenerator </providers/url_generator.rst>`.
+=======
+  the request that is used by the Router and the UrlGenerator.
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
 * **exception_handler**: The Exception handler is the default handler that is
   used when you don't register one via the ``error()`` method or if your
   handler does not return a Response. Disable it with
   ``unset($app['exception_handler'])``.
 
+<<<<<<< HEAD
 * **logger**: A `LoggerInterface <https://github.com/php-fig/log/blob/master/Psr/Log/LoggerInterface.php>`_ instance. By default, logging is
   disabled as the value is set to ``null``. To enable logging you can either use
   the :doc:`MonologServiceProvider <providers/monolog>` or define your own ``logger`` service that
+=======
+* **logger**: A ``Psr\Log\LoggerInterface`` instance. By default, logging is
+  disabled as the value is set to ``null``. To enable logging you can either use
+  the ``MonologServiceProvider`` or define your own ``logger`` service that
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
   conforms to the PSR logger interface.
 
 .. note::

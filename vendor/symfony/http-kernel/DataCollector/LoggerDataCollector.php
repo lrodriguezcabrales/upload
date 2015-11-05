@@ -97,6 +97,7 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
 
     private function sanitizeLogs($logs)
     {
+<<<<<<< HEAD
         $errorContextById = array();
         $sanitizedLogs = array();
 
@@ -137,6 +138,17 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
         }
 
         return $sanitizedLogs;
+=======
+        foreach ($logs as $i => $log) {
+            $context = $this->sanitizeContext($log['context']);
+            if (isset($context['type'], $context['level']) && !($context['type'] & $context['level'])) {
+                $context['scream'] = true;
+            }
+            $logs[$i]['context'] = $context;
+        }
+
+        return $logs;
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     }
 
     private function sanitizeContext($context)

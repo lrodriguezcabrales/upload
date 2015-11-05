@@ -1,6 +1,7 @@
 Changelog
 =========
 
+<<<<<<< HEAD
 1.3.4 (2015-09-15)
 ------------------
 
@@ -15,6 +16,8 @@ Changelog
 * removed deprecated method call in the exception handler
 * fixed Swiftmailer spool flushing when spool is not enabled
 
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 1.3.2 (2015-08-24)
 ------------------
 

@@ -1,0 +1,37 @@
+[
+	{
+	   "name": "contributor", 
+	   "idSource": "GA", 
+	   "idTarget": "f5d939d0-e3cc-4c32-8582-01cdf5c12859" 
+	},
+	{
+	   "name": "contributor",
+	   "idSource": "RA",
+	   "idTarget": "dea8f06d-54d0-4e1a-8119-e2a7aa3a07fd" 
+	},
+	{
+	   "name": "contributor",
+	   "idSource": "GN",
+	   "idTarget": "5099a524-45d9-4d7f-a116-13f186c31fb5" 
+	},
+	{
+	   "name": "contributor",
+	   "idSource": "RN",
+	   "idTarget": "11b10fa3-d720-44e9-a027-66c1c4d36055" 
+	},
+	{
+	   "name": "contributor",
+	   "idSource": "RS",
+	   "idTarget": "663740a5-9500-4ca3-a943-ea4743712b66" 
+	},
+	{
+	   "name": "contributor",
+	   "idSource": "CE",
+	   "idTarget": "628a8a98-95f2-452e-9243-27f0dd800ba3" 
+	},
+	{
+	   "name": "contributor",
+	   "idSource": "EX",
+	   "idTarget": "fd59d2b8-ed87-4b17-94ae-44fc680797df" 
+	}
+]

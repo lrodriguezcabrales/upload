@@ -51,7 +51,11 @@ class StreamedResponse extends Response
     }
 
     /**
+<<<<<<< HEAD
      * Factory method for chainability.
+=======
+     * Factory method for chainability
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      *
      * @param callable|null $callback A valid PHP callback or null to set it later
      * @param int           $status   The response status code

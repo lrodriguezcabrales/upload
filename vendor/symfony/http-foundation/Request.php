@@ -1577,7 +1577,11 @@ class Request
 
             // Content passed in parameter (test)
             if (is_string($this->content)) {
+<<<<<<< HEAD
                 $resource = fopen('php://temp', 'r+');
+=======
+                $resource = fopen('php://temp','r+');
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 fwrite($resource, $this->content);
                 rewind($resource);
 
@@ -1852,9 +1856,15 @@ class Request
             return $prefix;
         }
 
+<<<<<<< HEAD
         if ($baseUrl && false !== $prefix = $this->getUrlencodedPrefix($requestUri, rtrim(dirname($baseUrl), '/'.DIRECTORY_SEPARATOR).'/')) {
             // directory portion of $baseUrl matches
             return rtrim($prefix, '/'.DIRECTORY_SEPARATOR);
+=======
+        if ($baseUrl && false !== $prefix = $this->getUrlencodedPrefix($requestUri, rtrim(dirname($baseUrl), '/').'/')) {
+            // directory portion of $baseUrl matches
+            return rtrim($prefix, '/');
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         }
 
         $truncatedRequestUri = $requestUri;
@@ -1875,7 +1885,11 @@ class Request
             $baseUrl = substr($requestUri, 0, $pos + strlen($baseUrl));
         }
 
+<<<<<<< HEAD
         return rtrim($baseUrl, '/'.DIRECTORY_SEPARATOR);
+=======
+        return rtrim($baseUrl, '/');
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     }
 
     /**
@@ -2001,7 +2015,11 @@ class Request
         if (self::$requestFactory) {
             $request = call_user_func(self::$requestFactory, $query, $request, $attributes, $cookies, $files, $server, $content);
 
+<<<<<<< HEAD
             if (!$request instanceof self) {
+=======
+            if (!$request instanceof Request) {
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 throw new \LogicException('The Request factory must return an instance of Symfony\Component\HttpFoundation\Request.');
             }
 

@@ -157,7 +157,11 @@ class ControllerResolver implements ControllerResolverInterface
     }
 
     /**
+<<<<<<< HEAD
      * Returns an instantiated controller.
+=======
+     * Returns an instantiated controller
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      *
      * @param string $class A class name
      *

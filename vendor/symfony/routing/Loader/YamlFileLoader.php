@@ -14,7 +14,10 @@ namespace Symfony\Component\Routing\Loader;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Config\Resource\FileResource;
+<<<<<<< HEAD
 use Symfony\Component\Yaml\Exception\ParseException;
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Config\Loader\FileLoader;
 
@@ -61,11 +64,15 @@ class YamlFileLoader extends FileLoader
             $this->yamlParser = new YamlParser();
         }
 
+<<<<<<< HEAD
         try {
             $config = $this->yamlParser->parse(file_get_contents($path));
         } catch (ParseException $e) {
             throw new \InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML.', $path), 0, $e);
         }
+=======
+        $config = $this->yamlParser->parse(file_get_contents($path));
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
         $collection = new RouteCollection();
         $collection->addResource(new FileResource($path));

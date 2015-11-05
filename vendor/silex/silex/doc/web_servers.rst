@@ -25,7 +25,11 @@ following ``.htaccess`` file:
     relative from the webroot.
 
 Alternatively, if you use Apache 2.2.16 or higher, you can use the
+<<<<<<< HEAD
 `FallbackResource directive`_ to make your .htaccess even easier:
+=======
+`FallbackResource directive`_ so make your .htaccess even easier:
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
 .. code-block:: apache
 

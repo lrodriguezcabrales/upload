@@ -105,6 +105,7 @@ class ResponseTest extends ResponseTestCase
         $this->assertFalse($response->mustRevalidate());
     }
 
+<<<<<<< HEAD
     public function testMustRevalidateWithMustRevalidateCacheControlHeader()
     {
         $response = new Response();
@@ -121,6 +122,8 @@ class ResponseTest extends ResponseTestCase
         $this->assertTrue($response->mustRevalidate());
     }
 
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     public function testSetNotModified()
     {
         $response = new Response();

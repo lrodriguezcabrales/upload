@@ -7,7 +7,11 @@ use upload\command\ContableCommand;
 use upload\command\EmpleadosCommand;
 use upload\command\DocumentCommand;
 use upload\command\GetDocumentsCommand;
+<<<<<<< HEAD
 use upload\command\ClientsCartagenaCommand;
+=======
+use upload\command\ClientsBogotaCommand;
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 use upload\command\InmueblesCartagenaCommand;
 use upload\command\FotosInmueblesCartagenaCommand;
 use Knp\Provider\ConsoleServiceProvider;
@@ -37,10 +41,16 @@ $console->add(new EmpleadosCommand());
 $console->add(new ContableCommand());
 $console->add(new DocumentCommand());
 $console->add(new GetDocumentsCommand());
+<<<<<<< HEAD
 $console->add(new ClientsCartagenaCommand());
 $console->add(new InmueblesCartagenaCommand());
 $console->add(new FotosInmueblesCartagenaCommand());
 
+=======
+$console->add(new ClientsBogotaCommand());
+$console->add(new InmueblesCartagenaCommand());
+$console->add(new FotosInmueblesCartagenaCommand());
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 $console->run();
 
 

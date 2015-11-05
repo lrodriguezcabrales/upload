@@ -91,7 +91,11 @@ class SwiftmailerServiceProvider implements ServiceProviderInterface
         $app->finish(function () use ($app) {
             // To speed things up (by avoiding Swift Mailer initialization), flush
             // messages only if our mailer has been created (potentially used)
+<<<<<<< HEAD
             if ($app['mailer.initialized'] && $app['swiftmailer.use_spool'] && $app['swiftmailer.spooltransport'] instanceof \Swift_Transport_SpoolTransport) {
+=======
+            if ($app['mailer.initialized']) {
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 $app['swiftmailer.spooltransport']->getSpool()->flushQueue($app['swiftmailer.transport']);
             }
         });

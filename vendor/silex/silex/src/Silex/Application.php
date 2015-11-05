@@ -14,7 +14,10 @@ namespace Silex;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\HttpKernel;
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Kernel;
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -44,7 +47,11 @@ use Silex\EventListener\StringToResponseListener;
  */
 class Application extends \Pimple implements HttpKernelInterface, TerminableInterface
 {
+<<<<<<< HEAD
     const VERSION = '1.3.4';
+=======
+    const VERSION = '1.3.2';
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
     const EARLY_EVENT = 512;
     const LATE_EVENT = -512;
@@ -98,11 +105,15 @@ class Application extends \Pimple implements HttpKernelInterface, TerminableInte
             $urlMatcher = new LazyUrlMatcher(function () use ($app) {
                 return $app['url_matcher'];
             });
+<<<<<<< HEAD
             if (Kernel::VERSION_ID >= 20800) {
                 $dispatcher->addSubscriber(new RouterListener($urlMatcher, $app['request_stack'], $app['request_context'], $app['logger']));
             } else {
                 $dispatcher->addSubscriber(new RouterListener($urlMatcher, $app['request_context'], $app['logger'], $app['request_stack']));
             }
+=======
+            $dispatcher->addSubscriber(new RouterListener($urlMatcher, $app['request_context'], $app['logger'], $app['request_stack']));
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             $dispatcher->addSubscriber(new LocaleListener($app, $urlMatcher, $app['request_stack']));
             if (isset($app['exception_handler'])) {
                 $dispatcher->addSubscriber($app['exception_handler']);

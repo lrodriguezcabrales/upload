@@ -551,7 +551,11 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $app = new Application();
 
+<<<<<<< HEAD
         ErrorHandler::register(null, false);
+=======
+        ErrorHandler::register();
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         $app['monolog.logfile'] = 'php://memory';
         $app->register(new MonologServiceProvider());
         $app->get('/foo/', function () { return 'ok'; });

@@ -139,7 +139,11 @@ abstract class AnnotationClassLoader implements LoaderInterface
 
         $defaults = array_replace($globals['defaults'], $annot->getDefaults());
         foreach ($method->getParameters() as $param) {
+<<<<<<< HEAD
             if (!isset($defaults[$param->getName()]) && $param->isDefaultValueAvailable()) {
+=======
+            if (!isset($defaults[$param->getName()]) && $param->isOptional()) {
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 $defaults[$param->getName()] = $param->getDefaultValue();
             }
         }

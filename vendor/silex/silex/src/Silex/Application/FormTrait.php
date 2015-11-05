@@ -30,6 +30,7 @@ trait FormTrait
      */
     public function form($data = null, array $options = array())
     {
+<<<<<<< HEAD
         $name = 'Symfony\Component\Form\Extension\Core\Type\FormType';
         // for BC with Symfony pre 2.7
         if (!class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType')) {
@@ -37,5 +38,8 @@ trait FormTrait
         }
 
         return $this['form.factory']->createBuilder($name, $data, $options);
+=======
+        return $this['form.factory']->createBuilder('form', $data, $options);
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     }
 }

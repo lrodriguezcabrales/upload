@@ -118,6 +118,7 @@ class contable {
          
      }
      
+<<<<<<< HEAD
      public function  getAccount(array $param){
      
      	 
@@ -138,4 +139,6 @@ class contable {
      	 
      }
      
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 }

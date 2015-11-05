@@ -51,6 +51,7 @@ class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function getPathsToInvalidFiles()
     {
+<<<<<<< HEAD
         return array(
             array('nonvalid.yml'),
             array('nonvalid2.yml'),
@@ -60,6 +61,9 @@ class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
             array('nonesense_type_without_resource.yml'),
             array('bad_format.yml'),
         );
+=======
+        return array(array('nonvalid.yml'), array('nonvalid2.yml'), array('incomplete.yml'), array('nonvalidkeys.yml'), array('nonesense_resource_plus_path.yml'), array('nonesense_type_without_resource.yml'));
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     }
 
     public function testLoadSpecialRouteName()

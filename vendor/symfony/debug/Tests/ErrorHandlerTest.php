@@ -268,6 +268,7 @@ class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+<<<<<<< HEAD
     public function testHandleDeprecation()
     {
         $that = $this;
@@ -290,6 +291,8 @@ class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
         @$handler->handleError(E_USER_DEPRECATED, 'Foo deprecation', __FILE__, __LINE__, array());
     }
 
+=======
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     public function testHandleException()
     {
         try {

@@ -47,8 +47,13 @@ class FormServiceProviderTest extends \PHPUnit_Framework_TestCase
             return $extensions;
         }));
 
+<<<<<<< HEAD
         $form = $app['form.factory']->createBuilder(class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Symfony\Component\Form\Extension\Core\Type\FormType' : 'form', array())
             ->add('dummy', class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Silex\Tests\Provider\DummyFormType' : 'dummy')
+=======
+        $form = $app['form.factory']->createBuilder('form', array())
+            ->add('dummy', 'dummy')
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             ->getForm();
 
         $this->assertInstanceOf('Symfony\Component\Form\Form', $form);
@@ -66,8 +71,13 @@ class FormServiceProviderTest extends \PHPUnit_Framework_TestCase
             return $extensions;
         }));
 
+<<<<<<< HEAD
         $form = $app['form.factory']->createBuilder(class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Symfony\Component\Form\Extension\Core\Type\FormType' : 'form', array())
             ->add('file', class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Symfony\Component\Form\Extension\Core\Type\FileType' : 'file', array('image_path' => 'webPath'))
+=======
+        $form = $app['form.factory']->createBuilder('form', array())
+            ->add('file', 'file', array('image_path' => 'webPath'))
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             ->getForm();
 
         $this->assertInstanceOf('Symfony\Component\Form\Form', $form);
@@ -107,7 +117,11 @@ class FormServiceProviderTest extends \PHPUnit_Framework_TestCase
             return new FakeCsrfProvider();
         });
 
+<<<<<<< HEAD
         $form = $app['form.factory']->createBuilder(class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Symfony\Component\Form\Extension\Core\Type\FormType' : 'form', array())
+=======
+        $form = $app['form.factory']->createBuilder('form', array())
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             ->getForm();
 
         $form->handleRequest($req = Request::create('/', 'POST', array('form' => array(
@@ -147,6 +161,7 @@ class FormServiceProviderTest extends \PHPUnit_Framework_TestCase
     }
 }
 
+<<<<<<< HEAD
 if (class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType')) {
     class DummyFormType extends AbstractType
     {
@@ -161,6 +176,16 @@ if (class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType')) {
         {
             return 'dummy';
         }
+=======
+class DummyFormType extends AbstractType
+{
+    /**
+     * @return string The name of this type
+     */
+    public function getName()
+    {
+        return 'dummy';
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     }
 }
 
@@ -169,7 +194,11 @@ if (method_exists('Symfony\Component\Form\AbstractType', 'configureOptions')) {
     {
         public function getExtendedType()
         {
+<<<<<<< HEAD
             return class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Symfony\Component\Form\Extension\Core\Type\FileType' : 'file';
+=======
+            return 'file';
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         }
 
         public function configureOptions(OptionsResolver $resolver)
@@ -182,7 +211,11 @@ if (method_exists('Symfony\Component\Form\AbstractType', 'configureOptions')) {
     {
         public function getExtendedType()
         {
+<<<<<<< HEAD
             return class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Symfony\Component\Form\Extension\Core\Type\FileType' : 'file';
+=======
+            return 'file';
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         }
 
         public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -44,6 +44,10 @@ class api {
     
     public function post($data){
         
+<<<<<<< HEAD
+=======
+        
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         return $this->_callapi('POST', $this->_url, $this->_headers, json_encode($data));
         
         
@@ -62,7 +66,11 @@ class api {
         $data = array('file' => $cfile);
           
         
+<<<<<<< HEAD
         print_r($data);
+=======
+     
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         //$data = array('extra_info' => '123456','file_contents'=>'@'.$file_name_with_full_path);
                 
         $headers = $this->_headers;
@@ -133,8 +141,13 @@ class api {
 
         $response = curl_exec($handle);
         $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+<<<<<<< HEAD
 //         echo "response\n";
 //         print_r($response);
+=======
+        
+     
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         return $response;
    }
 

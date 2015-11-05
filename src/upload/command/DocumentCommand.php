@@ -10,8 +10,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use GearmanClient;
+<<<<<<< HEAD
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+=======
+
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
 
 
@@ -91,7 +95,14 @@ class DocumentCommand extends Command
                null,
                InputOption::VALUE_REQUIRED,
                'Nombre de la base de datos'
+<<<<<<< HEAD
             )  ;
+=======
+            )  
+                
+              
+                ;
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             
         
         
@@ -101,6 +112,7 @@ class DocumentCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
 	{
         
+<<<<<<< HEAD
         
          // create a log channel
         $log = new Logger('name');
@@ -109,17 +121,34 @@ class DocumentCommand extends Command
         
         
         
+=======
+         
+        // 
+
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         $tt1 = microtime(true);
         $output->writeln('Descargar documentos de archivadores de sifinca 1.0 y carga en sifinca 2.0 ');
         
         $archivador = $input->getArgument('archivador');
          
+<<<<<<< HEAD
+=======
+      $container = "37d5ff73-83f2-477a-b65c-d8792993a205";
+      $container = "47dd8c91-6bf7-4728-87fc-ecf8a4ed1771"; 
+        
+        
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         if ($archivador) {
            
          ##   conectar a sifinca
          $output->writeln('<info>Conectando a base de datos ...</info>');
             
+<<<<<<< HEAD
         ## conectar a base de zeus -> convertir luego a opciones 
+=======
+       /*
+         ## conectar a base de zeus -> convertir luego a opciones 
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         $conn = new data(array(
           'server' =>'10.102.1.3'
           ,'user' =>'sa'
@@ -128,10 +157,40 @@ class DocumentCommand extends Command
           ,'engine'=>'mssql'
 
          ));
+<<<<<<< HEAD
   
         ### descargar documentos
         
          $path= $input->getOption('path');
+=======
+        * */
+       
+         $server ='10.102.1.3';
+         if($input->getOption('server')){
+             $server = $input->getOption('server');
+         }
+         
+         $database='docflow';
+           if($input->getOption('database')){
+             $database = $input->getOption('database');
+         }
+         $user= 'sa';
+         $pass='75080508360';
+         
+    ## conectar a base de zeus -> convertir luego a opciones  ---> MONTERIA
+        $conn = new data(array(
+          'server' =>$server
+          ,'user' =>$user
+          ,'pass' =>$pass
+          ,'database' =>$database
+          ,'engine'=>'mssql'
+
+         ));
+        ### descargar documentos
+        
+         $path= $input->getOption('path');
+         
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
          if($path){
              
             $path = "/var/www/html/upload/files/".$path."/"; 
@@ -146,6 +205,10 @@ class DocumentCommand extends Command
            mkdir($path);
        }
        $tasks = $input->getOption('tasks');
+<<<<<<< HEAD
+=======
+      
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
        $thumano = new documento($conn,$archivador);
     
        if( $input->getOption('download')){
@@ -184,11 +247,19 @@ class DocumentCommand extends Command
                }else{
                
                ### buscar si el documento ya esta -> verficar si esta el "file" y el "documento" 
+<<<<<<< HEAD
               echo "2\n";
                    echo $row['radicacion'];
               $d=$this->getDocument($row['radicacion']); 
               
               print_r($d);
+=======
+            
+            
+              $d=$this->getDocument($row['radicacion'],$container); 
+              
+             
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
               
               if($d->total==0)   
               
@@ -230,23 +301,41 @@ class DocumentCommand extends Command
                  
                  if( $input->getOption('post')){
                            
+<<<<<<< HEAD
                          echo "Nuevo!!!!";
+=======
+                         echo "Nuevo!!!! - \n";
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                            
                           $destinyUser=$input->getOption('destinyUser');
                           
                           if( $destinyUser){
+<<<<<<< HEAD
                             $user = json_encode(array("destinyUser"=> $destinyUser));     
                         }else{
                             $user = json_encode(array("destinyUser"=> ''));
+=======
+                            $user = $destinyUser;     
+                        }else{
+                            $user = "sifinca@araujoysegovia.com";
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                         }
                           
                         $h ="x-sifinca:SessionToken SessionID=\"$token\", Username=\"sifinca@araujoysegovia.com\"";
                         
+<<<<<<< HEAD
                          $result=$this->postfile($filepdf,$h ,$user, $urlapi1);
                         
                          // add records to the log
                       
                         echo json_encode($result)."\n";
+=======
+                         $result=$this->postfile($filepdf,$user,$h , $urlapi1);
+                        
+                         // add records to the log
+                      
+                        //echo json_encode($result)."\n";
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                        
                         if(is_array($result)){
                        
@@ -263,9 +352,13 @@ class DocumentCommand extends Command
                                       array("idContract"=> $tag['codigo']),
                                       array("third"=> $tag['tercero']),
                                       array("idThird"=> $tag['idtercero']),
+<<<<<<< HEAD
                                      
 
 
+=======
+           
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                                     ); 
                             }
 
@@ -292,7 +385,11 @@ class DocumentCommand extends Command
                          $result2=$document->post($doc);
                          $msg=json_encode($result2);
                         
+<<<<<<< HEAD
                          echo $msg ."\n";
+=======
+                       
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                          
                         }
                  
@@ -368,11 +465,19 @@ protected function getIdTypeDoc($id, $archivador){
 }
 
 
+<<<<<<< HEAD
 protected function postfile($f,$data,$h,$url){
     
     
     
     $cmd="curl --form \"filename=@$f\" --data $data  -H '$h'  $url";
+=======
+protected function postfile($f,$u,$h,$url){
+    
+    
+    
+    $cmd="curl --form \"filename=@$f\" --form showForIndexed=true --form destinyUser=$u -H '$h'   $url";
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     $result= shell_exec($cmd);
     
     
@@ -381,7 +486,11 @@ protected function postfile($f,$data,$h,$url){
 
 
 
+<<<<<<< HEAD
 protected function getDocument($rad) {
+=======
+protected function getDocument($rad, $container) {
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     
    $urlapi = 'http://www.sifinca.net/sifinca/web/app.php/archive/main/document/metadata?skip=0&page=1&pageSize=10';
               $user= "sifinca@araujoysegovia.com";
@@ -392,7 +501,11 @@ protected function getDocument($rad) {
    ### aplica solo thumano
    
    $data = array(
+<<<<<<< HEAD
                 "container"=> "37d5ff73-83f2-477a-b65c-d8792993a205",
+=======
+                "container"=> $container,
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 "documentType"=> null,
                 "nameDocument"=> $rad,
                 "initialDate"=> null,

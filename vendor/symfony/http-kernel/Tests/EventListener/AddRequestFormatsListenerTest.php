@@ -16,7 +16,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
+<<<<<<< HEAD
  * Test AddRequestFormatsListener class.
+=======
+ * Test AddRequestFormatsListener class
+>>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
  *
  * @author Gildas Quemener <gildas.quemener@gmail.com>
  */
