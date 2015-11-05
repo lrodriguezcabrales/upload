@@ -123,10 +123,7 @@ public function parseUtf8ToIso88591(&$string){
          
             $iso88591_1 = utf8_decode($string);
             $iso88591_2 = iconv('UTF-8', 'ISO-8859-1', $string);
-<<<<<<< HEAD
-=======
-            
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
             $string = mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8');       
      }
 }

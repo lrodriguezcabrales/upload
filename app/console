@@ -37,10 +37,9 @@ $console->add(new EmpleadosCommand());
 $console->add(new ContableCommand());
 $console->add(new DocumentCommand());
 $console->add(new GetDocumentsCommand());
-$console->add(new ClientsBogotaCommand());
+$console->add(new ClientsCartagenaCommand());
 $console->add(new InmueblesCartagenaCommand());
 $console->add(new FotosInmueblesCartagenaCommand());
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 $console->run();
 
 

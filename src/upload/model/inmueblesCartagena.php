@@ -20,11 +20,8 @@ class inmueblesCartagena {
 //  				  WHERE id_ciudad = 'CTG'
 //     			  AND (id_edificio IS NULL OR id_edificio = '')";
 
-<<<<<<< HEAD
+
     	$query = "SELECT TOP 1 * FROM inmuebles
-=======
-    	$query = "SELECT TOP 5 * FROM inmuebles
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
   			      WHERE id_ciudad = 'CTG'
      			  AND (id_edificio IS NOT NULL)";
 
@@ -121,8 +118,7 @@ class inmueblesCartagena {
     
     	return $fotos;
     }
-<<<<<<< HEAD
-    
+
     public function getEdificios() {
     	
     	$query = "SELECT * FROM edificios";
@@ -149,6 +145,5 @@ class inmueblesCartagena {
     	 
     	return $cliente;
     }
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
 }

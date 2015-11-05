@@ -32,7 +32,6 @@ class EmpleadosCommand extends Command
                'Cedula del empleado'
             )
                 
-<<<<<<< HEAD
                  ->addOption(
                'update',
                null,
@@ -45,13 +44,6 @@ class EmpleadosCommand extends Command
                 null,
                 InputOption::VALUE_REQUIRED,
                 'Nombre del Archivo '
-=======
-                ->addOption(
-                'post',
-                null,
-                InputOption::VALUE_NONE,
-                'Actualizar empleados '
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 
             );
         
@@ -62,12 +54,9 @@ class EmpleadosCommand extends Command
             
         
         $output->writeln('Cargar datos de empleados de metadatos de Archivos de Sifinca 2.0 ');
-<<<<<<< HEAD
         
    
                      
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
            
         $conn = new data(array(
              'server' =>'10.102.1.3'
@@ -93,7 +82,6 @@ class EmpleadosCommand extends Command
                 $empleados=$e->getEmpleados(array('id'=>$id));       
                
            }
-<<<<<<< HEAD
            
            if($input->getOption('terceros')){
              $terceros =$e->getTerceros();
@@ -101,16 +89,6 @@ class EmpleadosCommand extends Command
           
            if($input->getOption('post')){
                
-=======
-                    
-             $terceros =$e->getTerceros();
-         
-          
-           if($input->getOption('post')){
-               
-               
-               
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                $this->postEmpleados($empleados);
                
                   if($terceros){
@@ -134,29 +112,14 @@ class EmpleadosCommand extends Command
           
         }
         
-<<<<<<< HEAD
-=======
-              
-        
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         
         protected function postEmpleados($empleados){
             
             $url='http://www.sifinca.net/sifinca/web/app.php/archive/main/history/payroll';
-<<<<<<< HEAD
             $user='sifinca@araujoysegovia.com';
             $pass='araujo123';
             $api = $this->SetupApi($url,$user,$pass);
             
-=======
-            
-            //$urlget ='http://www.sifinca.net/sifinca/web/app.php/index/tag/payroll';
-            $user='sifinca@araujoysegovia.com';
-            $pass='araujo123';
-            $api = $this->SetupApi($url,$user,$pass);
-            //$api2 =$this->SetupApi($urlget,$user,$pass);
-              $n=0;
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             foreach ($empleados as $row) {
                 
                
@@ -167,34 +130,9 @@ class EmpleadosCommand extends Command
                 "idThird"=> "",
                 "third"=> "" 
              );
-<<<<<<< HEAD
             
            
              print_r($api->post($map));
-=======
-           
-                
-                // verificar si esta? GET
-                $id ='?filter=[{%22value%22:%22'.$row['Codigo'].'%22,%20%22operator%22:%22equal%22,%20%22property%22:%22idContract%22}]';
-                
-                              
-                $result = json_decode($api->get($id),true);
-                
-             
-                
-             
-               if ($result['total']<1){
-                  $n++;
-                  
-                   print_r($api->post($map));
-                  
-               }else{
-                   echo $row['Codigo']." -> OK \n";
-               }
-
-               
-             //;
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             }
             
             
@@ -209,19 +147,11 @@ class EmpleadosCommand extends Command
         
         protected function postTerceros($terceros){
             
-<<<<<<< HEAD
-=======
-            $urlget ='http://www.sifinca.net/sifinca/web/app.php/index/tag/payroll';
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             $url='http://www.sifinca.net/sifinca/web/app.php/archive/main/history/payroll';
             $user='sifinca@araujoysegovia.com';
             $pass='araujo123';
             $api = $this->SetupApi($url,$user,$pass);
-<<<<<<< HEAD
             
-=======
-             $api2 =$this->SetupApi($urlget,$user,$pass);
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             foreach ($terceros as $row) {
                 
                
@@ -233,27 +163,8 @@ class EmpleadosCommand extends Command
                 "third"=> $row['Nombre'] 
              );
             
-<<<<<<< HEAD
            
              print_r($api->post($map));
-=======
-              // verificar si esta? GET
-                $id ='?filter=[{%22value%22:%22'.$row['Codigo'].'%22,%20%22operator%22:%22equal%22,%20%22property%22:%22idThird%22}]';
-                
-                              
-                $result = json_decode($api2->get($id),true);
-                
-               
-               if ($result['total']==0){
-                  print_r($api->post($map));
-               }else{
-                   echo $row['Codigo']." -> OK \n";
-               }
-   
-                
-                
-            
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             }
             
             

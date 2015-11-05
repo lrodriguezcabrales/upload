@@ -83,7 +83,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	$inmueblesSF2 = $apiInmueblesSF2->get();
     	$inmueblesSF2 = json_decode($inmueblesSF2, true);
     
-<<<<<<< HEAD
+
     	echo "\nInmuebles SF2\n";
     	echo $inmueblesSF2['total']."\n";
     	
@@ -94,18 +94,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	if($totalInmueblesSF2 > 0){
     		
     		for ($i = 22000; $i < 22001; $i++) {
-=======
-    	//echo "\nInmuebles SF2\n";
-    	//print_r($inmueblesSF2);
-    	
-    	//$totalInmueblesSF2 = $inmueblesSF2['total'];
-    	
-    	$totalInmueblesSF2 = 100;   	   	
-    	
-    	if($totalInmueblesSF2 > 0){
-    		
-    		for ($i = 1; $i < $totalInmueblesSF2; $i++) {
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
     			
     			$inmueble = $inmueblesSF2['data'][$i];
     			
@@ -149,11 +138,8 @@ class FotosInmueblesCartagenaCommand extends Command
     				    				
     				file_put_contents($pathFilename, file_get_contents($url));
     				
-<<<<<<< HEAD
     				$marcadeagua = "/var/www/html/upload/logoAyS6.png";
-=======
-    				$marcadeagua = "/var/www/html/upload/fotosinmueble/logoAyS6.png";
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
     				$margen = 20;
     				
     				$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
@@ -172,32 +158,24 @@ class FotosInmueblesCartagenaCommand extends Command
     				
     				$result= shell_exec($cmd);
     				$result = json_decode($result, true);
-    				
-<<<<<<< HEAD
+
 //       				echo "\n\nresult\n";
 //       				print_r($result);
-=======
-//      				echo "\n\nresult\n";
-//      				print_r($result);
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
     			
     			if($result['0']['success'] == true){
 	    			echo "\nOk";
 	    			$total++;
 	    			 
 	    		}else{
-<<<<<<< HEAD
+
 	    			echo "\nError -----\n";
 	    			
 	    			//print_r($result);
 
 	    			echo "\nInmueble: ".$inmueble['consecutive']."\n";
 	    			
-=======
-	    			echo "\nError\n";
-	    			//print_r($result);
-	    			 
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
 	    			$urlapiMapper = $this->server.'catchment/main/errorphoto';
 	    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
 	    			
@@ -210,12 +188,9 @@ class FotosInmueblesCartagenaCommand extends Command
 	    			 
 	    		}
     		}
-    		
-<<<<<<< HEAD
+
     		echo "\nTotal fotos del inmueble ".$inmueble['consecutive']." - ".$total."\n";
-=======
-    		echo "\n\nTotal fotos del inmueble ".$inmueble['consecutive']." - ".$total."\n";
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
     	}
     	
     			

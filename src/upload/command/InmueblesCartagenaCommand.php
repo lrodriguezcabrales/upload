@@ -22,7 +22,6 @@ class InmueblesCartagenaCommand extends Command
 	//public $server = 'http://10.102.1.22/sifinca/web/app.php/';
 	//public $serverRoot = 'http:/10.102.1.22/';
 	
-<<<<<<< HEAD
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 		
@@ -36,16 +35,7 @@ class InmueblesCartagenaCommand extends Command
 	
 	public  $typeAddressHome = '8b8b75ae-6338-461f-8bbd-fc1283621d83';
 	public  $typeAddressCorrespondencia = 'e8e9cc62-ec79-4453-8247-a57cc1cf4712';
-=======
-	public $user= "sifinca@araujoysegovia.com";
-	public $pass="araujo123";
-		
-	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
-	public $idTypeCedula = '6f80343e-f629-492a-80d1-a7e197c7cf48';
-	
-	public $contactTypeOther = 'ac76deff-6371-4264-b724-b24b98803b94';
-	public  $typeAddressHome = '8b8b75ae-6338-461f-8bbd-fc1283621d83';
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
 	
 	public  $attributeAlcobas = 'b4b7ea95-ea41-4546-95e0-82b56a947411';
 	public  $attributeBanos = 'bb0666a4-e3bf-45eb-8760-d6602a868ed8';
@@ -92,14 +82,11 @@ class InmueblesCartagenaCommand extends Command
         //$this->buildFotos($inmueblesCtg);
 
         //$this->subirInmueblesConError();
-<<<<<<< HEAD
+
         $this->mapperTipoEdificio($inmueblesCtg);
         //$this->buildEdificios($inmueblesCtg);
         
-=======
-        
-        $this->buildEdificio($inmueblesCtg);
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
     }
     
     function mapperTipoInmueble($inmueblesCtg) {
@@ -444,7 +431,7 @@ class InmueblesCartagenaCommand extends Command
     	echo "tipos de servicios mapeados: ".$total."\n";
     }
     
-<<<<<<< HEAD
+
     function mapperTipoEdificio($inmueblesCtg) {
     
     	$fileJson = file_get_contents($this->serverRoot."upload/src/upload/data/mapperTipoEdificio.json");
@@ -464,8 +451,7 @@ class InmueblesCartagenaCommand extends Command
     }
     
     
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
     function buildInmuebles($inmuebles, $inmueblesCtg) {
     	
     	$urlapiInmueble = $this->server.'catchment/main/property';
@@ -792,7 +778,6 @@ class InmueblesCartagenaCommand extends Command
     	echo "\n\nTotal inmuebles pasados ".$total."\n";
     }
     
-<<<<<<< HEAD
     function buildEdificios($inmueblesCtg) {
     	
     	$edificiosSF1 = $inmueblesCtg->getEdificios();
@@ -908,17 +893,7 @@ class InmueblesCartagenaCommand extends Command
     	
     	echo "\n\nTotal edificios pasados ".$total."\n";
     	
-=======
-    function buildEdificio($inmueblesCtg) {
-    	
-    	$edificiosSF1 = $inmueblesCtg->getInmuebles();
-    	
-    	$bEdificio = array(
-    		   			
-    	);
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
-    	
-    }   
+	}
     
     function buidDireccion($inmueble){
     	
@@ -1271,12 +1246,7 @@ class InmueblesCartagenaCommand extends Command
 		}
 		
 	}    
-<<<<<<< HEAD
- 
-=======
-    
 
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     function subirInmueblesConError() {
     	
     	$urlInmueblesSF2 = $this->server.'catchment/main/errorproperty';
@@ -1347,7 +1317,6 @@ class InmueblesCartagenaCommand extends Command
     	
     }
 	
-<<<<<<< HEAD
     function searchClientSF2($identificacion){
     	    	
 //     	echo "\nidentificacion\n";
@@ -1504,10 +1473,7 @@ class InmueblesCartagenaCommand extends Command
     	
     	return $accountType;
     }
-    
-=======
-	
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
     protected function SetupApi($urlapi,$user,$pass){
     
     	$url= $this->server."login";
@@ -1519,22 +1485,14 @@ class InmueblesCartagenaCommand extends Command
     	$a = new api($url, $headers);
     
     	$result= $a->post(array("user"=>$user,"password"=>$pass));
-    	 
-<<<<<<< HEAD
+
     	     	//echo "aqui";
     	     	//print_r($result);
-=======
-    	//     	echo "aqui";
-    	//     	print_r($result);
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
     
     	 
     	$data=json_decode($result);
     
-<<<<<<< HEAD
-    	//echo $data->id;
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     
     	$token = $data->id;
     
