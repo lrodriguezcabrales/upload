@@ -17,10 +17,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Unit tests for ServiceControllerResolver, see ServiceControllerResolverRouterTest for some
- * integration tests
+ * integration tests.
  */
 class ServiceControllerResolverTest extends \PHPUnit_Framework_Testcase
 {
+    private $app;
+    private $mockCallbackResolver;
+    private $mockResolver;
+    private $resolver;
+
     public function setup()
     {
         $this->mockResolver = $this->getMockBuilder('Symfony\Component\HttpKernel\Controller\ControllerResolverInterface')

@@ -133,8 +133,8 @@ class api {
 
         $response = curl_exec($handle);
         $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        echo "response\n";
-        print_r($response);
+//         echo "response\n";
+//         print_r($response);
         return $response;
    }
 
