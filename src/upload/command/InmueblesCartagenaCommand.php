@@ -19,6 +19,8 @@ class InmueblesCartagenaCommand extends Command
 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
 	public $serverRoot = 'http://www.sifinca.net/';
 	
+	public $localServer = 'http://10.102.1.22/';
+	
 	//public $server = 'http://10.102.1.22/sifinca/web/app.php/';
 	//public $serverRoot = 'http:/10.102.1.22/';
 	
@@ -83,10 +85,9 @@ class InmueblesCartagenaCommand extends Command
 
         //$this->subirInmueblesConError();
 
-        $this->mapperTipoEdificio($inmueblesCtg);
-        //$this->buildEdificios($inmueblesCtg);
+        //$this->mapperTipoEdificio($inmueblesCtg);
+        $this->buildEdificios($inmueblesCtg);
         
-
     }
     
     function mapperTipoInmueble($inmueblesCtg) {
@@ -434,7 +435,7 @@ class InmueblesCartagenaCommand extends Command
 
     function mapperTipoEdificio($inmueblesCtg) {
     
-    	$fileJson = file_get_contents($this->serverRoot."upload/src/upload/data/mapperTipoEdificio.json");
+    	$fileJson = file_get_contents($this->localServer."upload/src/upload/data/mapperTipoEdificio.json");
     	//echo $fileJson;
     	$data = json_decode($fileJson, true);
     	//print_r($data);
@@ -790,6 +791,28 @@ class InmueblesCartagenaCommand extends Command
     	for ($i = 0; $i < 1; $i++) {
     		$edificio = $edificiosSF1[$i];
     		
+    		
+    		$urlBuildingType = $this->server.'admin/sifinca/mapper/buildingType/'.$edificio['id_tipo_edif'];
+    		//echo "\n".$urlPropertyType."\n";
+    		$apiBuildingType = $this->SetupApi($urlBuildingType, $this->user, $this->pass);
+    		 
+    		$buildingTypeMapper = $apiBuildingType->get();
+    		$buildingTypeMapper = json_decode($buildingTypeMapper, true);
+    		//print_r($propertyTypeMapper);
+    		$buildingType = null;
+    		if($buildingTypeMapper['total'] > 0){
+    			$propertyType = $buildingTypeMapper['data']['0']['idTarget'];
+    			if(!is_null($buildingType)){
+    		
+    				$buildingType = array('id'=>$buildingType);
+    		
+    				if($buildingTypeMapper['total'] == 0){
+    					$buildingType = null;
+    				}
+    		
+    			}
+    		}
+    		
     		//print_r($edificio);
     		
     		//return ;
@@ -843,6 +866,7 @@ class InmueblesCartagenaCommand extends Command
     		$bEdificio = array(
     				'idSifincaOne' => $idEdificio,
     				'name' => $edificio['Nombre'],
+    				'buildingType' => $buildingType,
     				'address' => $direccion,
     				//'description' => $edificio[''],
     				'contact' => $contacto,
