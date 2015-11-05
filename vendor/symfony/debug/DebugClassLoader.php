@@ -21,8 +21,6 @@ namespace Symfony\Component\Debug;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Christophe Coevoet <stof@notk.org>
  * @author Nicolas Grekas <p@tchwork.com>
- *
- * @api
  */
 class DebugClassLoader
 {
@@ -32,17 +30,12 @@ class DebugClassLoader
     private static $caseCheck;
     private static $deprecated = array();
     private static $php7Reserved = array('int', 'float', 'bool', 'string', 'true', 'false', 'null');
-<<<<<<< HEAD
     private static $darwinCache = array('/' => array('/', array()));
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
     /**
      * Constructor.
      *
      * @param callable|object $classLoader Passing an object is @deprecated since version 2.5 and support for it will be removed in 3.0
-     *
-     * @api
      */
     public function __construct($classLoader)
     {
@@ -224,7 +217,6 @@ class DebugClassLoader
 
                 throw new \RuntimeException(sprintf('The autoloader expected class "%s" to be defined in file "%s". The file was found but the class was not in it, the class name or namespace probably has a typo.', $class, $file));
             }
-<<<<<<< HEAD
             if (self::$caseCheck) {
                 $real = explode('\\', $class.strrchr($file, '.'));
                 $tail = explode(DIRECTORY_SEPARATOR, str_replace('/', DIRECTORY_SEPARATOR, $file));
@@ -242,15 +234,10 @@ class DebugClassLoader
             if (self::$caseCheck && $tail) {
                 $tail = DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $tail);
                 $tailLen = strlen($tail);
-=======
-            if (self::$caseCheck && preg_match('#([/\\\\][a-zA-Z_\x7F-\xFF][a-zA-Z0-9_\x7F-\xFF]*)+\.(php|hh)$#D', $file, $tail)) {
-                $tail = $tail[0];
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 $real = $refl->getFileName();
 
                 if (2 === self::$caseCheck) {
                     // realpath() on MacOSX doesn't normalize the case of characters
-<<<<<<< HEAD
 
                     $i = 1 + strrpos($real, '/');
                     $file = substr($real, $i);
@@ -313,31 +300,6 @@ class DebugClassLoader
                   && 0 !== substr_compare($real, $tail, -$tailLen, $tailLen, false)
                 ) {
                     throw new \RuntimeException(sprintf('Case mismatch between class and real file names: %s vs %s in %s', substr($tail, -$tailLen + 1), substr($real, -$tailLen + 1), substr($real, 0, -$tailLen + 1)));
-=======
-                    $cwd = getcwd();
-                    $basename = strrpos($real, '/');
-                    chdir(substr($real, 0, $basename));
-                    $basename = substr($real, $basename + 1);
-                    // glob() patterns are case-sensitive even if the underlying fs is not
-                    if (!in_array($basename, glob($basename.'*', GLOB_NOSORT), true)) {
-                        $real = getcwd().'/';
-                        $h = opendir('.');
-                        while (false !== $f = readdir($h)) {
-                            if (0 === strcasecmp($f, $basename)) {
-                                $real .= $f;
-                                break;
-                            }
-                        }
-                        closedir($h);
-                    }
-                    chdir($cwd);
-                }
-
-                if (0 === substr_compare($real, $tail, -strlen($tail), strlen($tail), true)
-                  && 0 !== substr_compare($real, $tail, -strlen($tail), strlen($tail), false)
-                ) {
-                    throw new \RuntimeException(sprintf('Case mismatch between class and source file names: %s vs %s', $class, $real));
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 }
             }
 

@@ -18,10 +18,7 @@ use Symfony\Component\HttpKernel\Fragment\InlineFragmentRenderer;
 use Symfony\Component\HttpKernel\Fragment\EsiFragmentRenderer;
 use Symfony\Component\HttpKernel\Fragment\HIncludeFragmentRenderer;
 use Symfony\Component\HttpKernel\EventListener\FragmentListener;
-<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Kernel;
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 use Symfony\Component\HttpKernel\UriSigner;
 
 /**
@@ -40,13 +37,10 @@ class HttpFragmentServiceProvider implements ServiceProviderInterface
         }
 
         $app['fragment.handler'] = $app->share(function ($app) {
-<<<<<<< HEAD
             if (Kernel::VERSION_ID >= 20800) {
                 return new FragmentHandler($app['request_stack'], $app['fragment.renderers'], $app['debug']);
             }
 
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             return new FragmentHandler($app['fragment.renderers'], $app['debug'], $app['request_stack']);
         });
 

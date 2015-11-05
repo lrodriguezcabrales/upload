@@ -355,13 +355,9 @@ class Router implements RouterInterface, RequestMatcherInterface
 
     /**
      * This method is public because it needs to be callable from a closure in PHP 5.3. It should be converted back to protected in 3.0.
-<<<<<<< HEAD
      *
      * @internal
      *
-=======
-     * @internal
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      * @return GeneratorDumperInterface
      */
     public function getGeneratorDumperInstance()
@@ -371,13 +367,9 @@ class Router implements RouterInterface, RequestMatcherInterface
 
     /**
      * This method is public because it needs to be callable from a closure in PHP 5.3. It should be converted back to protected in 3.0.
-<<<<<<< HEAD
      *
      * @internal
      *
-=======
-     * @internal
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      * @return MatcherDumperInterface
      */
     public function getMatcherDumperInstance()

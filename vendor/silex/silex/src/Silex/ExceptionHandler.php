@@ -12,13 +12,9 @@
 namespace Silex;
 
 use Symfony\Component\Debug\ExceptionHandler as DebugExceptionHandler;
-<<<<<<< HEAD
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
-=======
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -54,7 +50,6 @@ class ExceptionHandler implements EventSubscriberInterface
 
         $handler = new DebugExceptionHandler($this->debug);
 
-<<<<<<< HEAD
         if (method_exists($handler, 'getHtml')) {
             $exception = $event->getException();
             if (!$exception instanceof FlattenException) {
@@ -68,9 +63,6 @@ class ExceptionHandler implements EventSubscriberInterface
         }
 
         $event->setResponse($response);
-=======
-        $event->setResponse($handler->createResponse($event->getException()));
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     }
 
     /**

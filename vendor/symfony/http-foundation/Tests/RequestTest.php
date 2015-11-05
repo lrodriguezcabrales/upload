@@ -980,11 +980,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testContentAsResource()
     {
-<<<<<<< HEAD
         $resource = fopen('php://memory', 'r+');
-=======
-        $resource = fopen('php://memory','r+');
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         fwrite($resource, 'My other content');
         rewind($resource);
 
@@ -1010,13 +1006,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getContentCantBeCalledTwiceWithResourcesProvider
+     * @requires PHP 5.6
      */
     public function testGetContentCanBeCalledTwiceWithResources($first, $second)
     {
-        if (PHP_VERSION_ID < 50600) {
-            $this->markTestSkipped('PHP < 5.6 does not allow to open php://input several times.');
-        }
-
         $req = new Request();
         $a = $req->getContent($first);
         $b = $req->getContent($second);
@@ -1264,12 +1257,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($request->isXmlHttpRequest());
     }
 
+    /**
+     * @requires extension intl
+     */
     public function testIntlLocale()
     {
-        if (!extension_loaded('intl')) {
-            $this->markTestSkipped('The intl extension is needed to run this test.');
-        }
-
         $request = new Request();
 
         $request->setDefaultLocale('fr');

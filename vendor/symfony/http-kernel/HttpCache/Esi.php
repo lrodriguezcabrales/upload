@@ -200,7 +200,6 @@ class Esi implements SurrogateInterface
      */
     public function process(Request $request, Response $response)
     {
-        $this->request = $request;
         $type = $response->headers->get('Content-Type');
         if (empty($type)) {
             $type = 'text/html';
@@ -213,13 +212,8 @@ class Esi implements SurrogateInterface
 
         // we don't use a proper XML parser here as we can have ESI tags in a plain text response
         $content = $response->getContent();
-<<<<<<< HEAD
         $content = preg_replace('#<esi\:remove>.*?</esi\:remove>#s', '', $content);
         $content = preg_replace('#<esi\:comment[^>]+>#s', '', $content);
-=======
-        $content = preg_replace('#<esi\:remove>.*?</esi\:remove>#', '', $content);
-        $content = preg_replace('#<esi\:comment[^>]*(?:/|</esi\:comment)>#', '', $content);
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
         $chunks = preg_split('#<esi\:include\s+(.*?)\s*(?:/|</esi\:include)>#', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
         $chunks[0] = str_replace($this->phpEscapeMap[0], $this->phpEscapeMap[1], $chunks[0]);

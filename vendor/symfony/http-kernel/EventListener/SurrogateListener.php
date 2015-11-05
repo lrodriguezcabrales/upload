@@ -17,11 +17,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
-<<<<<<< HEAD
  * SurrogateListener adds a Surrogate-Control HTTP header when the Response needs to be parsed for Surrogates.
-=======
- * SurrogateListener adds a Surrogate-Control HTTP header when the Response needs to be parsed for Surrogates
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */

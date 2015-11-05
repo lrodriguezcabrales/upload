@@ -15,12 +15,9 @@ use Silex\CallbackResolver;
 
 class CallbackResolverTest extends \PHPUnit_Framework_Testcase
 {
-<<<<<<< HEAD
     private $app;
     private $resolver;
 
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     public function setup()
     {
         $this->app = new \Pimple();

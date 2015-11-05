@@ -16,10 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnnotationClassLoaderTest extends AbstractAnnotationLoaderTest
 {
     protected $loader;
-<<<<<<< HEAD
     private $reader;
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
     protected function setUp()
     {
@@ -155,22 +152,14 @@ class AnnotationClassLoaderTest extends AbstractAnnotationLoaderTest
         $classRouteData = array(
             'path' => '/prefix',
             'schemes' => array('https'),
-<<<<<<< HEAD
             'methods' => array('GET'),
-=======
-            'methods' => array('GET')
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         );
 
         $methodRouteData = array(
             'name' => 'route1',
             'path' => '/path',
             'schemes' => array('http'),
-<<<<<<< HEAD
             'methods' => array('POST', 'PUT'),
-=======
-            'methods' => array('POST', 'PUT')
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         );
 
         $this->reader

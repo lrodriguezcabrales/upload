@@ -45,11 +45,7 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
             $this->maxAges[] = $response->getMaxAge();
         }
 
-<<<<<<< HEAD
         ++$this->embeddedResponses;
-=======
-        $this->embeddedResponses++;
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     }
 
     /**

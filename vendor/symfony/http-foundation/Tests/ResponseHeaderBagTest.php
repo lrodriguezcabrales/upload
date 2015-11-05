@@ -14,23 +14,11 @@ namespace Symfony\Component\HttpFoundation\Tests;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Cookie;
 
-require_once __DIR__.'/ClockMock.php';
-
+/**
+ * @group time-sensitive
+ */
 class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
 {
-<<<<<<< HEAD
-    protected function setUp()
-    {
-        with_clock_mock(true);
-    }
-
-    protected function tearDown()
-    {
-        with_clock_mock(false);
-    }
-
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     /**
      * @covers Symfony\Component\HttpFoundation\ResponseHeaderBag::allPreserveCase
      * @dataProvider provideAllPreserveCase

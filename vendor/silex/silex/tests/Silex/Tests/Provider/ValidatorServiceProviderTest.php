@@ -88,11 +88,7 @@ class ValidatorServiceProviderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testRegister
-<<<<<<< HEAD
      * @dataProvider getTestValidatorConstraintProvider
-=======
-     * @dataProvider testValidatorConstraintProvider
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      */
     public function testValidatorConstraint($email, $isValid, $nbGlobalError, $nbEmailError, $app)
     {
@@ -106,21 +102,13 @@ class ValidatorServiceProviderTest extends \PHPUnit_Framework_TestCase
             ),
         ));
 
-<<<<<<< HEAD
         $builder = $app['form.factory']->createBuilder(class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Symfony\Component\Form\Extension\Core\Type\FormType' : 'form', array(), array(
-=======
-        $builder = $app['form.factory']->createBuilder('form', array(), array(
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             'constraints' => $constraints,
             'csrf_protection' => false,
         ));
 
         $form = $builder
-<<<<<<< HEAD
             ->add('email', class_exists('Symfony\Component\Form\Extension\Core\Type\RangeType') ? 'Symfony\Component\Form\Extension\Core\Type\EmailType' : 'email', array('label' => 'Email'))
-=======
-            ->add('email', 'email', array('label' => 'Email'))
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             ->getForm()
         ;
 
@@ -152,15 +140,9 @@ class ValidatorServiceProviderTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-<<<<<<< HEAD
     public function getTestValidatorConstraintProvider()
     {
         // Email, form is valid, nb global error, nb email error
-=======
-    public function testValidatorConstraintProvider()
-    {
-        // Email, form is valid , nb global error, nb email error
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         return array(
             array('', false, 0, 1),
             array('not an email', false, 0, 1),
@@ -168,14 +150,10 @@ class ValidatorServiceProviderTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-<<<<<<< HEAD
     /**
      * @dataProvider getAddResourceData
      */
     public function testAddResource($registerValidatorFirst)
-=======
-    public function testAddResource()
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     {
         $app = new Application();
         $app['locale'] = 'fr';
@@ -188,25 +166,18 @@ class ValidatorServiceProviderTest extends \PHPUnit_Framework_TestCase
             return $translator;
         }));
 
-<<<<<<< HEAD
         if ($registerValidatorFirst) {
             $app['validator'];
         }
-=======
-        $app['validator'];
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
 
         $this->assertEquals('Pas vide', $app['translator']->trans('This value should not be blank.', array(), 'validators', 'fr'));
     }
 
-<<<<<<< HEAD
     public function getAddResourceData()
     {
         return array(array(false), array(true));
     }
 
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     public function testAddResourceAlternate()
     {
         $app = new Application();

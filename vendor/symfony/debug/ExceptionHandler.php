@@ -38,11 +38,7 @@ class ExceptionHandler
 
     public function __construct($debug = true, $charset = null, $fileLinkFormat = null)
     {
-<<<<<<< HEAD
         if (false !== strpos($charset, '%')) {
-=======
-        if (false !== strpos($charset, '%') xor false === strpos($fileLinkFormat, '%')) {
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
             // Swap $charset and $fileLinkFormat for BC reasons
             $pivot = $fileLinkFormat;
             $fileLinkFormat = $charset;
@@ -157,7 +153,6 @@ class ExceptionHandler
      * it will fallback to plain PHP functions.
      *
      * @param \Exception $exception An \Exception instance
-<<<<<<< HEAD
      */
     private function failSafeHandle(\Exception $exception)
     {
@@ -174,21 +169,6 @@ class ExceptionHandler
         }
 
         $this->sendPhpResponse($exception);
-=======
-     *
-     * @see sendPhpResponse()
-     * @see createResponse()
-     */
-    private function failSafeHandle(\Exception $exception)
-    {
-        if (class_exists('Symfony\Component\HttpFoundation\Response', false)) {
-            $response = $this->createResponse($exception);
-            $response->sendHeaders();
-            $response->sendContent();
-        } else {
-            $this->sendPhpResponse($exception);
-        }
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
     }
 
     /**

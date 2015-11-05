@@ -16,11 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
-<<<<<<< HEAD
  * Adds configured formats to each request.
-=======
- * Adds configured formats to each request
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
  *
  * @author Gildas Quemener <gildas.quemener@gmail.com>
  */
@@ -40,11 +36,7 @@ class AddRequestFormatsListener implements EventSubscriberInterface
     }
 
     /**
-<<<<<<< HEAD
      * Adds request formats.
-=======
-     * Adds request formats
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      *
      * @param GetResponseEvent $event
      */

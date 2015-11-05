@@ -75,7 +75,6 @@ class LoggerDataCollectorTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 1,
-<<<<<<< HEAD
                 array(array('message' => 'foo3', 'context' => array('type' => E_USER_WARNING, 'level' => 0, 'file' => __FILE__, 'line' => 123), 'priority' => 100, 'priorityName' => 'DEBUG')),
                 array(array('message' => 'foo3', 'context' => array('type' => E_USER_WARNING, 'level' => 0, 'file' => __FILE__, 'line' => 123, 'scream' => true), 'priority' => 100, 'priorityName' => 'DEBUG')),
                 0,
@@ -88,10 +87,6 @@ class LoggerDataCollectorTest extends \PHPUnit_Framework_TestCase
                     array('message' => 'foo3', 'context' => array('type' => E_USER_WARNING, 'level' => -1, 'file' => __FILE__, 'line' => 123), 'priority' => 100, 'priorityName' => 'DEBUG'),
                 ),
                 array(array('message' => 'foo3', 'context' => array('type' => E_USER_WARNING, 'level' => -1, 'file' => __FILE__, 'line' => 123, 'errorCount' => 2), 'priority' => 100, 'priorityName' => 'DEBUG')),
-=======
-                array(array('message' => 'foo3', 'context' => array('type' => E_USER_WARNING, 'level' => 0), 'priority' => 100, 'priorityName' => 'DEBUG')),
-                array(array('message' => 'foo3', 'context' => array('type' => E_USER_WARNING, 'level' => 0, 'scream' => true), 'priority' => 100, 'priorityName' => 'DEBUG')),
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
                 0,
                 1,
             ),

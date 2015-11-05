@@ -308,10 +308,7 @@ class BinaryFileResponse extends Response
     /**
      * If this is set to true, the file will be unlinked after the request is send
      * Note: If the X-Sendfile header is used, the deleteFileAfterSend setting will not be used.
-<<<<<<< HEAD
      *
-=======
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
      * @param bool $shouldDelete
      *
      * @return BinaryFileResponse
