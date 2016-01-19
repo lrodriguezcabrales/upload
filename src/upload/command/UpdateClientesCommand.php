@@ -13,7 +13,7 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class ClientsCartagenaCommand extends Command
+class UpdateClientesCommand extends Command
 {	
 	
 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
@@ -35,7 +35,7 @@ class ClientsCartagenaCommand extends Command
     
     protected function configure()
     {
-        $this->setName('clientes')
+        $this->setName('clientsBogota')
 		             ->setDescription('Comando para obtener datos de cliente SF1');
 	}
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
@@ -359,15 +359,12 @@ class ClientsCartagenaCommand extends Command
     	
     	$total = 0;
     	
-    	$totalClients = count($clients);
-    	//$totalClients = 10;
-
-    	$porDonde = 0;
-    	
-
-    	$startTime= new \DateTime();
-    	
-    	for ($i = 0; $i < $totalClients; $i++) {
+    	//$totalClients = count($clients);
+    	//$totalClients = 100;
+    	//$totalClients = 64607; Clientes Naturales
+    	$totalClients = 6052;
+    	//foreach ($clients as $key => $client) {
+    	for ($i = 68; $i < $totalClients; $i++) {
     		
     		
     				
@@ -473,22 +470,14 @@ class ClientsCartagenaCommand extends Command
     			}
     		}
     		
-    		$porDonde++;
-    		echo "\nVamos por: ".$porDonde."\n";
+    		
+    		
     	}
     	
     	
-    	$finalTime = new \DateTime();
-    	 
-    	 
-    	$diff = $startTime->diff($finalTime);
-    	 
-    	 
-    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
-    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
-    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
-    	 
     	
+//     	echo "\nCliente con error\n";
+//     	print_r($clientErrors);
     	echo "\nTotal de clintes creados en SF2: ".$total."\n";
 //     	echo "\nTotal de clintes con error en SF2: ".count($clientErrors)."\n";
     }
@@ -512,7 +501,7 @@ class ClientsCartagenaCommand extends Command
     	 
     	 
     	$identity = array(
-    			'number' => $this->cleanString($client['id_cliente']),
+    			'number' => $client['id_cliente'],
     			'idType' => array('id'=>$idType)
     	);
     	
@@ -649,8 +638,6 @@ class ClientsCartagenaCommand extends Command
     	 
     	$urlapiClient = $this->server.'crm/main/clientcompany';
     	 
-    	//echo "\n".$urlapiClient."\n";
-    	
     	$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
     
     	$urlapiMapper = $this->server.'admin/sifinca/mapper/idType/'.$client['id_identificacion'];
@@ -666,7 +653,7 @@ class ClientsCartagenaCommand extends Command
     
     
     	$identity = array(
-    			'number' => $this->cleanString($client['id_cliente']),
+    			'number' => $client['id_cliente'],
     			'idType' => array('id'=>$idType)
     	);
     	 
@@ -1219,18 +1206,6 @@ class ClientsCartagenaCommand extends Command
     		}
     		
     		}
-    }
-    
-    /**
-     * Eliminar espacios en blanco seguidos
-     * @param unknown $string
-     * @return unknown
-     */
-    function  cleanString($string){
-    	$string = trim($string);
-    	$string = str_replace('&nbsp;', ' ', $string);
-    	$string = preg_replace('/\s\s+/', ' ', $string);
-    	return $string;
     }
     
     protected function SetupApi($urlapi,$user,$pass){

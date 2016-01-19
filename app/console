@@ -10,6 +10,12 @@ use upload\command\GetDocumentsCommand;
 use upload\command\ClientsCartagenaCommand;
 use upload\command\InmueblesCartagenaCommand;
 use upload\command\FotosInmueblesCartagenaCommand;
+use upload\command\ConveniosCartagenaCommand;
+use upload\command\ContratoArriendoCommand;
+use upload\command\ComentariosInmuebleCommand;
+use upload\command\UpdateInmuebleCommand;
+use upload\command\UpdateClientesCommand;
+
 use Knp\Provider\ConsoleServiceProvider;
 
 
@@ -40,6 +46,12 @@ $console->add(new GetDocumentsCommand());
 $console->add(new ClientsCartagenaCommand());
 $console->add(new InmueblesCartagenaCommand());
 $console->add(new FotosInmueblesCartagenaCommand());
+$console->add(new ConveniosCartagenaCommand());
+$console->add(new ContratoArriendoCommand());
+$console->add(new ComentariosInmuebleCommand());
+$console->add(new UpdateInmuebleCommand());
+$console->add(new UpdateClientesCommand());
+
 $console->run();
 
 

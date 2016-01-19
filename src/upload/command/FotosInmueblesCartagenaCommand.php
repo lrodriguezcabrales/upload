@@ -87,112 +87,117 @@ class FotosInmueblesCartagenaCommand extends Command
     	echo "\nInmuebles SF2\n";
     	echo $inmueblesSF2['total']."\n";
     	
-    	//$totalInmueblesSF2 = $inmueblesSF2['total'];
+    	$totalInmueblesSF2 = $inmueblesSF2['total'];
     	
-    	$totalInmueblesSF2 = 23000;   	   	
+    	//$totalInmueblesSF2 = 27658;   	   	
+    	
+    	$globalFotos = 0;
     	
     	if($totalInmueblesSF2 > 0){
     		
-    		for ($i = 22000; $i < 22001; $i++) {
-
+    		for ($i = 0; $i < $totalInmueblesSF2; $i++) {
     			
     			$inmueble = $inmueblesSF2['data'][$i];
     			
-    			//echo "\nInmueble\n";
-    			//print_r($inmueble);
-    			
-    			$fotos = $inmueblesCtg->getFotosDeInmueble($inmueble);
-    			
-    			//echo "\nFotos\n";
-    			//print_r($fotos);
-    			
-    			$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=C';
-    			    			
-    			$urlapiFile = $this->server."archive/main/file";
-    			
-    			$total = 0;
-    			
-    			foreach ($fotos as $foto) {
+    				
+    				$fotos = $inmueblesCtg->getFotosDeInmueble($inmueble);
     				 
-    				$path = "/var/www/html/upload/fotosinmueble/".$foto['id']."/";
+    				$urlInmueblesSF2 = $this->server.'catchment/main/property/'.$inmueble['id'];
     				 
-    			
-    				if (!file_exists($path)) {
-    					//Crearlo
-    					mkdir($path);
+    				$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=C';
+    				
+    				$urlapiFile = $this->server."archive/main/file";
+    				 
+    				$total = 0;
+    				 
+    				foreach ($fotos as $foto) {
+    						
+    					$path = "/var/www/html/upload3/fotosinmueble/".$foto['id']."/";
+    						
+    					 
+    					if (!file_exists($path)) {
+    						//Crearlo
+    						mkdir($path);
+    					}
+    						
+    					///print_r($foto);
+    					$nkey = $foto['nkey'];
+    					$url = $urlFotoSF1.$nkey.'.jpg';
+    						
+    					//echo "url";
+    					//echo "\n".$url."\n";
+    					 
+    						
+    					$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
+    						
+    					//echo "path";
+    					//echo "\n".$pathFilename."\n\n\n";
+    						
+    				
+    					file_put_contents($pathFilename, file_get_contents($url));
+    				
+    					$marcadeagua = "/var/www/html/upload/logoAyS6.png";
+    				
+    					$margen = 20;
+    				
+    					$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
+    				
+    					//print_r($foto);
+    				
+    					$entityId = $inmueble["id"];
+    					$photoName = $foto['nkey'].".".$foto['ext'];
+    					$photoShow = $foto['publicar'];
+    					$showOrder = $foto['orden'];
+    					$description = $foto['descripcion'];
+    					//echo "\nshowOrder\n";
+    					//echo $showOrder;
+    					//Subir foto a SF2
+    					$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description' -H '$h'   $urlapiFile";
+    				
+    					$result= shell_exec($cmd);
+    					$result = json_decode($result, true);
+    				
+    				
+    					if($result['0']['success'] == true){
+    						echo "\nOk";
+    						$total++;
+    						$globalFotos++;
+    						 
+    					}else{
+    				
+    						echo "\nError -----\n";
+    				
+    						//print_r($result);
+    				
+    						if($result['message']){
+    							 
+    							echo "\nYa existe\n";
+    							 
+    						}else{
+    							echo "\nInmueble: ".$inmueble['consecutive']."\n";
+    							 
+    							 
+    							$urlapiMapper = $this->server.'catchment/main/errorphoto';
+    							$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    							 
+    							$error = array(
+    									'photo' => $foto['nkey'],
+    									'objectJson' => $inmueble['consecutive']
+    							);
+    				
+    							$apiMapper->post($error);
+    						}
+    				
+    						 
+    					}
     				}
-    				 
-    				///print_r($foto);
-    				$nkey = $foto['nkey'];
-    				$url = $urlFotoSF1.$nkey.'.jpg';
-    				 
-    				//echo "url";
-    				//echo "\n".$url."\n";
-    			
-    				 
-    				$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
-    				 
-    				//echo "path";
-    				//echo "\n".$pathFilename."\n\n\n";
-    				 
-    				    				
-    				file_put_contents($pathFilename, file_get_contents($url));
     				
-    				$marcadeagua = "/var/www/html/upload/logoAyS6.png";
-
-    				$margen = 20;
+    				echo "\nTotal fotos del inmueble ".$inmueble['consecutive']." - ".$total."\n";
     				
-    				$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
-    				
-    				//print_r($foto);
-    				
-    				$entityId = $inmueble["id"];
-    				$photoName = $foto['nkey'].".".$foto['ext'];
-    				$photoShow = $foto['publicar'];
-    				$showOrder = $foto['orden'];
-    				$description = $foto['descripcion'];
-    				//echo "\nshowOrder\n";
-    				//echo $showOrder;
-    				//Subir foto a SF2
-    				$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description' -H '$h'   $urlapiFile";
-    				
-    				$result= shell_exec($cmd);
-    				$result = json_decode($result, true);
-
-//       				echo "\n\nresult\n";
-//       				print_r($result);
-
-    			
-    			if($result['0']['success'] == true){
-	    			echo "\nOk";
-	    			$total++;
-	    			 
-	    		}else{
-
-	    			echo "\nError -----\n";
-	    			
-	    			//print_r($result);
-
-	    			echo "\nInmueble: ".$inmueble['consecutive']."\n";
-	    			
-
-	    			$urlapiMapper = $this->server.'catchment/main/errorphoto';
-	    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-	    			
-	    			$error = array(
-	    					'photo' => $foto['nkey'],
-	    					'objectJson' => $inmueble['consecutive']
-	    			);
-	    			 
-	    			$apiMapper->post($error);
-	    			 
-	    		}
-    		}
-
-    		echo "\nTotal fotos del inmueble ".$inmueble['consecutive']." - ".$total."\n";
 
     	}
     	
+    	echo "\nGlobal fotos subidas ".$globalFotos."\n";
     			
     	}
     

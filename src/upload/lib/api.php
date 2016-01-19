@@ -42,11 +42,18 @@ class api {
         
     }
     
-    public function post($data){
+ 	public function post($data){
         
         return $this->_callapi('POST', $this->_url, $this->_headers, json_encode($data));
         
         
+    }
+    
+    public function put($data){
+    
+    	return $this->_callapi('PUT', $this->_url, $this->_headers, json_encode($data));
+    
+    
     }
     
     
@@ -67,7 +74,7 @@ class api {
         $headers = $this->_headers;
         $headers[1]='Content-Type: multipart/form-data';
         
-        print_r($headers);
+       // print_r($headers);
         return $this->_callapi('POST', $this->_url, $headers, json_encode($data));
                 
     }
@@ -132,8 +139,7 @@ class api {
 
         $response = curl_exec($handle);
         $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-//         echo "response\n";
-//         print_r($response);
+
 
         return $response;
    }

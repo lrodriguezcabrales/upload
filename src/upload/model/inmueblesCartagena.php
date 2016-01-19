@@ -14,16 +14,23 @@ class inmueblesCartagena {
 
     public function getInmuebles(){
         	    
-//     	$query = "SELECT TOP 5 * FROM inmuebles
-// 					WHERE id_ciudad = 'CTG'";
+    	$query = "SELECT * FROM inmuebles
+WHERE id_ciudad = 'CTG'
+AND tstamp > '2016-01-18 16:00:00.00'";
+
+    	
+//     	$query = "SELECT  promocion, * FROM inmuebles
+// 					WHERE promocion = 1
+// 					AND id_ciudad = 'CTG'";
+    	
 //     	$query = "SELECT TOP 21661 * FROM inmuebles
 //  				  WHERE id_ciudad = 'CTG'
 //     			  AND (id_edificio IS NULL OR id_edificio = '')";
 
 
-    	$query = "SELECT TOP 1 * FROM inmuebles
-  			      WHERE id_ciudad = 'CTG'
-     			  AND (id_edificio IS NOT NULL)";
+//     	$query = "SELECT TOP 6000 * FROM inmuebles
+//   			      WHERE id_ciudad = 'CTG'
+//      			  AND (id_edificio IS NOT NULL)";
 
         $r = $this->_conn->_query($query);
         $clients = $this->_conn->_getData($r);
@@ -31,6 +38,40 @@ class inmueblesCartagena {
         echo "Total clientes SF1: ".count($clients);
     
         return $clients;
+    
+    }
+    
+
+    public function getInmueblesUpdate(){
+    	
+//     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderos FROM inmuebles
+// WHERE id_inmueble = '32421'";
+//     ";
+    	 
+    	$query = "SELECT *, CAST(linderos AS TEXT) FROM inmuebles
+WHERE id_ciudad = 'CTG'
+AND tstamp > '2016-01-18 16:00:00.00'";
+    
+    	 
+    	//     	$query = "SELECT  promocion, * FROM inmuebles
+    	// 					WHERE promocion = 1
+    	// 					AND id_ciudad = 'CTG'";
+    	 
+    	//     	$query = "SELECT TOP 21661 * FROM inmuebles
+    	//  				  WHERE id_ciudad = 'CTG'
+    	//     			  AND (id_edificio IS NULL OR id_edificio = '')";
+    
+    
+    	//     	$query = "SELECT TOP 6000 * FROM inmuebles
+    	//   			      WHERE id_ciudad = 'CTG'
+    	//      			  AND (id_edificio IS NOT NULL)";
+    
+    	$r = $this->_conn->_query($query);
+    	$clients = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	echo "Total clientes SF1: ".count($clients);
+    
+    	return $clients;
     
     }
     

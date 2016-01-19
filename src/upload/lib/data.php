@@ -166,8 +166,9 @@ public function _getData($r){
     
      $list = array();
 
+    // mysql_fetch_array() no myssql_fetch_array() cambialo por favor.
         while ($row = mssql_fetch_array($r)) {
-   
+     //while ($row = mysql_fetch_array($r)) {
             foreach ($row as $key => $value) {
              
                 if(is_string($value) && $key <> 'image'){

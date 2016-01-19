@@ -15,15 +15,28 @@ class clientsCartagena {
 
     public function getClients(){
 
-//         $query = "SELECT TOP 1 * FROM clientes
-//         		  WHERE id_cliente = '1072645983'";   
-         
     	$query = "SELECT * FROM clientes
-		WHERE id_cliente IS NOT NULL
-		AND id_cliente != ''
-		AND id_cliente != '0'
-		AND id_cliente != '000000'
-    	AND nat_juridica = 'J'";
+    	WHERE id_cliente IS NOT NULL
+   
+    	AND fecha_ingreso > '2016-01-18 00:00:00.00'";
+    	
+//     	$query = "SELECT * FROM clientes
+//     	WHERE id_cliente IS NOT NULL
+    	
+//     	AND log_modi > '2016-01-18 5:20:00.00'";
+    	
+//     	$query = "SELECT log_modi, * FROM clientes
+// WHERE id_cliente IS NOT NULL
+// AND log_modi > '2016-01-14 00:00:00.00'";
+//         $query = "SELECT * FROM clientes
+// WHERE id_cliente = '32938206'";   
+         
+//     	$query = "SELECT * FROM clientes
+// 		WHERE id_cliente IS NOT NULL
+// 		AND id_cliente != ''
+// 		AND id_cliente != '0'
+// 		AND id_cliente != '000000'
+//     	AND nat_juridica = 'J'";
     	
 //     	$query = "SELECT TOP 64607 * FROM clientes
 //     			WHERE id_cliente IS NOT NULL
