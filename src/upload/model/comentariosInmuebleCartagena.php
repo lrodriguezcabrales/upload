@@ -15,7 +15,7 @@ class comentariosInmuebleCartagena {
     public function getComentarios(){
     	 
     
-    	$query = "SELECT TOP 162209 U.email, * FROM COMENTARIOS AS C
+    	$query = "SELECT U.email, * FROM COMENTARIOS AS C
   LEFT JOIN usuarios AS U ON C.id_user = U.id_user
   WHERE tipo = 'I'
   ORDER BY fecha ASC";

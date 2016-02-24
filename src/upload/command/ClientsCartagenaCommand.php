@@ -368,10 +368,7 @@ class ClientsCartagenaCommand extends Command
     	$startTime= new \DateTime();
     	
     	for ($i = 0; $i < $totalClients; $i++) {
-    		
-    		
-    				
-    		
+    		    		
     		$client = $clients[$i];
 			//print_r($client);
     		
@@ -379,102 +376,133 @@ class ClientsCartagenaCommand extends Command
     		
     		//echo "\nTipo de cliente: ".$client['nat_juridica'];
     		
-    		if($client['nat_juridica'] == 'N'){
-    			$clientType = 2;
-
+    		//searchClientSF2
+    		
+    		$clientSF2 = $this->searchClientSF2($client['id_cliente']);
+    		
+    		echo "\npaso aqui\n";
+    		
+    		if(is_null($clientSF2)){
     			
+    			if($client['nat_juridica'] == 'N'){
+    				$clientType = 2;
     			
-    			//$result = $this->buildClintePersona($client);
+    				 
+    				 
+    				//$result = $this->buildClintePersona($client);
+    				 
+    				$urlapiClient = $this->server.'crm/main/clientperson';
     			
-    			$urlapiClient = $this->server.'crm/main/clientperson';
-    			 
+    				 
+    				$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
+    				 
+    				//echo "\nAHORA SI\n";
+    				 
+    				 
+    				$bClient = $this->buildClintePersona($client);
     			
-    			$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
-    			
-    			//echo "\nAHORA SI\n";
-    			
-    			
-    			$bClient = $this->buildClintePersona($client);
-    			 
-    			$result = $apiClient->post($bClient);
-    			
-    			$result = json_decode($result, true);
-    			
-    			
-    			
-    			if(isset($result['success'])){
-    				if($result['success'] == true){
-    					echo "\nOk\n";
-    					$total++;
-    				}
-    			}else{
+    				$result = $apiClient->post($bClient);
+    				 
+    				$result = json_decode($result, true);
+    				 
+    				 
+    				 
+    				if(isset($result['success'])){
+    					if($result['success'] == true){
+    						echo "\nOk\n";
+    						$total++;
+    					}
+    				}else{
     					echo "\nError\n";
-    					
-    					//print_r($result);
-    				
-    					
-    					//echo "\nclient\n";
-    					//print_r($bClient);
-    					
+    						
     					$urlapiMapper = $this->server.'crm/main/errorclient';
     					$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    				
+    			
     					$error = array(
     							'client' => $client['id_cliente'],
     							'objectJson' => json_encode($bClient),
     							'error' => $result['message']
     					);
+    			
+    					$apiMapper->post($error);
+    			
+    				}
+    				 
+    				 
+    				 
+    			}else if($client['nat_juridica'] == 'J'){
+    				//echo "\nCliente juridico\n";
+    				$clientType = 3;
+    				 
+    				 
+    				$urlapiClient = $this->server.'crm/main/clientcompany';
+    				//echo "\n".$urlapiClient."\n";
+    				 
+    				$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
+    				 
+    				print_r($apiClient);
+    				 
+    				$bClient = $this->buildClintePersonaJuridica($client);
+    			
+    				$json = json_encode($bClient);
+    				//echo "\n".$json."\n";
+    				 
+    				$result = $apiClient->post($bClient);
+    			
+    				$result = json_decode($result, true);
+    			
+    				//print_r($result);
+    				 
+    				if(isset($result['success'])){
+    					if($result['success'] == true){
+    						echo "\nOk\n";
+    						$total++;
+    					}
+    				}else{
+    					echo "\nError cliente juridico\n";
+    					///echo $result;
+    			
+    					//     				$clientError = array(
+    					//     						'id' => $client['id_cliente'],
+    					//     						'name' => $client['nombre']
+    					//     				);
+    			
+    					//     				$clientErrors[] = $clientError;
+    			
+    					//print_r($result);
+    			
+    					$urlapiMapper = $this->server.'crm/main/errorclient';
+    					$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    			
+    			
+    					$msj = null;
+    					if(isset($result['message'])){
+    						$msj = $result['message'];
+    					}
+    			
+    					$error = array(
+    							'client' => $client['id_cliente'],
+    							'type' => 'J',
+    							'objectJson' => json_encode($bClient),
+    							'error' => $msj
+    					);
     						
     					$apiMapper->post($error);
-    				
-    			}
     			
-    			
-    			
-    		}else if($client['nat_juridica'] == 'J'){
-    			//echo "\nCliente juridico\n";
-    			$clientType = 3;
-    			
-    			$result = $this->buildClintePersonaJuridica($client);
-    			$result = json_decode($result, true);
-    			
-    			//print_r($result);
-    			
-    			if(isset($result['success'])){
-    				if($result['success'] == true){
-    					echo "\nOk\n";
-    					$total++;
     				}
-    			}else{
-    				echo "\nError cliente juridico\n";
-    				///echo $result;
-    				
-//     				$clientError = array(
-//     						'id' => $client['id_cliente'],
-//     						'name' => $client['nombre']
-//     				);
-    				
-//     				$clientErrors[] = $clientError;
-    				
-//     				print_r($result);
-
-    				$urlapiMapper = $this->server.'crm/main/errorclient';
-    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    				
-    				$error = array(
-    						'client' => $client['id_cliente'],
-    						'type' => 'J',
-    						'objectJson' => json_encode($client),
-    						'error' => $result['message']
-    				);
-    					
-    				$apiMapper->post($error);
-    				
     			}
+    			
+    			$porDonde++;
+    			echo "\nVamos por: ".$porDonde."\n";
+    			
+    			
+    			
+    		}else{
+    			
+    			echo "\nEl cliente ya existe: ".$client['id_cliente']."\n";
     		}
     		
-    		$porDonde++;
-    		echo "\nVamos por: ".$porDonde."\n";
+    		
     	}
     	
     	
@@ -706,13 +734,12 @@ class ClientsCartagenaCommand extends Command
     			'contributor' => $contribuyente
     	);
     	 
-    	 
     	//print_r($bClient);
     	 
-    	$json = json_encode($bClient);
-    	//echo "\n".$json."\n";
+//     	$json = json_encode($bClient);
+//     	//echo "\n".$json."\n";
     	 
-    	$result = $apiClient->post($bClient);
+//     	$result = $apiClient->post($bClient);
     	
 //     	if(isset($result['message'])){
 //     		if($result['code'] == 500){
@@ -724,7 +751,9 @@ class ClientsCartagenaCommand extends Command
     	
     	//echo "\nCliente creado\n";
     	 
-    	return $result;
+    	//return $result;
+    	
+    	return $bClient;
     }
      
     function buildDirecciones($client) {
@@ -1043,25 +1072,19 @@ class ClientsCartagenaCommand extends Command
     		
     		if($client['id_representante'] != 0){
     			
-    			//echo "\nentro aqui";
-    			$name = explode(" ", $client['representante_legal']);
-    			//print_r($name);
-    			 
-    			$representateLegal = array(
-    					'firstname' => $client['representante_legal'],
-    					'lastname' => $client['representante_legal'],
-    					'identity' => array(
-    							'number' => $client['id_representante'],
-    							'idType' => array(
-    									'id' => $this->idTypeCedula
-    							)
-    					)
-    			);
+//     			echo "\n".$client['id_representante']."\n";
+    			$clientSF2 = $this->searchPersonSF2($client['id_representante']);
     			
-    			if(count($name) == 2){
+    			
+    			
+    			if(is_null($clientSF2)){
+    				//echo "\nentro aqui";
+    				$name = explode(" ", $client['representante_legal']);
+    				//print_r($name);
+    				
     				$representateLegal = array(
-    						'firstname' => $name[0],
-    						'lastname' => $name[1],
+    						'firstname' => $client['representante_legal'],
+    						'lastname' => $client['representante_legal'],
     						'identity' => array(
     								'number' => $client['id_representante'],
     								'idType' => array(
@@ -1069,22 +1092,39 @@ class ClientsCartagenaCommand extends Command
     								)
     						)
     				);
+    				 
+    				if(count($name) == 2){
+    					$representateLegal = array(
+    							'firstname' => $name[0],
+    							'lastname' => $name[1],
+    							'identity' => array(
+    									'number' => $client['id_representante'],
+    									'idType' => array(
+    											'id' => $this->idTypeCedula
+    									)
+    							)
+    					);
+    				}
+    				 
+    				if(count($name) == 4){
+    					$representateLegal = array(
+    							'firstname' => $name[0],
+    							'secondName' => $name[1],
+    							'lastname' => $name[2],
+    							'secondLastname' => $name[3],
+    							'identity' => array(
+    									'number' => $client['id_representante'],
+    									'idType' => array(
+    											'id' => $this->idTypeCedula
+    									)
+    							)
+    					);
+    				}
+    				
+    			}else{
+    				$representateLegal = array('id'=> $clientSF2['id']);
     			}
     			
-    			if(count($name) == 4){
-    				$representateLegal = array(
-    						'firstname' => $name[0],
-    						'secondName' => $name[1],
-    						'lastname' => $name[2],
-    						'secondLastname' => $name[3],
-    						'identity' => array(
-    								'number' => $client['id_representante'],
-    								'idType' => array(
-    										'id' => $this->idTypeCedula
-    								)
-    						)
-    				);
-    			}	
     		}
     	}
     	
@@ -1221,6 +1261,91 @@ class ClientsCartagenaCommand extends Command
     		}
     }
     
+    
+    function searchClientSF2($identificacion){
+    
+    	//     	echo "\nidentificacion\n";
+    	//     	echo $identificacion."\n";
+    	 
+    	$identificacion = $this->cleanString($identificacion);
+    	    	    	 
+    	$filter = array(
+    			'value' => $identificacion,
+    			'operator' => 'has',
+    			'property' => 'identity.number'
+    	);
+    	$filter = json_encode(array($filter));
+    
+    	 
+    	$urlClientSF2 = $this->server.'crm/main/client?filter='.$filter;
+    	//echo "\n".$urlClientSF2."\n";
+    
+    	//$urlClientSF2 = $this->server.'crm/main/zero/client';
+    	 
+    	$apiClientSF2 = $this->SetupApi($urlClientSF2, $this->user, $this->pass);
+    	 
+    
+    	$clientSF2 = $apiClientSF2->get();
+    	//      	echo "\nbeneficiario\n";
+    	//  		echo $clientSF2;
+    
+    	$clientSF2 = json_decode($clientSF2, true);
+    	 
+    	 
+    	if($clientSF2['total'] > 0){
+    	
+    		return $clientSF2['data'][0];
+    
+    	}else{
+    		return null;
+    	}
+    
+    	 
+    }
+    
+    
+    function searchPersonSF2($identificacion){
+    
+    	//     	echo "\nidentificacion\n";
+    	//     	echo $identificacion."\n";
+    
+    	$identificacion = $this->cleanString($identificacion);
+    
+    	$filter = array(
+    			'value' => $identificacion,
+    			'operator' => 'has',
+    			'property' => 'identity.number'
+    	);
+    	$filter = json_encode(array($filter));
+    
+    
+    	$urlClientSF2 = $this->server.'crm/main/person?filter='.$filter;
+    	//echo "\n".$urlClientSF2."\n";
+    
+    	//$urlClientSF2 = $this->server.'crm/main/zero/client';
+    
+    	$apiClientSF2 = $this->SetupApi($urlClientSF2, $this->user, $this->pass);
+    
+    
+    	$clientSF2 = $apiClientSF2->get();
+    	//      	echo "\nbeneficiario\n";
+    	//  		echo $clientSF2;
+    
+    	$clientSF2 = json_decode($clientSF2, true);
+    
+    
+    	if($clientSF2['total'] > 0){
+    		 
+    		return $clientSF2['data'][0];
+    
+    	}else{
+    		return null;
+    	}
+    
+    
+    }
+     
+    
     /**
      * Eliminar espacios en blanco seguidos
      * @param unknown $string
@@ -1258,10 +1383,11 @@ class ClientsCartagenaCommand extends Command
     
     	$token = $data->id;
     
-    	$headers = array(
+		$headers = array(
     			'Accept: application/json',
     			'Content-Type: application/json',
-    			'x-sifinca:SessionToken SessionID="'.$token.'", Username="'.$user.'"'  ,
+    			//'x-sifinca:SessionToken SessionID="564f29657315cf4b1afa87e8", Username="lrodriguez@araujoysegovia.net"'
+    			'x-sifinca: SessionToken SessionID="'.$token.'", Username="'.$user.'"',
     	);
     
     	$a->set(array('url'=>$urlapi,'headers'=>$headers));

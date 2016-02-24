@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class InmueblesCartagenaCommand extends Command
 {	
 	
- 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
- 	public $serverRoot = 'http://www.sifinca.net/';
+ 	public $server = 'http://162.242.247.95/sifinca/web/app.php/';
+ 	public $serverRoot = 'http://162.242.247.95/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -49,7 +49,7 @@ class InmueblesCartagenaCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('inmueblesCartagena')
+        $this->setName('inmuebles')
 		             ->setDescription('Comando para obtener datos de inmuebles SF1');
 	}
 	
@@ -210,7 +210,7 @@ class InmueblesCartagenaCommand extends Command
     		$filter = null;
     		
     		$filter[] = array(
-    				'value' => '994b009d-50a5-44dd-8060-878a10f4dd00',
+    				'value' => 'e5831d14-ba13-4500-8b00-b30ba7ceadbe',
     				'operator' => '=',
     				'property' => 'town.id'
     		);
@@ -528,7 +528,7 @@ class InmueblesCartagenaCommand extends Command
                     $filter = array(
                             'value' => $inmueble['id_edificio'],
                             'operator' => 'equal',
-                            'property' => 'identity.number'
+                            'property' => 'idSifincaOne'
                     );
                     $filter = json_encode(array($filter));
                              
@@ -642,7 +642,8 @@ class InmueblesCartagenaCommand extends Command
             
                 
                 $urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.CTG/'.$inmueble['id_sucursal'];
-                //echo $urlStratum;
+                //echo "\n".$urlOffice."\n";
+                
                 $apiOffice = $this->SetupApi($urlOffice, $this->user, $this->pass);
                  
                 $officeMapper = $apiOffice->get();
@@ -786,13 +787,13 @@ class InmueblesCartagenaCommand extends Command
                         "constructArea" => $inmueble['area_construida'],
                         "totalArea"=> $inmueble['area_lote'],
                         "outstanding" => $inmueble['destacado'],
-                        "boundaries" => $this->cleanString($inmueble['linderos']),
+                        "boundaries" => $this->cleanString($inmueble['linderosAll']),
                         //"published": "false",
                         "numberKeys" => $inmueble['Llaves'],
                         "locationKeys"=> $inmueble['ubillave'],
                         "keyName" => $inmueble['NoLLaves'],
                         "furnished" => $inmueble['amoblado'],
-                        "propertyDescription" => $this->cleanString($inmueble['texto_inmu']),
+                        "propertyDescription" => $this->cleanString($inmueble['descripcionAll']),
                         "consignmentdate" => $consignmentdate,
                         "dateAvailable" => $dateAvailable,
                         "dateUpdated" => $dateAvailable,
@@ -850,8 +851,7 @@ class InmueblesCartagenaCommand extends Command
                     
                 }
                 
-                $porDonde++;
-                echo "\n\nvamos por: ".$porDonde."\n";
+              
 
 
     		}else{
@@ -860,7 +860,8 @@ class InmueblesCartagenaCommand extends Command
 
             }
     		
-
+            $porDonde++;
+            echo "\n\nvamos por: ".$porDonde."\n";
     		
     	}
     	

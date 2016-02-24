@@ -17,8 +17,11 @@ class clientsCartagena {
 
     	$query = "SELECT * FROM clientes
     	WHERE id_cliente IS NOT NULL
-   
-    	AND fecha_ingreso > '2016-01-18 00:00:00.00'";
+    	AND fecha_ingreso > '2016-01-26 08:00:00.00'";
+    	
+//     	    	$query = "SELECT * FROM clientes
+//     	    	WHERE id_cliente IS NOT NULL
+//     	    	AND id_cliente = '860079456'";
     	
 //     	$query = "SELECT * FROM clientes
 //     	WHERE id_cliente IS NOT NULL
@@ -153,6 +156,21 @@ class clientsCartagena {
     
     	return $bancos;
     
+    }
+    
+    public function clientsConEspacio() {
+    	
+    	$query = "SELECT I.number, C.name, I.id, C.id FROM sif_id AS I 
+INNER JOIN crm_client AS C ON C.identity_id = I.id
+WHERE I.number LIKE '% %'
+ORDER BY I.number";
+    	
+    	$r = $this->_conn->_query($query);
+    	
+    	$c = $this->_conn->_getData($r);
+    	
+    	return $c;
+    	
     }
     
 }

@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class ContratoArriendoCommand extends Command
 {	
 	
-	public $server = 'http://www.sifinca.net/sifinca/web/app_dev.php/';
-	public $serverRoot = 'http://www.sifinca.net/';
+	public $server = 'http://162.242.247.95/sifinca/web/app_dev.php/';
+	public $serverRoot = 'http://162.242.247.95/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -49,7 +49,7 @@ class ContratoArriendoCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('contratosarriendo')
+        $this->setName('contratoarriendo')
 		             ->setDescription('Comando para pasar contratos arriendo');
 	}
 	
@@ -71,12 +71,12 @@ class ContratoArriendoCommand extends Command
         
 		$contratos = $conexion->getContratosArriendo();
 		
-		$this->buildContratoArriendo($conexion, $contratos);
+		$this->crearContratoArriendo($conexion, $contratos);
 		
     }
     
     
-    function buildContratoArriendo($conexion, $contratos) {
+    function crearContratoArriendo($conexion, $contratos) {
     	
     	
     	$urlContrato = $this->server.'catchment/main/leasingcontract';
@@ -85,106 +85,321 @@ class ContratoArriendoCommand extends Command
     	
     	$totalContratos = count($contratos);
     	
-    	$totalContratos = 1000;
+    	//$totalContratos = 1000;
     	
     	$total = 0;
     	$porDonde = 0;
-    	for ($i = 646; $i < $totalContratos; $i++) {
+    	
+    	$startTime= new \DateTime();
+    	
+    	for ($i = 1000; $i < 2000; $i++) {
     		
     		$contrato = $contratos[$i];
     		
-    		$datacredito = null;
-    		if($contrato['datacredito'] == 'S'){
-    			$datacredito = true;
-    		}else if($contrato['datacredito'] == 'N'){
-    			$datacredito = false;
+    		$contratoSF2 = $this->searchContratoArriendo($contrato);
+    		
+    		if(is_null($contratoSF2)){
+    			
+    			$datacredito = null;
+    			if($contrato['datacredito'] == 'S'){
+    				$datacredito = true;
+    			}else if($contrato['datacredito'] == 'N'){
+    				$datacredito = false;
+    			}
+    			
+    			$aseguradora = $this->searchClientSF2($contrato['id_aseguradora']);
+    			
+    			$inmueble = $this->searchProperty($contrato['id_inmueble']);
+    			
+    			$estado = $this->statusContract($contrato['estado']);
+    			
+    			$tipocontrato = $this->contractType($contrato['tipo_contrato']);
+    			
+    			$tipoGarantia = $this->warrantyType($contrato['act_aseg_canon']);
+    			
+    			$ejecutivocuenta = $this->searchUsuario($contrato);
+    			
+    			$sucursal = $this->searchOffice($contrato['id_sucursal']);
+    			
+    			//$arrendatarios = $this->buildArrendatarios($conexion, $contrato);
+    			
+    			$datetime1 = new \DateTime($contrato['fecha_contrato']);
+    			$datetime2 = new \DateTime($contrato['fecha_vencimiento']);
+    			$interval = $datetime1->diff($datetime2);
+    			
+    			//     		echo $interval->format('%R%a d’as');
+    			
+    			//     		echo "\n".$interval->format('%a d’as');
+    			
+    			//     		echo "\n".$interval->format('%m mes, %d d’as')."\n";
+    			
+    			//     		printf('%d a–os, %d meses, %d d’as, %d horas, %d minutos', $interval->y, $interval->m, $interval->d, $interval->h, $interval->i);
+    			
+    			if(!is_null($inmueble)){
+    				 
+    				$bContrato = array(
+    						"consecutive" => $contrato['id_contrato'],
+    						"contractDate" => $contrato['fecha_contrato'],
+    						"occupationDate" => $contrato['fecha_ocupacion'],
+    						"expirationDate" => $contrato['fecha_vencimiento'],
+    						"term"=> $contrato['termino'],
+    						"canon"=> $contrato['canon'],
+    						"expenseValue"=> $contrato['admi'],
+    						"warrantyStatus"=> $contrato['aseg_canon'],
+    						"warrantyfee"=> $contrato['por_seguro'],  //Comision garantia
+    						"nameEstablishment"=> $this->cleanString($contrato['denominacion']),
+    						"businessActivities"=> $contrato['actividades'],
+    						"additionalClauses"=> $contrato['CLAUSULA'],
+    						"casesAndRelatedUses"=> null,
+    						"suretyCode"=> $this->cleanString($contrato['cod_aseguradora']),
+    						"eviction"=> $contrato['deshaucio'],
+    						"dateEviction"=> $contrato['fecha_deshaucio'],
+    						"reportToRiskCentrals"=> $datacredito,
+    						"companyWarranty"=> $aseguradora,
+    						"application"=> null,
+    						"property"=> $inmueble,
+    						//"lease"=> $arrendatarios,
+    						//"nameValue"=> null,
+    						"renewal"=> null,
+    						"inventory"=> null,
+    						"statusLeasingContract"=> $estado,
+    						"contractTypeLeasingContract" => $tipocontrato,
+    						"warrantyType"=> $tipoGarantia,
+    						"accoutExecutive"=> $ejecutivocuenta,
+    						"office"=> $sucursal
+    			
+    				);
+    				 
+    				 
+    				$json = json_encode($bContrato);
+    			
+    				//echo "\n\n".$json."\n\n";
+    			
+    				$result = $apiContrato->post($bContrato);
+    				 
+    				$result = json_decode($result, true);
+    				 
+    				 
+    				 
+    				if($result['success'] == true){
+    					echo "\nOk\n";
+    					//$total++;
+    				}else{
+    					echo "\nError contrato\n";
+    					//echo "\n\n".$json."\n\n";
+    					 
+    					$urlapiMapper = $this->server.'catchment/main/errorleasingcontract';
+    					$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    					 
+    					$error = array(
+    							'leasingContract' => $contrato['id_contrato'],
+    							'objectJson' => $json
+    					);
+    						
+    					$resultError = $apiMapper->post($error);
+    				}
+    				 
+    			}
+    			
+    			
+    		}else{
+    			
+    			echo "\n El contrato ya existe: ".$contrato['id_contrato']."\n";
     		}
     		
-    		$aseguradora = $this->searchClientSF2($contrato['id_aseguradora']);
+    	
     		
-    		$inmueble = $this->searchProperty($contrato['id_inmueble']);
-    		
-    		$estado = $this->statusContract($contrato['estado']);
-    		
-    		$tipocontrato = $this->contractType($contrato['tipo_contrato']);
-    		
-    		$tipoGarantia = $this->warrantyType($contrato['act_aseg_canon']);
-    		
-    		$ejecutivocuenta = $this->searchUsuario($contrato);
-    		
-    		$sucursal = $this->searchOffice($contrato['id_sucursal']);
-    		
-    		$arrendatarios = $this->buildArrendatarios($conexion, $contrato);
-    		
-    		$datetime1 = new \DateTime($contrato['fecha_contrato']);
-    		$datetime2 = new \DateTime($contrato['fecha_vencimiento']);
-    		$interval = $datetime1->diff($datetime2);
-    		
-//     		echo $interval->format('%R%a d’as');
-    		
-//     		echo "\n".$interval->format('%a d’as');
-    		
-//     		echo "\n".$interval->format('%m mes, %d d’as')."\n";
-    		
-//     		printf('%d a–os, %d meses, %d d’as, %d horas, %d minutos', $interval->y, $interval->m, $interval->d, $interval->h, $interval->i);
-    		
-    		$bContrato = array(
-    				"consecutive" => $contrato['id_contrato'],
-    				"contractDate" => $contrato['fecha_contrato'],
-    				"occupationDate" => $contrato['fecha_ocupacion'],
-    				"expirationDate" => $contrato['fecha_vencimiento'],
-    				"term"=> $contrato['termino'],
-    				"canon"=> $contrato['canon'],
-    				"expenseValue"=> $contrato['admi'],
-    				"warrantyStatus"=> $contrato['aseg_canon'],
-    				"warrantyfee"=> $contrato['por_seguro'],  //Comision garantia
-    				"nameEstablishment"=> $contrato['denominacion'],
-    				"businessActivities"=> $contrato['actividades'],
-    				"additionalClauses"=> $contrato['CLAUSULA'],
-    				"casesAndRelatedUses"=> null,
-    				"suretyCode"=> $contrato['cod_aseguradora'],
-    				"eviction"=> $contrato['deshaucio'],
-    				"dateEviction"=> $contrato['fecha_deshaucio'],
-    				"reportToRiskCentrals"=> $datacredito,
-    				"companyWarranty"=> $aseguradora,
-    				"application"=> null,
-    				"property"=> $inmueble,
-    				"lease"=> $arrendatarios,
-    				//"nameValue"=> null,
-    				"renewal"=> null,
-    				"inventory"=> null,
-    				"statusLeasingContract"=> $estado,
-    				"contractTypeLeasingContract" => $tipocontrato,
-    				"warrantyType"=> $tipoGarantia,
-    				"accoutExecutive"=> $ejecutivocuenta,
-    				"office"=> $sucursal
-    				 
-    		);
-    		
-    		
-    		$json = json_encode($bContrato);
-    		 
-   			//echo "\n\n".$json."\n\n";
-    		 
-   			$result = $apiContrato->post($bContrato);
-    		
-   			$result = json_decode($result, true);
-    		
+   			
    			$porDonde++;
-    		echo "\nPor donde: \n".$porDonde;
-   			if($result['success'] == true){
-   				echo "\nOk\n";
-   				$total++; 			
-    		}else{
-  				echo "\nError contrato\n";
-   				echo "\n\n".$json."\n\n";
-   			}
+   			echo "\nVamos por: ".$porDonde."\n";
     		
     	}
     	
+    	$finalTime = new \DateTime();
     	
+    	
+    	$diff = $startTime->diff($finalTime);
+    	
+    	
+    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
+    	
+    	echo "\n Indice de contrato: ".$totalContratos."\n";
     	
     }
+
+    public function crearArrendatarios($conexion) {
+    	 
+    
+    	$urlConvenio = $this->server.'catchment/main/leasingcontract/only/ids';
+    	 
+    	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
+    	 
+    	$convenios = $apiConvenio->get();
+    	$convenios = json_decode($convenios, true);
+    	//echo $convenios['total']
+    	 
+    	$urlapioOwner = $this->server.'catchment/main/owner';
+    	 
+    	$apiOwner = $this->SetupApi($urlapioOwner, $this->user, $this->pass);
+    	 
+    	echo "\nTotal de convenios: ".count($convenios['data'])."\n";
+    	 
+    	$totalContratos = count($convenios['data']);
+    	
+    	$porDonde = 0;
+    	$startTime= new \DateTime();
+    	 
+    	//foreach ($convenios['data'] as $convenio) {
+    	for ($i = 0; $i < 10; $i++) {
+    
+    		$convenio = $convenios['data'][$i];
+    
+    		$propietariosSF1 = $conexion->getPropietariosDelConvenio($convenio['consecutive']);
+    
+    		foreach ($propietariosSF1 as $p) {
+    
+    			$ownerIdentificacion = $p['id_cliente'];
+    			$ownerIdentificacion = $this->cleanString($ownerIdentificacion);
+    
+    			$owner = $conexion->getCliente($ownerIdentificacion);
+    
+    			$clientSF1 = $owner;
+    			 
+    			$client = $this->searchClientSF2($ownerIdentificacion);
+    			$clientSF2 = $client;
+    
+    			if($client){
+    
+    
+    				$ownerSF2 = $this->searchPropietarioPorConvenioYcliente($client, $convenio);
+    
+    				if(is_null($ownerSF2)){
+    
+    					echo "\nYa tenemos el cliente, creando propietario\n";
+    						
+    					$ownerType = $this->tipoPropietario($p['tipo_relacion']);
+    
+    					$payForm = $this->formaDePago($conexion, $clientSF1, $clientSF2);
+    
+    					//print_r($payForm);
+    
+    					$bOwner = array(
+    							'client' => array('id'=>$client['id'], 'name'=>$client['name']),
+    							'ownerType' => $ownerType,
+    							'percentageIncomeDivision' => $p['participacion'], //% Participacion de renta
+    							'taxPercentage' => null, // % tributario
+    							'payForm' => $payForm,
+    							'agreement' => array('id'=>$convenio['id'])
+    					);
+    
+    
+    					$json = json_encode($bOwner);
+    					//     		//echo "\n\n".$json."\n\n";
+    						
+    
+    					$result = $apiOwner->post($bOwner);
+    					$result = json_decode($result, true);
+    
+    					if(isset($result['success'])){
+    						if($result['success'] == true){
+    							echo "\nOk";
+    							//$total++;
+    								
+    						}
+    					}
+    					else{
+    						echo "\nError creando propietario 1\n";
+    							
+    						//echo "\n\n".$json."\n\n";
+    
+    						$urlapiMapper = $this->server.'catchment/main/errorowner';
+    						$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    
+    						$error = array(
+    								'owner' => $client['id'],
+    								'agreement'=> $convenio['consecutive'],
+    								'objectJson' => $json
+    						);
+    
+    						$apiMapper->post($error);
+    					}
+    
+    
+    				}else{
+    
+    					echo "\nEl propietario ya existe en este convenio\n";
+    				}
+    
+    			}else{
+    
+    				echo "\nCreando nuevo cliente\n";
+    
+    				//Crear cliente
+    				$clienteBus = $this->buildClient($owner[0]);
+    
+    				if(!is_null($clienteBus)){
+    
+    					//echo "\nentro aqui 1\n";
+    					$ownerType = $this->tipoPropietario($p['tipo_relacion']);
+    
+    					$payForm = $this->formaDePago($conexion, $clientSF1, $clientSF2);
+    
+    
+    					$bOwner = array(
+    							'client' => array('id'=>$clienteBus),
+    							'ownerType' => $ownerType,
+    							'percentageIncomeDivision' => $p['participacion'], //% Participacion de renta
+    							'taxPercentage' => null, // % tributario
+    							'payForm' => $payForm
+    					);
+    
+    					//$json = json_encode($bOwner);
+    					//     		//echo "\n\n".$json."\n\n";
+    					 
+    					$result = $apiOwner->post($bOwner);
+    					$result = json_decode($result, true);
+    						
+    					if(isset($result['success'])){
+    						if($result['success'] == true){
+    							echo "\nOk";
+    							//$total++;
+    						}
+    					}
+    					else{
+    						echo "\nError creando propietario 2\n";
+    
+    						//echo "\n\n".$json."\n\n";
+    					}
+    
+    				}else{
+    
+    					echo "\nERROR\n";
+    						
+    				}
+    
+    
+    			}
+    
+    		}
+    
+    		$porDonde++;
+    		echo "\nVamos por: ".$porDonde."\n";
+    	}
+    	 
+    	$finalTime = new \DateTime();
+    	 
+    	 
+    	$diff = $startTime->diff($finalTime);
+    	 
+    	 
+    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
+    	 
+    }
+    
     
     function buildArrendatarios($conexion, $contrato) {
 
@@ -204,6 +419,10 @@ class ContratoArriendoCommand extends Command
     			);
     			
     			$bArrendatario[] = $bArr;
+    		}else{
+    			
+    			echo "Creando cliente";
+    			
     		}
     		
     	}
@@ -230,6 +449,7 @@ class ContratoArriendoCommand extends Command
     	return $rType;
     	
     }
+    
     
     function searchClientSF2($identificacion){
     
@@ -279,6 +499,8 @@ class ContratoArriendoCommand extends Command
     	 
     }
     
+
+    
     function searchProperty($propertySF1) {
     	 
     	$propertySF1 = $this->cleanString($propertySF1);
@@ -290,7 +512,7 @@ class ContratoArriendoCommand extends Command
     	);
     	$filter = json_encode(array($filter));
     	 
-    	$urlProperty = $this->server.'catchment/main/property?filter='.$filter;
+    	$urlProperty = $this->server.'catchment/main/zero/property?filter='.$filter;
     
     	$apiProperty = $this->SetupApi($urlProperty, $this->user, $this->pass);
     	 
@@ -311,6 +533,7 @@ class ContratoArriendoCommand extends Command
     	 
     }
         
+
     function statusContract($status) {
     	
     	$rStatus = null;
@@ -375,7 +598,7 @@ class ContratoArriendoCommand extends Command
     
     	$rType = null;
         
-    	echo "\n".$type."\n";
+    	//echo "\n".$type."\n";
     	
     	if($type == 'O'){
     		//No garantizado
@@ -390,6 +613,11 @@ class ContratoArriendoCommand extends Command
     	return $rType;
     }
     
+    /**	
+     * Buscar ejecutivo de cuenta del contrato
+     * @param unknown $contrato
+     * @return multitype:number
+     */
     function searchUsuario($contrato) {
     
     	$email = $contrato['email'];
@@ -418,7 +646,7 @@ class ContratoArriendoCommand extends Command
     	);
     	$filter = json_encode(array($filter));
     
-    	$urlUser = $this->server.'admin/security/user?filter='.$filter;
+    	$urlUser = $this->server.'admin/security/zero/user?filter='.$filter;
     	 
     	$apiUser = $this->SetupApi($urlUser, $this->user, $this->pass);
     
@@ -467,6 +695,36 @@ class ContratoArriendoCommand extends Command
     	
     }
     
+    
+    function searchContratoArriendo($contrato) {
+    	
+    	$codigoContrato = $this->cleanString($contrato['id_contrato']);
+    	 
+    	$filter = array(
+    			'value' => $codigoContrato,
+    			'operator' => '=',
+    			'property' => 'consecutive'
+    	);
+    	$filter = json_encode(array($filter));
+    	
+    	$urlContract = $this->server.'catchment/main/leasingcontract?filter='.$filter;
+    	
+    	$apiContract = $this->SetupApi($urlContract, $this->user, $this->pass);
+    	
+    	$contract = $apiContract->get();
+    	$contract = json_decode($contract, true);
+    	
+    	 
+    	if($contract['total'] > 0){
+    		 
+    		$c = array('id' => $contract['data'][0]['id']);
+    		return $c;
+    		 
+    	}else{
+    		return null;
+    	}
+    	    	
+    }
     /**
      * Eliminar espacios en blanco seguidos
      * @param unknown $string

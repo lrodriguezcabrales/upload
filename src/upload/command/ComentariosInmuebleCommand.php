@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class ComentariosInmuebleCommand extends Command
 {	
 	
-	public $server = 'http://www.sifinca.net/sifinca/web/app_dev.php/';
-	public $serverRoot = 'http://www.sifinca.net/';
+	public $server = 'http://104.130.11.91/sifinca/web/app_dev.php/';
+	public $serverRoot = 'http://104.130.11.91/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -67,9 +67,10 @@ class ComentariosInmuebleCommand extends Command
     	$totalComentarios = count($comentarios);
     	
     	//$totalComentarios = 135000;
+    	$startTime= new \DateTime();
     	
     	$porDonde = 0;
-    	for ($i = 135000; $i < $totalComentarios; $i++) {
+    	for ($i = 166050; $i < $totalComentarios; $i++) {
     		$comentario = $comentarios[$i];
 
     		//print_r($comentario);
@@ -78,8 +79,7 @@ class ComentariosInmuebleCommand extends Command
     		$usuario = $this->searchUsuario($comentario['email']);
     		
 //     		echo "\ninmueble\n";
-     		print_r($inmueble);
-    		return ;
+     		
     		
     		if(!is_null($inmueble)){
     			
@@ -88,20 +88,31 @@ class ComentariosInmuebleCommand extends Command
     					'idEntity' => $inmueble['id'],
     					'user' => array('id'=>$usuario['id']),
     					'date' => $comentario['fecha'],
-    					'nkey' => $comentario['NKEY']
+    					'nkey' => $comentario['NKEY'],
+    					'sifincaOne' => true
     			);
     			
-    			$json = json_encode($bComentario);
+//     			$json = json_encode($bComentario);
     			 
     			//echo "\n".$json."\n";
     			
     			$urlComentario = $this->server.'catchment/main/property/comment/'.$inmueble['id'];
     			 
+//     			echo "\n".$urlComentario."\n";
+    			
     			$apiComentario = $this->SetupApi($urlComentario, $this->user, $this->pass);
     			
     			$result = $apiComentario->post($bComentario);
     			
     			$result = json_decode($result, true);
+    			
+    			
+
+    			$json = json_encode($bComentario);
+    			 
+// 	    		echo "\njson\n";
+// 	    		echo $json;
+    			
     			
 //     			$porDonde++;
 //     			echo "\nPor donde: \n".$porDonde;
@@ -112,7 +123,7 @@ class ComentariosInmuebleCommand extends Command
     				echo "\nError cometario\n";
     				//echo "\n\n".$json."\n\n";
     				
-    				$urlapiMapper = $this->server.'admin/main/errorcomment';
+    				$urlapiMapper = $this->server.'admin/sifinca/errorcomment';
     				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     				
     				$error = array(
@@ -131,8 +142,20 @@ class ComentariosInmuebleCommand extends Command
     		}
     		
     	}
+    	
+    	$finalTime = new \DateTime();
+    	 
+    	 
+    	$diff = $startTime->diff($finalTime);
+    	 
+    	 
+    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
    
     	echo "\n Total de comentarios pasados: ".$total."\n";
+    	
+    	echo "\n Indice final: ".$totalComentarios."\n";
     }
     
     

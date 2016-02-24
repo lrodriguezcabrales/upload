@@ -15,7 +15,7 @@ class contratoArriendoCartagena {
     public function getContratosArriendo(){
     	 
     
-    	$query = "SELECT TOP 1000 C.id_contrato, CI.id_inmueble, U.email, * FROM contratos AS C
+    	$query = "SELECT C.id_contrato, CI.id_inmueble, U.email, * FROM contratos AS C
 				LEFT JOIN contratos_inmuebles AS CI ON C.id_contrato = CI.id_contrato
 				LEFT JOIN cobradores AS CO ON C.id_cobrador = CO.id_cobrador
 				LEFT JOIN usuarios AS U ON CO.usuario = U.id_user

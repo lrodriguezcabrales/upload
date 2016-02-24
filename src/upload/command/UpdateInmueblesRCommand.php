@@ -13,11 +13,11 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class UpdateInmuebleCommand extends Command
+class UpdateInmueblesRCommand extends Command
 {	
 	
- 	public $server = 'http://104.130.11.91/sifinca/web/app.php/';
- 	public $serverRoot = 'http://104.130.11.91/';
+ 	public $server = 'http://162.242.247.95/sifinca/web/app.php/';
+ 	public $serverRoot = 'http://162.242.247.95/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -51,7 +51,7 @@ class UpdateInmuebleCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('updateInmuebles')
+        $this->setName('updateInmueblesrecientes')
 		             ->setDescription('Comando para obtener datos de inmuebles SF1');
 	}
 	
@@ -1739,8 +1739,9 @@ class UpdateInmuebleCommand extends Command
     	 
 		$startTime= new \DateTime();
 		
+		echo "\nTotal inmuebles: ".$totalInmueblesSF1."\n";
 
-    	for ($i = 14000; $i < 15000; $i++) {
+    	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
     	
     		$inmueble = $inmuebles[$i];
     		
