@@ -19,15 +19,15 @@ class inmueblesCartagena {
     	$currentDate = $currentDate->format('Y-m-d H:i:s');
     	
 //     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-//  					WHERE id_inmueble= 33949";
+//  					WHERE id_inmueble= 34080";
     	
 
-//     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-//  				WHERE tstamp > '2016-02-20 08:00:00.00'";
+    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
+ 				WHERE tstamp > '2016-02-25 08:00:00.00'";
     	
-   	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-WHERE tstamp > '".$currentDate."'
-ORDER BY id_inmueble DESC";
+//    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
+// WHERE tstamp > '".$currentDate."'
+// ORDER BY id_inmueble DESC";
 
     	
 //     	$query = "SELECT  promocion, * FROM inmuebles
@@ -55,13 +55,13 @@ ORDER BY id_inmueble DESC";
 
     public function getInmueblesUpdate(){
     	
-//     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderos FROM inmuebles
-// WHERE id_inmueble = 6955";
-//     ";
-
     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-    			  WHERE tstamp > '2016-02-20 14:00:00.00'
-    			  ORDER BY id_inmueble DESC";
+ WHERE id_inmueble = 14824";
+
+
+//     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
+//     			  WHERE tstamp > '2016-02-24 08:00:00.00'
+//     			  ORDER BY id_inmueble DESC";
     	
 //     	$query = "SELECT *, CAST(linderos AS TEXT) FROM inmuebles
 //     	WHERE id_ciudad = 'CTG'
@@ -114,7 +114,7 @@ ORDER BY id_inmueble DESC";
     	//     	AND id_edificio IS NOT NULL";
     	 
     	    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-    	WHERE tstamp > '2016-02-18 08:00:00.00'";
+    	WHERE tstamp > '2016-02-26 08:00:00.00'";
     
     
     	//     	$query = "SELECT  promocion, * FROM inmuebles
@@ -209,6 +209,10 @@ ORDER BY id_inmueble DESC";
     public function getFotosDeInmueble($inmueble) {
         	
     	//echo "\naqui\n";
+//     	$query = "SELECT id, tipo, descripcion, nkey, ext, fecha, publicar, publicada,
+//     			  fecha_publicada, orden, carpeta, slot, id_user
+//     			  FROM fotos
+//     			  WHERE(id = 34080) AND (tipo = 'I')";
     	
     	$query = "SELECT id, tipo, descripcion, nkey, ext, fecha, publicar, publicada, 
     			  fecha_publicada, orden, carpeta, slot, id_user

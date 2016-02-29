@@ -1739,8 +1739,9 @@ class UpdateInmuebleCommand extends Command
     	 
 		$startTime= new \DateTime();
 		
+		echo "\nTotal de inmuebles a actualizar: ".$totalInmueblesSF1."\n";
 
-    	for ($i = 14000; $i < 15000; $i++) {
+    	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
     	
     		$inmueble = $inmuebles[$i];
     		

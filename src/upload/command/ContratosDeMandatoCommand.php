@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class ContratosDeMandatoCommand extends Command
 {	
 	
-	public $server = 'http://162.242.247.95/sifinca/web/app.php/';
-	public $serverRoot = 'http://162.242.247.95';
+	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+	public $serverRoot = 'http://www.sifinca.net';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -88,116 +88,142 @@ class ContratosDeMandatoCommand extends Command
     public function crearContratosDeMandato($conexion) {
     	
     	
-    	$convenios = $conexion->getContratosMandatoConvenios();
+//     	$convenios = $conexion->getContratosMandatoConvenios();
     	 
-    	$urlConvenio = $this->server.'catchment/main/agreement';
-    	//echo "\n".$urlConvenio."\n";
+//     	$urlConvenio = $this->server.'catchment/main/agreement';
+//     	//echo "\n".$urlConvenio."\n";
     	
+//     	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
+    	
+    	$urlConvenio = $this->server.'catchment/main/agreement/only/ids';
+    	echo "\n".$urlConvenio."\n";
+    	    	
     	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
+    	 
+    	$convenios = $apiConvenio->get();
     	
+    	$convenios = json_decode($convenios, true);
+    	//echo $convenios['total']
+
+    	$urlapioOwner = $this->server.'catchment/main/owner';
+    	 
+    	$apiOwner = $this->SetupApi($urlapioOwner, $this->user, $this->pass);
+    	 
+    	echo "\nTotal de convenios - contratos mandato: ".count($convenios['data'])."\n";
+    	 
+    	$totalConvenios = count($convenios['data']);
+    	 
     	$porDonde = 0;
     	$startTime= new \DateTime();
-    	
-    	foreach ($convenios as $convenio) {
-    		
-    		
-    		$mandateContractSF2 = $this->searchMandateContractPorConvenioEinmueble($convenio);
-
-    		$convenioSF2 = $this->searchConvenioSF2($convenio);
-    		
-    		if(is_null($mandateContractSF2)){
-    			
-    			//echo "\nentro 1\n";
+    	 
+    	//foreach ($convenios['data'] as $convenio) {
+    	for ($i = 0; $i < 50; $i++) {
     	    		
-    			$property = $this->searchProperty($convenio['id_inmueble']);
-    			    			    			    		    		
-    			if((!is_null($property)) && (!is_null($convenioSF2))){
-    				
-    				$typeContract = $this->searchTipoContratoMandato($convenio);
-    				$user = $this->searchUsuario($convenio);
-    				    				
-    				$bContratoDeMandato = array(
-    						'consecutive' => $convenio['id_inmueble'],
-    						'leaseCommission' => $convenio['por_cmsi'], //Comision de arriendo
-    						'salesCommission' => $convenio['por_seguro'], //Comision de garantia
-    						'property' => $property,
-    						'catcher' => $user,
-    						'typesContracts' => $typeContract,
-    						'agreement' => array('id'=> $convenioSF2['id']),
-    						'convenioSifincaOne' => $this->cleanString($convenio['id_convenio'])
-    				);
-    				
-    				$json = json_encode($bContratoDeMandato);
-    				//echo "\n\n".$json."\n\n";
-    				
-    				$urlContratoMandato = $this->server.'catchment/main/mandatecontract';
-    				
-    				$apiContratoMandato = $this->SetupApi($urlContratoMandato, $this->user, $this->pass);
-    				
-    				$result = $apiContratoMandato->post($bContratoDeMandato);
-    				
-    				$result = json_decode($result, true);
-    				
-    				//print_r($result);
-    				if(isset($result['success'])){
-    					if($result['success'] == true){
-    						echo "\nOk, contrato mandato";
-    						//$total++;
-    				
-    							
-    				
+    		$convenio = $convenios['data'][$i];
+    		
+    		$contratosMandato = $conexion->getContratoMandatoDelConvenio($convenio['consecutive']);
+    		    		
+    		foreach ($contratosMandato as $cm) {
+    		    			
+    			//$mandateContractSF2 = $this->searchMandateContractPorConvenioEinmueble($convenio);
+    			$mandateContractSF2 = $this->searchMandateContractPorConvenioEinmueble($cm);
+    			
+    			//$convenioSF2 = $this->searchConvenioSF2($convenio);
+    			$convenioSF2 = $this->searchConvenioSF2($cm);
+    			
+    			if(is_null($mandateContractSF2)){
+    				 
+    				//echo "\nentro 1\n";
+    				 
+    				$property = $this->searchProperty($cm['id_inmueble']);
+    				 
+    				if((!is_null($property)) && (!is_null($convenioSF2))){
+    			
+    					$typeContract = $this->searchTipoContratoMandato($cm);
+    					$user = $this->searchUsuario($cm);
+    			
+    					$bContratoDeMandato = array(
+    							'consecutive' => $cm['id_inmueble'],
+    							'leaseCommission' => $cm['por_cmsi'], //Comision de arriendo
+    							'salesCommission' => $cm['por_seguro'], //Comision de garantia
+    							'property' => $property,
+    							'catcher' => $user,
+    							'typesContracts' => $typeContract,
+    							'agreement' => array('id'=> $convenioSF2['id']),
+    							'convenioSifincaOne' => $this->cleanString($cm['id_convenio'])
+    					);
+    			
+    					$json = json_encode($bContratoDeMandato);
+    					//echo "\n\n".$json."\n\n";
+    			
+    					$urlContratoMandato = $this->server.'catchment/main/mandatecontract';
+    			
+    					$apiContratoMandato = $this->SetupApi($urlContratoMandato, $this->user, $this->pass);
+    			
+    					$result = $apiContratoMandato->post($bContratoDeMandato);
+    			
+    					$result = json_decode($result, true);
+    			
+    					//print_r($result);
+    					if(isset($result['success'])){
+    						if($result['success'] == true){
+    							echo "\nOk, contrato mandato";
+    							//$total++;
+    			
+    								
+    			
+    						}
+    					}
+    					else{
+    			
+    			
+    						$exist = false;
+    			
+    						if(isset($result['message'])){
+    							$msj = $result['message'];
+    								
+    								
+    							$exist = strpos($msj, 'duplicate key');
+    								
+    								
+    						}
+    			
+    						//echo "\n\n".$json."\n\n";
+    						//echo "\nError convenio: ".$convenio['id_convenio']."\n";
+    						//echo "\n\n".$json."\n\n";
+    			
+    						if(!$exist){
+    								
+    							echo "\nError contrato mandato\n";
+    								
+    							$urlapiMapper = $this->server.'catchment/main/errormandatecontract';
+    							$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    								
+    							$error = array(
+    									'mandateContract' => $cm['id_inmueble'],
+    									'objectJson' => $json
+    							);
+    								
+    							$apiMapper->post($error);
+    						}else{
+    							echo "\nEl contrato de mandato ya existe: ".$cm['id_inmueble']."\n";
+    						}
+    			
     					}
     				}
-    				else{
-    				
-    				
-    					$exist = false;
-    				
-    					if(isset($result['message'])){
-    						$msj = $result['message'];
-    							
-    							
-    						$exist = strpos($msj, 'duplicate key');
-    							
-    							
-    					}
-    						
-    					//echo "\n\n".$json."\n\n";
-    					//echo "\nError convenio: ".$convenio['id_convenio']."\n";
-    					//echo "\n\n".$json."\n\n";
-    				
-    					if(!$exist){
-    							
-    						echo "\nError contrato mandato\n";
-    							
-    						$urlapiMapper = $this->server.'catchment/main/errormandatecontract';
-    						$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    							
-    						$error = array(
-    								'mandateContract' => $convenio['id_inmueble'],
-    								'objectJson' => $json
-    						);
-    							
-    						$apiMapper->post($error);
-    					}else{
-    						echo "\nEl contrato de mandato ya existe: ".$convenio['id_inmueble']."\n";
-    					}
-    				
-    				
-    				
-    				}
+    				 
+    			
+    			}else{
+    				 
+    				echo "\nEl contrato de mandato ya existe $$: ".$cm['id_inmueble']."\n";
     			}
     			
-
-    		
-    		}else{
+    			$porDonde++;
     			
-    			echo "\nEl contrato de mandato ya existe $$: ".$convenio['id_inmueble']."\n";
+    			echo "\nVamos por: ".$porDonde."\n";
+    			
     		}
     		
-    		$porDonde++;
-    		
-    		echo "\nVamos por: ".$porDonde."\n";
     		
     	}
     	

@@ -84,7 +84,7 @@ class UpdateInmueblesRCommand extends Command
         //$this->mapperEstadosInmueble($inmueblesCtg);
         //$this->mapperTiposServicio($inmueblesCtg);
         
-        $inmuebles = $inmueblesCtg->getInmueblesUpdate();
+        $inmuebles = $inmueblesCtg->getInmueblesUpdateReciente();
 	   // $this->buildInmuebles($inmuebles, $inmueblesCtg);
 	   
         $this->updateInmuebles($inmuebles, $inmueblesCtg);
@@ -197,7 +197,7 @@ class UpdateInmueblesRCommand extends Command
 
     	}
     	echo "\n--------------\n";
-    	print_r($sinCoincidencia);
+    	//print_r($sinCoincidencia);
     	echo "Ciudades SF1: ".count($ciudadesSF1)."\n";
     	echo "Ciudades mapeados: ".$total."\n";	
     	echo "Ciudades no mapeados: ".count($sinCoincidencia)."\n";

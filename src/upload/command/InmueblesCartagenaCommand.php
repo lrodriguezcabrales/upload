@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class InmueblesCartagenaCommand extends Command
 {	
 	
- 	public $server = 'http://162.242.247.95/sifinca/web/app.php/';
- 	public $serverRoot = 'http://162.242.247.95/';
+ 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+ 	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	

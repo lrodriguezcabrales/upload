@@ -19,8 +19,8 @@ class OportunityCommand extends Command
  
     private $conn;
     
-    public $server = 'http://162.242.247.95/sifinca/web/app_dev.php/';
-    public $serverRoot = 'http://162.242.247.95/';
+    public $server = 'http://www.sifinca.net/sifinca/web/app_dev.php/';
+    public $serverRoot = 'http://www.sifinca.net/';
     
     public $localServer = 'http://10.102.1.22/';
     
@@ -128,8 +128,11 @@ class OportunityCommand extends Command
     	
     	echo "\nOportunidades de ventas: ".$oportunityVentas['total'];
     	
-    	$oportunity = array_merge($oportunityArriendos['data'], $oportunityVentas['data']);
+    	//$oportunity = array_merge($oportunityArriendos['data'], $oportunityVentas['data']);
     	
+    	$oportunity = $oportunityArriendos['data'];
+    	
+    	//$oportunity = $oportunityVentas['data'];
     	//print_r($oportunity);
     	
     	echo "\nTotal de oportunidades cerradas: ".count($oportunity)."\n";
@@ -199,7 +202,7 @@ class OportunityCommand extends Command
     				}
     				
     			}else{
-    				echo "\n La oportunidad ya esta creada en Sifinca 1\n";
+    				echo "\n La oportunidad ya esta creada ".$op['oportunityNumber']."\n";
     			}
     			    			
     		}
@@ -343,44 +346,89 @@ class OportunityCommand extends Command
     }
     
     
-    function SetupApi($urlapi,$user,$pass){
-    
+    function login() {
+    	
+    	echo "\nEntro a login\n";
+    	
+    	$this->token = null;
+    	
     	$url= $this->server."login";
     	$headers = array(
     			'Accept: application/json',
     			'Content-Type: application/json',
     	);
-    
+    	
     	$a = new api($url, $headers);
-    
+    	
     	//print_r($a);
+    	
+    	$result= $a->post(array("user"=>$this->user,"password"=>$this->pass));
+    	
+    	
+    	$result = json_decode($result);
+    	
+    	if(isset($result['code'])){
+    		if($result['code'] == 401){
+    			$this->login();
+    		}
+    	}else{
+    		
+    		if(isset($result['id'])){
+    			$this->token = $result->id;
+    		}else{
+    			echo "\Error en el login\n";
+    		}
+    		
+    	}
+    	
+    }
     
-    	$result= $a->post(array("user"=>$user,"password"=>$pass));
+    function SetupApi($urlapi,$user,$pass){
     
-    	//      	echo "\nAqui result\n";
-    	//     	print_r($result);
+//     	$url= $this->server."login";
+//     	$headers = array(
+//     			'Accept: application/json',
+//     			'Content-Type: application/json',
+//     	);
+    
+//     	$a = new api($url, $headers);
+    
+//     	//print_r($a);
+    
+//     	$result= $a->post(array("user"=>$user,"password"=>$pass));
+    
+//     	//      	echo "\nAqui result\n";
+//     	//     	print_r($result);
     
     
-    	$data=json_decode($result);
+//     	$data=json_decode($result);
     
-    	//print_r($data);
+//     	//print_r($data);
     
-    	$token = $data->id;
-    
-    	$headers = array(
-    			'Accept: application/json',
-    			'Content-Type: application/json',
-    			//'x-sifinca:SessionToken SessionID="564f29657315cf4b1afa87e8", Username="lrodriguez@araujoysegovia.net"'
-    			'x-sifinca: SessionToken SessionID="'.$token.'", Username="'.$user.'"',
-    	);
-    
-    	//     	print_r($headers);
-    
-    	$a->set(array('url'=>$urlapi,'headers'=>$headers));
-    
-    	//print_r($a);
-    
-    	return $a;
+//     	$token = $data->id;
+
+    	
+    	if(!is_null($this->token)){
+    		
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    				//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
+    				'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
+    		);
+    		
+    		//     	print_r($headers);
+    		
+    		$a->set(array('url'=>$urlapi,'headers'=>$headers));
+    		
+    		//print_r($a);
+    		
+    		return $a;
+    		
+    	}else{
+    		echo "\nToken no valido\n";
+    	}
+    	
     
     }
     

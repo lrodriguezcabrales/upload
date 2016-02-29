@@ -196,4 +196,26 @@ class conveniosCartagena {
     
     	return $cliente;
     }
+    
+    public function getContratoMandatoDelConvenio($idConvenio){
+    	 
+    	$query = "SELECT CON.id_convenio,IC.por_cmsi, IC.por_seguro, I.id_inmueble, U.email AS emailCatcher FROM clientes_convenios AS CV
+  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
+  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+  WHERE CON.id_convenio = '".$idConvenio."'
+  AND I.id_inmueble IS NOT NULL";
+    	 
+    	//echo "\n".$query."\n";
+    	$r = $this->_conn->_query($query);
+    	$propietarios = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	//echo "Total convenios SF1: ".count($propietarios);
+    	 
+    	return $propietarios;
+    	 
+    	 
+    }
 }

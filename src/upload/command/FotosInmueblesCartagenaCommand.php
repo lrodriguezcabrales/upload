@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class FotosInmueblesCartagenaCommand extends Command
 {	
 	
-	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
-	public $serverRoot = 'http://www.sifinca.net/';
+	public $server = 'http://162.242.247.95/sifinca/web/app.php/';
+	public $serverRoot = 'http://162.242.247.95/';
 	
  	//public $server = 'http://10.101.1.95/sifinca/web/app.php/';
  	//public $serverRoot = 'http://10.101.1.95/';
@@ -80,8 +80,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	$inmueblesSF2 = json_decode($inmueblesSF2, true);
     
 
-    	echo "\nInmuebles SF2\n";
-    	echo $inmueblesSF2['total']."\n";
+    	echo "\nTotal inmuebles SF2: ".$inmueblesSF2['total']."\n";
     	
     	$totalInmueblesSF2 = $inmueblesSF2['total'];
     	
@@ -95,10 +94,11 @@ class FotosInmueblesCartagenaCommand extends Command
     	
     	if($totalInmueblesSF2 > 0){
     		
-    		for ($i = 1000; $i < 2000; $i++) {
+    		for ($i = 50; $i < 100; $i++) {
     			
-    			$inmueble = $inmueblesSF2['data'][$i];
+    				$inmueble = $inmueblesSF2['data'][$i];
     			
+    				echo "\nInmueble: ".$inmueble['consecutive']."\n";
     				
     				$fotos = $inmueblesCtg->getFotosDeInmueble($inmueble);
     				 
@@ -109,7 +109,9 @@ class FotosInmueblesCartagenaCommand extends Command
     				$urlapiFile = $this->server."archive/main/file";
     				 
     				$total = 0;
-    				 
+
+    				echo "\nTotal fotos del inmueble: ".count($fotos)."\n";
+    				
     				foreach ($fotos as $foto) {
     						
     					
@@ -150,15 +152,16 @@ class FotosInmueblesCartagenaCommand extends Command
     						
     						//print_r($foto);
     						
-    						$entityId = $inmueble["id"];
+    						$entityId = $inmueble['id'];
     						$photoName = $foto['nkey'].".".$foto['ext'];
     						$photoShow = $foto['publicar'];
     						$showOrder = $foto['orden'];
     						$description = $foto['descripcion'];
+    						$nkeysifincaone = $foto['nkey'].".".$foto['ext'];
     						//echo "\nshowOrder\n";
     						//echo $showOrder;
     						//Subir foto a SF2
-    						$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description' -H '$h'   $urlapiFile";
+    						$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description'  --form nkeysifincaone='$nkeysifincaone' -H '$h'   $urlapiFile";
     						
     						$result= shell_exec($cmd);
     						$result = json_decode($result, true);
@@ -171,7 +174,7 @@ class FotosInmueblesCartagenaCommand extends Command
     								
     						}else{
     						
-    							echo "\nError -----\n";
+    							
     						
     							//print_r($result);
     						
@@ -180,9 +183,12 @@ class FotosInmueblesCartagenaCommand extends Command
     								echo "\nYa existe\n";
     						
     							}else{
-    								echo "\nInmueble: ".$inmueble['consecutive']."\n";
+    								
+    								echo "\nError -----\n";
+    								
+    								
     						
-    						
+    								
     								$urlapiMapper = $this->server.'catchment/main/errorphoto';
     								$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     						
@@ -203,10 +209,16 @@ class FotosInmueblesCartagenaCommand extends Command
     						echo "\nLa foto ya existe\n";
     					}
     					
-
     				}
     				
-    				echo "\nTotal fotos del inmueble ".$inmueble['consecutive']." - ".$total."\n";
+    			echo "\nTotal fotos del inmueble ".$inmueble['consecutive']." - ".$total."\n";
+    				
+    			if(isset($path)){
+    				echo "\nBorrar carpeta: ".$path."\n";
+    				//rmdir($path);
+    				$this->rmdir_recursive($path);
+    			}
+    			
     				
     		$porDonde++;
     		echo "\nVamos por: ".$porDonde."\n";
@@ -227,6 +239,15 @@ class FotosInmueblesCartagenaCommand extends Command
     			
     	}
     
+    }
+    
+    function rmdir_recursive($dir) {
+    	foreach(scandir($dir) as $file) {
+    		if ('.' === $file || '..' === $file) continue;
+    		if (is_dir("$dir/$file")) rmdir_recursive("$dir/$file");
+    		else unlink("$dir/$file");
+    	}
+    	rmdir($dir);
     }
     
     function insertarmarcadeagua($imagen,$marcadeagua,$margen){   	
@@ -270,7 +291,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	$nkey = $this->cleanString($foto['nkey']);
     	    	    	
     	$filter = array(
-    			'value' => $nkey,
+    			'value' => $foto['nkey'].".".$foto['ext'],
     			'operator' => 'equal',
     			'property' => 'nKeySifincaOne'
     	);
@@ -278,6 +299,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	 
     	$urlPhoto = $this->server.'catchment/main/photos?filter='.$filter;
     	 
+    	//ECHO "\n".$urlPhoto."\n";
     	$apiPhoto = $this->SetupApi($urlPhoto, $this->user, $this->pass);
     	 
     	$photo = $apiPhoto->get();
@@ -286,10 +308,13 @@ class FotosInmueblesCartagenaCommand extends Command
     	
     	if($photo['total'] > 0){
     		 
+    		//ECHO "ENTRO 1";
     		$c = array('id' => $photo['data'][0]['id']);
     		return $c;
     		 
     	}else{
+    		
+    		//ECHO "ENTRO 2";
     		return null;
     	}
     	

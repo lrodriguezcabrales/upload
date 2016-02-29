@@ -47,7 +47,7 @@ class oportunity {
     	$query =$query."'". $param['id_creador']."'";
     	$query =$query.")";
     	
-    	echo "\n".$query."\n";
+    	echo "\n\n".$query."\n\n";
         	
     	$r = $this->_conn->_query($query);
     
@@ -58,14 +58,15 @@ class oportunity {
     
     public function insertCliente($param){
     	 
-    	$query ="INSERT INTO clientes (id_cliente, id_identificacion, nat_juridica, nombre, apellido) ";
+    	$query ="INSERT INTO clientes (id_cliente, id_identificacion, nat_juridica, nombre, apellido, dir_co) ";
     
     	$query =$query." values ( ";
     	$query =$query."'". $param['id_cliente']."',";
     	$query =$query."'".$param['id_identificacion']."',";
     	$query =$query."'".$param['nat_juridica']."',";
     	$query =$query."'".$param['nombre']."',";
-    	$query =$query."'". $param['apellido']."'";
+    	$query =$query."'". $param['apellido']."',";
+    	$query =$query."''";
     	
     	
     	$query =$query.")";
