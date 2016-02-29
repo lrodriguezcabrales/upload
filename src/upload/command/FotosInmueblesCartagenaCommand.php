@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class FotosInmueblesCartagenaCommand extends Command
 {	
 	
-	public $server = 'http://162.242.247.95/sifinca/web/app.php/';
-	public $serverRoot = 'http://162.242.247.95/';
+	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+	public $serverRoot = 'http://www.sifinca.net/';
 	
  	//public $server = 'http://10.101.1.95/sifinca/web/app.php/';
  	//public $serverRoot = 'http://10.101.1.95/';
@@ -27,6 +27,7 @@ class FotosInmueblesCartagenaCommand extends Command
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
+	public $token = null;
 	
 	public $headerCurl = null;
 	
@@ -94,7 +95,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	
     	if($totalInmueblesSF2 > 0){
     		
-    		for ($i = 50; $i < 100; $i++) {
+    		for ($i = 0; $i < 50; $i++) {
     			
     				$inmueble = $inmueblesSF2['data'][$i];
     			
@@ -186,8 +187,8 @@ class FotosInmueblesCartagenaCommand extends Command
     								
     								echo "\nError -----\n";
     								
-    								
-    						
+    								echo "result";
+    								print_r($result);
     								
     								$urlapiMapper = $this->server.'catchment/main/errorphoto';
     								$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
@@ -332,38 +333,85 @@ class FotosInmueblesCartagenaCommand extends Command
     	return $string;
     }
     
-    protected function SetupApi($urlapi,$user,$pass){
+   
+    function login() {
     
-    	$url= $this->server."login";
+    	if(is_null($this->token)){
+    
+    		echo "\nEntro a login\n";
+    
+    		$url= $this->server."login";
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    		);
+    		 
+    		$a = new api($url, $headers);
+    		 
+    
+    		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
+    		$result = json_decode($result, true);
+    		 
+    		//print_r($result);
+    
+    		//echo "\n".$result['id']."\n";
+    
+    
+    		if(isset($result['code'])){
+    			if($result['code'] == 401){
+    
+    				$this->login();
+    			}
+    		}else{
+    
+    			if(isset($result['id'])){
+    
+    				$this->token = $result['id'];
+    			}else{
+    				echo "\nError en el login\n";
+    				$this->token = null;
+    			}
+    
+    		}
+    	}
+    
+    
+    }
+    
+    function SetupApi($urlapi,$user,$pass){
+    
     	$headers = array(
     			'Accept: application/json',
     			'Content-Type: application/json',
     	);
     
-    	$a = new api($url, $headers);
+    	$a = new api($urlapi, $headers);
     
-    	$result= $a->post(array("user"=>$user,"password"=>$pass));
-    	 
-//     	echo "\nresult\n";
-//     	print_r($result);
+    	$this->login();
     
-    	 
-    	$data=json_decode($result);
+    	if(!is_null($this->token)){
     
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    				//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
+    				'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
+    		);
     
-    	$token = $data->id;
+    		//     	print_r($headers);
     
-    	$this->headerCurl = 'x-sifinca:SessionToken SessionID="'.$token.'", Username="'.$user.'"';
-    	
-    	$headers = array(
-    			'Accept: application/json',
-    			'Content-Type: application/json',
-    			'x-sifinca:SessionToken SessionID="'.$token.'", Username="'.$user.'"'  ,
-    	);
+    		$this->headerCurl = 'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"';
+    		
+    		$a->set(array('url'=>$urlapi,'headers'=>$headers));
     
-    	$a->set(array('url'=>$urlapi,'headers'=>$headers));
+    		//print_r($a);
     
-    	return $a;
+    		return $a;
+    
+    	}else{
+    		echo "\nToken no valido\n";
+    	}
+    
     
     }
     

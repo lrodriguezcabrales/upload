@@ -22,31 +22,20 @@ class inmueblesCartagena {
 //  					WHERE id_inmueble= 34080";
     	
 
-    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
- 				WHERE tstamp > '2016-02-25 08:00:00.00'";
+//     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
+//  				WHERE tstamp > '2016-02-25 08:00:00.00'";
     	
 //    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
 // WHERE tstamp > '".$currentDate."'
 // ORDER BY id_inmueble DESC";
 
+    	$query = "SELECT TOP 10 *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
+ORDER BY id_inmueble DESC";
     	
-//     	$query = "SELECT  promocion, * FROM inmuebles
-// 					WHERE promocion = 1
-// 					AND id_ciudad = 'CTG'";
-    	
-//     	$query = "SELECT TOP 21661 * FROM inmuebles
-//  				  WHERE id_ciudad = 'CTG'
-//     			  AND (id_edificio IS NULL OR id_edificio = '')";
-
-
-//     	$query = "SELECT TOP 6000 * FROM inmuebles
-//   			      WHERE id_ciudad = 'CTG'
-//      			  AND (id_edificio IS NOT NULL)";
-
         $r = $this->_conn->_query($query);
         $clients = $this->_conn->_getData($r);
         //print_r($clients);
-        echo "Total clientes SF1: ".count($clients);
+        echo "Total clientes inmuebles SF1: ".count($clients)."\n";
     
         return $clients;
     
@@ -106,15 +95,15 @@ class inmueblesCartagena {
     	//echo "\n Fecha final: ".$currentDate->format('Y-m-d H:i:s')."\n";
     	$currentDate = $currentDate->format('Y-m-d H:i:s');
     	
-//     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-//     			WHERE tstamp > '".$currentDate."'";
+    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
+    			WHERE tstamp > '".$currentDate."'";
     			 
     	//     	$query = "SELECT *, CAST(linderos AS TEXT) FROM inmuebles
     	//     	WHERE id_ciudad = 'CTG'
     	//     	AND id_edificio IS NOT NULL";
     	 
-    	    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-    	WHERE tstamp > '2016-02-26 08:00:00.00'";
+//     	    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
+//     	WHERE tstamp > '2016-02-26 08:00:00.00'";
     
     
     	//     	$query = "SELECT  promocion, * FROM inmuebles

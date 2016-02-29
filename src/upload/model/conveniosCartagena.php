@@ -141,24 +141,22 @@ class conveniosCartagena {
     
     public function getSoloConvenios() {
     
-//     	$query = "SELECT CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi, 
-//   U.email AS emailCatcher, CON.fecha_convenio, CON.fecha_inicio, CON.fecha_final, CON.fecha_retiro, CON.FECHA_LOG FROM clientes_convenios AS CV
+    	$query = "SELECT TOP 20 CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
+    				CON.fecha_final, CON.fecha_retiro, 
+			   		CON.FECHA_LOG FROM clientes_convenios AS CV
+			  		LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+					LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+					ORDER BY id_convenio DESC";
+    	
+//     	$query = "SELECT TOP 50 CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi, 
+//    U.email AS emailCatcher, CON.fecha_convenio, CON.fecha_inicio, CON.fecha_final, CON.fecha_retiro, CON.FECHA_LOG FROM clientes_convenios AS CV
 //   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
 //   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
 //   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-//   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
+//   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
 //   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-//   ORDER BY CON.FECHA_LOG DESC";
-    	
-    	$query = "SELECT TOP 50 CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi, 
-   U.email AS emailCatcher, CON.fecha_convenio, CON.fecha_inicio, CON.fecha_final, CON.fecha_retiro, CON.FECHA_LOG FROM clientes_convenios AS CV
-  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
-  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-  --WHERE I.promocion = 1
-  ORDER BY id_convenio DESC";
+//   --WHERE I.promocion = 1
+//   ORDER BY id_convenio DESC";
     
     	$r = $this->_conn->_query($query);
     

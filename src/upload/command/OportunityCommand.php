@@ -19,7 +19,7 @@ class OportunityCommand extends Command
  
     private $conn;
     
-    public $server = 'http://www.sifinca.net/sifinca/web/app_dev.php/';
+    public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
     public $serverRoot = 'http://www.sifinca.net/';
     
     public $localServer = 'http://10.102.1.22/';
@@ -27,6 +27,7 @@ class OportunityCommand extends Command
     public $user= "sifincauno@araujoysegovia.com";
     public $pass="araujo123";
     
+    public $token = null;
     /*
      array("id"=>"#oportunidad",
      "fecha_ingreso"=>"dd/mm/aaaa",
@@ -128,14 +129,17 @@ class OportunityCommand extends Command
     	
     	echo "\nOportunidades de ventas: ".$oportunityVentas['total'];
     	
-    	//$oportunity = array_merge($oportunityArriendos['data'], $oportunityVentas['data']);
+    	$oportunity = array_merge($oportunityArriendos['data'], $oportunityVentas['data']);
     	
-    	$oportunity = $oportunityArriendos['data'];
+    	//$oportunity = $oportunityArriendos['data'];
     	
     	//$oportunity = $oportunityVentas['data'];
     	//print_r($oportunity);
     	
     	echo "\nTotal de oportunidades cerradas: ".count($oportunity)."\n";
+    	
+    	$startTime= new \DateTime();
+    	
     	if(count($oportunity) > 0){
     		
     		for ($i = 0; $i < count($oportunity); $i++) {
@@ -211,6 +215,14 @@ class OportunityCommand extends Command
     	}else{
     		return ;
     	}
+    	
+
+    	$finalTime = new \DateTime();    	 
+    	$diff = $startTime->diff($finalTime);
+    	     	 
+    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
     	
     }
     
@@ -340,58 +352,63 @@ class OportunityCommand extends Command
     	}else{
     		return null;
     	}
-    	 
-    	
-    	
+    	     	
     }
     
     
     function login() {
     	
-    	echo "\nEntro a login\n";
-    	
-    	$this->token = null;
-    	
-    	$url= $this->server."login";
-    	$headers = array(
-    			'Accept: application/json',
-    			'Content-Type: application/json',
-    	);
-    	
-    	$a = new api($url, $headers);
-    	
-    	//print_r($a);
-    	
-    	$result= $a->post(array("user"=>$this->user,"password"=>$this->pass));
-    	
-    	
-    	$result = json_decode($result);
-    	
-    	if(isset($result['code'])){
-    		if($result['code'] == 401){
-    			$this->login();
-    		}
-    	}else{
+    	if(is_null($this->token)){
     		
-    		if(isset($result['id'])){
-    			$this->token = $result->id;
+    		echo "\nEntro a login\n";
+    		
+    		$url= $this->server."login";
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    		);
+    		 
+    		$a = new api($url, $headers);
+  		 
+    		
+     		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
+     		$result = json_decode($result, true);
+     		
+     		//print_r($result);
+
+     		//echo "\n".$result['id']."\n";
+    		    		
+    		
+    		if(isset($result['code'])){
+    			if($result['code'] == 401){
+    				
+    				$this->login();
+    			}
     		}else{
-    			echo "\Error en el login\n";
-    		}
     		
+    			if(isset($result['id'])){
+    				
+    				$this->token = $result['id'];
+    			}else{
+    				echo "\nError en el login\n";
+    				$this->token = null;
+    			}
+    		
+    		}
     	}
+    	
     	
     }
     
     function SetupApi($urlapi,$user,$pass){
     
 //     	$url= $this->server."login";
-//     	$headers = array(
-//     			'Accept: application/json',
-//     			'Content-Type: application/json',
-//     	);
+    	$headers = array(
+    			'Accept: application/json',
+    			'Content-Type: application/json',
+    	);
     
-//     	$a = new api($url, $headers);
+     	$a = new api($urlapi, $headers);
     
 //     	//print_r($a);
     
@@ -406,7 +423,8 @@ class OportunityCommand extends Command
 //     	//print_r($data);
     
 //     	$token = $data->id;
-
+		
+    	$this->login();
     	
     	if(!is_null($this->token)){
     		

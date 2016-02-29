@@ -29,6 +29,7 @@ class PropietariosCommand extends Command
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
+	public $token = null;
 		
 	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
 	public $bolivar = 'a7ff9a96-5a2f-4bba-94aa-d45a15f67f66';
@@ -107,7 +108,7 @@ class PropietariosCommand extends Command
     	$startTime= new \DateTime();
     	
     	//foreach ($convenios['data'] as $convenio) {
-    	for ($i = 0; $i < $totalConvenios; $i++) {
+    	for ($i = 0; $i < 20; $i++) {
     		
     		$convenio = $convenios['data'][$i];
     		
@@ -223,9 +224,10 @@ class PropietariosCommand extends Command
     						}
     					}	
     					else{
-    				    	echo "\nError creando propietario 2\n";
-    		
-    				   		 //echo "\n\n".$json."\n\n";
+    				    	
+    						echo "\nEl propietario ya existe\n";
+							
+    						
     					}
     		
     				}else{
@@ -1625,45 +1627,82 @@ class PropietariosCommand extends Command
     	return $string;
     }
     
+    function login() {
+    	 
+    	if(is_null($this->token)){
+    
+    		echo "\nEntro a login\n";
+    
+    		$url= $this->server."login";
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    		);
+    		 
+    		$a = new api($url, $headers);
+    			
+    
+    		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
+    		$result = json_decode($result, true);
+    		 
+    		//print_r($result);
+    
+    		//echo "\n".$result['id']."\n";
+    
+    
+    		if(isset($result['code'])){
+    			if($result['code'] == 401){
+    
+    				$this->login();
+    			}
+    		}else{
+    
+    			if(isset($result['id'])){
+    
+    				$this->token = $result['id'];
+    			}else{
+    				echo "\nError en el login\n";
+    				$this->token = null;
+    			}
+    
+    		}
+    	}
+    	 
+    	 
+    }
+    
     function SetupApi($urlapi,$user,$pass){
     
-    	$url= $this->server."login";
     	$headers = array(
     			'Accept: application/json',
     			'Content-Type: application/json',
     	);
     
-    	$a = new api($url, $headers);
+    	$a = new api($urlapi, $headers);
     
-    	//print_r($a);
+    	$this->login();
     	 
-    	$result= $a->post(array("user"=>$user,"password"=>$pass));
+    	if(!is_null($this->token)){
     
-    	//      	echo "\nAqui result\n";
-    	//     	print_r($result);
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    				//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
+    				'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
+    		);
     
+    		//     	print_r($headers);
     
+    		$a->set(array('url'=>$urlapi,'headers'=>$headers));
     
-    	$data=json_decode($result);
+    		//print_r($a);
     
-    	//print_r($data);
+    		return $a;
+    
+    	}else{
+    		echo "\nToken no valido\n";
+    	}
     	 
-    	$token = $data->id;
-    
-    	$headers = array(
-    			'Accept: application/json',
-    			'Content-Type: application/json',
-    			//'x-sifinca:SessionToken SessionID="5698f8ba7315cf3b068b4569", Username="sifincauno@araujoysegovia.net"'
-    			'x-sifinca:SessionToken SessionID="'.$token.'", Username="'.$user.'"',
-    	);
-    
-    	//     	print_r($headers);
-    	 
-    	$a->set(array('url'=>$urlapi,'headers'=>$headers));
-    
-    	//print_r($a);
-    	 
-    	return $a;
     
     }
     
