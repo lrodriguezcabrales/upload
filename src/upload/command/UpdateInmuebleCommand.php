@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class UpdateInmuebleCommand extends Command
 {	
 	
- 	public $server = 'http://104.130.11.91/sifinca/web/app.php/';
- 	public $serverRoot = 'http://104.130.11.91/';
+ 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+ 	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -59,7 +59,7 @@ class UpdateInmuebleCommand extends Command
 							   \Symfony\Component\Console\Output\OutputInterface $output)
 	{
 
-        $output->writeln("Datos de inmuebles SF1 \n");
+        $output->writeln("Datos de inmuebles SF1 AHHHHHHH \n");
 
         $conn = new data(array(
             'server' =>'10.102.1.3'
@@ -1232,20 +1232,23 @@ class UpdateInmuebleCommand extends Command
     	
     	$caracteristicas = null;
     	
-    	if($inmueble['alcobas'] > 0){
+        if($inmueble['alcobas'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['alcobas'],
+    				"name" => 'Alcobas',
     				"propertyAttribute" => array(
     						'id' => $this->attributeAlcobas
     				)
     		);
     		$caracteristicas[] = $bcarateristica;
+    		print_r($bcarateristica);
     	}
     	 
     	//Baños
     	if($inmueble['43'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['43'],
+    				'name' => 'Banos',
     				"propertyAttribute" => array(
     						'id' => $this->attributeBanos
     				)
@@ -1848,14 +1851,14 @@ class UpdateInmuebleCommand extends Command
     			//return ;
     			
     			if($result['success'] == true){
-    				echo "\nOk";
+    				echo "\nOk - Inmueble ".$inmueble['id_inmueble']."\n";
     				$total++;
     			
     				//$idInmuebleSF2 = $result['data'][0];
     			
     			}
     			
-    			if (array_key_exists("error",$result)){
+    			if(isset($result['error'])){
     				echo "\nerror\n";
     			}
     			

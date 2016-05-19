@@ -66,6 +66,8 @@ class OportunityCommand extends Command
     	
     	$this->getOportunitySF2($conexion);
     
+    	$this->clientesCaptacion($conexion);
+    	
     }
     
     
@@ -109,7 +111,7 @@ class OportunityCommand extends Command
     	);
     	 
     	$filterTwo = json_encode($filterTwo);
-    	
+    	   	   	 
     	
     	$urlOpArriendos = $this->server.'crm/main/oportunity?filter='.$filter;
     	$urlOpVentas = $this->server.'crm/main/oportunity?filter='.$filterTwo;
@@ -206,7 +208,7 @@ class OportunityCommand extends Command
     				}
     				
     			}else{
-    				echo "\n La oportunidad ya esta creada ".$op['oportunityNumber']."\n";
+    				//echo "\n La oportunidad ya esta creada ".$op['oportunityNumber']."\n";
     			}
     			    			
     		}
@@ -225,6 +227,100 @@ class OportunityCommand extends Command
     	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
     	
     }
+    
+    
+    public  function clientesCaptacion($conexion){
+    	 
+    	$relaciones = array("responsable", "client", "quote", "state", "oportunityType", "office", "lead", "creator", "closeReason", "unit", "property");
+    	$relaciones = json_encode($relaciones);
+    	 
+    	//[{"value":"C","operator":" equal","property":"state.value"}]
+    	$filter = array();
+    	 
+    	$filter[] = array(
+    			'value' => 'C',
+    			'operator' => 'equal',
+    			'property' => 'state.value'
+    	);
+    	//{"value":"Arriendos","operator":" start_with","field":"oportunityType.name","property":"oportunityType.name"}
+    	$filter[] = array(
+    			'value' => 5,
+    			'operator' => 'equal',
+    			'field' => 'oportunityType.value',
+    			'property' => 'oportunityType.value'
+    	);
+    	 
+    	$filter = json_encode($filter);
+    	 
+  
+    
+    	 
+    	$urlOpCaptacion = $this->server.'crm/main/oportunity?filter='.$filter;
+    	 
+       	 
+    	$apiOp = $this->SetupApi($urlOpCaptacion, $this->user, $this->pass);
+    	$oportunityCaptacion = $apiOp->get();
+    	$oportunityCaptacion = json_decode($oportunityCaptacion, true);
+    	 
+    	echo "\nOportunidades de captacion: ".$oportunityCaptacion['total'];
+    	 
+    	
+        	 
+        $oportunity = $oportunityCaptacion['data'];
+    	 
+    	//$oportunity = $oportunityVentas['data'];
+    	//print_r($oportunity);
+    	 
+    	//echo "\nTotal de oportunidades cerradas: ".count($oportunity)."\n";
+   
+    	$startTime= new \DateTime();
+        	 
+        	if(count($oportunity) > 0){
+    
+	        	for ($i = 0; $i < count($oportunity); $i++) {
+	        	 
+		        	$op = $oportunity[$i];
+		        	//echo "\naqui 2\n";
+		        	 
+		        	$oportunidadSF1 = $this->searchOportunidadSF1($conexion, $op['oportunityNumber']);
+		        	 
+		        	if(is_null($oportunidadSF1)){
+		    
+			        	if(($op['oportunityType']['value'] == 5)){
+			   
+			        		//echo "\n".$op['client']['identity']['number']."\n";
+			        		$clienteSF1 = $this->searchUsuarioSF1($conexion, $op['client']['identity']['number']);
+			    	
+			        		//print_r($clienteSF1);
+			        		if(is_null($clienteSF1)){
+			        			echo "\n Creando cliente en Sifinca1 ".$op['client']['identity']['number']."\n";
+			        												
+			        			
+			        			
+			        			$this->insertCliente($conexion, $op['client']);
+			    		
+			    			}
+			    
+			        	}
+		        	}
+			    
+	        	}
+    
+        	 
+        	}else{
+        		return ;
+        	}
+        	 
+    
+        	$finalTime = new \DateTime();
+        	$diff = $startTime->diff($finalTime);
+    
+        	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+        	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+        	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
+        	 
+    }
+    
     
     
     public function insertOpotunidad($conexion, $param){
@@ -340,6 +436,10 @@ class OportunityCommand extends Command
     	 
     	$sucursal = $sucursalMapper['data']['0']['idSource'];
     	
+    	if(is_null($sucursal)){
+    		$sucursal = '1';
+    	}
+    	
     	return $sucursal;
     }
     
@@ -370,11 +470,15 @@ class OportunityCommand extends Command
     		 
     		$a = new api($url, $headers);
   		 
+    		//echo "\n".$url."\n";
     		
      		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
-     		$result = json_decode($result, true);
      		
      		//print_r($result);
+     		
+     		$result = json_decode($result, true);
+     		
+     		
 
      		//echo "\n".$result['id']."\n";
     		    		

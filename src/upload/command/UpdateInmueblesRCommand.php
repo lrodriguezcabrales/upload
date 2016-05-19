@@ -1236,6 +1236,7 @@ class UpdateInmueblesRCommand extends Command
     	if($inmueble['alcobas'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['alcobas'],
+    				"name" => 'Alcobas',
     				"propertyAttribute" => array(
     						'id' => $this->attributeAlcobas
     				)
@@ -1247,6 +1248,7 @@ class UpdateInmueblesRCommand extends Command
     	if($inmueble['43'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['43'],
+    				'name' => 'Banos',
     				"propertyAttribute" => array(
     						'id' => $this->attributeBanos
     				)

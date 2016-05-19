@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class ErrorInmuebleMongoCommand extends Command
 {	
 	
- 	public $server = 'http://162.242.247.95/sifinca/web/app.php/';
- 	public $serverRoot = 'http://162.242.247.95/';
+ 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+ 	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -29,7 +29,8 @@ class ErrorInmuebleMongoCommand extends Command
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
-		
+	public $token = null;	
+	
 	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
 	public $bolivar = 'a7ff9a96-5a2f-4bba-94aa-d45a15f67f66';
 	public $cartagena = '994b009d-50a5-44dd-8060-878a10f4dd00';
@@ -75,9 +76,10 @@ class ErrorInmuebleMongoCommand extends Command
     	$errorProperty = $apiErrorProperty->get();
     	$errorProperty = json_decode($errorProperty, true);
     	
-    	$totalErrores = $errorProperty['total'];
+    	$totalErrores = count($errorProperty['data']);
     	
     	echo "\nTotal errores: ".$totalErrores."\n";
+    	
     	if($totalErrores > 0){
     		 
     		$urlapiInmueble = $this->server.'catchment/main/property';
@@ -99,57 +101,64 @@ class ErrorInmuebleMongoCommand extends Command
     		for ($i = 0; $i < $totalErrores; $i++) {
     			$error = $errores[$i];
     			
-    			$propertySF2 = $this->searchPropertySF2($error['property']);
     			
-    			if(!$propertySF2){
-    				//echo "\n".$error['objectJson']."\n";
+    			if(isset($error['property'])){
+    				
+    				$propertySF2 = $this->searchPropertySF2($error['property']);
     				 
-    				$bError = json_decode($error['objectJson'], true);
-    				 
-    				//print_r($bError);
-    				$result = $apiInmueble->post($bError);
-    				 
-    				$result = json_decode($result, true);
-    				 
-    				//print_r($result);
-    				 
-    				if($result['success'] == true){
-    					echo "\nOk\n";
-    					
+    				if(!$propertySF2){
+    					//echo "\n".$error['objectJson']."\n";
+    						
+    					$bError = json_decode($error['objectJson'], true);
+    						
+    					//print_r($bError);
+    					$result = $apiInmueble->post($bError);
+    						
+    					$result = json_decode($result, true);
+    						
+    					//print_r($result);
+    						
+    					if(isset($result['success'])){
+    						if($result['success'] == true){
+    							echo "\nOk\n";
+    								
+    							$urlapiMapper = $this->server.'catchment/main/errorproperty/';
+    								
+    							//echo "\n".$urlapiMapper."\n";
+    							$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    								
+    							$apiMapper->delete($error['id']);
+    								
+    						}
+    							
+    					}else{
+    						echo "\nError\n";
+    							
+    						print_r($result);
+    				
+    						echo "\n".$error['objectJson']."\n";
+    					}
+    				
+    				}else{
+    				
+    				
+    					echo "\nEl inmueble ya existe\n";
+    				
     					$urlapiMapper = $this->server.'catchment/main/errorproperty/';
-    					
+    				
     					//echo "\n".$urlapiMapper."\n";
     					$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    					
+    				
     					$apiMapper->delete($error['id']);
-    					 
-    				}else{
-    					echo "\nError\n";
-    					 
-    					//     				$urlapiMapper = $this->server.'catchment/main/errorproperty';
-    					//     				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    					 
-    					//     				$error = array(
-    					//     						'property' => $inmueble['id_inmueble'],
-    					//     						'objectJson' => $json
-    					//     				);
-    					 
-    					//     				$apiMapper->post($error);
-    				    
     				}
     				
     			}else{
-    				
-    				
-    				echo "\nEl inmueble ya existe\n";
-    				
-    				$urlapiMapper = $this->server.'catchment/main/errorproperty/';
-    				
-    				//echo "\n".$urlapiMapper."\n";
-    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    				
-    				$apiMapper->delete($error['id']);
+    				echo "\nEs el inmueble 0\n";
+//     				print_r($error);
+//     				$i--;
     			}
+    			
+    			
     			
 				$porDonde++;
 				
@@ -168,7 +177,7 @@ class ErrorInmuebleMongoCommand extends Command
     		echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
     		
     	}else{
-    		echo "No hay errores";
+    		echo "\nNo hay errores";
     	}
     }
     
@@ -179,7 +188,7 @@ class ErrorInmuebleMongoCommand extends Command
     
     	$filter = array(
     			'value' => $propertySF1,
-    			'operator' => '=',
+    			'operator' => 'equal',
     			'property' => 'consecutive'
     	);
     	$filter = json_encode(array($filter));
@@ -193,14 +202,21 @@ class ErrorInmuebleMongoCommand extends Command
     
     	//     	echo "\n\nInmueble\n";
     	//     	print_r($property['data'][0]);
-    
-    	if($property['total'] > 0){
-    		 
-    		return true;
-    		 
+    	if(isset($property['total'])){
+    		if($property['total'] > 0){
+    			 
+    			return true;
+    			 
+    		}else{
+    			return false;
+    		}
+    		
     	}else{
+    		echo "\nInmueble ".$propertySF1." no encontrado\n";
     		return false;
     	}
+    	
+    	
     
     }
     
@@ -216,45 +232,82 @@ class ErrorInmuebleMongoCommand extends Command
     	return $string;
     }
     
-    protected function SetupApi($urlapi,$user,$pass){
+    function login() {
+    	 
+    	if(is_null($this->token)){
     
-    	$url= $this->server."login";
+    		echo "\nEntro a login\n";
+    
+    		$url= $this->server."login";
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    		);
+    		 
+    		$a = new api($url, $headers);
+    			
+    
+    		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
+    		$result = json_decode($result, true);
+    		 
+    		//print_r($result);
+    
+    		//echo "\n".$result['id']."\n";
+    
+    
+    		if(isset($result['code'])){
+    			if($result['code'] == 401){
+    
+    				$this->login();
+    			}
+    		}else{
+    
+    			if(isset($result['id'])){
+    
+    				$this->token = $result['id'];
+    			}else{
+    				echo "\nError en el login\n";
+    				$this->token = null;
+    			}
+    
+    		}
+    	}
+    	 
+    	 
+    }
+    
+    function SetupApi($urlapi,$user,$pass){
+    
     	$headers = array(
     			'Accept: application/json',
     			'Content-Type: application/json',
     	);
     
-    	$a = new api($url, $headers);
+    	$a = new api($urlapi, $headers);
     
-    	//print_r($a);
+    	$this->login();
     	 
-    	$result= $a->post(array("user"=>$user,"password"=>$pass));
+    	if(!is_null($this->token)){
     
-    	//      	echo "\nAqui result\n";
-    	//     	print_r($result);
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    				//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
+    				'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
+    		);
     
+    		//     	print_r($headers);
     
+    		$a->set(array('url'=>$urlapi,'headers'=>$headers));
     
-    	$data=json_decode($result);
+    		//print_r($a);
     
-    	//print_r($data);
+    		return $a;
+    
+    	}else{
+    		echo "\nToken no valido\n";
+    	}
     	 
-    	$token = $data->id;
-    
-    	$headers = array(
-    			'Accept: application/json',
-    			'Content-Type: application/json',
-    			//'x-sifinca:SessionToken SessionID="56619d57ed060f8c57c1109d", Username="sifincauno@araujoysegovia.com"'
-    			'x-sifinca: SessionToken SessionID="'.$token.'", Username="'.$user.'"',
-    	);
-    
-    	//     	print_r($headers);
-    	 
-    	$a->set(array('url'=>$urlapi,'headers'=>$headers));
-    
-    	//print_r($a);
-    	 
-    	return $a;
     
     }
     

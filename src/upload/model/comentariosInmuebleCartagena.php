@@ -31,4 +31,27 @@ class comentariosInmuebleCartagena {
     
     }
     
+    public function getComentariosContratosArriendo($idContrato){
+    
+    
+    	$query = "SELECT U.email, CAST(comentario AS TEXT) AS comentarioAll, * FROM COMENTARIOS AS C
+				  LEFT JOIN usuarios AS U ON C.id_user = U.id_user
+				  WHERE tipo = 'C'
+				  AND clave = ".$idContrato."
+				  ORDER BY fecha ASC";
+				    
+    	//echo "\n".$query."\n";
+    	
+    	$r = $this->_conn->_query($query);
+    	$clients = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	//echo "Total comentarios: ".count($clients);
+    
+    	return $clients;
+    	 
+    	 
+    
+    }
+    
+    
 }

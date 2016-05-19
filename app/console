@@ -21,6 +21,32 @@ use upload\command\ContratoArriendoCommand;
 use upload\command\PropietariosCommand;
 use upload\command\ErrorInmuebleMongoCommand;
 use upload\command\ErrorAgreementCommand;
+use upload\command\PublicarInmuebleCommand;
+use upload\command\ArrendatariosCommand;
+use upload\command\ComentariosContratoArriendoCommand;
+use upload\command\TiposDeDocumentosCommand;
+use upload\command\UpdateContratoArriendoCommand;
+
+
+use upload\command\ClientsMonteriaCommand;
+use upload\command\InmueblesMonteriaCommand;
+use upload\command\FotosInmueblesMonteriaCommand;
+use upload\command\ConveniosMonteriaCommand;
+use upload\command\ComentariosInmuebleMonteriaCommand;
+use upload\command\UpdateInmuebleMonteriaCommand;
+use upload\command\UpdateInmueblesRMonteriaCommand;
+use upload\command\UpdateClientesMonteriaCommand;
+use upload\command\ContratosDeMandatoMonteriaCommand;
+use upload\command\OportunityMonteriaCommand;
+use upload\command\ContratoArriendoMonteriaCommand;
+use upload\command\PropietariosMonteriaCommand;
+use upload\command\ErrorInmuebleMongoMonteriaCommand;
+use upload\command\ErrorAgreementMonteriaCommand;
+use upload\command\PublicarInmuebleMonteriaCommand;
+use upload\command\ArrendatariosMonteriaCommand;
+use upload\command\ComentariosContratoArriendoMonteriaCommand;
+use upload\command\TiposDeDocumentosMonteriaCommand;
+use upload\command\ErrorClientMonteriaCommand;
 
 use Knp\Provider\ConsoleServiceProvider;
 
@@ -63,6 +89,32 @@ $console->add(new ContratoArriendoCommand());
 $console->add(new PropietariosCommand());
 $console->add(new ErrorInmuebleMongoCommand());
 $console->add(new ErrorAgreementCommand());
+$console->add(new PublicarInmuebleCommand());
+$console->add(new ArrendatariosCommand());
+$console->add(new ComentariosContratoArriendoCommand());
+$console->add(new TiposDeDocumentosCommand());
+$console->add(new UpdateContratoArriendoCommand());
+
+
+$console->add(new ClientsMonteriaCommand());
+$console->add(new InmueblesMonteriaCommand());
+$console->add(new FotosInmueblesMonteriaCommand());
+$console->add(new ConveniosMonteriaCommand());
+$console->add(new ComentariosInmuebleMonteriaCommand());
+$console->add(new UpdateInmuebleMonteriaCommand());
+$console->add(new UpdateInmueblesRMonteriaCommand());
+$console->add(new UpdateClientesMonteriaCommand());
+$console->add(new ContratosDeMandatoMonteriaCommand());
+$console->add(new OportunityMonteriaCommand());
+$console->add(new ContratoArriendoMonteriaCommand());
+$console->add(new PropietariosMonteriaCommand());
+$console->add(new ErrorInmuebleMongoMonteriaCommand());
+$console->add(new ErrorAgreementMonteriaCommand());
+$console->add(new PublicarInmuebleMonteriaCommand());
+$console->add(new ArrendatariosMonteriaCommand());
+$console->add(new ComentariosContratoArriendoMonteriaCommand());
+$console->add(new TiposDeDocumentosMonteriaCommand());
+$console->add(new ErrorClientMonteriaCommand());
 
 $console->run();
 

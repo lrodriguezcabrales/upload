@@ -1,0 +1,68 @@
+[
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "0",
+    "idTarget": "a1edab94-0edc-44bd-a3be-35954e0af555",
+    "label": "edificio"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "1",
+    "idTarget": "21b26da4-18ea-492f-954f-2562c2e074c7",
+    "label": "apartamento"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "2",
+    "idTarget": "f138ad09-5efc-4bae-9d77-9ee198b99af9",
+    "label": "casa"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "3",
+    "idTarget": "f49c642b-71f2-43c9-bc82-16e1d3b76673",
+    "label": "local"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "4",
+    "idTarget": "5cca94f0-13e7-44c1-b027-ba63837d5906",
+    "label": "bodega"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "5",
+    "idTarget": "493ef167-fb9f-49f7-b09f-9681b590d4c2",
+    "label": "oficina"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "6",
+    "idTarget": "bf48d911-ea9a-4b5c-9e1b-d0da4ce2821b",
+    "label": "consultorio"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "7",
+    "idTarget": "79194b81-910f-45fa-8d54-faae188323fb",
+    "label": "lote"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "8",
+    "idTarget": "5cca94f0-13e7-44c1-b027-ba63837d5906",
+    "label": "bodega"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "9",
+    "idTarget": "57439798-71a8-4786-9838-4e5b75b076d6",
+    "label": "parqueadero"
+  },
+  {
+    "name": "propertyTypeCatchmentMON",
+    "idSource": "10",
+    "idTarget": "751a51c0-04fd-4b5b-b2ab-8b475c63b519",
+    "label": "finca"
+  },
+]

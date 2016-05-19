@@ -118,9 +118,11 @@ class ContratosDeMandatoCommand extends Command
     	$startTime= new \DateTime();
     	 
     	//foreach ($convenios['data'] as $convenio) {
-    	for ($i = 0; $i < 20; $i++) {
+    	for ($i = 0; $i < 50; $i++) {
     	    		
     		$convenio = $convenios['data'][$i];
+    		
+    		echo "\nConvenio: ".$convenio['consecutive']."\n";
     		
     		$contratosMandato = $conexion->getContratoMandatoDelConvenio($convenio['consecutive']);
     		    		

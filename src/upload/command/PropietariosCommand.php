@@ -166,6 +166,12 @@ class PropietariosCommand extends Command
     						}
     					}
     					else{
+    						
+    						if($result['message'] == 'Error el cliente ya se ecuentra en este convenio'){
+    							
+    							echo "\nPropietario ya existe\n";
+    						}
+    						
     						echo "\nError creando propietario 1\n";
     					
     						//echo "\n\n".$json."\n\n";

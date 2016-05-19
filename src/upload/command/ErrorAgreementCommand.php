@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class ErrorAgreementCommand extends Command
 {	
 	
- 	public $server = 'http://162.242.247.95/sifinca/web/app.php/';
- 	public $serverRoot = 'http://162.242.247.95/';
+ 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+ 	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -29,7 +29,7 @@ class ErrorAgreementCommand extends Command
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
-		
+	public $token = null;
 	
     protected function configure()
     {
@@ -43,8 +43,8 @@ class ErrorAgreementCommand extends Command
 
         $output->writeln("Convenios con error \n");
         
-        $this->searchErrorInmueble();
-         
+        //$this->searchErrorInmueble();
+        $this->searchErrorContratoArriendo();
     }
     
     function searchErrorInmueble() {
@@ -185,6 +185,140 @@ class ErrorAgreementCommand extends Command
     	
     }
     
+    
+    
+    
+    
+    
+    function searchErrorContratoArriendo() {
+    
+    	$urlErrorProperty = $this->server.'catchment/main/erroragreement';
+    
+    	echo "\n".$urlErrorProperty."\n";
+    
+    	$apiErrorProperty = $this->SetupApi($urlErrorProperty, $this->user, $this->pass);
+    	 
+    
+    	$errorProperty = $apiErrorProperty->get();
+    	$errorProperty = json_decode($errorProperty, true);
+    	 
+    	$totalErrores = count($errorProperty['data']);
+    	 
+    	echo "\nTotal errores: ".$totalErrores."\n";
+    	if($totalErrores > 0){
+    		 
+    		$urlapiInmueble = $this->server.'catchment/main/agreement';
+    
+    		$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
+    		 
+    		
+    
+    		$errores = $errorProperty['data'];
+    
+    
+    		$startTime= new \DateTime();
+    		 
+    		$porDonde = 0;
+    
+    		for ($i = 0; $i < 1; $i++) {
+    			$error = $errores[$i];
+    			 
+    			//print_r($error);
+    			$propertySF2 = $this->searchCOASF2($error['agreement']);
+    			 
+    			if(!$propertySF2){
+    				//echo "\n".$error['objectJson']."\n";
+    					
+    				$bError = json_decode($error['objectJson'], true);
+    					
+    				//print_r($bError);
+    				$result = $apiInmueble->post($bError);
+    					
+    				$result = json_decode($result, true);
+    					
+    				//print_r($result);
+    					
+    				if($result['success'] == true){
+    					echo "\nOk\n";
+    						
+    					$urlapiMapper = $this->server.'catchment/main/erroragreement/';
+    						
+    					//echo "\n".$urlapiMapper."\n";
+    					$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    						
+    					$apiMapper->delete($error['id']);
+    
+    				}else{
+    					echo "\nError\n";
+    		    
+    				}
+    
+    			}else{
+    
+    
+    				echo "\nEl convenio ya existe\n";
+    
+    				$urlapiMapper = $this->server.'catchment/main/erroragreement/';
+    
+    				//echo "\n".$urlapiMapper."\n";
+    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    
+    				$apiMapper->delete($error['id']);
+    			}
+    			 
+    			$porDonde++;
+    
+    			echo "\n Vamos por: ".$porDonde."\n";
+    			 
+    		}
+    		 
+    		$finalTime = new \DateTime();
+    
+    
+    		$diff = $startTime->diff($finalTime);
+    
+    
+    		echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+    		echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+    		echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
+    
+    	}else{
+    		echo "No hay errores";
+    	}
+    }
+    
+    
+    function searchCOASF2($convenio) {
+    	 
+    	 
+    	$filter = array(
+    			'value' => $this->cleanString($convenio),
+    			'operator' => 'equal',
+    			'property' => 'consecutive'
+    	);
+    	$filter = json_encode(array($filter));
+    	 
+    	$urlAgreement = $this->server.'catchment/main/agreement?filter='.$filter;
+    	 
+    	$apiAgreement = $this->SetupApi($urlAgreement, $this->user, $this->pass);
+    	 
+    	$agreement = $apiAgreement->get();
+    	$agreement = json_decode($agreement, true);
+    	 
+    	 
+    	if($agreement['total'] > 0){
+    		 
+    		return $agreement['data'][0];
+    		 
+    	}else{
+    		return null;
+    	}
+    	 
+    }
+    
+    
+    
+    
     /**
      * Eliminar espacios en blanco seguidos
      * @param unknown $string
@@ -197,45 +331,82 @@ class ErrorAgreementCommand extends Command
     	return $string;
     }
     
-    protected function SetupApi($urlapi,$user,$pass){
+    function login() {
+    	 
+    	if(is_null($this->token)){
     
-    	$url= $this->server."login";
+    		echo "\nEntro a login\n";
+    
+    		$url= $this->server."login";
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    		);
+    		 
+    		$a = new api($url, $headers);
+    			
+    
+    		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
+    		$result = json_decode($result, true);
+    		 
+    		//print_r($result);
+    
+    		//echo "\n".$result['id']."\n";
+    
+    
+    		if(isset($result['code'])){
+    			if($result['code'] == 401){
+    
+    				$this->login();
+    			}
+    		}else{
+    
+    			if(isset($result['id'])){
+    
+    				$this->token = $result['id'];
+    			}else{
+    				echo "\nError en el login\n";
+    				$this->token = null;
+    			}
+    
+    		}
+    	}
+    	 
+    	 
+    }
+    
+    function SetupApi($urlapi,$user,$pass){
+    
     	$headers = array(
     			'Accept: application/json',
     			'Content-Type: application/json',
     	);
     
-    	$a = new api($url, $headers);
+    	$a = new api($urlapi, $headers);
     
-    	//print_r($a);
+    	$this->login();
     	 
-    	$result= $a->post(array("user"=>$user,"password"=>$pass));
+    	if(!is_null($this->token)){
     
-    	//      	echo "\nAqui result\n";
-    	//     	print_r($result);
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    				//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
+    				'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
+    		);
     
+    		//     	print_r($headers);
     
+    		$a->set(array('url'=>$urlapi,'headers'=>$headers));
     
-    	$data=json_decode($result);
+    		//print_r($a);
     
-    	//print_r($data);
+    		return $a;
+    
+    	}else{
+    		echo "\nToken no valido\n";
+    	}
     	 
-    	$token = $data->id;
-    
-    	$headers = array(
-    			'Accept: application/json',
-    			'Content-Type: application/json',
-    			//'x-sifinca:SessionToken SessionID="56619d57ed060f8c57c1109d", Username="sifincauno@araujoysegovia.com"'
-    			'x-sifinca: SessionToken SessionID="'.$token.'", Username="'.$user.'"',
-    	);
-    
-    	//     	print_r($headers);
-    	 
-    	$a->set(array('url'=>$urlapi,'headers'=>$headers));
-    
-    	//print_r($a);
-    	 
-    	return $a;
     
     }
     

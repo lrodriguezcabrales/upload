@@ -19,23 +19,17 @@ class documento {
             
             ## obtener el radicado
             
-<<<<<<< HEAD
-            $query="select top 2  * from documentos where archivador='".$this->_archivador."' and id ='".$param['id']."'";
-=======
             $query="select   * from documentos where archivador='".$this->_archivador."' and id ='".$param['id']."'";
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
             
             
         }else{
             
             ## obtener todos los documentos
-<<<<<<< HEAD
-            $query="select top 2 "
-                    . " * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
-=======
+
             $query="select "
              . " * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
+
             
             
         }
@@ -47,16 +41,10 @@ class documento {
                         
         $result=$this->_conn->_getData($r);
         
-        
-<<<<<<< HEAD
-        foreach ($result as $key => $value) {
-            
-        }
-=======
+
        // foreach ($result as $key => $value) {
             
         //}
->>>>>>> c4ca7ef1998f7d27d3aa2057ee37bc1da48e629a
         
         //$metadata = $this->getMetadata($result['']);
         

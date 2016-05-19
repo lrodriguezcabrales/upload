@@ -725,29 +725,6 @@ class InmueblesCartagenaCommand extends Command
                     $retirementReason = null;
                 }
                 
-    //          $urlStatus = $this->server.'admin/sifinca/mapper/propertyStatus/'.$inmueble['estado_operativo'];
-    //          //echo $urlStratum;
-    //          $apiStatus = $this->SetupApi($urlStatus, $this->user, $this->pass);
-                 
-    //          $statusMapper = $apiStatus->get();
-    //          $statusMapper = json_decode($statusMapper, true);
-    //          //print_r($stratumMapper);
-    //          $propertyStatus = null;
-    //          if($statusMapper['total'] > 0){
-    //              $propertyStatus = $statusMapper['data']['0']['idTarget'];
-    //              if(!is_null($propertyStatus)){
-                
-    //                  $propertyStatus = array('id'=>$propertyStatus);
-                
-    //                  if($statusMapper['total'] == 0){
-    //                      $propertyStatus = null;
-    //                  }
-                
-    //              }
-    //          }
-    //          if($inmueble['estado_operativo'] == '0'){
-    //              $propertyStatus = array('id'=>'49147d17-fc80-4eb1-ad34-90622938138e');
-    //          }
                 
                 //Retirado
                 if($inmueble['promocion'] == '0'){
@@ -776,6 +753,8 @@ class InmueblesCartagenaCommand extends Command
                 $retirementDate= new \DateTime($inmueble['fecha_retiro']);
                 $retirementDate = $retirementDate->format('Y-m-d');
                 
+                
+                
                 $bInmueble = array(
                         "consecutive" => $inmueble['id_inmueble'],
                         "cadastralReference" => $this->cleanString($inmueble['referencia_catastral']),
@@ -798,24 +777,28 @@ class InmueblesCartagenaCommand extends Command
                         "consignmentdate" => $consignmentdate,
                         "dateAvailable" => $dateAvailable,
                         "dateUpdated" => $dateAvailable,
-                        "building" => $edificio,
-                        "publicService" => $servicios,
-                        "propertyTypeCatchment" => $propertyType,
-                        "inscriptionType" => $inscriptionType,
-                        "destiny" => $destiny,
+                         "building" => $edificio,
+                         "publicService" => $servicios,
+                         "propertyTypeCatchment" => $propertyType,
+                         "inscriptionType" => $inscriptionType,
+                         "destiny" => $destiny,
                         "office" => $office,
                         "stratum" => $stratum,
                         "propertyStatus" => $propertyStatus, //Estado del inmueble
                         "classificationOfProperty" => $classification,
-                        "propertyAttribute" => $caracteristicas, 
-                        "address" => $address,
+                         "propertyAttribute" => $caracteristicas, 
+                         "address" => $address,
                         "retirementDate" => $retirementDate,
-                        "retirementReason" => $retirementReason,
+                        "retirementReason" => $retirementReason
                 );
                 
+//                 echo "\nCaracteristicas\n";
+//                 print_r($caracteristicas);
                 
                 $json = json_encode($bInmueble);
-                //echo "\n\n".$json."\n\n";
+                
+//                 echo "\nJSON\n";
+//                 echo "\n\n".$json."\n\n";
                  
                 $result = $apiInmueble->post($bInmueble);
                 
@@ -1143,6 +1126,7 @@ class InmueblesCartagenaCommand extends Command
     	if($inmueble['alcobas'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['alcobas'],
+    				"name" => 'Alcobas',
     				"propertyAttribute" => array(
     						'id' => $this->attributeAlcobas
     				)
@@ -1154,6 +1138,7 @@ class InmueblesCartagenaCommand extends Command
     	if($inmueble['43'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['43'],
+    				'name' => 'Banos',
     				"propertyAttribute" => array(
     						'id' => $this->attributeBanos
     				)

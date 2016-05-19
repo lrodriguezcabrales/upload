@@ -173,4 +173,33 @@ ORDER BY I.number";
     	
     }
     
+    
+    
+    //Monteria
+    
+    public function getClientsMonteria(){
+    
+    	$query = "SELECT * FROM clientes
+    			  WHERE id_cliente IS NOT NULL
+    			AND id_cliente != ''
+    			AND id_cliente != '0'";
+    	 
+
+    	
+    	
+//     	$query = "SELECT * FROM clientes
+//     			  WHERE id_cliente = '812001044'";
+    	
+    	$r = $this->_conn->_query($query);
+    
+    	$clients = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	echo "\nTotal clientes SF1: ".count($clients)."\n";
+    
+        return $clients;
+    
+    }
+    
+    
+     
 }

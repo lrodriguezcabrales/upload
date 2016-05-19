@@ -80,7 +80,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	$inmueblesSF2 = $apiInmueblesSF2->get();
     	$inmueblesSF2 = json_decode($inmueblesSF2, true);
     
-
+		//31419
     	echo "\nTotal inmuebles SF2: ".$inmueblesSF2['total']."\n";
     	
     	$totalInmueblesSF2 = $inmueblesSF2['total'];
@@ -95,7 +95,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	
     	if($totalInmueblesSF2 > 0){
     		
-    		for ($i = 0; $i < 50; $i++) {
+    		for ($i = 0; $i < 100; $i++) {
     			
     				$inmueble = $inmueblesSF2['data'][$i];
     			
