@@ -103,17 +103,16 @@ ORDER BY id_inmueble DESC";
     	
     	echo $currentDate;
     	
-    	$replace = str_replace($currentDate, "-", "");
+//     	$replace = str_replace($currentDate, "-", "");
     	
-    	echo "\nreplace";
-    	echo $replace;
+//     	echo "\nreplace";
+//     	echo $replace;
     	
     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
     			WHERE tstamp > '".$currentDate."'";
     			 
 
     
-    	return  null;
     	
     	echo "\n".$query."\n";
     	$r = $this->_conn->_query($query);

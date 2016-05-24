@@ -142,10 +142,11 @@ class conveniosCartagena {
     public function getSoloConvenios() {
     
     	$query = "SELECT TOP 20 CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
-    				CON.fecha_final, CON.fecha_retiro, 
+    				CON.fecha_final, CON.fecha_retiro, U.email,
 			   		CON.FECHA_LOG FROM clientes_convenios AS CV
 			  		LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
 					LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+    				INNER JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
 					ORDER BY id_convenio DESC";
     	
 //     	$query = "SELECT TOP 50 CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi, 
@@ -220,13 +221,13 @@ class conveniosCartagena {
     
     public function updateConvenios() {
     
-    	$query = "SELECT TOP 5 CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
-CON.fecha_final, CON.fecha_retiro, U.email,
-CON.FECHA_LOG FROM clientes_convenios AS CV
-LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-LEFT JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
-ORDER BY id_convenio DESC";
+    	$query = "SELECT CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
+					CON.fecha_final, CON.fecha_retiro, U.email,
+					CON.FECHA_LOG FROM clientes_convenios AS CV
+					LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+					LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+					INNER JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
+					ORDER BY id_convenio DESC";
     	 
     
     	$r = $this->_conn->_query($query);

@@ -16,17 +16,14 @@ use Monolog\Handler\StreamHandler;
 class PropietariosCommand extends Command
 {	
 	
-	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
-	public $serverRoot = 'http://www.sifinca.net';
+// 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+// 	public $serverRoot = 'http://www.sifinca.net';
+	
+	public $server = 'http://104.130.6.169/sifinca/web/app.php/';
+	public $serverRoot = 'http://104.130.6.169';
 	
 	public $localServer = 'http://10.102.1.22/';
-	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
-
-// 	public $server = 'http://104.130.12.152/sifinca/web/app_dev.php/';
-// 	public $serverRoot = 'http:/104.130.12.152/';
-	
+		
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 	public $token = null;
@@ -108,7 +105,7 @@ class PropietariosCommand extends Command
     	$startTime= new \DateTime();
     	
     	//foreach ($convenios['data'] as $convenio) {
-    	for ($i = 0; $i < 20; $i++) {
+    	for ($i = 0; $i < 100; $i++) {
     		
     		$convenio = $convenios['data'][$i];
     		
@@ -238,7 +235,7 @@ class PropietariosCommand extends Command
     		
     				}else{
     		
-    					echo "\nERROR\n";
+    					//echo "\nERROR\n";
     					
     				}
     		

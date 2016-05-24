@@ -81,12 +81,13 @@ class oportunity {
     
     public function insertClienteJuridico($param){
     
-    	$query ="INSERT INTO clientes (id_cliente, id_identificacion, nat_juridica, nom_empresa) ";
+    	$query ="INSERT INTO clientes (id_cliente, id_identificacion, nat_juridica, nombre, nom_empresa) ";
     
     	$query =$query." values ( ";
     	$query =$query."'". $param['id_cliente']."',";
     	$query =$query."'".$param['id_identificacion']."',";
     	$query =$query."'".$param['nat_juridica']."',";
+    	$query =$query."'".$param['nom_empresa']."',";
     	$query =$query."'". $param['nom_empresa']."'";
     
     	$query =$query.")";

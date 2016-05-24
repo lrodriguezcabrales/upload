@@ -95,7 +95,7 @@ class PublicarInmuebleCommand extends Command
 			);
 			
 			$json = json_encode($bpublicacion);
-			echo "\n".$json."\n";
+			//echo "\n".$json."\n";
 					
 			$result = $apiPublication->post($bpublicacion);
 			
@@ -103,17 +103,15 @@ class PublicarInmuebleCommand extends Command
 			
 			
 			if($result['success'] == true){
-				echo "\nOk";
+				echo "\nOk, inmueble ".$inmueble['consecutive']."\n";
 			
 			
 			}else{
-				echo "\nError\n";
-				
-			
+				echo "\nError ".$inmueble['consecutive']."\n";
 			}
 			
 			$porDonde++;
-			echo "\n\nvamos por: ".$porDonde."\n";
+			echo "\nVamos por: ".$porDonde."\n";
 				
 		}
 		
@@ -124,10 +122,7 @@ class PublicarInmuebleCommand extends Command
 		echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
 		echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
 		echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
-		
-		
-		
-		 
+				
 	}
 	
 	function login() {

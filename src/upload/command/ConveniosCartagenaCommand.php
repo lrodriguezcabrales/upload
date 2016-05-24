@@ -16,17 +16,14 @@ use Monolog\Handler\StreamHandler;
 class ConveniosCartagenaCommand extends Command
 {	
 	
-	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
-	public $serverRoot = 'http://www.sifinca.net';
+// 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+// 	public $serverRoot = 'http://www.sifinca.net';
+	
+	public $server = 'http://104.130.6.169/sifinca/web/app.php/';
+	public $serverRoot = 'http://104.130.6.169';
 	
 	public $localServer = 'http://10.102.1.22/';
-	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
-
-// 	public $server = 'http://104.130.12.152/sifinca/web/app_dev.php/';
-// 	public $serverRoot = 'http:/104.130.12.152/';
-	
+		
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 	public $token = null;	
@@ -104,8 +101,9 @@ class ConveniosCartagenaCommand extends Command
     	echo "\nTotal de convenios: ".count($convenios)."\n";
     	
     	foreach ($convenios as $convenio) {
+    	//for ($i = 400; $i < 500; $i++) {
     		
-    		
+    		$convenio = $convenios[$i];
     		$convenioSF2 = $this->searchConvenioSF2($convenio);
     		
     		if(is_null($convenioSF2)){
@@ -135,13 +133,17 @@ class ConveniosCartagenaCommand extends Command
     			$retirementDate = new \DateTime($convenio['fecha_retiro']);
     			$retirementDate = $retirementDate->format('Y-m-d');
     			
+    			//Asesor integreal
+    			$responsable = $this->searchUsuarioByEmail($convenio['email']);
+    			
     			$bConvenio = array(
     					'consecutive' => $convenio['id_convenio'],
     					'statusAgreement' => $statusAgreement,
     					'agreementDate' => $agreementDate,
     					'initialDate' => $initialDate,
     					'endDate' => $endDate,
-    					'retirementDate' => $retirementDate
+    					'retirementDate' => $retirementDate,
+    					'responsable' => $responsable
     			);
     			 
     			$json = json_encode($bConvenio);
@@ -2344,6 +2346,54 @@ class ConveniosCartagenaCommand extends Command
     	}
     	
     }
+    
+    /**
+     * Buscar un usario en sifinca2 por medio del email de sifinca1
+     * @param unknown
+     * @return multitype:number
+     */
+    function searchUsuarioByEmail($email) {
+    
+    	$email = $this->cleanString($email);
+    
+    	if($email == 'inmobiliaria@araujoysegovia.com'){
+    		$user = array('id' => 203);
+    		return $user;
+    	}
+    
+    	if($email == 'hherrera@araujoysegovia.com'){
+    		$user = array('id' => 203);
+    		return $user;
+    	}
+    
+    
+    	$filter = array(
+    			'value' => $email,
+    			'operator' => '=',
+    			'property' => 'email'
+    	);
+    	$filter = json_encode(array($filter));
+    
+    	$urlUser = $this->server.'admin/security/user?filter='.$filter;
+    
+    	$apiUser = $this->SetupApi($urlUser, $this->user, $this->pass);
+    
+    	$user = $apiUser->get();
+    	$user = json_decode($user, true);
+    
+    
+    	if($user['total'] > 0){
+    		 
+    		return $user['data'][0];
+    		 
+    	}else{
+    		return $user = array('id' => 203);
+    	}
+    
+    }
+    
+    
+    
     /**
      * Eliminar espacios en blanco seguidos
      * @param unknown $string

@@ -359,6 +359,8 @@ class OportunityCommand extends Command
     				 
     		);
     		
+    		$conexion->insertClienteJuridico($param);
+    		
     	}else{
     		
     		$param = array(
@@ -371,9 +373,11 @@ class OportunityCommand extends Command
     				 
     		);
     		
+    		$conexion->insertCliente($param);
+    		
     	}
     	
-    	$conexion->insertCliente($param);
+    	
     
     }
     

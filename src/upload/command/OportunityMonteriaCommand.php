@@ -349,7 +349,11 @@ class OportunityMonteriaCommand extends Command
     	
     	
     	$naturaleza = 'N';
+    	
+    	print_r($cliente);
+    	
     	if($cliente['identity']['idType']['id'] == '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'){
+    		
     		$naturaleza = 'J';
     		
     		$param = array(
@@ -359,6 +363,8 @@ class OportunityMonteriaCommand extends Command
     				'nom_empresa' => $cliente['comercialName']
     				 
     		);
+    		$conexion->insertClienteJuridico($param);
+    		
     		
     	}else{
     		
@@ -372,9 +378,9 @@ class OportunityMonteriaCommand extends Command
     				 
     		);
     		
+    		$conexion->insertCliente($param);
     	}
-    	
-    	$conexion->insertCliente($param);
+    	    	
     
     }
     

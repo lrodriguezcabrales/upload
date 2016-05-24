@@ -34,7 +34,7 @@ class PublicarInmuebleMonteriaCommand extends Command
 	
 	protected function configure()
 	{
-		$this->setName('publicar')
+		$this->setName('publicarMonteria')
 		->setDescription('Comando para publicar inmuebles');
 	}
 	
@@ -95,7 +95,7 @@ class PublicarInmuebleMonteriaCommand extends Command
 			);
 			
 			$json = json_encode($bpublicacion);
-			echo "\n".$json."\n";
+			//echo "\n".$json."\n";
 					
 			$result = $apiPublication->post($bpublicacion);
 			
