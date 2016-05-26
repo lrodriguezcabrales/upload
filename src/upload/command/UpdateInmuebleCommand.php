@@ -21,12 +21,6 @@ class UpdateInmuebleCommand extends Command
 	
 	public $localServer = 'http://10.102.1.22/';
 	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
-
-	//public $server = 'http://162.242.245.207/sifinca/web/app_dev.php/';
-	//public $serverRoot = 'http:/162.242.245.207/';
-	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 		

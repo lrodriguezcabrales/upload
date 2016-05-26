@@ -16,12 +16,9 @@ use Monolog\Handler\StreamHandler;
 class PropietariosCommand extends Command
 {	
 	
-// 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
-// 	public $serverRoot = 'http://www.sifinca.net';
-	
-	public $server = 'http://104.130.6.169/sifinca/web/app.php/';
-	public $serverRoot = 'http://104.130.6.169';
-	
+	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+	public $serverRoot = 'http://www.sifinca.net';
+
 	public $localServer = 'http://10.102.1.22/';
 		
 	public $user= "sifincauno@araujoysegovia.com";

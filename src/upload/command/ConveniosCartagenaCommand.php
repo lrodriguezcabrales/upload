@@ -16,11 +16,11 @@ use Monolog\Handler\StreamHandler;
 class ConveniosCartagenaCommand extends Command
 {	
 	
-// 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
-// 	public $serverRoot = 'http://www.sifinca.net';
+	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+	public $serverRoot = 'http://www.sifinca.net';
 	
-	public $server = 'http://104.130.6.169/sifinca/web/app.php/';
-	public $serverRoot = 'http://104.130.6.169';
+// 	public $server = 'http://104.130.6.169/sifinca/web/app.php/';
+// 	public $serverRoot = 'http://104.130.6.169';
 	
 	public $localServer = 'http://10.102.1.22/';
 		
@@ -101,9 +101,9 @@ class ConveniosCartagenaCommand extends Command
     	echo "\nTotal de convenios: ".count($convenios)."\n";
     	
     	foreach ($convenios as $convenio) {
-    	//for ($i = 400; $i < 500; $i++) {
+//     	//for ($i = 400; $i < 500; $i++) {
     		
-    		$convenio = $convenios[$i];
+//     		$convenio = $convenios[$i];
     		$convenioSF2 = $this->searchConvenioSF2($convenio);
     		
     		if(is_null($convenioSF2)){
@@ -135,7 +135,7 @@ class ConveniosCartagenaCommand extends Command
     			
     			//Asesor integreal
     			$responsable = $this->searchUsuarioByEmail($convenio['email']);
-    			
+    			    			
     			$bConvenio = array(
     					'consecutive' => $convenio['id_convenio'],
     					'statusAgreement' => $statusAgreement,

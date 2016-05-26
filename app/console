@@ -27,6 +27,10 @@ use upload\command\ComentariosContratoArriendoCommand;
 use upload\command\TiposDeDocumentosCommand;
 use upload\command\UpdateContratoArriendoCommand;
 use upload\command\UpdateConveniosCommand;
+use upload\command\UpdateMandateContractCommand;
+use upload\command\MapperCommand;
+use upload\command\VentaUsadosCommand;
+
 
 use upload\command\ClientsMonteriaCommand;
 use upload\command\InmueblesMonteriaCommand;
@@ -95,6 +99,9 @@ $console->add(new ComentariosContratoArriendoCommand());
 $console->add(new TiposDeDocumentosCommand());
 $console->add(new UpdateContratoArriendoCommand());
 $console->add(new UpdateConveniosCommand());
+$console->add(new UpdateMandateContractCommand());
+$console->add(new MapperCommand());
+$console->add(new VentaUsadosCommand());
 
 
 $console->add(new ClientsMonteriaCommand());
