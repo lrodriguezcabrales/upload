@@ -95,7 +95,7 @@ class ArrendatariosCommand extends Command
     	$startTime= new \DateTime();
     	
     	//foreach ($conArriendos['data'] as $conArriendo) {
-    	for ($i = 0; $i < 500; $i++) {
+    	for ($i = 0; $i < 50; $i++) {
     		
     		$conArriendo = $conArriendos['data'][$i];
     		
@@ -103,6 +103,8 @@ class ArrendatariosCommand extends Command
     		
     		foreach ($arrendatariosSF1 as $p) {
     		
+    			echo "\nConvenio - ".$conArriendo['consecutive']."\n";
+    			
     			$leaseIdentificacion = $p['id_cliente'];
     			$leaseIdentificacion = $this->cleanString($leaseIdentificacion);
     		
@@ -172,7 +174,7 @@ class ArrendatariosCommand extends Command
     						
     				}else{
     						
-    					echo "\nEl propietario ya existe en este ConArriendo\n";
+    					echo "\nEl propietario ya existe en este contrato de arriendo\n";
     				}
     				
     			}else{

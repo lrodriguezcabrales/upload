@@ -16,8 +16,9 @@ use Monolog\Handler\StreamHandler;
 class UpdateInmueblesRMonteriaCommand extends Command
 {	
 	
- 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
- 	public $serverRoot = 'http://www.sifinca.net/';
+	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';
+
+	public $serverRoot = 'http:/www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -60,12 +61,12 @@ class UpdateInmueblesRMonteriaCommand extends Command
 							   \Symfony\Component\Console\Output\OutputInterface $output)
 	{
 
-        $output->writeln("Datos de inmuebles SF1 \n");
+        $output->writeln("Datos de inmuebles SF1 MONTERIA\n");
 
         $conn = new data(array(
-            'server' =>'10.102.1.3'
-            ,'user' =>'hherrera'
-            ,'pass' =>'daniela201'
+            'server' =>'192.168.100.1'
+            ,'user' =>'sa'
+            ,'pass' =>'75080508360'
             ,'database' =>'sifinca' 
             ,'engine'=>'mssql'
         ));
@@ -85,7 +86,7 @@ class UpdateInmueblesRMonteriaCommand extends Command
         //$this->mapperEstadosInmueble($inmueblesCtg);
         //$this->mapperTiposServicio($inmueblesCtg);
         
-        $inmuebles = $inmueblesCtg->getInmueblesUpdateReciente();
+        $inmuebles = $inmueblesCtg->getInmueblesUpdateRecienteMonteria();
 	   // $this->buildInmuebles($inmuebles, $inmueblesCtg);
 	   
         $this->updateInmuebles($inmuebles, $inmueblesCtg);
@@ -686,10 +687,10 @@ class UpdateInmueblesRMonteriaCommand extends Command
     public function searchOffice($inmueble) {
     	
     	$officeCentro = array(
-    			'id' => 'bee55884-15dc-406f-94f7-547288ebe20d'
+    			'id' => 'a989afd0-f14f-4e20-9c75-5e084070129c'
     	);
     	
-    	$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.CTG/'.$inmueble['id_sucursal'];
+    	$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.MON/'.$inmueble['id_sucursal'];
     	//echo $urlStratum;
     	$apiOffice = $this->SetupApi($urlOffice, $this->user, $this->pass);
     	 
@@ -1758,7 +1759,7 @@ class UpdateInmueblesRMonteriaCommand extends Command
     			
     			$urlapiInmueble = $this->server.'catchment/main/property/'.$propertySF2['id'];
     			
-    			//echo "\n".$urlapiInmueble."\n";
+    			echo "\n".$urlapiInmueble."\n";
     			$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
     			
     			
@@ -1838,7 +1839,7 @@ class UpdateInmueblesRMonteriaCommand extends Command
     			
     			$json = json_encode($bupdate);
     			
-    			//echo "\n".$json."\n";
+    			echo "\n".$json."\n";
     			
     			$result = $apiInmueble->get();
     			$result = $apiInmueble->put($bupdate);
@@ -1846,7 +1847,7 @@ class UpdateInmueblesRMonteriaCommand extends Command
     			$result = json_decode($result, true);
     			
     			//     		echo "\nresult\n";
-    			//     		print_r($result);
+    			print_r($result);
     			
     			//return ;
     			

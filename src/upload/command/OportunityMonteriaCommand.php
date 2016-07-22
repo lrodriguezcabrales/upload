@@ -81,15 +81,15 @@ class OportunityMonteriaCommand extends Command
     	
     	$filter[] = array(
     			'value' => 'C',
-    			'operator' => 'equal',
+    			'operator' => '=',
     			'property' => 'state.value'
     	);
     	//{"value":"Arriendos","operator":" start_with","field":"oportunityType.name","property":"oportunityType.name"}
     	$filter[] = array(
-    			'value' => 'Arriendos',
-    			'operator' => 'equal',
-    			'field' => 'oportunityType.name',
-    			'property' => 'oportunityType.name'
+    			'value' => 0,
+    			'operator' => '=',
+    			'field' => 'oportunityType.value',
+    			'property' => 'oportunityType.value'
     	);
     	
     	$filter = json_encode($filter);
@@ -99,15 +99,16 @@ class OportunityMonteriaCommand extends Command
     	 
     	$filterTwo[] = array(
     			'value' => 'C',
-    			'operator' => 'equal',
+    			'operator' => '=',
     			'property' => 'state.value'
     	);
     	//{"value":"Arriendos","operator":" start_with","field":"oportunityType.name","property":"oportunityType.name"}
     	$filterTwo[] = array(
-    			'value' => 'Ventas/Usados',
-    			'operator' => 'equal',
-    			'field' => 'oportunityType.name',
-    			'property' => 'oportunityType.name'
+    			//'value' => 'Ventas/Usados',
+    			'value' => 1,
+    			'operator' => '=',
+    			'field' => 'oportunityType.value',
+    			'property' => 'oportunityType.value'
     	);
     	 
     	$filterTwo = json_encode($filterTwo);
@@ -198,7 +199,6 @@ class OportunityMonteriaCommand extends Command
     					//print_r($clienteSF1);
     					if(is_null($clienteSF1)){
     						echo "\n Creando cliente en Sifinca 1\n";
-    							
     						$this->insertCliente($conexion, $op['client']);
     							
     					}
@@ -240,13 +240,13 @@ class OportunityMonteriaCommand extends Command
     
     	$filter[] = array(
     			'value' => 'C',
-    			'operator' => 'equal',
+    			'operator' => '=',
     			'property' => 'state.value'
     	);
     	//{"value":"Arriendos","operator":" start_with","field":"oportunityType.name","property":"oportunityType.name"}
     	$filter[] = array(
     			'value' => 5,
-    			'operator' => 'equal',
+    			'operator' => '=',
     			'field' => 'oportunityType.value',
     			'property' => 'oportunityType.value'
     	);

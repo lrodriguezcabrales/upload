@@ -20,13 +20,7 @@ class ComentariosContratoArriendoCommand extends Command
 	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
-	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
-
-// 	public $server = 'http://104.130.12.152/sifinca/web/app_dev.php/';
-// 	public $serverRoot = 'http:/104.130.12.152/';
-	
+		
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 	public $token = null;	
@@ -57,6 +51,8 @@ class ComentariosContratoArriendoCommand extends Command
 		
 		
 		$this->crearComentarios($conexion);
+		//$this->crearComentarioPorDemanda($conexion);
+		
 		
     }
     
@@ -82,7 +78,7 @@ class ComentariosContratoArriendoCommand extends Command
     	
     	$startTime= new \DateTime();
     	
-    	for ($i = 5550; $i < 6000; $i++) {
+    	for ($i = 0; $i < $totalConArriendos; $i++) {
     		
     		
     		$conArriendo = $conArriendos['data'][$i];
@@ -152,34 +148,14 @@ class ComentariosContratoArriendoCommand extends Command
     					$json = json_encode($bComentario);
     				
     						
-    					//echo $json;
-    						
-    						
-    					//     			$porDonde++;
-    					//     			echo "\nPor donde: \n".$porDonde;
     					if($result[0]['success'] == true){
     						echo "\nOk\n";
     						$total++;
     					}else{
     						echo "\nError cometario\n";
-    						//echo "\n\n".$json."\n\n";
-    				
-    						$urlapiMapper = $this->server.'admin/sifinca/errorcomment';
-    						$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    				
-    						$error = array(
-    								'comment' => $comentario['NKEY'],
-    								'objectJson' => $json
-    						);
-    				
-    						$resultError = $apiMapper->post($error);
-    				
-    						//print_r($resultError);
+    						
     					}
     						
-    				
-    						
-    				
     				
     			}else{
     				
@@ -213,6 +189,118 @@ class ComentariosContratoArriendoCommand extends Command
     	echo "\nTotal de comentarios pasados: ".$total."\n";
     }
     
+
+    function crearComentarioPorDemanda($conexion) {
+    
+    	$porDonde = 0;
+    	$total = 0;
+    
+    	$startTime= new \DateTime();
+    
+    	$comentarios = $conexion->getComentariosContratosArriendo($this->cleanString('998'));
+    	 
+    	$totalComentarios = count($comentarios);
+    		
+    
+    	echo "\nTotal comentarios: ".$totalComentarios."\n";
+    
+    
+    
+    	for ($j = 0; $j < $totalComentarios; $j++) {
+    
+    
+    		$comentario = $comentarios[$j];
+    
+    		$commentS = $this->searchComment($comentario);
+    
+    		if(!$commentS){
+    
+    			//echo "\nEntro aqui\n";
+    			//print_r($comentario);
+    
+    				
+    			$usuario = $this->searchUsuario($comentario['email']);
+    
+    			//     		echo "\ninmueble\n";
+    
+    
+    			$ccomment = $this->cleanString($comentario['comentarioAll']);
+    
+    			//echo "\n".$ccomment."\n";
+    				
+    			$bComentario = array(
+    					'comment' => $ccomment,
+    					//'idEntity' => $conArriendo['id'],
+    					'idEntity' => '624f368a-b419-4412-893b-45f6a5d19944',
+    					'user' => array('id'=>$usuario['id']),
+    					'date' => $comentario['fecha'],
+    					'nkey' => $comentario['NKEY'],
+    					'sifincaOne' => true
+    			);
+    
+
+    
+    			//$urlComentario = $this->server.'catchment/main/leasingcontract/comment/'.$conArriendo['id'];
+    			$urlComentario = $this->server.'catchment/main/leasingcontract/comment/624f368a-b419-4412-893b-45f6a5d19944';
+    			
+    			//echo "\n".$urlComentario."\n";
+    
+    			$apiComentario = $this->SetupApi($urlComentario, $this->user, $this->pass);
+    
+    			$result = $apiComentario->post($bComentario);
+    
+    			$result = json_decode($result, true);
+    
+    
+    
+    			$json = json_encode($bComentario);
+    
+    
+    			//echo $json;
+    
+    
+    			//     			$porDonde++;
+    			//     			echo "\nPor donde: \n".$porDonde;
+    			if($result[0]['success'] == true){
+    				echo "\nOk\n";
+    				$total++;
+    			}else{
+    				echo "\nError cometario\n";
+    				//echo "\n\n".$json."\n\n";
+    
+    				$urlapiMapper = $this->server.'admin/sifinca/errorcomment';
+    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    
+    				$error = array(
+    						'comment' => $comentario['NKEY'],
+    						'objectJson' => $json
+    				);
+    
+    				$resultError = $apiMapper->post($error);
+    
+    				//print_r($resultError);
+    			}
+    
+    		}else{
+    
+    
+    			echo "\nEl comentario ya existe\n";
+    		}
+    			
+    	}
+    	$finalTime = new \DateTime();
+    
+    
+    	$diff = $startTime->diff($finalTime);
+    
+    
+    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
+    
+    	echo "\nTotal de comentarios pasados: ".$total."\n";
+    	 
+    }
     
  
     

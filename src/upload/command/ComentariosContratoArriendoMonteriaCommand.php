@@ -34,7 +34,7 @@ class ComentariosContratoArriendoMonteriaCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('comentarioscontratos')
+        $this->setName('comentarioscontratosMonteria')
 		             ->setDescription('Comando para pasar comentarios de contratos de arriendo');
 	}
 	

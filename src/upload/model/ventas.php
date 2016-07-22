@@ -14,7 +14,7 @@ class ventas {
     
     public function getVentas(){
     	     
-    	$query = "SELECT TOP 1 V.id_log_venta, V.id_sucursal, V.fecha_venta, V.valor_venta, 
+    	$query = "SELECT V.id_log_venta, V.id_sucursal, V.fecha_venta, V.valor_venta, 
 				  V.id_inmueble, V.id_comprador, V.comision, V.estado, U.email
 				  FROM log_ventas AS V
 				  INNER JOIN usuarios AS U ON V.id_promotor = U.id_user

@@ -51,133 +51,111 @@ class UpdateMandateContractCommand extends Command
     }
         
     public function crearContratosDeMandato($conexion) {
-    	
-    	
-//     	$convenios = $conexion->getContratosMandatoConvenios();
-    	 
-//     	$urlConvenio = $this->server.'catchment/main/agreement';
-//     	//echo "\n".$urlConvenio."\n";
-    	
-//     	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
-    	
-    	$urlConvenio = $this->server.'catchment/main/agreement/only/ids';
-    	echo "\n".$urlConvenio."\n";
-    	    	
-    	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
-    	 
-    	$convenios = $apiConvenio->get();
-    	
-    	$convenios = json_decode($convenios, true);
-    	//echo $convenios['total']
 
-    	$urlapioOwner = $this->server.'catchment/main/owner';
+    	
+//     	$urlConvenio = $this->server.'catchment/main/agreement/only/ids';
+//     	echo "\n".$urlConvenio."\n";
+    	    	
+//     	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
     	 
-    	$apiOwner = $this->SetupApi($urlapioOwner, $this->user, $this->pass);
+//     	$convenios = $apiConvenio->get();
+    	
+//     	$convenios = json_decode($convenios, true);
+//     	//echo $convenios['total']
+
+//     	$urlapioOwner = $this->server.'catchment/main/owner';
     	 
-    	echo "\nTotal de convenios - contratos mandato: ".count($convenios['data'])."\n";
+//     	$apiOwner = $this->SetupApi($urlapioOwner, $this->user, $this->pass);
     	 
-    	$totalConvenios = count($convenios['data']);
+//     	echo "\nTotal de convenios - contratos mandato: ".count($convenios['data'])."\n";
     	 
+//     	$totalConvenios = count($convenios['data']);
+
+    	$contratosMandatoSF1 = $conexion->getContratosDeMandato();
+    	$totalContratos = count($contratosMandatoSF1);
+    	
     	$porDonde = 0;
     	$startTime= new \DateTime();
     	 
     	//foreach ($convenios['data'] as $convenio) {
-    	for ($i = 0; $i < $totalConvenios; $i++) {
+    	for ($i = 0; $i < $totalContratos; $i++) {
     	    		
-    		$convenio = $convenios['data'][$i];
-    		
-    		echo "\nConvenio: ".$convenio['consecutive']."\n";
-    		
-    		$contratosMandato = $conexion->getContratoMandatoDelConvenio($convenio['consecutive']);
-    		    		
-    		foreach ($contratosMandato as $cm) {
-    		    			
-    			$mandateContractSF2 = $this->searchMandateContractPorConvenioEinmueble($cm);
-    			
-    			$convenioSF2 = $this->searchConvenioSF2($cm);
-    			
-    			if(!is_null($mandateContractSF2)){
+    		$cm = $contratosMandatoSF1[$i];
+    		    		    		    			
+    		$mandateContractSF2 = $this->searchMandateContractPorConvenioEinmueble($cm);
+    		 
+    		$convenioSF2 = $this->searchConvenioSF2($cm);
+    		 
+    		if(!is_null($mandateContractSF2)){
+    				
+    			$property = $this->searchProperty($cm['id_inmueble']);
+    				
+    			if((!is_null($property)) && (!is_null($convenioSF2))){
     				 
-    				//echo "\nentro 1\n";
+    				$typeContract = $this->searchTipoContratoMandato($cm);
+    				$user = $this->searchUsuario($cm);
     				 
-    				$property = $this->searchProperty($cm['id_inmueble']);
+    				$bContratoDeMandato = array(
+    						'consecutive' => $cm['id_inmueble'],
+    						'leaseCommission' => $cm['por_cmsi'], //Comision de arriendo
+    						'salesCommission' => $cm['por_seguro'], //Comision de garantia
+    						'property' => $property,
+    						'catcher' => $user,
+    						'typesContracts' => $typeContract,
+    						'agreement' => array('id'=> $convenioSF2['id']),
+    						'convenioSifincaOne' => $this->cleanString($cm['id_convenio'])
+    				);
     				 
-    				if((!is_null($property)) && (!is_null($convenioSF2))){
-    			
-    					$typeContract = $this->searchTipoContratoMandato($cm);
-    					$user = $this->searchUsuario($cm);
-    			
-    					$bContratoDeMandato = array(
-    							'consecutive' => $cm['id_inmueble'],
-    							'leaseCommission' => $cm['por_cmsi'], //Comision de arriendo
-    							'salesCommission' => $cm['por_seguro'], //Comision de garantia
-    							'property' => $property,
-    							'catcher' => $user,
-    							'typesContracts' => $typeContract,
-    							'agreement' => array('id'=> $convenioSF2['id']),
-    							'convenioSifincaOne' => $this->cleanString($cm['id_convenio'])
-    					);
-    			
-    					$json = json_encode($bContratoDeMandato);
-    					//echo "\n\n".$json."\n\n";
-    			
-    					//print_r($mandateContractSF2);
-    					$urlContratoMandato = $this->server.'catchment/main/mandatecontract/'.$mandateContractSF2[0]['id'];
+    				$json = json_encode($bContratoDeMandato);
+    				//echo "\n\n".$json."\n\n";
+    				 
+    				//print_r($mandateContractSF2);
+    				$urlContratoMandato = $this->server.'catchment/main/mandatecontract/'.$mandateContractSF2[0]['id'];
     					
-    					echo "\n".$urlContratoMandato."\n";
-    					
-    					
-    					$apiContratoMandato = $this->SetupApi($urlContratoMandato, $this->user, $this->pass);
-    			
-    					$result = $apiContratoMandato->put($bContratoDeMandato);
-    			
-    					$result = json_decode($result, true);
-    			
-    					//print_r($result);
-    					if(isset($result['success'])){
-    						if($result['success'] == true){
-    							echo "\nOk, contrato mandato ".$cm['id_inmueble'];
-    							//$total++;
-    			
-    						}
-    					}
-    					else{
-    			
-    			
-    						$exist = false;
-    			
-    						if(isset($result['message'])){
-    							$msj = $result['message'];
-    								
-    								
-    							$exist = strpos($msj, 'duplicate key');
-    								
-    								
-    						}
-    			
-    			
-    						if(!$exist){
-    								
-    							echo "\nError al actualizar contrato mandato ".$cm['id_inmueble']."\n";
-    								
-    							
-    							
-    						}else{
-    							echo "\nEl contrato de mandato ya existe: ".$cm['id_inmueble']."\n";
-    						}
-    			
+    				//echo "\n".$urlContratoMandato."\n";
+    					    					
+    				$apiContratoMandato = $this->SetupApi($urlContratoMandato, $this->user, $this->pass);
+    				 
+    				$result = $apiContratoMandato->put($bContratoDeMandato);
+    				 
+    				$result = json_decode($result, true);
+    				 
+    				//print_r($result);
+    				if(isset($result['success'])){
+    					if($result['success'] == true){
+    						echo "\nOk, contrato mandato ".$cm['id_inmueble'];
+    						//$total++;
+    						 
     					}
     				}
-    				 
-    			
-    			}
-    			
-    			$porDonde++;
-    			
-    			echo "\nVamos por: ".$porDonde."\n";
-    			
-    		}
+    				else{
+    					 
+    					$exist = false;
+    					 
+    					if(isset($result['message'])){
+    						$msj = $result['message'];
+    		    		
+    						$exist = strpos($msj, 'duplicate key');
+    		    		
+    					}
+    					     					 
+    					if(!$exist){
     		
+    						echo "\nError al actualizar contrato mandato ".$cm['id_inmueble']."\n";   							
+    							
+    					}else{
+    						echo "\nEl contrato de mandato ya existe: ".$cm['id_inmueble']."\n";
+    					}
+    					 
+    				}
+    			}
+    				
+    			 
+    		}
+    		 
+    		$porDonde++;
+    		 
+    		echo "\nVamos por: ".$porDonde."\n";
     		
     	}
     	
@@ -242,33 +220,7 @@ class UpdateMandateContractCommand extends Command
     	}
     	
     }
-        
-//     function searchMandateContract($convenio) {
-    	 
-//     	$filter = array(
-//     			'value' => $this->cleanString($convenio['id_convenio']),
-//     			'operator' => '=',
-//     			'property' => 'convenioSifincaOne'
-//     	);
-//     	$filter = json_encode(array($filter));
-    	 
-//     	$urlMandateContract = $this->server.'catchment/main/mandatecontract?filter='.$filter;
-//     	//echo "\n".$urlMandateContract."\n";
-//     	$apiMandateContract = $this->SetupApi($urlMandateContract, $this->user, $this->pass);
-    	 
-//     	$mandateContract = $apiMandateContract->get();
-//     	$mandateContract = json_decode($mandateContract, true);
-    	 
-//     	if($mandateContract['total'] > 0){
-    		 
-//     		return $mandateContract['data'];
-    		 
-//     	}else{
-//     		return null;
-//     	}
-    	 
-//     }
-    
+            
     function searchMandateContractPorConvenioEinmueble($convenio) {
     
     	$filter = array();
@@ -306,33 +258,6 @@ class UpdateMandateContractCommand extends Command
     
     }
         
-//     function searchMandateContractByProperty($convenio) {
-    
-//     	$filter = array(
-//     			'value' => $this->cleanString($convenio['id_inmueble']),
-//     			'operator' => '=',
-//     			'property' => 'property.consecutive'
-//     	);
-//     	$filter = json_encode(array($filter));
-    
-//     	$urlMandateContract = $this->server.'catchment/main/mandatecontract?filter='.$filter;
-//     	//echo "\n".$urlMandateContract."\n";
-    	
-//     	$apiMandateContract = $this->SetupApi($urlMandateContract, $this->user, $this->pass);
-    
-//     	$mandateContract = $apiMandateContract->get();
-//     	$mandateContract = json_decode($mandateContract, true);
-    
-//     	if($mandateContract['total'] > 0){
-    		 
-//     		return $mandateContract['data'];
-    		 
-//     	}else{
-//     		return null;
-//     	}
-    
-//     }
-
     /**	
      * Buscar inmueble en Sifinca2
      * @param unknown $propertySF1

@@ -64,51 +64,99 @@ class VentaUsadosCommand extends Command
     		
     		$venta = $ventas[$i];
     		
-    		$inmueble = $this->searchProperty($venta['id_inmueble']);
+    		$ventaSF2 = $this->searchVenta($venta['id_log_venta']);
     		
-    		if($inmueble){
+    		if(is_null($ventaSF2)){
     			
-    			$asesor = $this->searchUsuarioByEmail($venta['email']);
-    			$estado = $this->searchEstadoVenta($venta['estado']);
-    			$vendedor = $this->searchOwner($inmueble['id']);
-    			$comprador = $this->searchClient($venta['id_comprador']);
-    			$oficina = $this->searchOffice($venta['id_sucursal']);
+    			$inmueble = $this->searchProperty($venta['id_inmueble']);
     			
-    			$bVenta = array(
-    					'consecutive' => $venta['id_log_venta'],
-    					'propertyValue' => $venta['valor_venta'],
-    					'saleValue'=> $venta['valor_venta'],
-    					'percentageCommission' => $venta['comision'],
-    					'asesor' => $asesor,
-    					'property' => $inmueble,
-    					'statusSaleProperty' => $estado,
-    					'seller' => $vendedor,
-    					'buyer' => $comprador,
-    					'office' => $oficina
-    			);
-    			
-    			$bjson = json_encode($bVenta);
-    			 
-    			$result = $api->post($bVenta);
-    			
-    			$result = json_decode($result, true);
-    			
-    			
-    			if($result['success'] == true){
-    				echo "\nOk venta ".$venta['id_log_venta']."\n";
-    			
-    			}else{
-    				echo "\nError\n";
+    			if($inmueble){
     				 
-    				echo "\n".$bjson."\n";
+    				$asesor = $this->searchUsuarioByEmail($venta['email']);
+    				$estado = $this->searchEstadoVenta($venta['estado']);
+    				$vendedor = $this->searchOwner($inmueble['id']);
+    				$comprador = $this->searchClient($venta['id_comprador']);
+    				$oficina = $this->searchOffice($venta['id_sucursal']);
+    				 
+    				$fechaVenta = new \DateTime($venta['fecha_venta']);
+    				$fechaVenta = $fechaVenta->format('Y-m-d');
+    				
+    				$bVenta = array(
+    						'consecutive' => $venta['id_log_venta'],
+    						'propertyValue' => $venta['valor_venta'],
+    						'saleValue'=> $venta['valor_venta'],
+    						'percentageCommission' => $venta['comision'],
+    						'asesor' => $asesor,
+    						'property' => $inmueble,
+    						'statusSaleProperty' => $estado,
+    						'seller' => $vendedor,
+    						'buyer' => $comprador,
+    						'office' => $oficina,
+    						'saleDate' => $fechaVenta
+    				);
+    				 
+    				$bjson = json_encode($bVenta);
     			
+    				$result = $api->post($bVenta);
+    			
+    				$result = json_decode($result, true);
+    				 
+    				if($result['success'] == true){
+    					echo "\nOk venta ".$venta['id_log_venta']."\n";
+    					 
+    				}else{
+    					echo "\nError\n";
+    						
+    					print_r($result);
+    					//echo "\n".$bjson."\n";
+    					 
+    				}
     			}
+    			
+    		}else{
+    			echo "\nLa venta ya existe: ".$venta['id_log_venta']."\n";
     		}
+    		
+    		
     		
     		
     		
     	}
     }
+    
+    /**
+     * Buscar inmueble en sifinca2 por codigo de sifinca1
+     * @param unknown $propertySF1
+     * @return NULL
+     */
+    function searchVenta($consecutive) {
+    
+    	$consecutive = $this->cleanString($consecutive);
+    
+    	$filter = array(
+    			'value' => $consecutive,
+    			'operator' => '=',
+    			'property' => 'consecutive'
+    	);
+    	$filter = json_encode(array($filter));
+    
+    	$url = $this->server.'catchment/main/saleproperty?filter='.$filter;
+    
+    	$api = $this->SetupApi($url, $this->user, $this->pass);
+    
+    	$sale = $api->get();
+    	$sale = json_decode($sale, true);
+      
+    	if($sale['total'] > 0){
+    		 
+    		return $sale['data'][0];
+    		 
+    	}else{
+    		return null;
+    	}
+    
+    }
+    
     
     /**	
      * Buscar usuario en sifinca2 por el correo registrado en sifinca1
@@ -197,7 +245,7 @@ class VentaUsadosCommand extends Command
     	}else{
     		$url = $this->server.'admin/sifinca/mapper/statusSaleProperty/'.$estado;
     		
-    		echo "\n".$url."\n";
+    		//echo "\n".$url."\n";
     		 
     		$api = $this->SetupApi($url, $this->user, $this->pass);
     		
@@ -265,7 +313,6 @@ class VentaUsadosCommand extends Command
     	
     	$url = $this->server.'catchment/main/owner/by/property/'.$propertyId;
     	
-    	echo "\n".$url."\n";
     	$api = $this->SetupApi($url, $this->user, $this->pass);
     	
     	$owner = $api->get();

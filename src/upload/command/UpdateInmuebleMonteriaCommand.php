@@ -16,8 +16,9 @@ use Monolog\Handler\StreamHandler;
 class UpdateInmuebleMonteriaCommand extends Command
 {	
 	
- 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
- 	public $serverRoot = 'http://www.sifinca.net/';
+	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';
+
+	public $serverRoot = 'http:/www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
@@ -29,7 +30,8 @@ class UpdateInmuebleMonteriaCommand extends Command
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
-		
+	public $token = null;	
+	
 	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
 	public $bolivar = 'a7ff9a96-5a2f-4bba-94aa-d45a15f67f66';
 	public $cartagena = '994b009d-50a5-44dd-8060-878a10f4dd00';
@@ -59,12 +61,12 @@ class UpdateInmuebleMonteriaCommand extends Command
 							   \Symfony\Component\Console\Output\OutputInterface $output)
 	{
 
-        $output->writeln("Datos de inmuebles SF1 \n");
+        $output->writeln("Datos de inmuebles SF1 MONTERIA\n");
 
         $conn = new data(array(
-            'server' =>'10.102.1.3'
-            ,'user' =>'hherrera'
-            ,'pass' =>'daniela201'
+            'server' =>'192.168.100.1'
+            ,'user' =>'sa'
+            ,'pass' =>'75080508360'
             ,'database' =>'sifinca' 
             ,'engine'=>'mssql'
         ));
@@ -84,7 +86,7 @@ class UpdateInmuebleMonteriaCommand extends Command
         //$this->mapperEstadosInmueble($inmueblesCtg);
         //$this->mapperTiposServicio($inmueblesCtg);
         
-        $inmuebles = $inmueblesCtg->getInmueblesUpdate();
+        $inmuebles = $inmueblesCtg->getInmueblesUpdateMonteria();
 	   // $this->buildInmuebles($inmuebles, $inmueblesCtg);
 	   
         $this->updateInmuebles($inmuebles, $inmueblesCtg);
@@ -178,7 +180,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     		
     		if($townSF2['total'] == 1){
     			$mapper = array(
-    				'name' => 'propertyTown.CTG',
+    				'name' => 'propertyTown.MON',
 					'idSource' => $ciudad['id_ciudad'],
     				'idTarget' => $townSF2['data'][0]['id']
     			);
@@ -186,7 +188,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     			$urlapiMapper = $this->server.'admin/sifinca/mapper';
     			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     		
-    			print_r($mapper);
+    			//print_r($mapper);
     			
     			$apiMapper->post($mapper);
     			$total++;
@@ -197,7 +199,7 @@ class UpdateInmuebleMonteriaCommand extends Command
 
     	}
     	echo "\n--------------\n";
-    	print_r($sinCoincidencia);
+    	//print_r($sinCoincidencia);
     	echo "Ciudades SF1: ".count($ciudadesSF1)."\n";
     	echo "Ciudades mapeados: ".$total."\n";	
     	echo "Ciudades no mapeados: ".count($sinCoincidencia)."\n";
@@ -235,7 +237,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     		foreach ($barriosSF2['data'] as $b) {
     			
     			$mapper = array(
-    				'name' => 'propertyDistrict.CTG',
+    				'name' => 'propertyDistrict.MON',
     				'idSource' => $b['code'],
     				'idTarget' => $b['id']
     			);
@@ -685,10 +687,10 @@ class UpdateInmuebleMonteriaCommand extends Command
     public function searchOffice($inmueble) {
     	
     	$officeCentro = array(
-    			'id' => 'bee55884-15dc-406f-94f7-547288ebe20d'
+    			'id' => 'a989afd0-f14f-4e20-9c75-5e084070129c'
     	);
     	
-    	$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.CTG/'.$inmueble['id_sucursal'];
+    	$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.MON/'.$inmueble['id_sucursal'];
     	//echo $urlStratum;
     	$apiOffice = $this->SetupApi($urlOffice, $this->user, $this->pass);
     	 
@@ -1154,7 +1156,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     	
     	$deparment = null;
     	    	
-    	$urlTown = $this->server.'admin/sifinca/mapper/propertyTown.CTG/'.$inmueble['id_ciudad'];
+    	$urlTown = $this->server.'admin/sifinca/mapper/propertyTown.MON/'.$inmueble['id_ciudad'];
     	$apiTown= $this->SetupApi($urlTown, $this->user, $this->pass);
     	 
     	$townMapper = $apiTown->get();
@@ -1186,7 +1188,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     		}
     	}
     	
-    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.CTG/'.$inmueble['id_barrio'];
+    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.MON/'.$inmueble['id_barrio'];
     	//echo "\n".$urlDistrict."\n";
     	$apiDistrict= $this->SetupApi($urlDistrict, $this->user, $this->pass);
     	
@@ -1235,6 +1237,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     	if($inmueble['alcobas'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['alcobas'],
+    				"name" => 'Alcobas',
     				"propertyAttribute" => array(
     						'id' => $this->attributeAlcobas
     				)
@@ -1246,6 +1249,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     	if($inmueble['43'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['43'],
+    				'name' => 'Banos',
     				"propertyAttribute" => array(
     						'id' => $this->attributeBanos
     				)
@@ -1739,7 +1743,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     	 
 		$startTime= new \DateTime();
 		
-		echo "\nTotal de inmuebles a actualizar: ".$totalInmueblesSF1."\n";
+		echo "\nTotal inmuebles: ".$totalInmueblesSF1."\n";
 
     	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
     	
@@ -1755,7 +1759,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     			
     			$urlapiInmueble = $this->server.'catchment/main/property/'.$propertySF2['id'];
     			
-    			//echo "\n".$urlapiInmueble."\n";
+    			echo "\n".$urlapiInmueble."\n";
     			$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
     			
     			
@@ -1835,7 +1839,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     			
     			$json = json_encode($bupdate);
     			
-    			//echo "\n".$json."\n";
+    			echo "\n".$json."\n";
     			
     			$result = $apiInmueble->get();
     			$result = $apiInmueble->put($bupdate);
@@ -1843,19 +1847,19 @@ class UpdateInmuebleMonteriaCommand extends Command
     			$result = json_decode($result, true);
     			
     			//     		echo "\nresult\n";
-    			//     		print_r($result);
+    			print_r($result);
     			
     			//return ;
     			
     			if($result['success'] == true){
-    				echo "\nOk - Inmueble ".$inmueble['id_inmueble']."\n";
+    				echo "\nOk";
     				$total++;
     			
     				//$idInmuebleSF2 = $result['data'][0];
     			
     			}
     			
-    			if(isset($result['error'])){
+    			if (array_key_exists("error",$result)){
     				echo "\nerror\n";
     			}
     			
@@ -1902,45 +1906,82 @@ class UpdateInmuebleMonteriaCommand extends Command
     	return $string;
     }
     
-    protected function SetupApi($urlapi,$user,$pass){
+    function login() {
     
-    	$url= $this->server."login";
+    	if(is_null($this->token)){
+    
+    		echo "\nEntro a login\n";
+    
+    		$url= $this->server."login";
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    		);
+    		 
+    		$a = new api($url, $headers);
+    		 
+    
+    		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
+    		$result = json_decode($result, true);
+    		 
+    		//print_r($result);
+    
+    		//echo "\n".$result['id']."\n";
+    
+    
+    		if(isset($result['code'])){
+    			if($result['code'] == 401){
+    
+    				$this->login();
+    			}
+    		}else{
+    
+    			if(isset($result['id'])){
+    
+    				$this->token = $result['id'];
+    			}else{
+    				echo "\nError en el login\n";
+    				$this->token = null;
+    			}
+    
+    		}
+    	}
+    
+    
+    }
+    
+    function SetupApi($urlapi,$user,$pass){
+    
     	$headers = array(
     			'Accept: application/json',
     			'Content-Type: application/json',
     	);
     
-    	$a = new api($url, $headers);
+    	$a = new api($urlapi, $headers);
     
-    	//print_r($a);
-    	
-    	$result= $a->post(array("user"=>$user,"password"=>$pass));
-		
-//      	echo "\nAqui result\n";
-//     	print_r($result);
-
+    	$this->login();
     
-    	 
-    	$data=json_decode($result);
+    	if(!is_null($this->token)){
     
-    	//print_r($data);
-    	
-    	$token = $data->id;
+    		$headers = array(
+    				'Accept: application/json',
+    				'Content-Type: application/json',
+    				//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
+    				'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
+    		);
     
-    	$headers = array(
-    			'Accept: application/json',
-    			'Content-Type: application/json',
-    			//'x-sifinca:SessionToken SessionID="56619d57ed060f8c57c1109d", Username="sifincauno@araujoysegovia.com"'
-    			'x-sifinca: SessionToken SessionID="'.$token.'", Username="'.$user.'"',
-    	);
+    		//     	print_r($headers);
     
-//     	print_r($headers);
-    	
-    	$a->set(array('url'=>$urlapi,'headers'=>$headers));
+    		$a->set(array('url'=>$urlapi,'headers'=>$headers));
     
-    	//print_r($a);
-    	
-    	return $a;
+    		//print_r($a);
+    
+    		return $a;
+    
+    	}else{
+    		echo "\nToken no valido\n";
+    	}
+    
     
     }
     

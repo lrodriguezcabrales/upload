@@ -12,93 +12,93 @@ class conveniosCartagena {
     	$this->_conn = $conn;
     }
 
-    public function getClientesConvenios(){
+//     public function getClientesConvenios(){
         	    
 
-    	$query = "SELECT TOP 7 * FROM clientes_convenios AS CV
-  				  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente";
+//     	$query = "SELECT TOP 7 * FROM clientes_convenios AS CV
+//   				  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente";
 
-        $r = $this->_conn->_query($query);
-        $clients = $this->_conn->_getData($r);
-        //print_r($clients);
-        echo "Total clientes SF1: ".count($clients);
+//         $r = $this->_conn->_query($query);
+//         $clients = $this->_conn->_getData($r);
+//         //print_r($clients);
+//         echo "Total clientes SF1: ".count($clients);
     
-        return $clients;
+//         return $clients;
     
-    }
+//     }
     
-    public function getConvenioAll(){
+//     public function getConvenioAll(){
     	 
     
-    	$query = "SELECT CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi,  U.email AS emailCatcher, * FROM clientes_convenios AS CV
-  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
-  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio 
-  WHERE IC.id_inmueble IS NOT NULL
-  ORDER BY IC.id_inmueble";
-//     	$query = "SELECT TOP 30000 CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi,  U.email AS emailCatcher, * FROM clientes_convenios AS CV
-//   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-//   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-//   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-//   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
-//   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio 
-//   WHERE IC.id_inmueble IS NOT NULL
-//   ORDER BY IC.id_inmueble";
-
-//     	$query = "  SELECT CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi,  U.email AS emailCatcher, * FROM clientes_convenios AS CV
-//   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-//   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-//   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-//   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
-//   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio 
-//   WHERE IC.id_inmueble IS NOT NULL
-//   AND CON.id_convenio = '8030'
-//   ORDER BY IC.id_inmueble";
-    
-    	$r = $this->_conn->_query($query);
-    	$clients = $this->_conn->_getData($r);
-    	//print_r($clients);
-    	echo "Total convenios SF1: ".count($clients);
-    
-    	return $clients;
-    
-    }
-    
-    public function getConvenioDisponibles(){
-    
-    	$query = "SELECT CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi, 
-  U.email AS emailCatcher, * FROM clientes_convenios AS CV
-  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
-  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio 
-  AND I.promocion = 1
-  ORDER BY CON.FECHA_LOG DESC";
-    	
-    	
 //     	$query = "SELECT CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi,  U.email AS emailCatcher, * FROM clientes_convenios AS CV
 //   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
 //   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
 //   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-//   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
-//   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+//   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
+//   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio 
 //   WHERE IC.id_inmueble IS NOT NULL
-//   AND I.promocion = 1
 //   ORDER BY IC.id_inmueble";
+// //     	$query = "SELECT TOP 30000 CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi,  U.email AS emailCatcher, * FROM clientes_convenios AS CV
+// //   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+// //   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+// //   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+// //   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
+// //   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio 
+// //   WHERE IC.id_inmueble IS NOT NULL
+// //   ORDER BY IC.id_inmueble";
+
+// //     	$query = "  SELECT CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi,  U.email AS emailCatcher, * FROM clientes_convenios AS CV
+// //   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+// //   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+// //   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+// //   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
+// //   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio 
+// //   WHERE IC.id_inmueble IS NOT NULL
+// //   AND CON.id_convenio = '8030'
+// //   ORDER BY IC.id_inmueble";
+    
+//     	$r = $this->_conn->_query($query);
+//     	$clients = $this->_conn->_getData($r);
+//     	//print_r($clients);
+//     	echo "Total convenios SF1: ".count($clients);
+    
+//     	return $clients;
+    
+//     }
+    
+//     public function getConvenioDisponibles(){
+    
+//     	$query = "SELECT CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi, 
+//   U.email AS emailCatcher, * FROM clientes_convenios AS CV
+//   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+//   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+//   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+//   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user 
+//   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio 
+//   AND I.promocion = 1
+//   ORDER BY CON.FECHA_LOG DESC";
+    	
+    	
+// //     	$query = "SELECT CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi,  U.email AS emailCatcher, * FROM clientes_convenios AS CV
+// //   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+// //   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+// //   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+// //   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
+// //   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+// //   WHERE IC.id_inmueble IS NOT NULL
+// //   AND I.promocion = 1
+// //   ORDER BY IC.id_inmueble";
 
     	
     
-    	$r = $this->_conn->_query($query);
-    	$clients = $this->_conn->_getData($r);
-    	//print_r($clients);
-    	//echo "Total convenios SF1: ".count($clients);
+//     	$r = $this->_conn->_query($query);
+//     	$clients = $this->_conn->_getData($r);
+//     	//print_r($clients);
+//     	//echo "Total convenios SF1: ".count($clients);
     
-    	return $clients;
+//     	return $clients;
     
-    }
+//     }
     
     public function getPropietariosDelConvenio($idConvenio){
     	
@@ -149,15 +149,6 @@ class conveniosCartagena {
     				INNER JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
 					ORDER BY id_convenio DESC";
     	
-//     	$query = "SELECT TOP 50 CV.id_cliente, IC.id_inmueble, CON.id_convenio, CON.estado ,IC.por_cmsi, 
-//    U.email AS emailCatcher, CON.fecha_convenio, CON.fecha_inicio, CON.fecha_final, CON.fecha_retiro, CON.FECHA_LOG FROM clientes_convenios AS CV
-//   LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-//   LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-//   LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-//   LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
-//   LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-//   --WHERE I.promocion = 1
-//   ORDER BY id_convenio DESC";
     
     	$r = $this->_conn->_query($query);
     
@@ -168,17 +159,16 @@ class conveniosCartagena {
     	return $cliente;
     }
     
-    public function getContratosMandatoConvenios() {
+    public function getContratosDeMandato() {
     
-    	$query = "SELECT TOP 20 CON.id_convenio,IC.por_cmsi, IC.por_seguro, I.id_inmueble,
+    	$query = "SELECT I.id_inmueble, CON.id_convenio,IC.por_cmsi, IC.por_seguro, 
     			  U.email AS emailCatcher, CV.tstamp
 				  FROM clientes_convenios AS CV
-				  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-				  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-				  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+				  INNER JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+				  INNER JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
 				  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
-				  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-				  ORDER BY CV.tstamp DESC";
+				  INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+				  ORDER BY I.id_inmueble DESC";
     	
     	$r = $this->_conn->_query($query);
     
@@ -190,13 +180,13 @@ class conveniosCartagena {
     public function getContratoMandatoDelConvenio($idConvenio){
     	 
     	$query = "SELECT CON.id_convenio,IC.por_cmsi, IC.por_seguro, I.id_inmueble, U.email AS emailCatcher FROM clientes_convenios AS CV
-  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
-  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
-  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-  WHERE CON.id_convenio = '".$idConvenio."'
-  AND I.id_inmueble IS NOT NULL";
+				  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+				  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+				  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+				  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
+				  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+				  WHERE CON.id_convenio = '".$idConvenio."'
+				  AND I.id_inmueble IS NOT NULL";
     	 
     	//echo "\n".$query."\n";
     	$r = $this->_conn->_query($query);
@@ -212,15 +202,22 @@ class conveniosCartagena {
     
     public function updateConvenios() {
     
+//     	$query = "SELECT CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
+// 					CON.fecha_final, CON.fecha_retiro, U.email,
+// 					CON.FECHA_LOG FROM clientes_convenios AS CV
+// 					LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+// 					LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+// 					INNER JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
+// 					ORDER BY id_convenio DESC";
+    	 
     	$query = "SELECT CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
 					CON.fecha_final, CON.fecha_retiro, U.email,
 					CON.FECHA_LOG FROM clientes_convenios AS CV
 					LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
 					LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
 					INNER JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
-					ORDER BY id_convenio DESC";
-    	 
-    
+					WHERE CON.id_convenio = 10212";
+    	
     	$r = $this->_conn->_query($query);
     
     	$cliente = $this->_conn->_getData($r);

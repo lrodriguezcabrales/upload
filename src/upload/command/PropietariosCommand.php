@@ -102,10 +102,11 @@ class PropietariosCommand extends Command
     	$startTime= new \DateTime();
     	
     	//foreach ($convenios['data'] as $convenio) {
-    	for ($i = 0; $i < 100; $i++) {
+    	for ($i = 0; $i < $totalConvenios; $i++) {
     		
     		$convenio = $convenios['data'][$i];
     		
+    		echo "\nConvenio: ".$convenio['consecutive']."\n";
     		$propietariosSF1 = $conexion->getPropietariosDelConvenio($convenio['consecutive']); 		
     		
     		foreach ($propietariosSF1 as $p) {

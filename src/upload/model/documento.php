@@ -18,22 +18,23 @@ class documento {
         if(array_key_exists('id',$param)){
             
             ## obtener el radicado
-            
-            $query="select   * from documentos where archivador='".$this->_archivador."' and id ='".$param['id']."'";
+            echo "\n doc 1 \n";
+            $query="select * from documentos where archivador='".$this->_archivador."' and id ='".$param['id']."'";
 
-            
+           
             
         }else{
             
             ## obtener todos los documentos
+        	echo "\n doc 2 \n";
+            //$query="select * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
 
-            $query="select "
-             . " * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
-
-            
-            
+        	//$query="select * from documentos where archivador='RRHH' and folio = 'RH1' order by radicacion asc";
+        	$query="select * from documentos where archivador='RRHH' and folio = 'RH1' and radicacion = 71";
+        	
         }
         
+       // echo "\n".$query."\n";
  
       
         
@@ -42,15 +43,17 @@ class documento {
         $result=$this->_conn->_getData($r);
         
 
-       // foreach ($result as $key => $value) {
+//        foreach ($result as $key => $value) {
             
-        //}
+//         }
         
-        //$metadata = $this->getMetadata($result['']);
+//         $metadata = $this->getMetadata($result['']);
         
         
         
-        return $result; 
+        //print_r($result);
+        
+       return $result; 
         
         
         

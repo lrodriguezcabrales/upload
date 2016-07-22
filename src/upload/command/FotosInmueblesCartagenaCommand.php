@@ -105,7 +105,8 @@ class FotosInmueblesCartagenaCommand extends Command
     				 
     				$urlInmueblesSF2 = $this->server.'catchment/main/property/'.$inmueble['id'];
     				 
-    				$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=C';
+    				//$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=C';
+    				$urlFotoSF1 = 'http://190.242.98.187/ws-img/foto.php?key=C';
     				
     				$urlapiFile = $this->server."archive/main/file";
     				 
@@ -118,7 +119,7 @@ class FotosInmueblesCartagenaCommand extends Command
     					
     					$photoSF2 = $this->searchFoto($foto);
     					
-    					if(is_null($photoSF2)){
+    					//if(is_null($photoSF2)){
     						
     						
     						$path = "/var/www/html/upload3/fotosinmueble/".$foto['id']."/";
@@ -164,6 +165,9 @@ class FotosInmueblesCartagenaCommand extends Command
     						//Subir foto a SF2
     						$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description'  --form nkeysifincaone='$nkeysifincaone' -H '$h'   $urlapiFile";
     						
+    						
+    						echo "\n".$cmd."\n";
+    						
     						$result= shell_exec($cmd);
     						$result = json_decode($result, true);
     						
@@ -205,10 +209,10 @@ class FotosInmueblesCartagenaCommand extends Command
     						}
     						
     						
-    					}else{
+//     					}else{
     						
-    						echo "\nLa foto ya existe\n";
-    					}
+//     						echo "\nLa foto ya existe\n";
+//     					}
     					
     				}
     				
