@@ -15,38 +15,12 @@ class clientsCartagena {
 
     public function getClients(){
 
-    	$query = "SELECT * FROM clientes
-    	WHERE id_cliente IS NOT NULL
-    	AND fecha_ingreso > '2016-01-26 08:00:00.00'";
+//     	$query = "SELECT TOP 10 FROM clientes
+//     	WHERE id_cliente IS NOT NULL";
     	
-//     	    	$query = "SELECT * FROM clientes
-//     	    	WHERE id_cliente IS NOT NULL
-//     	    	AND id_cliente = '860079456'";
-    	
-//     	$query = "SELECT * FROM clientes
-//     	WHERE id_cliente IS NOT NULL
-    	
-//     	AND log_modi > '2016-01-18 5:20:00.00'";
-    	
-//     	$query = "SELECT log_modi, * FROM clientes
-// WHERE id_cliente IS NOT NULL
-// AND log_modi > '2016-01-14 00:00:00.00'";
-//         $query = "SELECT * FROM clientes
-// WHERE id_cliente = '32938206'";   
-         
-//     	$query = "SELECT * FROM clientes
-// 		WHERE id_cliente IS NOT NULL
-// 		AND id_cliente != ''
-// 		AND id_cliente != '0'
-// 		AND id_cliente != '000000'
-//     	AND nat_juridica = 'J'";
-    	
-//     	$query = "SELECT TOP 64607 * FROM clientes
-//     			WHERE id_cliente IS NOT NULL
-//     			AND id_cliente != ''
-//     			AND id_cliente != '0'
-//     			AND id_cliente != '000000'
-//     	    	AND nat_juridica = 'N'";
+    	$query = "SELECT fecha_ingreso AS ingreso, * FROM clientes
+				  WHERE fecha_ingreso BETWEEN '2016-01-01 00:00:00' AND '2016-08-02 00:00:00'
+				  ORDER BY fecha_ingreso ASC";
     	
         $r = $this->_conn->_query($query);
         
@@ -175,7 +149,7 @@ ORDER BY I.number";
     
     
     
-    //Monteria
+    /**************************** MONTERIA ************************/
     
     public function getClientsMonteria(){
     
@@ -200,6 +174,30 @@ ORDER BY I.number";
     
     }
     
+    /************************ BOGOTA *************************/
+    
+    public function getClientsBogota(){
+    
+    	$query = "SELECT TOP 3000 * FROM clientes
+    			  WHERE id_cliente IS NOT NULL
+    			AND id_cliente != ''
+    			AND id_cliente != '0'";
+    
+    
+    	 
+    	 
+    	//     	$query = "SELECT * FROM clientes
+    	//     			  WHERE id_cliente = '812001044'";
+    	 
+    	$r = $this->_conn->_query($query);
+    
+    	$clients = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	echo "\nTotal clientes SF1: ".count($clients)."\n";
+    
+    	return $clients;
+    
+    }
     
      
 }

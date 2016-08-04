@@ -95,7 +95,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	
     	if($totalInmueblesSF2 > 0){
     		
-    		for ($i = 0; $i < 100; $i++) {
+    		for ($i = 0; $i < 1; $i++) {
     			
     				$inmueble = $inmueblesSF2['data'][$i];
     			
@@ -106,7 +106,7 @@ class FotosInmueblesCartagenaCommand extends Command
     				$urlInmueblesSF2 = $this->server.'catchment/main/property/'.$inmueble['id'];
     				 
     				//$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=C';
-    				$urlFotoSF1 = 'http://190.242.98.187/ws-img/foto.php?key=C';
+    				$urlFotoSF1 = 'http://190.242.98.187:81/ws-img/foto.php?key=C';
     				
     				$urlapiFile = $this->server."archive/main/file";
     				 
@@ -114,8 +114,10 @@ class FotosInmueblesCartagenaCommand extends Command
 
     				echo "\nTotal fotos del inmueble: ".count($fotos)."\n";
     				
-    				foreach ($fotos as $foto) {
-    						
+    				//foreach ($fotos as $foto) {
+    				for ($i = 0; $i < 1; $i++) {
+    					
+    					$foto = $fotos[$i];
     					
     					$photoSF2 = $this->searchFoto($foto);
     					
@@ -135,22 +137,24 @@ class FotosInmueblesCartagenaCommand extends Command
     						$url = $urlFotoSF1.$nkey.'.jpg';
     						
     						//echo "url";
-    						//echo "\n".$url."\n";
+    						echo "\n".$url."\n";
     						
     						
     						$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
     						
     						//echo "path";
-    						//echo "\n".$pathFilename."\n\n\n";
+    						echo "\n".$pathFilename."\n\n\n";
     						
+    						//echo file_get_contents($url);
     						
+    						ini_set('max_execution_time', 5000);
     						file_put_contents($pathFilename, file_get_contents($url));
     						
     						$marcadeagua = "/var/www/html/upload/logoAyS6.png";
     						
     						$margen = 20;
     						
-    						$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
+    						//$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
     						
     						//print_r($foto);
     						
@@ -168,9 +172,10 @@ class FotosInmueblesCartagenaCommand extends Command
     						
     						echo "\n".$cmd."\n";
     						
-    						$result= shell_exec($cmd);
-    						$result = json_decode($result, true);
+//     						$result= shell_exec($cmd);
+//     						$result = json_decode($result, true);
     						
+    						$result = null;
     						
     						if($result['0']['success'] == true){
     							echo "\nOk";
@@ -218,11 +223,11 @@ class FotosInmueblesCartagenaCommand extends Command
     				
     			echo "\nTotal fotos del inmueble ".$inmueble['consecutive']." - ".$total."\n";
     				
-    			if(isset($path)){
-    				echo "\nBorrar carpeta: ".$path."\n";
-    				//rmdir($path);
-    				$this->rmdir_recursive($path);
-    			}
+//     			if(isset($path)){
+//     				echo "\nBorrar carpeta: ".$path."\n";
+//     				//rmdir($path);
+//     				$this->rmdir_recursive($path);
+//     			}
     			
     				
     		$porDonde++;

@@ -30,7 +30,7 @@ use upload\command\UpdateConveniosCommand;
 use upload\command\UpdateMandateContractCommand;
 use upload\command\MapperCommand;
 use upload\command\VentaUsadosCommand;
-
+use upload\command\AvaluosCommand;
 
 use upload\command\ClientsMonteriaCommand;
 use upload\command\InmueblesMonteriaCommand;
@@ -51,6 +51,9 @@ use upload\command\ArrendatariosMonteriaCommand;
 use upload\command\ComentariosContratoArriendoMonteriaCommand;
 use upload\command\TiposDeDocumentosMonteriaCommand;
 use upload\command\ErrorClientMonteriaCommand;
+
+use upload\command\Bogota\MapperBogotaCommand;
+use upload\command\Bogota\ClientsBogotaCommand;
 
 use Knp\Provider\ConsoleServiceProvider;
 
@@ -102,6 +105,7 @@ $console->add(new UpdateConveniosCommand());
 $console->add(new UpdateMandateContractCommand());
 $console->add(new MapperCommand());
 $console->add(new VentaUsadosCommand());
+$console->add(new AvaluosCommand());
 
 
 $console->add(new ClientsMonteriaCommand());
@@ -123,6 +127,9 @@ $console->add(new ArrendatariosMonteriaCommand());
 $console->add(new ComentariosContratoArriendoMonteriaCommand());
 $console->add(new TiposDeDocumentosMonteriaCommand());
 $console->add(new ErrorClientMonteriaCommand());
+
+$console->add(new MapperBogotaCommand());
+$console->add(new ClientsBogotaCommand());
 
 $console->run();
 

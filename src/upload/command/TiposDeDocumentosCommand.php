@@ -78,7 +78,7 @@ class TiposDeDocumentosCommand extends Command
     				$result = json_decode($result, true);
     				 
     				if($result['success'] == true){
-    					echo "\nActualizado ".$tipo2['name']."\n";
+    					echo "\nActualizado: ".$tipo2['name']."\n";
     					   					 
     				}
     				 
@@ -93,7 +93,8 @@ class TiposDeDocumentosCommand extends Command
     function searchDocumentType() {
     	
     	$filter = array(
-    			'value' => 'Arriendos',
+    			//'value' => 'Arriendos',
+    			'value' => 'THUMANO',
     			'operator' => 'equal',
     			'property' => 'container.name'
     	);

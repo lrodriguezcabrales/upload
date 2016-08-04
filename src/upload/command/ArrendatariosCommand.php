@@ -760,7 +760,7 @@ class ArrendatariosCommand extends Command
     			'adress' => $direcciones,
     			'phones' => $telefonos,
     			'contact' => array($contacto),
-    			'legalRepresentative' => $representateLegal,
+    			'legalRepresentativeClient' => $representateLegal,
     			'contributor' => $contribuyente
     	);
     
@@ -1103,7 +1103,7 @@ class ArrendatariosCommand extends Command
     		if($client['id_representante'] != 0){
     			 
     			//     			echo "\n".$client['id_representante']."\n";
-    			$clientSF2 = $this->searchPersonSF2($client['id_representante']);
+    			$clientSF2 = $this->searchClientSF2($client['id_representante']);
     			 
     			 
     			 

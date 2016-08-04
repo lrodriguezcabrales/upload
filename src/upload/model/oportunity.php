@@ -22,7 +22,7 @@ class oportunity {
     	$result = $this->_conn->_getData($r);
     	//print_r($clients);
     
-    
+    	
     	return $result;
     	
     	

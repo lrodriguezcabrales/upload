@@ -36,13 +36,13 @@ class ClientsCartagenaCommand extends Command
     protected function configure()
     {
         $this->setName('clientes')
-		             ->setDescription('Comando para obtener datos de cliente SF1');
+		             ->setDescription('Comando para obtener datos de cliente SF1 - Cartagena');
 	}
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
 							   \Symfony\Component\Console\Output\OutputInterface $output)
 	{
 
-        $output->writeln("Datos de cliente SF1 \n");
+        $output->writeln("Datos de cliente SF1 - Cartagena \n");
 
         $conn = new data(array(
             'server' =>'10.102.1.3'
@@ -367,7 +367,7 @@ class ClientsCartagenaCommand extends Command
 
     	$startTime= new \DateTime();
     	
-    	for ($i = 0; $i < $totalClients; $i++) {
+    	for ($i = 1800; $i < 2000; $i++) {
     		    		
     		$client = $clients[$i];
 			//print_r($client);
@@ -380,7 +380,6 @@ class ClientsCartagenaCommand extends Command
     		
     		$clientSF2 = $this->searchClientSF2($client['id_cliente']);
     		
-    		echo "\npaso aqui\n";
     		
     		if(is_null($clientSF2)){
     			
@@ -440,7 +439,7 @@ class ClientsCartagenaCommand extends Command
     				 
     				$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
     				 
-    				print_r($apiClient);
+    				//print_r($apiClient);
     				 
     				$bClient = $this->buildClintePersonaJuridica($client);
     			
@@ -492,16 +491,13 @@ class ClientsCartagenaCommand extends Command
     				}
     			}
     			
-    			$porDonde++;
-    			echo "\nVamos por: ".$porDonde."\n";
-    			
-    			
-    			
     		}else{
     			
     			echo "\nEl cliente ya existe: ".$client['id_cliente']."\n";
     		}
     		
+    		$porDonde++;
+    		echo "\nVamos por: ".$porDonde."\n";
     		
     	}
     	
@@ -730,7 +726,7 @@ class ClientsCartagenaCommand extends Command
     			'adress' => $direcciones,
     			'phones' => $telefonos,
     			'contact' => array($contacto),
-    			'legalRepresentative' => $representateLegal,
+    			'legalRepresentativeClient' => $representateLegal,
     			'contributor' => $contribuyente
     	);
     	 
@@ -1058,24 +1054,16 @@ class ClientsCartagenaCommand extends Command
     function buildRepresentanteLegal($client) {
     	
     	$representateLegal = null;
-    	    	
-//     	echo "\nId representante".$client['id_representante'];
-//     	echo "\nrepresentante".$client['representante_legal'];
-    	
-//     	echo "\n".strlen($client['id_representante']);
-//     	echo "\n".strlen($client['representante_legal']);
-    	
-    	//if(($client['representante_legal'] != '') && ($client['id_representante'] != '')){
+
     	
     	if(($client['representante_legal'] != '') && ($client['id_representante'] != '')){
     		
     		
     		if($client['id_representante'] != 0){
     			
-//     			echo "\n".$client['id_representante']."\n";
-    			$clientSF2 = $this->searchPersonSF2($client['id_representante']);
-    			
-    			
+    			//echo "\n Representante legal: ".$client['id_representante']."\n";
+    			//$clientSF2 = $this->searchPersonSF2($client['id_representante']);
+    			$clientSF2 = $this->searchClientSF2($client['id_representante']);
     			
     			if(is_null($clientSF2)){
     				//echo "\nentro aqui";
@@ -1122,6 +1110,7 @@ class ClientsCartagenaCommand extends Command
     				}
     				
     			}else{
+    				//print_r($clientSF2);
     				$representateLegal = array('id'=> $clientSF2['id']);
     			}
     			

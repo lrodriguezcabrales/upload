@@ -171,7 +171,8 @@ class OportunityMonteriaCommand extends Command
     					$emailCreador = $op['creator']['email'];
     					//echo $emailCreador;
     					$creador = $this->searchPromotor($conexion, $emailCreador);
-    					//print_r($promotor);
+    					
+    					print_r($creador);
     				
     					$tipoOportunidad = $this->searchTipoOportunidad($op);
     						

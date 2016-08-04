@@ -35,7 +35,7 @@ class UpdateClientesMonteriaCommand extends Command
     
     protected function configure()
     {
-        $this->setName('clientsBogota')
+        $this->setName('updateClienteMonteria')
 		             ->setDescription('Comando para obtener datos de cliente SF1');
 	}
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
