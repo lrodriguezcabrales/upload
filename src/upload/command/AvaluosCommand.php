@@ -1,6 +1,7 @@
 <?php
 namespace upload\command;
 use upload\model\avaluo;
+use upload\model\oportunity;
 use upload\lib\data;
 use upload\lib\api;
 use Knp\Command\Command;
@@ -48,10 +49,10 @@ class AvaluosCommand extends Command
 
         
         echo "nafer no me cree";
-        
+        $oportunity = new oportunity($conn);
         $conexion = new avaluo($conn);
          
-        $this->getAvaluosSF2($conexion);
+        $this->getAvaluosSF2($conexion,$oportunity);
 	   
        // $this->updateInmuebles($inmuebles, $inmueblesCtg);
               
@@ -65,15 +66,19 @@ class AvaluosCommand extends Command
     }
     
    
-    public  function getAvaluosSF2($avaluo){
+    public  function getAvaluosSF2($avaluo,$oportunity){
     	
     	$relaciones = array("client", "perito","propertyAddress");
-    	$relaciones = json_encode($relaciones);
     	
-    
-    	   	   	 
+    	$filter[] = array(
+    			'value' => '05-08-2016',
+    			'operator' => ' >=',
+    			'property' => 'entrydate'
+    	);
+    	$filter = json_encode($filter);
+    	$relaciones = json_encode($relaciones);    	   	   	 
     	
-    	$urlOpArriendos = $this->server.'appraisals/main/zero/appraisals?relations='.$relaciones;
+    	$urlOpArriendos = $this->server.'appraisals/main/zero/appraisals?relations='.$relaciones."&filter=".$filter;
     	
     	
     	echo "\n".$urlOpArriendos."\n";
@@ -86,28 +91,80 @@ class AvaluosCommand extends Command
     	//print_r($oportunityArriendos);
 
     	foreach ($oportunityArriendos['data'] as $kAppra => $vAppra){
-    		if(!$avaluo->exitsAvaluo($vAppra['appraisalNumber'])){
+    		
 	    		$oneAppraisal = array();
 	    	
 	    		$oneAppraisal['id_avaluo'] =  $vAppra['appraisalNumber'];
-	    		$oneAppraisal['fecha_solicitud'] = $vAppra['entrydate'];
+	    		if( $vAppra['entrydate']){
+	    			$date= $vAppra['entrydate']['date'];
+	    			$oneAppraisal['fecha_solicitud'] = date("d/m/Y", strtotime($date));
+	    		}	    		
 	    		$oneAppraisal['estado'] = 0;
-	    		$oneAppraisal['address'] = $vAppra['propertyAddress'];
-	    		$oneAppraisal['id_cliente'] = $vAppra['id_avaluo'];
-	    		$oneAppraisal['id_ciudad'] = $vAppra['id_avaluo'];
-	    		$oneAppraisal['id_sector'] = "";
-	    		$oneAppraisal['id_barrio'] = $vAppra['id_avaluo'];
-	    		$oneAppraisal['id_tipo_inmueble'] = 1;
-	    		$oneAppraisal['direccion'] = $vAppra['id_avaluo'];
-	    		$oneAppraisal['tipo_avaluo'] = 1;
-	    		$oneAppraisal['fecha_new'] = $vAppra['id_avaluo'];
-    			$oneAppraisal['solicitante'] = $vAppra['id_avaluo'];
-	    		print_r($oneAppraisal);
-    			
-    		}else{
-    			echo "\n\nEl avaluo ".$vAppra['appraisalNumber']." ya existe.\n\n";
-    		}
-    		
+	    		//$oneAppraisal['address'] = $vAppra['propertyAddress'];
+	    		
+	    		if($vAppra['client']){
+	    			if($vAppra['client']['identity']){	   
+	    				$identificacionClient = $vAppra['client']['identity']['number'];
+	    				if($avaluo->exitClient($identificacionClient)){	    				
+	    					//echo "\n\nEl cliente ".$vAppra['client']['name']." SI existe.\n\n";
+	    				}else {
+	    					$this->insertCliente($oportunity,$vAppra['client']);
+	    					//echo "\n\nEl cliente ".$vAppra['client']['name']." No existe.\n\n";
+	    				}
+	    				
+	    				if($avaluo->exitClient($identificacionClient)){	
+	    					echo "\n\n2.El cliente ".$vAppra['client']['name']." SI existe.\n\n";
+		    				$identificationClient = $identificacionClient;
+				    		$oneAppraisal['id_cliente'] = $identificationClient;
+				    		$oneAppraisal['id_ciudad'] = "CTG";
+				    		$oneAppraisal['id_tipo_inmueble'] = 1;
+				    		$oneAppraisal['tipo_avaluo'] = 1;
+				    		
+				    		$oneAppraisal['id_sector'] = "";
+				    		$oneAppraisal['id_barrio'] = "";
+				    		$oneAppraisal['direccion'] = "";
+				    		if($vAppra['propertyAddress']){
+				    			if($vAppra['propertyAddress']['district']){
+				    				$oneAppraisal['id_barrio'] = $vAppra['propertyAddress']['district']['code'];
+				    			}		
+				    			$oneAppraisal['direccion'] = $vAppra['propertyAddress']['address'];
+				    		}
+				    		if($vAppra['entrydate']){
+				    			$date= $vAppra['entrydate']['date'];
+				    			$oneAppraisal['fecha_new'] = date("d/m/Y", strtotime($date));
+				    		}
+			    			$oneAppraisal['solicitante'] = $vAppra['client']['name'];
+			    			//print_r($oneAppraisal);
+		    				
+		    				
+		    				if(!$avaluo->exitsAvaluo($vAppra['appraisalNumber'])){
+		    					$avaluo->insertAvaluo($oneAppraisal);
+		    					echo "\n\nEl avaluo ".$vAppra['appraisalNumber']." NO existe.\n\n";
+		    				}else{
+		    					echo "\n\nEl avaluo ".$vAppra['appraisalNumber']." ya existe.\n\n";
+		    				}
+		    				
+		    				if(!$avaluo->exitsPuc($oneAppraisal)){
+		    					$avaluo->insertPuc($oneAppraisal);
+		    					echo "\n\nEl puc ".$vAppra['appraisalNumber']." NO existe.\n\n";
+		    				}else{
+		    					echo "\n\nEl puc ".$vAppra['appraisalNumber']." ya existe.\n\n";
+		    				}
+		    				
+		    				if(!$avaluo->exitsSaldo($oneAppraisal)){
+		    					echo "\n\nEl saldo ".$vAppra['appraisalNumber']." No existe.\n\n";
+		    					$avaluo->insertSaldo($oneAppraisal);
+		    				}else{
+		    					echo "\n\nEl saldo ".$vAppra['appraisalNumber']." ya existe.\n\n";
+		    				}   	
+		    					
+		    				
+	    				}else{
+	    					echo "\n\n2.El cliente ".$vAppra['client']['name']." No existe.\n\n";
+	    				}
+			    			
+	    			}
+	    		}	    	  		
     		
     	}
 
@@ -205,6 +262,54 @@ class AvaluosCommand extends Command
     	}
     	 
     
+    }
+    
+    public function insertCliente($conexion, $cliente){
+    
+    	$tipoIdentificacion = null;
+    	 
+    	//print_r($cliente);
+    	$urlapiMapper = $this->server.'admin/sifinca/mapper/target/idType/'.$cliente['identity']['idType']['id'];
+    	 
+    	//echo "\n".$urlapiMapper."\n";
+    	$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    	 
+    	$idTypeMapper = $apiMapper->get();
+    	$idTypeMapper = json_decode($idTypeMapper, true);
+    
+    	 
+    	///print_r($idTypeMapper);
+    	$idType = $idTypeMapper['data']['0']['idSource'];
+    	 
+    	 
+    	$naturaleza = 'N';
+    	if($cliente['identity']['idType']['id'] == '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'){
+    		$naturaleza = 'J';
+    
+    		$param = array(
+    				'id_cliente' => $cliente['identity']['number'],
+    				'id_identificacion' => $idType,
+    				'nat_juridica' => $naturaleza,
+    				'nom_empresa' => $cliente['comercialName']
+    					
+    		);
+    
+    		$conexion->insertClienteJuridico($param);
+    
+    	}else{
+    
+    		$param = array(
+    				'id_cliente' => $cliente['identity']['number'],
+    				'id_identificacion' => $idType,
+    				'nat_juridica' => $naturaleza,
+    				'nombre' => $cliente['firstname']." ".$cliente['secondname'],
+    				'apellido'=> $cliente['lastname']." ".$cliente['secondLastname']    
+    					
+    		);
+    
+    		$conexion->insertCliente($param);
+    
+    	}    
     }
         
 }

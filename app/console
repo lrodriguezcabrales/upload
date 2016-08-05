@@ -31,6 +31,7 @@ use upload\command\UpdateMandateContractCommand;
 use upload\command\MapperCommand;
 use upload\command\VentaUsadosCommand;
 use upload\command\AvaluosCommand;
+use upload\command\Cartagena\UpdateInmuebleDayCommand;
 
 use upload\command\ClientsMonteriaCommand;
 use upload\command\InmueblesMonteriaCommand;
@@ -106,7 +107,7 @@ $console->add(new UpdateMandateContractCommand());
 $console->add(new MapperCommand());
 $console->add(new VentaUsadosCommand());
 $console->add(new AvaluosCommand());
-
+$console->add(new UpdateInmuebleDayCommand());
 
 $console->add(new ClientsMonteriaCommand());
 $console->add(new InmueblesMonteriaCommand());

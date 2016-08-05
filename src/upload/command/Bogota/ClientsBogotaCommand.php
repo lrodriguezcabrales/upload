@@ -73,7 +73,7 @@ class ClientsBogotaCommand extends Command
 
     	$startTime= new \DateTime();
     	
-    	for ($i = 2000; $i < $totalClients; $i++) {
+    	for ($i = 3000; $i < $totalClients; $i++) {
     		    		
     		$client = $clients[$i];
 			//print_r($client);

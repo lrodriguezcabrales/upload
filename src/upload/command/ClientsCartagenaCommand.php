@@ -16,8 +16,8 @@ use Monolog\Handler\StreamHandler;
 class ClientsCartagenaCommand extends Command
 {	
 	
-	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
-	public $serverRoot = 'http://www.sifinca.net/';
+	public $server = 'http://104.239.164.96/sifinca/web/app.php/';
+	public $serverRoot = 'http://104.239.164.96/';
 	//public $user= "sifinca@araujoysegovia.com";
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
@@ -367,7 +367,7 @@ class ClientsCartagenaCommand extends Command
 
     	$startTime= new \DateTime();
     	
-    	for ($i = 1800; $i < 2000; $i++) {
+    	for ($i = 0; $i < $totalClients; $i++) {
     		    		
     		$client = $clients[$i];
 			//print_r($client);

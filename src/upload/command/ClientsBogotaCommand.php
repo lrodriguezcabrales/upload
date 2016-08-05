@@ -29,7 +29,7 @@ class ClientsBogotaCommand extends Command
 	public  $typeAddressHome = '8b8b75ae-6338-461f-8bbd-fc1283621d83';
     protected function configure()
     {
-        $this->setName('clientsBogota')
+        $this->setName('clientsBogota2')
 		             ->setDescription('Comando para obtener datos de cliente SF1');
 	}
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
