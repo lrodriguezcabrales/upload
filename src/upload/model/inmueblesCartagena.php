@@ -96,17 +96,22 @@ ORDER BY id_inmueble DESC";
     	 
     	$currentDate = new \DateTime();
     	//echo "\n Fecha final: ".$currentDate->format('Y-m-d H:i:s')."\n";
-    	$currentDate = $currentDate->format('Y-m-d H:i:s');
+    	$currentDate = $currentDate->format('Ymd');
     
-    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-    			  WHERE tstamp > '20160701 08:00:00.00'
-    			  ORDER BY id_inmueble DESC";
-    	 
+    	//echo "\n".$currentDate;
+    	
+    	$currentDate = $currentDate." 00:00:00";
+    	
+    	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll, 
+				  CAST(texto_inmu AS TEXT) AS descripcionAll
+    			  FROM inmuebles
+    			  WHERE tstamp > '$currentDate'
+    			  ORDER BY tstamp ASC";
+    	
+    	//echo "\n".$query;
     
-    	//$r = $this->_conn->_query($query);
+    	$r = $this->_conn->_query($query);
     	$result = $this->_conn->_getData($r);
-    	//print_r($clients);
-    	//echo "Total clientes SF1: ".count($clients);
     
     	return $result;
     
@@ -116,21 +121,10 @@ ORDER BY id_inmueble DESC";
     
     public function getInmueblesUpdateReciente(){
     	 
-//     	    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-//     	WHERE id_inmueble = 27797";
-
-    
-
     	$currentDate = new \DateTime();
     	//echo "\n Fecha final: ".$currentDate->format('Y-m-d H:i:s')."\n";
-    	$currentDate = $currentDate->format('Y-m-d H:i:s');
-    	
-    	echo $currentDate;
-    	
-//     	$replace = str_replace($currentDate, "-", "");
-    	
-//     	echo "\nreplace";
-//     	echo $replace;
+    	$currentDate = $currentDate->format('Ymd H:i:s');
+    
     	
     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
     			WHERE tstamp > '".$currentDate."'";

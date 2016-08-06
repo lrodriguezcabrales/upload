@@ -60,14 +60,169 @@ class UpdateInmuebleDayCommand extends Command
             ,'engine'=>'mssql'
         ));
 
-        $inmueblesCtg = new inmueblesCartagena($conn);
+        $conexion = new inmueblesCartagena($conn);
         
-        $inmuebles = $inmueblesCtg->getInmueblesUpdatedDay();
+        $inmuebles = $conexion->getInmueblesUpdatedDay();
 	   
-        $this->updateInmuebles($inmuebles, $inmueblesCtg);
+        $this->updateInmuebles($inmuebles, $conexion);
               
     }
 
+    //Actualizacion de estado y comentarios
+    function updateInmuebles($inmuebles, $conexion) {
+    	 
+    	$total = 0;
+    
+    	$totalInmueblesSF1 = count($inmuebles);
+    	//$totalInmueblesSF1 = 30000;
+    	 
+    	$porDonde = 0;
+    
+    	$startTime= new \DateTime();
+    
+    	echo "\nTotal de inmuebles a actualizar: ".$totalInmueblesSF1."\n";
+    
+    	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
+    		 
+    		$inmueble = $inmuebles[$i];
+    
+    		//echo "\nInmueble SF1\n";
+    		//print_r($inmueble);
+    		//$urlapiInmueble = $this->server.'catchment/main/property/'.$inmueble['id_inmueble'].'/status/'.$inmueble['promocion'];
+    
+    		$propertySF2 = $this->searchPropertyToUpdate($inmueble['id_inmueble']);
+    
+    		if(!is_null($propertySF2)){
+    			 
+    			$urlapiInmueble = $this->server.'catchment/main/property/'.$propertySF2['id'];
+    			 
+    			//echo "\n".$urlapiInmueble."\n";
+    			$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
+    			 
+    			 
+    			$edificio = $this->searchEdificio($inmueble);
+    			 
+    			$propertyType = $this->searchPropertyType($inmueble);
+    			 
+    			$inscriptionType = $this->searchInscriptionType($inmueble);
+    			 
+    			$destiny = $this->searchDestiny($inmueble);
+    			 
+    			$stratum = $this->searchStratum($inmueble);
+    			 
+    			$office = $this->searchOffice($inmueble);
+    			 
+    			$classification = $this->searchClassification($inmueble);
+    			 
+    			$retirementReason = $this->searchRetirementReason($inmueble);
+    			 
+    			$propertyStatus = $this->searchStatus($inmueble);
+    
+    			$address = $this->buidDireccion($inmueble);
+    			 
+    			//Caracteristicas del inmueble
+    			$caracteristicas = $this->buildCaracteristicasInmueble($inmueble, $conexion);
+    			 
+    			//Servicios publicos del inmueble
+    			$servicios = $this->buildServicios($inmueble, $conexion);
+    			 
+    			$consignmentdate = new \DateTime($inmueble['fecha_consignacion']);
+    			$consignmentdate = $consignmentdate->format('Y-m-d');
+    			 
+    			$dateAvailable = new \DateTime($inmueble['fecha_disponible']);
+    			$dateAvailable = $dateAvailable->format('Y-m-d');
+    			 
+    			$retirementDate= new \DateTime($inmueble['fecha_retiro']);
+    			$retirementDate = $retirementDate->format('Y-m-d');
+    			 
+    			$bupdate = array(
+    					"consecutive" => $inmueble['id_inmueble'],
+    					"cadastralReference" => $this->cleanString($inmueble['referencia_catastral']),
+    					"folioRegistration" => $this->cleanString($inmueble['folio_matricula']),
+    					"priceSale" => $inmueble['valor_venta'],
+    					"priceLease"=> $inmueble['canon'],
+    					"priceAdministration" => $inmueble['admin'],
+    					"includeAdministration" => $inmueble['adm_incl'],
+    					"exclusive" => $inmueble['exclusivo'],
+    					"constructArea" => $inmueble['area_construida'],
+    					"totalArea"=> $inmueble['area_lote'],
+    					"outstanding" => $inmueble['destacado'],
+    					"boundaries" => $this->cleanString($inmueble['linderosAll']),
+    					//"published": "false",
+    					"numberKeys" => $inmueble['Llaves'],
+    					"locationKeys"=> $inmueble['ubillave'],
+    					"keyName" => $inmueble['NoLLaves'],
+    					"furnished" => $inmueble['amoblado'],
+    					"propertyDescription" => $this->cleanString($inmueble['descripcionAll']),
+    					"consignmentdate" => $consignmentdate,
+    					"dateAvailable" => $dateAvailable,
+    					"dateUpdated" => $dateAvailable,
+    					"building" => $edificio,
+    					"publicService" => $servicios,
+    					"propertyTypeCatchment" => $propertyType,
+    					"inscriptionType" => $inscriptionType,
+    					"destiny" => $destiny,
+    					"office" => $office,
+    					"stratum" => $stratum,
+    					"propertyStatus" => $propertyStatus, //Estado del inmueble
+    					"classificationOfProperty" => $classification,
+    					"propertyAttribute" => $caracteristicas,
+    					"address" => $address,
+    					"retirementDate" => $retirementDate,
+    					"retirementReason" => $retirementReason,
+    			);
+    			 
+    			 
+    			 
+    			$json = json_encode($bupdate);
+    			 
+    			//echo "\n".$json."\n";
+    			 
+    			$result = $apiInmueble->get();
+    			$result = $apiInmueble->put($bupdate);
+    			 
+    			$result = json_decode($result, true);
+    			 
+    			//     		echo "\nresult\n";
+    			//     		print_r($result);
+    			 
+    			//return ;
+    			 
+    			if($result['success'] == true){
+    				echo "\nOk - Inmueble ".$inmueble['id_inmueble']."\n";
+    				$total++;
+    				 
+    				//$idInmuebleSF2 = $result['data'][0];
+    				 
+    			}
+    			 
+    			if(isset($result['error'])){
+    				echo "\nerror\n";
+    			}
+    			 
+    		}
+    
+    
+    		$porDonde++;
+    
+    		echo "\nvamos por : ".$porDonde."\n";
+    
+    	}
+    	 
+    	$finalTime = new \DateTime();
+    	 
+    	 
+    	$diff = $startTime->diff($finalTime);
+    	 
+    	 
+    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
+    	 
+    	echo "\ntotal de inmuebles actualizados: ".$total."\n";
+    }
+    
+    
     /**	
      * Busca si el inmueble existe o no en sifinca2
      */
@@ -133,8 +288,7 @@ class UpdateInmuebleDayCommand extends Command
     /**	
      * Buscar edificio a que pertene el inmueble
      */
-    function searchEdificio($inmueble) {
-    	
+    function searchEdificio($inmueble) {    	
     	
     	//echo "\nEdificio: ".$inmueble['id_edificio']."\n";
     	if($inmueble['id_edificio']){
@@ -178,7 +332,6 @@ class UpdateInmuebleDayCommand extends Command
     	
     
     }
-    
     
     public function searchPropertyType($inmueble) {
     	
@@ -406,183 +559,6 @@ class UpdateInmuebleDayCommand extends Command
     	}
     	
     	return $propertyStatus;
-    }
-    
-    function buildInmuebles($inmuebles, $inmueblesCtg) {
-    	
-    	$urlapiInmueble = $this->server.'catchment/main/property';
-    	 
-    	$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
-    	
-    	$officeCentro = array(
-    		'id' => $this->office
-    	);
-    	
-    	$total = 0;
-    	
-    	//$totalInmueblesSF1 = count($inmuebles);
-    	$totalInmueblesSF1 = count($inmuebles);
-    	
-    	$startTime= new \DateTime();
-    	
-    	$porDonde = 0;
-    	
-    	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
-    		
-    		$inmueble = $inmuebles[$i];
-    		
-    		//foreach ($inmuebles as $inmueble) {
-    		
-    		$edificio = null;
-    		
-    		
-    		$existe = $this->searchProperty($inmueble['id_inmueble']);
-    		
-    		if(!$existe){
-    			
-    			$edificio = null;
-                if($inmueble['id_edificio']){
-                    //Buscar edificio
-             	    $edificio = $this->searchEdificio($inmueble);
-                    
-                }
-                
-                $propertyType = $this->searchPropertyType($inmueble);
-                
-                $inscriptionType = $this->searchInscriptionType($inmueble);
-
-                $destiny = $this->searchDestiny($inmueble);
-                
-				$stratum = $this->searchStratum($inmueble);                
-
-                $office = $this->searchOffice($inmueble);
-                
-                $classification = $this->searchClassification($inmueble);
-            
-                $retirementReason = $this->searchRetirementReason($inmueble);
-
-                $propertyStatus = $this->searchStatus($inmueble);
-                             
-                $address = $this->buidDireccion($inmueble);
-                
-                //Caracteristicas del inmueble
-                $caracteristicas = $this->buildCaracteristicasInmueble($inmueble, $inmueblesCtg);
-                
-                //Servicios publicos del inmueble
-                $servicios = $this->buildServicios($inmueble, $inmueblesCtg);
-                
-                $consignmentdate = new \DateTime($inmueble['fecha_consignacion']);
-                $consignmentdate = $consignmentdate->format('Y-m-d');
-                
-                $dateAvailable = new \DateTime($inmueble['fecha_disponible']);
-                $dateAvailable = $dateAvailable->format('Y-m-d');
-                
-                $retirementDate= new \DateTime($inmueble['fecha_retiro']);
-                $retirementDate = $retirementDate->format('Y-m-d');
-                
-                $bInmueble = array(
-                        "consecutive" => $inmueble['id_inmueble'],
-                        "cadastralReference" => $this->cleanString($inmueble['referencia_catastral']),
-                        "folioRegistration" => $this->cleanString($inmueble['folio_matricula']),
-                        "priceSale" => $inmueble['valor_venta'],
-                        "priceLease"=> $inmueble['canon'],
-                        "priceAdministration" => $inmueble['admin'],
-                        "includeAdministration" => $inmueble['adm_incl'],
-                        "exclusive" => $inmueble['exclusivo'],
-                        "constructArea" => $inmueble['area_construida'],
-                        "totalArea"=> $inmueble['area_lote'],
-                        "outstanding" => $inmueble['destacado'],
-                        "boundaries" => $this->cleanString($inmueble['linderos']),
-                        //"published": "false",
-                        "numberKeys" => $inmueble['Llaves'],
-                        "locationKeys"=> $inmueble['ubillave'],
-                        "keyName" => $inmueble['NoLLaves'],
-                        "furnished" => $inmueble['amoblado'],
-                        "propertyDescription" => $this->cleanString($inmueble['texto_inmu']),
-                        "consignmentdate" => $consignmentdate,
-                        "dateAvailable" => $dateAvailable,
-                        "dateUpdated" => $dateAvailable,
-                        "building" => $edificio,
-                        "publicService" => $servicios,
-                        "propertyTypeCatchment" => $propertyType,
-                        "inscriptionType" => $inscriptionType,
-                        "destiny" => $destiny,
-                        "office" => $office,
-                        "stratum" => $stratum,
-                        "propertyStatus" => $propertyStatus, //Estado del inmueble
-                        "classificationOfProperty" => $classification,
-                        "propertyAttribute" => $caracteristicas, 
-                        "address" => $address,
-                        "retirementDate" => $retirementDate,
-                        "retirementReason" => $retirementReason,
-                );
-                
-                
-                $json = json_encode($bInmueble);
-                //echo "\n\n".$json."\n\n";
-                 
-                $result = $apiInmueble->post($bInmueble);
-                
-                $result = json_decode($result, true);
-                
-                
-                if($result['success'] == true){
-                    echo "\nOk";
-                    $total++;
-                    
-                    $idInmuebleSF2 = $result['data'][0];
-                    
-                    
-    //              if($inmueble['estado_operativo'] == '0'){
-    //                  $this->buildPublicacion($idInmuebleSF2, $inmueble);
-    //              }
-                            
-                    
-                }else{
-                    echo "\nError\n";
-                    //print_r($result);
-                    
-                    echo $json;
-                    
-                    $urlapiMapper = $this->server.'catchment/main/errorproperty';
-                    $apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-
-                    $error = array(
-                        'property' => $inmueble['id_inmueble'],
-                        'objectJson' => $json
-                    );
-                    
-                    $apiMapper->post($error);
-                    
-                }
-                
-               
-
-
-    		}else{
-
-                echo "\nInmueble ya existe\n";
-
-            }
-    		
-            $porDonde++;
-            echo "\n\nvamos por: ".$porDonde."\n";
-    		
-    	}
-    	
-    	
-    	$finalTime = new \DateTime();
-    	 
-    	 
-    	$diff = $startTime->diff($finalTime);
-    	 
-    	 
-    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
-    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
-    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
-    	 
-    	
-    	echo "\n\nTotal inmuebles pasados ".$total."\n";
     }
     
     function buildEdificios($inmueblesCtg) {
@@ -853,7 +829,7 @@ class UpdateInmuebleDayCommand extends Command
     				)
     		);
     		$caracteristicas[] = $bcarateristica;
-    		print_r($bcarateristica);
+    		//print_r($bcarateristica);
     	}
     	 
     	//Baños

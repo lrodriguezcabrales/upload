@@ -16,13 +16,13 @@ class avaluo {
     
     		$query = " INSERT INTO log_avaluos (id_avaluo, id_cliente, fecha_solicitud,
     			estado, id_ciudad, id_sector, id_barrio, id_tipo_inmueble, direccion, 
-    			tipo_avaluo, fecha_new, solicitante)";
+    			tipo_avaluo, fecha_new, solicitante, id_prop, propietario, latitud, longitud)";
     			
 	    	$query =$query." values ( ";
 	    	$query =$query.$param['id_avaluo'].",";
-	    	$query =$query."'". $param['fecha_solicitud']."',";
-	    	$query =$query.$param['estado'].",";
 	    	$query =$query."'".$param['id_cliente']."',";
+	    	$query =$query."'". $param['fecha_solicitud']."',";
+	    	$query =$query.$param['estado'].",";	    	
 	    	$query =$query."'".$param['id_ciudad']."',";
 	    	$query =$query."'". $param['id_sector']."',";
 	    	$query =$query."'". $param['id_barrio']."',";
@@ -30,7 +30,11 @@ class avaluo {
 	    	$query =$query."'". $param['direccion']."',";
 	    	$query =$query."'". $param['tipo_avaluo']."',";
 	    	$query =$query."'". $param['fecha_new']."',";
-	    	$query =$query."'". $param['solicitante']."'";
+	    	$query =$query."'". $param['solicitante']."',";
+	    	$query =$query."'',";
+	    	$query =$query."'',";
+	    	$query =$query."'',";
+	    	$query =$query."''";
 	    	$query =$query.")";       		    	
     			
     		echo "Consulta Avaluo : ".$query."\n";  

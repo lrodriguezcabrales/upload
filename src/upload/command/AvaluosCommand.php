@@ -36,7 +36,7 @@ class AvaluosCommand extends Command
 							   \Symfony\Component\Console\Output\OutputInterface $output)
 	{
 
-        $output->writeln("Datos de inmuebles SF1 \n");
+        $output->writeln("Datos de Avaluos SF1 \n");
 
         $conn = new data(array(
             'server' =>'10.102.1.3'
@@ -46,9 +46,7 @@ class AvaluosCommand extends Command
             ,'engine'=>'mssql'
         ));
 
-
-        
-        echo "nafer no me cree";
+    
         $oportunity = new oportunity($conn);
         $conexion = new avaluo($conn);
          
@@ -69,14 +67,16 @@ class AvaluosCommand extends Command
     public  function getAvaluosSF2($avaluo,$oportunity){
     	
     	$relaciones = array("client", "perito","propertyAddress");
-    	
+    	$filter = array();
     	$filter[] = array(
     			'value' => '05-08-2016',
     			'operator' => ' >=',
     			'property' => 'entrydate'
     	);
+    	
     	$filter = json_encode($filter);
-    	$relaciones = json_encode($relaciones);    	   	   	 
+    	$relaciones = json_encode($relaciones);    	   	   
+    	print_r($filter);
     	
     	$urlOpArriendos = $this->server.'appraisals/main/zero/appraisals?relations='.$relaciones."&filter=".$filter;
     	
