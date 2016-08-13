@@ -68,9 +68,14 @@ class AvaluosCommand extends Command
     	
     	$relaciones = array("client", "perito","propertyAddress");
     	$filter = array();
+    	
+    	$fecha = date('d-m-Y');
+    	$nuevafecha = strtotime ( '-2 day' , strtotime ( $fecha ) ) ;
+    	$nuevafecha = date ( 'd-m-Y' , $nuevafecha );
+    	
     	$filter[] = array(
-    			'value' => '05-08-2016',
-    			'operator' => ' >=',
+    			'value' => $nuevafecha,
+    			'operator' => '+>=',
     			'property' => 'entrydate'
     	);
     	

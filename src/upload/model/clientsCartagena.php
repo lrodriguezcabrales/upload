@@ -178,7 +178,7 @@ ORDER BY I.number";
     
     public function getClientsBogota(){
     
-    	$query = "SELECT TOP 4000 * FROM clientes
+    	$query = "SELECT * FROM clientes
     			  WHERE id_cliente IS NOT NULL
     			AND id_cliente != ''
     			AND id_cliente != '0'";

@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Cartagena;
 
 use upload\model\conveniosCartagena;
 use upload\lib\data;
@@ -13,47 +13,22 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class PropietariosMonteriaCommand extends Command
+class UpdatePropietariosCartagenaCommand extends Command
 {	
 	
-	public $server = 'http://104.239.170.71/monteriaServer/web/app.php/';
-	
-	public $serverRoot = 'http:/104.239.170.71/';
-	
-	public $localServer = 'http://10.102.1.22/';
-	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
+	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
+	public $serverRoot = 'http://www.sifinca.net';
 
-// 	public $server = 'http://104.130.12.152/sifinca/web/app_dev.php/';
-// 	public $serverRoot = 'http:/104.130.12.152/';
-	
+	public $localServer = 'http://10.102.1.22/';
+		
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 	public $token = null;
-		
-	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
-
-	
-	public $idTypeCedula = '6f80343e-f629-492a-80d1-a7e197c7cf48';
-	
-	public $contactTypeOther = 'ac76deff-6371-4264-b724-b24b98803b94';
-	
-	public  $typeAddressHome = '8b8b75ae-6338-461f-8bbd-fc1283621d83';
-	public  $typeAddressCorrespondencia = 'e8e9cc62-ec79-4453-8247-a57cc1cf4712';
-	
-	public  $typeAddresOficina = '8e62e10e-b34a-4e3e-ad3a-6e288134ac97';
-
-	
-	public  $attributeAlcobas = 'b4b7ea95-ea41-4546-95e0-82b56a947411';
-	public  $attributeBanos = 'bb0666a4-e3bf-45eb-8760-d6602a868ed8';
-	
-	public $buildingTypeEdificio = '345bc0a2-4880-4f13-b06f-80cd7405805c';
-	
+			
     protected function configure()
     {
-        $this->setName('propietariosMonteria')
-		             ->setDescription('Comando para pasar convenios');
+        $this->setName('updatePropietarios')
+		             ->setDescription('Comando para actaulizar convenio:propietario - Cartagena');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
@@ -61,50 +36,28 @@ class PropietariosMonteriaCommand extends Command
 	{
 
         $conn = new data(array(
-            'server' =>'192.168.100.1'
-            ,'user' =>'sa'
-            ,'pass' =>'75080508360'
+            'server' =>'10.102.1.3'
+            ,'user' =>'hherrera'
+            ,'pass' =>'daniela201'
             ,'database' =>'sifinca' 
             ,'engine'=>'mssql'
         ));
 
         $conexion = new conveniosCartagena($conn);
-     	
-        //$owners = $conexion->getClientesConvenios();
-        
-		//$this->buildOwner($conexion, $owners);          
-        
-		//$convenios = $conexion->getConvenioAll();
-		
-        //$convenios = $conexion->getConvenioDisponibles();
-		
-		//$this->buildConvenio($conexion, $convenios);
-		
-       	//$this->crearConvenios($conexion);
-        
-        //$this->crearContratosDeMandato($conexion);
-        
-        $this->crearPropietarios($conexion);
+             
+        $this->updatePropietarios($conexion);
 		
     }
      
-    public function crearPropietarios($conexion) {
-    	    	    	
-    	$urlConvenio = $this->server.'catchment/main/agreement/only/ids';
-    	
-    	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
-    	
-    	$convenios = $apiConvenio->get();
-    	$convenios = json_decode($convenios, true);
-    	//echo $convenios['total']
+    public function updatePropietarios($conexion) {
+    	    
+    	$convenios = $conexion->getConveniosRecientes();
+    	$totalConvenios = count($convenios);
     	
     	$urlapioOwner = $this->server.'catchment/main/owner';
-    	
     	$apiOwner = $this->SetupApi($urlapioOwner, $this->user, $this->pass);
     	
-    	echo "\nTotal de convenios - propietarios: ".count($convenios['data'])."\n";
-    	
-    	$totalConvenios = count($convenios['data']);
+    	echo "\nTotal de convenios - propietarios: ".$totalConvenios."\n";
     	
     	$porDonde = 0;
     	$startTime= new \DateTime();
@@ -114,7 +67,9 @@ class PropietariosMonteriaCommand extends Command
     		
     		$convenio = $convenios['data'][$i];
     		
-    		$propietariosSF1 = $conexion->getPropietariosDelConvenioMonteria($convenio['consecutive']); 		
+    		echo "\n---------------------------\n";
+    		echo "\nConvenio: ".$convenio['consecutive']."\n";
+    		$propietariosSF1 = $conexion->getPropietariosDelConvenio($convenio['consecutive']); 		
     		
     		foreach ($propietariosSF1 as $p) {
     		
@@ -157,7 +112,7 @@ class PropietariosMonteriaCommand extends Command
     					//     		//echo "\n\n".$json."\n\n";
     					
     						
-    					$result = $apiOwner->post($bOwner);
+    					$result = $apiOwner->put($bOwner);
     					$result = json_decode($result, true);
     						
     					if(isset($result['success'])){
@@ -168,6 +123,12 @@ class PropietariosMonteriaCommand extends Command
     						}
     					}
     					else{
+    						
+    						if($result['message'] == 'Error el cliente ya se ecuentra en este convenio'){
+    							
+    							echo "\nPropietario ya existe\n";
+    						}
+    						
     						echo "\nError creando propietario 1\n";
     					
     						//echo "\n\n".$json."\n\n";
@@ -234,7 +195,7 @@ class PropietariosMonteriaCommand extends Command
     		
     				}else{
     		
-    					echo "\nERROR\n";
+    					//echo "\nERROR\n";
     					
     				}
     		
@@ -431,33 +392,24 @@ class PropietariosMonteriaCommand extends Command
     	//echo "maritalStatus".$maritalStatus;
     
     	//----aad
-        $urlapiLevelStudy = $this->server.'admin/sifinca/mapper/levelStudy/'.$client['nivel_estudios'];
+    	$urlapiLevelStudy = $this->server.'admin/sifinca/mapper/levelStudy/'.$client['nivel_estudios'];
     	$apiLevelStudy = $this->SetupApi($urlapiLevelStudy, $this->user, $this->pass);
-    	
+    	 
     	$levelStudyMapper = $apiLevelStudy->get();
     	$levelStudyMapper = json_decode($levelStudyMapper, true);
     	//print_r($maritalStatusMapper);
     	$levelStudy = null;
-    	if(isset($levelStudyMapper['total'])){
-    		if($levelStudyMapper['total'] > 0){
-    			$levelStudy = $levelStudyMapper['data']['0']['idTarget'];
-    			if(!is_null($levelStudy)){
-    		
-    				$levelStudy = array('id'=>$levelStudy);
-    		
-    				if(isset($levelStudy['total'])){
-    					if($levelStudy['total'] == 0){
-    						$levelStudy = null;
-    					}
-    				}else{
-    					$levelStudy = null;
-    				}
-    				 
-    		
+    	if($levelStudyMapper['total'] > 0){
+    		$levelStudy = $levelStudyMapper['data']['0']['idTarget'];
+    		if(!is_null($levelStudy)){
+    
+    			$levelStudy = array('id'=>$levelStudy);
+    
+    			if($levelStudy['total'] == 0){
+    				$levelStudy = null;
     			}
+    
     		}
-    	}else{
-    		$levelStudy = null;
     	}
     	 
     	 
@@ -596,7 +548,7 @@ class PropietariosMonteriaCommand extends Command
     			'adress' => $direcciones,
     			'phones' => $telefonos,
     			'contact' => array($contacto),
-    			'legalRepresentative' => $representateLegal,
+    			'legalRepresentativeClient' => $representateLegal,
     			'contributor' => $contribuyente
     	);
     
@@ -622,7 +574,6 @@ class PropietariosMonteriaCommand extends Command
     	return $bClient;
     }
      
-
     function buildDirecciones($client) {
     
     	$direccionesSF1 = array();
@@ -638,14 +589,14 @@ class PropietariosMonteriaCommand extends Command
     		$address = $client['dir_residencia'].", ".$client['barrio_residencia'].", ".$client['edificio_residencia'];
     
     		//$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.BOG/'.$client['pais_residencia'];
-    		$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.MON/'.$client['pais_residencia'];
+    		$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.CTG/'.$client['pais_residencia'];
     		$apiMapper = $this->SetupApi($urlapiMapperCountry, $this->user, $this->pass);
     		 
     		$country = $apiMapper->get();
     		$country = json_decode($country, true);
     
     		//$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.BOG/'.$client['ciudad_residencia'];
-    		$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.MON/'.$client['ciudad_residencia'];
+    		$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.CTG/'.$client['ciudad_residencia'];
     		$apiMapper = $this->SetupApi($urlapiMapperTown, $this->user, $this->pass);
     		 
     		$town = $apiMapper->get();
@@ -694,13 +645,13 @@ class PropietariosMonteriaCommand extends Command
     
     		$address = $client['dir_trabajo'].", ".$client['barrio_trabajo'].", ".$client['edificio_trabajo'];
     
-    		$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.MON/'.$client['pais_trabaja'];
+    		$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.BOG/'.$client['pais_trabaja'];
     		$apiMapper = $this->SetupApi($urlapiMapperCountry, $this->user, $this->pass);
     		 
     		$country = $apiMapper->get();
     		$country = json_decode($country, true);
     
-    		$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.MON/'.$client['ciudad_trabaja'];
+    		$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.BOG/'.$client['ciudad_trabaja'];
     		$apiMapper = $this->SetupApi($urlapiMapperTown, $this->user, $this->pass);
     		 
     		$town = $apiMapper->get();
@@ -744,7 +695,7 @@ class PropietariosMonteriaCommand extends Command
     							'department' => $deparment,
     							'town' => $town,
     							'district' => null,
-    							'typeAddress' => array('id'=>$this->typeAddresOficina) //OFICINA
+    							'typeAddress' => array('id'=>'26f76dc7-4204-4972-9d47-30360735514b') //OFICINA
     					);
     				}
     					
@@ -786,7 +737,7 @@ class PropietariosMonteriaCommand extends Command
     						'department' => null,
     						'town' => $town,
     						'district' => null,
-    						'typeAddress' => array('id'=>$this->typeAddresOficina) //OFICINA
+    						'typeAddress' => array('id'=>'26f76dc7-4204-4972-9d47-30360735514b') //OFICINA
     				);
     			}
     			 
@@ -820,7 +771,7 @@ class PropietariosMonteriaCommand extends Command
     	$telefono_trabajo = $client['tel_trabajo'];
     	$telefono_trabajo = $this->validarTelefono($telefono_trabajo);
     	 
-    	$telefono_celular = $client['TEL_CELULAR'];
+    	$telefono_celular = $client['tel_celular'];
     	$telefono_celular = $this->validarTelefono($telefono_celular);
     
     	$telefono_residencia2 = $client['tel_residencia2'];
@@ -853,7 +804,7 @@ class PropietariosMonteriaCommand extends Command
     function buildTelefonosContacto($client) {
     	 
     	//echo "Entro aqui";
-    	$telefonoContacto1 = $client['TEL_CO'];
+    	$telefonoContacto1 = $client['teL_co'];
     	$telefonoContacto1 = $this->validarTelefono($telefonoContacto1);
     
     	$telefonoContacto2 = $client['tel_co2'];
@@ -862,8 +813,8 @@ class PropietariosMonteriaCommand extends Command
     	$telefonoContacto3 = $client['tel_cto'];
     	$telefonoContacto3 = $this->validarTelefono($telefonoContacto3);
     	 
-    	//     	$telefonoContacto4 = $client['teL_celular_cto'];
-    	//     	$telefonoContacto4 = $this->validarTelefono($telefonoContacto4);
+    	$telefonoContacto4 = $client['teL_celular_cto'];
+    	$telefonoContacto4 = $this->validarTelefono($telefonoContacto4);
     	 
     	$telefonos = array();
     
@@ -879,15 +830,14 @@ class PropietariosMonteriaCommand extends Command
     		$telefonos[] = $telefonoContacto3;
     	}
     	 
-    	//     	if(!is_null($telefonoContacto4)){
-    	//     		$telefonos[] = $telefonoContacto4;
-    	//     	}
+    	if(!is_null($telefonoContacto4)){
+    		$telefonos[] = $telefonoContacto4;
+    	}
     	 
     	//$telefonos = array_unique($telefonos);
     
     	return $telefonos;
     }
-    
     
     function validarTelefono($telefono) {
     	 
@@ -941,7 +891,7 @@ class PropietariosMonteriaCommand extends Command
     		if($client['id_representante'] != 0){
     			 
     			//     			echo "\n".$client['id_representante']."\n";
-    			$clientSF2 = $this->searchPersonSF2($client['id_representante']);
+    			$clientSF2 = $this->searchClientSF2($client['id_representante']);
     			 
     			 
     			 

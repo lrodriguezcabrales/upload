@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Cartagena;
 
 use upload\model\conveniosCartagena;
 use upload\lib\data;
@@ -13,7 +13,7 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class UpdateConveniosCommand extends Command
+class ConveniosCartagenaCommand extends Command
 {	
 	
 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
@@ -44,8 +44,8 @@ class UpdateConveniosCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('updateConvenios')
-		             ->setDescription('Comando para actualizar convenios');
+        $this->setName('convenios')
+		             ->setDescription('Comando para pasar convenios - Cartagena');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
@@ -61,34 +61,33 @@ class UpdateConveniosCommand extends Command
         ));
 
         $conexion = new conveniosCartagena($conn);
-     			
-       	$this->actualizarConvenios($conexion);
-		
+     		
+       	$this->crearConvenios($conexion);
+        
     }
     
     
-    public function actualizarConvenios($conexion) {
+    /**
+     * Crear convenios en sifinca2
+     */
+    public function crearConvenios($conexion) {
     	
-    	$convenios = $conexion->updateConvenios();
+    	$convenios = $conexion->getSoloConvenios();
     	
+    	$urlConvenio = $this->server.'catchment/main/agreement';    	 
+    	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
+    	 
     	$porDonde = 0;
     	
     	$startTime= new \DateTime();
     	
     	echo "\nTotal de convenios: ".count($convenios)."\n";
     	
-    	//foreach ($convenios as $convenio) {
-    	for ($i = 0; $i < count($convenios); $i++) {
-    		
-    		$convenio = $convenios[$i];
-    		
+    	foreach ($convenios as $convenio) {
+
     		$convenioSF2 = $this->searchConvenioSF2($convenio);
     		
-    		if(!is_null($convenioSF2)){
-    			
-    			$urlConvenio = $this->server.'catchment/main/agreement/'.$convenioSF2['id'];
-    			echo "\n".$urlConvenio."\n";
-    			$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
+    		if(is_null($convenioSF2)){
     			
     			//Convenio Activo
     			if($convenio['estado'] == 'V'){
@@ -117,10 +116,9 @@ class UpdateConveniosCommand extends Command
     			
     			//Asesor integreal
     			$responsable = $this->searchUsuarioByEmail($convenio['email']);
-    			
+    			    			
     			$bConvenio = array(
-    					'id' => $convenioSF2['id'],
-    					'consecutive' => $convenioSF2['consecutive'],
+    					'consecutive' => $convenio['id_convenio'],
     					'statusAgreement' => $statusAgreement,
     					'agreementDate' => $agreementDate,
     					'initialDate' => $initialDate,
@@ -133,36 +131,41 @@ class UpdateConveniosCommand extends Command
     			 
     			//echo "\n\n".$json."\n\n";
     			 
-    			$result = $apiConvenio->put($bConvenio); 
+    			$result = $apiConvenio->post($bConvenio);
+    			 
     			$result = json_decode($result, true);
     			 
+    			 
+    			//print_r($result);
     			if(isset($result['success'])){
-    				
-    				echo "\nSuccess\n";
+    			    				
     				if($result['success'] == true){
-    					echo "\nOk convenio ".$convenio['id_convenio']."\n";
-    					
+    					echo "\nOk convenio\n";
+
     				}
     				
     			}else{
-    				echo "\nError al actualizar convenio: ".$convenio['id_convenio']."\n";
-    				//echo "\n\n".$json."\n\n";  			
+    				echo "\nError convenio: ".$convenio['id_convenio']."\n";
+    				//echo "\n\n".$json."\n\n";
     			
-//     				$urlapiMapper = $this->server.'catchment/main/erroragreement';
-//     				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     			
-//     				$error = array(
-//     						'agreement' => $convenio['id_convenio'],
-//     						'objectJson' => $json
-//     				);
+    				$urlapiMapper = $this->server.'catchment/main/erroragreement';
+    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     			
-//     				$apiMapper->post($error);
+    				$error = array(
+    						'agreement' => $convenio['id_convenio'],
+    						'objectJson' => $json
+    				);
+    			
+    				$apiMapper->post($error);
     			
     			}
     			
+    			
+    			
     		}else{
     			
-    			echo "\nEl convenio aun no existe \n";
+    			echo "\nEl convenio ya existe ".$convenio['id_convenio']."\n";
     			
     		}
     		
@@ -182,9 +185,13 @@ class UpdateConveniosCommand extends Command
     	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
     	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
     	
-    }        
+    }
 
+	/**
+	 * Buscar convenio en sifinca2
+	 */
     function searchConvenioSF2($convenio) {
+    	
     	
     	$filter = array(
     			'value' => $this->cleanString($convenio['id_convenio']),
@@ -210,27 +217,27 @@ class UpdateConveniosCommand extends Command
     	}
     	
     }
-    
-    /**	
-     * Buscar un usario en sifinca2 por medio del email de sifinca1
-     * @param unknown 
+
+    /**
+     * Buscar un usuario en sifinca2 por medio del email de sifinca1
+     * @param unknown
      * @return multitype:number
      */
     function searchUsuarioByEmail($email) {
     
     	$email = $this->cleanString($email);
-    	 
+    
     	if($email == 'inmobiliaria@araujoysegovia.com'){
     		$user = array('id' => 203);
     		return $user;
     	}
-    	 
+    
     	if($email == 'hherrera@araujoysegovia.com'){
     		$user = array('id' => 203);
     		return $user;
     	}
-    	 
-    	 
+    
+    
     	$filter = array(
     			'value' => $email,
     			'operator' => '=',
@@ -239,7 +246,7 @@ class UpdateConveniosCommand extends Command
     	$filter = json_encode(array($filter));
     
     	$urlUser = $this->server.'admin/security/user?filter='.$filter;
-    	 
+    
     	$apiUser = $this->SetupApi($urlUser, $this->user, $this->pass);
     
     	$user = $apiUser->get();
@@ -253,7 +260,7 @@ class UpdateConveniosCommand extends Command
     	}else{
     		return $user = array('id' => 203);
     	}
-    	 
+    
     }
     
     /**
@@ -307,7 +314,9 @@ class UpdateConveniosCommand extends Command
     			}
     
     		}
-    	}    
+    	}
+    
+    
     }
     
     function SetupApi($urlapi,$user,$pass){
@@ -341,6 +350,7 @@ class UpdateConveniosCommand extends Command
     	}else{
     		echo "\nToken no valido\n";
     	}
+    
     
     }
     

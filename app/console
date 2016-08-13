@@ -7,15 +7,22 @@ use upload\command\ContableCommand;
 use upload\command\EmpleadosCommand;
 use upload\command\DocumentCommand;
 use upload\command\GetDocumentsCommand;
+
 use upload\command\ClientsCartagenaCommand;
-use upload\command\InmueblesCartagenaCommand;
+
+use upload\command\Cartagena\InmueblesCartagenaCommand;
+use upload\command\Cartagena\UpdateInmueblesRecientesCommand;
+use upload\command\Cartagena\UpdateInmuebleDayCommand;
+use upload\command\Cartagena\ConveniosCartagenaCommand;
+use upload\command\Cartagena\ContratosDeMandatoCommand;
+use upload\command\Cartagena\UpdatePropietariosCartagenaCommand;
+
 use upload\command\FotosInmueblesCartagenaCommand;
-use upload\command\ConveniosCartagenaCommand;
 use upload\command\ComentariosInmuebleCommand;
 use upload\command\UpdateInmuebleCommand;
-use upload\command\UpdateInmueblesRCommand;
+
 use upload\command\UpdateClientesCommand;
-use upload\command\ContratosDeMandatoCommand;
+
 use upload\command\OportunityCommand;
 use upload\command\ContratoArriendoCommand;
 use upload\command\PropietariosCommand;
@@ -31,20 +38,22 @@ use upload\command\UpdateMandateContractCommand;
 use upload\command\MapperCommand;
 use upload\command\VentaUsadosCommand;
 use upload\command\AvaluosCommand;
-use upload\command\Cartagena\UpdateInmuebleDayCommand;
+
+
+use upload\command\Monteria\InmueblesMonteriaCommand;
+use upload\command\Monteria\UpdateInmueblesRecientesMonteriaCommand;
+use upload\command\Monteria\PropietariosMonteriaCommand;
+use upload\command\Monteria\ConveniosMonteriaCommand;
+use upload\command\Monteria\ContratosDeMandatoMonteriaCommand;
 
 use upload\command\ClientsMonteriaCommand;
-use upload\command\InmueblesMonteriaCommand;
 use upload\command\FotosInmueblesMonteriaCommand;
-use upload\command\ConveniosMonteriaCommand;
 use upload\command\ComentariosInmuebleMonteriaCommand;
 use upload\command\UpdateInmuebleMonteriaCommand;
-use upload\command\UpdateInmueblesRMonteriaCommand;
+
 use upload\command\UpdateClientesMonteriaCommand;
-use upload\command\ContratosDeMandatoMonteriaCommand;
 use upload\command\OportunityMonteriaCommand;
 use upload\command\ContratoArriendoMonteriaCommand;
-use upload\command\PropietariosMonteriaCommand;
 use upload\command\ErrorInmuebleMongoMonteriaCommand;
 use upload\command\ErrorAgreementMonteriaCommand;
 use upload\command\PublicarInmuebleMonteriaCommand;
@@ -55,6 +64,11 @@ use upload\command\ErrorClientMonteriaCommand;
 
 use upload\command\Bogota\MapperBogotaCommand;
 use upload\command\Bogota\ClientsBogotaCommand;
+use upload\command\Bogota\InmueblesBogotaCommand;
+use upload\command\Bogota\EdificiosBogotaCommand;
+use upload\command\Bogota\ConveniosBogotaCommand;
+use upload\command\Bogota\ContratosDeMandatoBogotaCommand;
+use upload\command\Bogota\PropietariosBogotaCommand;
 
 use Knp\Provider\ConsoleServiceProvider;
 
@@ -89,9 +103,13 @@ $console->add(new FotosInmueblesCartagenaCommand());
 $console->add(new ConveniosCartagenaCommand());
 $console->add(new ComentariosInmuebleCommand());
 $console->add(new UpdateInmuebleCommand());
-$console->add(new UpdateInmueblesRCommand());
+$console->add(new UpdateInmueblesRecientesCommand());
 $console->add(new UpdateClientesCommand());
 $console->add(new ContratosDeMandatoCommand());
+$console->add(new UpdateInmuebleDayCommand());
+$console->add(new UpdatePropietariosCartagenaCommand());
+
+
 $console->add(new OportunityCommand());
 $console->add(new ContratoArriendoCommand());
 $console->add(new PropietariosCommand());
@@ -102,12 +120,12 @@ $console->add(new ArrendatariosCommand());
 $console->add(new ComentariosContratoArriendoCommand());
 $console->add(new TiposDeDocumentosCommand());
 $console->add(new UpdateContratoArriendoCommand());
-$console->add(new UpdateConveniosCommand());
+
 $console->add(new UpdateMandateContractCommand());
 $console->add(new MapperCommand());
 $console->add(new VentaUsadosCommand());
 $console->add(new AvaluosCommand());
-$console->add(new UpdateInmuebleDayCommand());
+
 
 $console->add(new ClientsMonteriaCommand());
 $console->add(new InmueblesMonteriaCommand());
@@ -115,7 +133,9 @@ $console->add(new FotosInmueblesMonteriaCommand());
 $console->add(new ConveniosMonteriaCommand());
 $console->add(new ComentariosInmuebleMonteriaCommand());
 $console->add(new UpdateInmuebleMonteriaCommand());
-$console->add(new UpdateInmueblesRMonteriaCommand());
+
+$console->add(new UpdateInmueblesRecientesMonteriaCommand());
+
 $console->add(new UpdateClientesMonteriaCommand());
 $console->add(new ContratosDeMandatoMonteriaCommand());
 $console->add(new OportunityMonteriaCommand());
@@ -131,6 +151,11 @@ $console->add(new ErrorClientMonteriaCommand());
 
 $console->add(new MapperBogotaCommand());
 $console->add(new ClientsBogotaCommand());
+$console->add(new InmueblesBogotaCommand());
+$console->add(new EdificiosBogotaCommand());
+$console->add(new ConveniosBogotaCommand());
+$console->add(new ContratosDeMandatoBogotaCommand());
+$console->add(new PropietariosBogotaCommand());
 
 $console->run();
 

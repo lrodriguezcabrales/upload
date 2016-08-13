@@ -16,15 +16,8 @@ use Monolog\Handler\StreamHandler;
 class FotosInmueblesMonteriaCommand extends Command
 {	
 	
-	public $server = 'http://104.239.170.71/monteriaServer/web/app.php/';	
-	public $serverRoot = 'http:/104.239.170.71/';
-	
-	
- 	//public $server = 'http://10.101.1.95/sifinca/web/app.php/';
- 	//public $serverRoot = 'http://10.101.1.95/';
-	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
+	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';	
+	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
@@ -53,10 +46,6 @@ class FotosInmueblesMonteriaCommand extends Command
         ));
 
         $inmueblesCtg = new inmueblesCartagena($conn);
-
-        
-        //$inmuebles = $inmueblesCtg->getInmuebles();
-	    //$this->buildInmuebles($inmuebles, $inmueblesCtg);
       
         $this->buildFotos($inmueblesCtg);
         
@@ -67,26 +56,15 @@ class FotosInmueblesMonteriaCommand extends Command
     
     	$urlInmueblesSF2 = $this->server.'catchment/main/property/only/ids';
     	
-    	//echo "\n".$urlInmueblesSF2."\n";
-    	
     	$apiInmueblesSF2 = $this->SetupApi($urlInmueblesSF2, $this->user, $this->pass);
     
-    	//echo "\n\n";
-    	//print_r($apiInmueblesSF2);
-    	    	
-    	//$h ="x-sifinca:SessionToken SessionID=\"$token\", Username=\"sifinca@araujoysegovia.com\"";
     	$h = $this->headerCurl;
     	  	
     	
     	$inmueblesSF2 = $apiInmueblesSF2->get();
     	$inmueblesSF2 = json_decode($inmueblesSF2, true);
     
-		//31419
-    	
-    	
-    	$totalInmueblesSF2 = $inmueblesSF2['total'];
-    	
-    	//$totalInmueblesSF2 = $totalInmueblesSF2;   	   	
+    	$totalInmueblesSF2 = $inmueblesSF2['total'];	   	
     	
     	echo "\nTotal inmuebles SF2: ".$totalInmueblesSF2."\n";
     	
@@ -98,7 +76,7 @@ class FotosInmueblesMonteriaCommand extends Command
     	
     	if($totalInmueblesSF2 > 0){
     		
-    		for ($i = 7000; $i < $totalInmueblesSF2; $i++) {
+    		for ($i = 0; $i < 1; $i++) {
     			
     				$inmueble = $inmueblesSF2['data'][$i];
     			
@@ -109,7 +87,9 @@ class FotosInmueblesMonteriaCommand extends Command
     				$urlInmueblesSF2 = $this->server.'catchment/main/property/'.$inmueble['id'];
     				 
     				//$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=M';
-    				$urlFotoSF1 = 'http://190.242.98.98:81/publiweb/foto.php?key=M';
+    				$urlFotoSF1 = 'http://190.242.98.187:81/ws-img/foto.php?key=M';
+    				
+    				//echo "\n".$urlFotoSF1."\n";
     				
     				$urlapiFile = $this->server."archive/main/file";
     				 
@@ -117,8 +97,10 @@ class FotosInmueblesMonteriaCommand extends Command
 
     				echo "\nTotal fotos del inmueble: ".count($fotos)."\n";
     				
-    				foreach ($fotos as $foto) {
-    						
+    				//foreach ($fotos as $foto) {
+    				for ($i = 0; $i < 5; $i++) {
+    					
+    					$foto = $fotos[$i];
     					
     					$photoSF2 = $this->searchFoto($foto);
     					
@@ -138,7 +120,7 @@ class FotosInmueblesMonteriaCommand extends Command
     						$url = $urlFotoSF1.$nkey.'.jpg';
     						
     						//echo "url";
-    						//echo "\n".$url."\n";
+    						echo "\n".$url."\n";
     						
     						
     						$pathFilename= $path.$foto['nkey'].".".$foto['ext'];

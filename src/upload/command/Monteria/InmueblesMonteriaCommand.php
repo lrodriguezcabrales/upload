@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Monteria;
 
 use upload\model\inmueblesCartagena;
 use upload\lib\data;
@@ -17,20 +17,8 @@ class InmueblesMonteriaCommand extends Command
 {	
 	
 	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';
-
 	public $serverRoot = 'http:/www.sifinca.net/';
-	
-// 	public $server = 'http://104.239.170.71/monteriaServer/web/app.php/';
-	
-// 	public $serverRoot = 'http:/104.239.170.71/';
-	
 	public $localServer = 'http://10.102.1.22/';
-	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
-
-	//public $server = 'http://162.242.245.207/sifinca/web/app_dev.php/';
-	//public $serverRoot = 'http:/162.242.245.207/';
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";

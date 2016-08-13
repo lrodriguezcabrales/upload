@@ -1,5 +1,5 @@
 <?php
-namespace upload\command\Bogota;
+namespace upload\command\Cartagena;
 
 use upload\model\inmueblesCartagena;
 use upload\lib\data;
@@ -13,9 +13,9 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class InmueblesBogotaCommand extends Command
+class InmueblesCartagenaCommand extends Command
 {	
- 	public $server = 'http://www.sifinca.net/bogotaServer/web/app.php/';
+ 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
  	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
@@ -25,6 +25,8 @@ class InmueblesBogotaCommand extends Command
 	public $token = null;	
 	
 	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
+	public $bolivar = 'a7ff9a96-5a2f-4bba-94aa-d45a15f67f66';
+	public $cartagena = '994b009d-50a5-44dd-8060-878a10f4dd00';
 	
 	public $idTypeCedula = '6f80343e-f629-492a-80d1-a7e197c7cf48';
 	
@@ -39,14 +41,12 @@ class InmueblesBogotaCommand extends Command
 	
 	public $buildingTypeEdificio = '345bc0a2-4880-4f13-b06f-80cd7405805c';
 	
-	public $office = 'fad1de4e-f0f5-4e0c-9e90-e3c717d2ca63'; //Oficina Chico 
-	
-	public $bogota = '551fccf7-db4e-4992-a8a4-f4f9a9d24c7a';
+	public $office = 'bee55884-15dc-406f-94f7-547288ebe20d'; //Oficina centro 
 	
     protected function configure()
     {
-        $this->setName('inmueblesBogota')
-		             ->setDescription('Comando para obtener datos de inmuebles SF1 - Bogota');
+        $this->setName('inmuebles')
+		             ->setDescription('Comando para obtener datos de inmuebles SF1 - Cartagena');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
@@ -59,13 +59,13 @@ class InmueblesBogotaCommand extends Command
             'server' =>'10.102.1.3'
             ,'user' =>'hherrera'
             ,'pass' =>'daniela201'
-            ,'database' =>'sifinca_bog' 
+            ,'database' =>'sifinca' 
             ,'engine'=>'mssql'
         ));
 
         $conexion = new inmueblesCartagena($conn);
         
-        $inmuebles = $conexion->getInmueblesBogota();
+        $inmuebles = $conexion->getInmuebles();
 	    $this->buildInmuebles($inmuebles, $conexion);
 	   
         
@@ -200,7 +200,7 @@ class InmueblesBogotaCommand extends Command
     					"retirementReason" => $retirementReason,
     			);
     		
-    			$json = json_encode($bInmueble);
+    			$json = json_encode(©);
 
                  
                 $result = $apiInmueble->post($bInmueble);
@@ -208,15 +208,12 @@ class InmueblesBogotaCommand extends Command
                 $result = json_decode($result, true);
                 
                 
-                if(isset($result['success'])){
-                	
-                	if($result['success'] == true){
-                
-	                    echo "\nOk";
-	                    $total++;
-	                    
-	                    $idInmuebleSF2 = $result['data'][0];
-                	}             
+                if($result['success'] == true){
+                    echo "\nOk";
+                    $total++;
+                    
+                    $idInmuebleSF2 = $result['data'][0];
+                                      
                     
                 }else{
                     echo "\nError\n";
@@ -268,9 +265,8 @@ class InmueblesBogotaCommand extends Command
      */
     function searchEdificio($inmueble) {
     	 
-
+    	//echo "\nEdificio: ".$inmueble['id_edificio']."\n";
     	if($inmueble['id_edificio']){
-    		
     		$filter = array(
     				'value' => $this->cleanString($inmueble['id_edificio']),
     				'operator' => 'equal',
@@ -280,24 +276,28 @@ class InmueblesBogotaCommand extends Command
     
     		$urlBuildingSF2 = $this->server.'catchment/main/building?filter='.$filter;
     
+    		//echo "\n".$urlBuildingSF2."\n";
+    
     		$apiBuildingSF2 = $this->SetupApi($urlBuildingSF2, $this->user, $this->pass);
     		 
     		$buildingSF2 = $apiBuildingSF2->get();
     		 
     		$buildingSF2 = json_decode($buildingSF2, true);
     		 
+    		//     		print_r($buildingSF2);
+    
+    		//     		return ;
+    
     		if($buildingSF2['total'] > 0){
     			$edificio = array(
     					'id'=>$buildingSF2['data'][0]['id'],
     					'name' => $buildingSF2['data'][0]['name']
     			);
-        			 
+    
+    			 
     			return $edificio;
-    			
     		}else{
-    			
-    			$this->buildEdificios();
-    			
+    			return  null;
     		}
     
     	}else{
@@ -429,7 +429,7 @@ class InmueblesBogotaCommand extends Command
     			'id' => $this->office
     	);
     	 
-    	$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.BOG/'.$inmueble['id_sucursal'];
+    	$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.CTG/'.$inmueble['id_sucursal'];
     	//echo $urlStratum;
     	$apiOffice = $this->SetupApi($urlOffice, $this->user, $this->pass);
     
@@ -544,11 +544,9 @@ class InmueblesBogotaCommand extends Command
     	$urlEdificio = $this->server.'catchment/main/building';
     	$apiEdificio = $this->SetupApi($urlEdificio, $this->user, $this->pass);
     	
-    	$totalEdificios = count($edificiosSF1);
-    	
     	$total = 0;
     	
-    	for ($i = 0; $i < 1148; $i++) {
+    	for ($i = 100; $i < 1148; $i++) {
     		$edificio = $edificiosSF1[$i];
     		
     		
@@ -720,7 +718,7 @@ class InmueblesBogotaCommand extends Command
     	
     	$deparment = null;
     	    	
-    	$urlTown = $this->server.'admin/sifinca/mapper/town.BOG/'.$inmueble['id_ciudad'];
+    	$urlTown = $this->server.'admin/sifinca/mapper/propertyTown.CTG/'.$inmueble['id_ciudad'];
     	$apiTown= $this->SetupApi($urlTown, $this->user, $this->pass);
     	 
     	$townMapper = $apiTown->get();
@@ -752,7 +750,7 @@ class InmueblesBogotaCommand extends Command
     		}
     	}
     	
-    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.BOG/'.$inmueble['id_barrio'];
+    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.CTG/'.$inmueble['id_barrio'];
     	//echo "\n".$urlDistrict."\n";
     	$apiDistrict= $this->SetupApi($urlDistrict, $this->user, $this->pass);
     	
@@ -775,9 +773,7 @@ class InmueblesBogotaCommand extends Command
     		}
     	}
     		 
-    	if(is_null($town)){
-    		$twon = array('id'=>$this->bogota);
-    	} 
+    		 
 
     	$bAddress = array(
     		'address' => $inmueble['direccion'],

@@ -82,6 +82,7 @@ class UpdateInmuebleDayCommand extends Command
     
     	echo "\nTotal de inmuebles a actualizar: ".$totalInmueblesSF1."\n";
     
+    	//14586
     	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
     		 
     		$inmueble = $inmuebles[$i];

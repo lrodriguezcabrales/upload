@@ -1759,7 +1759,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     			
     			$urlapiInmueble = $this->server.'catchment/main/property/'.$propertySF2['id'];
     			
-    			echo "\n".$urlapiInmueble."\n";
+    			//echo "\n".$urlapiInmueble."\n";
     			$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
     			
     			
@@ -1839,7 +1839,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     			
     			$json = json_encode($bupdate);
     			
-    			echo "\n".$json."\n";
+    			//echo "\n".$json."\n";
     			
     			$result = $apiInmueble->get();
     			$result = $apiInmueble->put($bupdate);
@@ -1847,7 +1847,7 @@ class UpdateInmuebleMonteriaCommand extends Command
     			$result = json_decode($result, true);
     			
     			//     		echo "\nresult\n";
-    			print_r($result);
+    			//print_r($result);
     			
     			//return ;
     			

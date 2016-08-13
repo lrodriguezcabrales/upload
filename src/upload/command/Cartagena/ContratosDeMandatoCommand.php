@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Cartagena;
 
 use upload\model\conveniosCartagena;
 use upload\lib\data;
@@ -45,7 +45,7 @@ class ContratosDeMandatoCommand extends Command
     protected function configure()
     {
         $this->setName('contratosmandato')
-		             ->setDescription('Comando para pasar convenios');
+		             ->setDescription('Comando para pasar contratos de mandato - Cartagena');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
@@ -64,9 +64,6 @@ class ContratosDeMandatoCommand extends Command
      	
         $this->crearContratosDeMandato($conexion);
         
-        //$this->crearContratosDeMandatoPorDemanda($conexion);
-		
-        //$this->error();
     }
     
     public function crearContratosDeMandato($conexion) {
@@ -78,8 +75,9 @@ class ContratosDeMandatoCommand extends Command
     	$porDonde = 0;
     	$startTime= new \DateTime();
     
-    	//foreach ($convenios['data'] as $convenio) {
-    	for ($i = 0; $i < 100; $i++) {
+    	echo "\nTotal contratos de mandato: ".$totalContratos."\n";
+    	
+    	for ($i = 0; $i < $totalContratos; $i++) {
     		 
     		$cm = $contratosMandatoSF1[$i];
     		 
@@ -93,7 +91,7 @@ class ContratosDeMandatoCommand extends Command
     
     			if((!is_null($property)) && (!is_null($convenioSF2))){
 
-    				//echo "\nCreando contracto: ".$cm['id_inmueble'];
+    				echo "\nCreando contracto: ".$cm['id_inmueble'];
     				
     				$typeContract = $this->searchTipoContratoMandato($cm);
     				$user = $this->searchUsuario($cm);
@@ -164,6 +162,9 @@ class ContratosDeMandatoCommand extends Command
     					}
     
     				}
+    				
+    			}else{
+    				echo "\nDatos insuficientes Inmuebles: ".$cm['id_inmueble']." -- Convenio: ".$cm['id_convenio']."\n";
     			}
     
     
@@ -188,6 +189,7 @@ class ContratosDeMandatoCommand extends Command
     	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
     	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
     	
+    	echo "\n------------------------------\n";
     	echo "\nBuscando Errores\n";
     	
     	$this->error();
@@ -280,11 +282,10 @@ class ContratosDeMandatoCommand extends Command
     
     	if($mandateContract['total'] > 0){
     		 
-    		echo "\nentro 1\n";
     		return $mandateContract['data'];
     		 
     	}else{
-    		echo "\nentro 2\n";
+    		
     		return null;
     	}
     
@@ -419,7 +420,7 @@ class ContratosDeMandatoCommand extends Command
     					if(isset($result['message'])){
     						$exist = false;
     						
-    						$exist = strpos($msj, 'duplicate key');
+    						$exist = strpos($result['message'], 'duplicate key');
     						
     						
     						if($result['message'] == 'Error el contrato de mandato ya existe'){
