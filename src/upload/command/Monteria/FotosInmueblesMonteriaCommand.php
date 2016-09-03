@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Monteria;
 
 use upload\model\inmueblesCartagena;
 use upload\lib\data;
@@ -16,8 +16,10 @@ use Monolog\Handler\StreamHandler;
 class FotosInmueblesMonteriaCommand extends Command
 {	
 	
-	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';	
-	public $serverRoot = 'http://www.sifinca.net/';
+ 	public $server = 'http://www.sifinca.net/bogotaServer/web/app.php/';
+ 	public $serverRoot = 'http://www.sifinca.net/';
+	
+	public $localServer = 'http://10.102.1.22/';
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
@@ -27,8 +29,8 @@ class FotosInmueblesMonteriaCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('fotosInmueblesMonteria')
-		             ->setDescription('Obtener y guardar fotos inmuebles cartagena');
+        $this->setName('fotosMonteria')
+		             ->setDescription('Obtener y guardar fotos inmuebles - Monteria');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
@@ -46,27 +48,16 @@ class FotosInmueblesMonteriaCommand extends Command
         ));
 
         $inmueblesCtg = new inmueblesCartagena($conn);
-      
+
         $this->buildFotos($inmueblesCtg);
         
     }
     
     function buildFotos($inmueblesCtg) {
     
-    
-    	$urlInmueblesSF2 = $this->server.'catchment/main/property/only/ids';
+    	$inmueblesSF2 = $inmueblesCtg->getInmueblesFotosMonteria();
     	
-    	$apiInmueblesSF2 = $this->SetupApi($urlInmueblesSF2, $this->user, $this->pass);
-    
-    	$h = $this->headerCurl;
-    	  	
-    	
-    	$inmueblesSF2 = $apiInmueblesSF2->get();
-    	$inmueblesSF2 = json_decode($inmueblesSF2, true);
-    
-    	$totalInmueblesSF2 = $inmueblesSF2['total'];	   	
-    	
-    	echo "\nTotal inmuebles SF2: ".$totalInmueblesSF2."\n";
+    	$totalInmueblesSF2 = count($inmueblesSF2);
     	
     	$globalFotos = 0;
     	
@@ -76,136 +67,162 @@ class FotosInmueblesMonteriaCommand extends Command
     	
     	if($totalInmueblesSF2 > 0){
     		
-    		for ($i = 0; $i < 1; $i++) {
+    		echo "\nTotal inmuebles: ".$totalInmueblesSF2."\n";
+    		
+    		for ($j = 200; $j < 500; $j++) {
+    		//foreach ($inmueblesSF2 as $inmueble) {
     			
-    				$inmueble = $inmueblesSF2['data'][$i];
+    				//$inmueble = $inmueblesSF2['data'][$i];
+    				$inmueble = $inmueblesSF2[$j];
     			
-    				echo "\nInmueble: ".$inmueble['consecutive']."\n";
-    				
-    				$fotos = $inmueblesCtg->getFotosDeInmueble($inmueble);
-    				 
-    				$urlInmueblesSF2 = $this->server.'catchment/main/property/'.$inmueble['id'];
-    				 
-    				//$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=M';
-    				$urlFotoSF1 = 'http://190.242.98.187:81/ws-img/foto.php?key=M';
-    				
-    				//echo "\n".$urlFotoSF1."\n";
-    				
-    				$urlapiFile = $this->server."archive/main/file";
-    				 
-    				$total = 0;
+    				$property = $this->searchProperty($inmueble['id_inmueble']);
 
-    				echo "\nTotal fotos del inmueble: ".count($fotos)."\n";
+    				echo "\n----------------------------------------------------------\n";
+    				echo "\nInmueble: ".$inmueble['id_inmueble']."\n";
+    				echo "\n----------------------------------------------------------\n";
     				
-    				//foreach ($fotos as $foto) {
-    				for ($i = 0; $i < 5; $i++) {
+    				if(!is_null($property)){
     					
-    					$foto = $fotos[$i];
+    					$h = 'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"';
+   					
+    					echo "\nEncontro el inmueble\n";
     					
-    					$photoSF2 = $this->searchFoto($foto);
+    					$fotos = $inmueblesCtg->getFotosDeInmueble($property);
+    						
+    					$urlInmueblesSF2 = $this->server.'catchment/main/property/'.$property['id'];
+    						
+    					//$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=C';
+    					$urlFotoSF1 = 'http://10.102.1.6/ws-img/foto.php?key=M';
     					
-    					if(is_null($photoSF2)){
+    					$urlapiFile = $this->server."archive/main/file";
     						
-    						
-    						$path = "/var/www/html/upload3/fotosinmueblemonteria/".$foto['id']."/";
-    						
-    						
-    						if (!file_exists($path)) {
-    							//Crearlo
-    							mkdir($path);
-    						}
-    						
-    						///print_r($foto);
-    						$nkey = $foto['nkey'];
-    						$url = $urlFotoSF1.$nkey.'.jpg';
-    						
-    						//echo "url";
-    						echo "\n".$url."\n";
-    						
-    						
-    						$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
-    						
-    						//echo "path";
-    						//echo "\n".$pathFilename."\n\n\n";
-    						
-    						
-    						file_put_contents($pathFilename, file_get_contents($url));
-    						
-    						$marcadeagua = "/var/www/html/upload/logoAyS6.png";
-    						
-    						$margen = 20;
-    						
-    						$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
-    						
-    						//print_r($foto);
-    						
-    						$entityId = $inmueble['id'];
-    						$photoName = $foto['nkey'].".".$foto['ext'];
-    						$photoShow = $foto['publicar'];
-    						$showOrder = $foto['orden'];
-    						$description = $foto['descripcion'];
-    						$nkeysifincaone = $foto['nkey'].".".$foto['ext'];
-    						//echo "\nshowOrder\n";
-    						//echo $showOrder;
-    						//Subir foto a SF2
-    						$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description'  --form nkeysifincaone='$nkeysifincaone' -H '$h'   $urlapiFile";
-    						
-    						$result= shell_exec($cmd);
-    						$result = json_decode($result, true);
-    						
-    						
-    						if($result['0']['success'] == true){
-    							echo "\nOk";
-    							$total++;
-    							$globalFotos++;
-    								
-    						}else{
-    						
+    					$total = 0;
+    					
+    					echo "\nTotal fotos del inmueble: ".count($fotos)."\n";
+    					
+    					if(count($fotos) > 0){
     							
-    						
-    							//print_r($result);
-    						
-    							if($result['message']){
-    						
-    								echo "\nYa existe\n";
-    						
-    							}else{
+    						for ($i = 0; $i < count($fotos); $i++) {
     								
-    								echo "\nError -----\n";
+    							$foto = $fotos[$i];
     								
-    								echo "result";
-    								print_r($result);
+    							$photoSF2 = $this->searchFoto($foto);
     								
-    								$urlapiMapper = $this->server.'catchment/main/errorphoto';
-    								$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    						
-    								$error = array(
-    										'photo' => $foto['nkey'],
-    										'objectJson' => $inmueble['consecutive']
-    								);
-    						
-    								$apiMapper->post($error);
+    							//if(is_null($photoSF2)){
+    								
+    								
+    							$path = "/var/www/html/upload3/fotosinmuebleMonteria/".$foto['id']."/";
+    								
+    								
+    							if (!file_exists($path)) {
+    								//Crearlo
+    								mkdir($path);
     							}
-    						
+    								
+    							///print_r($foto);
+    							$nkey = $foto['nkey'];
+    							$url = $urlFotoSF1.$nkey.'.jpg';
+    								
+    							//echo "url";
+    							echo "\n".$url."\n";
+    								
+    								
+    							$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
+    								
+    							//echo "path";
+    							echo "\n".$pathFilename."\n\n";
+    								
+    							//echo file_get_contents($url);
+    							//ini_set('max_execution_time', 5000);
+    					
+    							$profile_Image = $url; //image url
+    							//$userImage = 'myimg.jpg'; // renaming image
+    							$path = $pathFilename;  // your saving path
+    							$ch = curl_init($profile_Image);
+    							$fp = fopen($pathFilename, 'wb');
+    							curl_setopt($ch, CURLOPT_FILE, $fp);
+    							curl_setopt($ch, CURLOPT_HEADER, 0);
+    							$result = curl_exec($ch);
+    							curl_close($ch);
+    							fclose($fp);
+    					
+    					
+    							//file_put_contents($pathFilename, file_get_contents($url));
+    							imagecreatefromjpeg($url);
+    					
+    							$marcadeagua = "/var/www/html/upload/logoAyS6.png";
+    								
+    							$margen = 20;
+    								
+    							$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
+    								
+    							//print_r($foto);
+    								
+    							$entityId = $property['id'];
+    							$photoName = $foto['nkey'].".".$foto['ext'];
+    							$photoShow = $foto['publicar'];
+    							$showOrder = $foto['orden'];
+    							$description = $foto['descripcion'];
+    							$nkeysifincaone = $foto['nkey'].".".$foto['ext'];
+    								
+    							//Subir foto a SF2
+    							$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description'  --form nkeysifincaone='$nkeysifincaone' -H '$h'   $urlapiFile";
+    								
+    							//echo "\n".$cmd."\n";
+    								
+    							$result= shell_exec($cmd);
+    							$result = json_decode($result, true);
+    								
+    							if(isset($result['0']['success'])){
+    								if($result['0']['success'] == true){
+    									echo "\nOk";
+    									$total++;
+    									$globalFotos++;
+    										
+    								}
+    							}else{
+    									
+    									
+    									
+    								if($result['message']){
+    										
+    									echo "\nYa existe\n";
+    										
+    								}else{
+    										
+    									echo "\nError -----\n";
+    										
+    									print_r($result);
+    									
+    									$urlapiMapper = $this->server.'catchment/main/errorphoto';
+    									$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    										
+    									$error = array(
+    											'photo' => $foto['nkey'],
+    											'objectJson' => $property['consecutive']
+    									);
+    										
+    									$apiMapper->post($error);
+    								}
+    									
+    									
+    							}
     								
     						}
-    						
-    						
-    					}else{
-    						
-    						echo "\nLa foto ya existe\n";
+    							
     					}
     					
     				}
     				
-    			echo "\nTotal fotos del inmueble ".$inmueble['consecutive']." - ".$total."\n";
+
     				
-    			if(isset($path)){
-    				echo "\nBorrar carpeta: ".$path."\n";
-    				//rmdir($path);
-    				$this->rmdir_recursive($path);
-    			}
-    			
+    			//echo "\nTotal fotos del inmueble ".$property['consecutive']." - ".$total."\n";
+    				
+    			    			if(isset($path)){
+    			    				echo "\nBorrar carpeta: ".$path."\n";
+    			    				//rmdir($path);
+    			    				$this->rmdir_recursive($path);
+    			    			}
     				
     		$porDonde++;
     		echo "\nVamos por: ".$porDonde."\n";
@@ -224,6 +241,35 @@ class FotosInmueblesMonteriaCommand extends Command
     	
     	echo "\nGlobal fotos subidas ".$globalFotos."\n";
     			
+    	}
+    
+    }
+    
+    
+    function searchProperty($propertySF1) {
+    
+    	$propertySF1 = $this->cleanString($propertySF1);
+    	 
+    	$filter = array(
+    			'value' => $propertySF1,
+    			'operator' => '=',
+    			'property' => 'consecutive'
+    	);
+    	$filter = json_encode(array($filter));
+    
+    	$urlProperty = $this->server.'catchment/main/property?filter='.$filter;
+    
+    	$apiProperty = $this->SetupApi($urlProperty, $this->user, $this->pass);
+    
+    	$property = $apiProperty->get();
+    	$property = json_decode($property, true);
+    
+    	if($property['total'] > 0){
+    		 
+    		return $property['data'][0];
+    		 
+    	}else{
+    		return null;
     	}
     
     }

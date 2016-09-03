@@ -20,8 +20,8 @@ class tipoDocumento {
 // 				ORDER BY nombre";
     
     	$query = "SELECT * FROM tipo_doc
-				WHERE id_archivador = 'THUMANO'
-				ORDER BY nombre";
+					where id_archivador = 'ARRIENDOS' OR id_archivador = 'THUMANO'
+					ORDER BY id DESC";
     	
     	$r = $this->_conn->_query($query);
     	$result = $this->_conn->_getData($r);

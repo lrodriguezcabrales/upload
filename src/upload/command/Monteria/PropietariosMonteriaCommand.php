@@ -1454,7 +1454,7 @@ class PropietariosMonteriaCommand extends Command
     
     	$filter = array(
     			'value' => $identificacion,
-    			'operator' => 'has',
+    			'operator' => 'equal',
     			'property' => 'identity.number'
     	);
     	$filter = json_encode(array($filter));

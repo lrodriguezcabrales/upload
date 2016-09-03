@@ -26,7 +26,7 @@ class conveniosCartagena {
 			   	  CON.FECHA_LOG FROM clientes_convenios AS CV
 			  	  INNER JOIN clientes AS C ON CV.id_cliente = C.id_cliente
 				  INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-    			  INNER JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
+    			  LEFT JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
 				  ORDER BY id_convenio DESC";
     	     
     	$r = $this->_conn->_query($query);
@@ -118,6 +118,8 @@ class conveniosCartagena {
     	$query = "SELECT * FROM clientes
     			 WHERE id_cliente = '".$id."'";
     
+    	echo "\n".$query."\n";
+    	
     	$r = $this->_conn->_query($query);
     
     	$cliente = $this->_conn->_getData($r);
@@ -223,7 +225,7 @@ class conveniosCartagena {
 			   	  CON.FECHA_LOG FROM clientes_convenios AS CV
 			  	  INNER JOIN clientes AS C ON CV.id_cliente = C.id_cliente
 				  INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-    			  INNER JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
+    			  LEFT JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
 				  ORDER BY id_convenio DESC";
     	 
     
@@ -334,14 +336,23 @@ class conveniosCartagena {
     
     public function getSoloConveniosBogota() {
     
-    	$query = "SELECT CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
+    	$query = "SELECT TOP 10 CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
     			  CON.fecha_final, CON.fecha_retiro, U.email,
 			   	  CON.FECHA_LOG FROM clientes_convenios AS CV
 			  	  INNER JOIN clientes AS C ON CV.id_cliente = C.id_cliente
 				  INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-    			  INNER JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
-				  ORDER BY CON.id_convenio ASC";
-    
+    			  LEFT JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
+				  ORDER BY CON.id_convenio DESC";
+
+
+//     	    	$query = "SELECT CON.id_convenio, CON.estado, CON.fecha_convenio, CON.fecha_inicio,
+//     	    			  CON.fecha_final, CON.fecha_retiro, U.email,
+//     				   	  CON.FECHA_LOG FROM clientes_convenios AS CV
+//     				  	  INNER JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+//     					  INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+//     	    			  LEFT JOIN usuarios AS U ON CON.id_eje_cuenta = U.id_user
+//     	    			  WHERE CON.id_convenio = 211
+//     					  ORDER BY CON.id_convenio DESC";
     
     	$r = $this->_conn->_query($query);
     
@@ -364,15 +375,6 @@ class conveniosCartagena {
     
     	$earlier = $earlier->format('Ymd H:i:s');
     	
-    	$query = "SELECT I.id_inmueble, CON.id_convenio,IC.por_cmsi, IC.por_seguro,
-    	U.email AS emailCatcher, CV.tstamp, CON.FECHA_LOG
-    	FROM clientes_convenios AS CV
-    	INNER JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-    	INNER JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-    	INNER JOIN usuarios AS U ON I.id_promotor = U.id_user
-    	INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-    	ORDER BY I.id_inmueble asc";
-    	
 //     	$query = "SELECT I.id_inmueble, CON.id_convenio,IC.por_cmsi, IC.por_seguro,
 //     	U.email AS emailCatcher, CV.tstamp, CON.FECHA_LOG
 //     	FROM clientes_convenios AS CV
@@ -380,18 +382,27 @@ class conveniosCartagena {
 //     	INNER JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
 //     	INNER JOIN usuarios AS U ON I.id_promotor = U.id_user
 //     	INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-//     	WHERE CON.FECHA_LOG BETWEEN '$earlier' AND '$currentDate'
-//     	ORDER BY I.id_inmueble DESC";
+//     	ORDER BY CON.id_convenio DESC";
+    	
+    	$query = "SELECT I.id_inmueble, CON.id_convenio,IC.por_cmsi, IC.por_seguro,
+    	U.email AS emailCatcher, CV.tstamp, CON.FECHA_LOG
+    	FROM clientes_convenios AS CV
+    	INNER JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+    	INNER JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+    	INNER JOIN usuarios AS U ON I.id_promotor = U.id_user
+    	INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+    	WHERE CON.FECHA_LOG BETWEEN '$earlier' AND '$currentDate'
+    	ORDER BY I.id_inmueble DESC";
     
-    	//     	    	$query = "SELECT I.id_inmueble, CON.id_convenio,IC.por_cmsi, IC.por_seguro,
-    	//     						U.email AS emailCatcher, CON.FECHA_LOG
-    	//     						FROM clientes_convenios AS CV
-    	//     						INNER JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
-    	//     						INNER JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
-    	//     						INNER JOIN usuarios AS U ON I.id_promotor = U.id_user
-    	//     						INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-    	//     						WHERE CON.FECHA_LOG > '20160811 00:00:00'
-    	//     						ORDER BY I.id_inmueble DESC";
+//     	    	    	$query = "SELECT I.id_inmueble, CON.id_convenio,IC.por_cmsi, IC.por_seguro,
+//     	    						U.email AS emailCatcher, CON.FECHA_LOG
+//     	    						FROM clientes_convenios AS CV
+//     	    						INNER JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+//     	    						INNER JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+//     	    						INNER JOIN usuarios AS U ON I.id_promotor = U.id_user
+//     	    						INNER JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+//     	    						WHERE CON.FECHA_LOG > '20160801 00:00:00'
+//     	    						ORDER BY I.id_inmueble DESC";
     
     
     
@@ -403,9 +414,7 @@ class conveniosCartagena {
     
     	return $result;
     }
-    
-    
-    
+        
     public function getContratoMandatoDelConvenioBogota($idConvenio){
     
     	$query = "SELECT CON.id_convenio,IC.por_cmsi, IC.por_seguro, I.id_inmueble, U.email AS emailCatcher FROM clientes_convenios AS CV
@@ -431,17 +440,29 @@ class conveniosCartagena {
     
     public function getPropietariosDelConvenioBogota($idConvenio){
     
-    	$query = "SELECT CON.id_convenio, I.id_inmueble,CV.id_cliente, tipo_relacion, participacion FROM clientes_convenios AS CV
+//     	$query = "SELECT CON.id_convenio, I.id_inmueble,CV.id_cliente, C.nombre, tipo_relacion, participacion 
+//     			  FROM clientes_convenios AS CV
+// 				  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
+// 				  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
+// 				  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
+// 				  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
+// 				  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
+// 				  WHERE CON.id_convenio = '".$idConvenio."'
+// 				  AND CON.id_convenio IS NOT NULL
+// 				  AND I.id_inmueble IS NOT NULL";
+    	
+    	$query = "SELECT CON.id_convenio, I.id_inmueble,CV.id_cliente, C.nombre, tipo_relacion, participacion 
+    			  FROM clientes_convenios AS CV
 				  LEFT JOIN clientes AS C ON CV.id_cliente = C.id_cliente
 				  LEFT JOIN inmuebles_convenios AS IC ON CV.id_convenio = IC.id_convenio
 				  LEFT JOIN inmuebles AS I ON IC.id_inmueble = I.id_inmueble
 				  LEFT JOIN usuarios AS U ON I.id_promotor = U.id_user
 				  LEFT JOIN convenios AS CON ON CV.id_convenio = CON.id_convenio
-				  WHERE CON.id_convenio = '".$idConvenio."'
+				  WHERE CON.id_convenio = '211'
 				  AND CON.id_convenio IS NOT NULL
 				  AND I.id_inmueble IS NOT NULL";
     
-    	 
+    	echo "\n".$query."\n";
     
     	$r = $this->_conn->_query($query);
     	$propietarios = $this->_conn->_getData($r);

@@ -14,12 +14,12 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class OportunityMonteriaCommand extends Command
+class OportunityBogotaCommand extends Command
 {	
  
     private $conn;
     
-    public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';
+    public $server = 'http://www.sifinca.net/bogotaServer/web/app.php/';
     public $serverRoot = 'http://www.sifinca.net/';
     
     public $localServer = 'http://10.102.1.22/';
@@ -28,7 +28,6 @@ class OportunityMonteriaCommand extends Command
     public $pass="araujo123";
     
     public $token = null;
-    
     /*
      array("id"=>"#oportunidad",
      "fecha_ingreso"=>"dd/mm/aaaa",
@@ -36,14 +35,15 @@ class OportunityMonteriaCommand extends Command
      "id_cliente"="CC solicitante"
      "id_promotor"=>"mapper",
      "tipo_oportunidad"=>"COA", // de arriendos
-     "fecha_cierre"=>"dd/mm/aaaa hh:mm:ss",
+      "fecha_cierre"=>"dd/mm/aaaa hh:mm:ss",
            "id_sucursal"=> "mapper"
           )
+      
      */
     
     protected function configure()
     {
-    	$this->setName('oportunidadesMonteria')
+    	$this->setName('oportunidadesBogota')
     	->setDescription('Comando para pasar oportunidades de SF2 a SF1');
     }
     
@@ -53,13 +53,13 @@ class OportunityMonteriaCommand extends Command
     
     	$output->writeln("Conectando SF1 \n");
     
-        $conn = new data(array(
-            'server' =>'192.168.100.1'
-            ,'user' =>'sa'
-            ,'pass' =>'75080508360'
-            ,'database' =>'sifinca' 
-            ,'engine'=>'mssql'
-        ));
+    	$conn = new data(array(
+    			'server' =>'10.102.1.3'
+    			,'user' =>'hherrera'
+    			,'pass' =>'daniela201'
+    			,'database' =>'sifinca_bog'
+    			,'engine'=>'mssql'
+    	));
        
     	
     	$conexion = new oportunity($conn);
@@ -112,13 +112,13 @@ class OportunityMonteriaCommand extends Command
     	);
     	 
     	$filterTwo = json_encode($filterTwo);
-    	
+    	   	   	 
     	
     	$urlOpArriendos = $this->server.'crm/main/oportunity?filter='.$filter.'&take=50&skip=0&page=1&pageSize=50&orderType=desc&sort=oportunityNumber';
     	$urlOpVentas = $this->server.'crm/main/oportunity?filter='.$filterTwo.'&take=50&skip=0&page=1&pageSize=50&orderType=desc&sort=oportunityNumber';
-	
-    	echo "\n".$urlOpArriendos;
-    	echo "\n".$urlOpVentas;
+    	
+    	echo "\n".$urlOpArriendos."\n";
+    	echo "\n".$urlOpVentas."\n";
     	
 //     	$urlOpArriendos = $this->server.'crm/main/zero/oportunity?relations='.$relaciones.'&filter='.$filter; 	
 //     	$urlOpVentas = $this->server.'crm/main/zero/oportunity?relations='.$relaciones.'&filter='.$filterTwo;
@@ -153,10 +153,13 @@ class OportunityMonteriaCommand extends Command
     			$op = $oportunity[$i];
     			//echo "\naqui 2\n";
     			
+    			echo "\n".$op['oportunityNumber']."\n";
+    			
     			$oportunidadSF1 = $this->searchOportunidadSF1($conexion, $op['oportunityNumber']);
     			
     			if(is_null($oportunidadSF1)){
-    				
+    				//if($op['oportunityNumber'] == '104775'){
+    					
     				if(($op['oportunityType']['value'] == 0) || ($op['oportunityType']['value'] == 1)){
     						
     					//$fechaIngreso = $op['entrydate'];
@@ -174,8 +177,7 @@ class OportunityMonteriaCommand extends Command
     					$emailCreador = $op['creator']['email'];
     					//echo $emailCreador;
     					$creador = $this->searchPromotor($conexion, $emailCreador);
-    					
-    					print_r($creador);
+    					//print_r($promotor);
     				
     					$tipoOportunidad = $this->searchTipoOportunidad($op);
     						
@@ -200,9 +202,11 @@ class OportunityMonteriaCommand extends Command
     					echo "\n".$op['client']['identity']['number']."\n";
     					$clienteSF1 = $this->searchUsuarioSF1($conexion, $op['client']['identity']['number']);
     					
+    					//$this->insertCliente($conexion, $op['client']);
     					//print_r($clienteSF1);
     					if(is_null($clienteSF1)){
     						echo "\n Creando cliente en Sifinca 1\n";
+    							
     						$this->insertCliente($conexion, $op['client']);
     							
     					}
@@ -211,11 +215,9 @@ class OportunityMonteriaCommand extends Command
     				
     				}
     				
-     			}else{
-     				echo "\n La oportunidad ya esta creada ".$op['oportunityNumber']."\n";
-    				
-    				
-     			}
+    			}else{
+    				echo "\n La oportunidad ya esta creada ".$op['oportunityNumber']."\n";
+    			}
     			    			
     		}
     		
@@ -234,14 +236,15 @@ class OportunityMonteriaCommand extends Command
     	
     }
     
-    public  function clientesCaptacion($conexion){
     
+    public  function clientesCaptacion($conexion){
+    	 
     	$relaciones = array("responsable", "client", "quote", "state", "oportunityType", "office", "lead", "creator", "closeReason", "unit", "property");
     	$relaciones = json_encode($relaciones);
-    
+    	 
     	//[{"value":"C","operator":" equal","property":"state.value"}]
     	$filter = array();
-    
+    	 
     	$filter[] = array(
     			'value' => 'C',
     			'operator' => '=',
@@ -254,76 +257,76 @@ class OportunityMonteriaCommand extends Command
     			'field' => 'oportunityType.value',
     			'property' => 'oportunityType.value'
     	);
-    
+    	 
     	$filter = json_encode($filter);
-    
-    
-    
-    
-    	$urlOpCaptacion = $this->server.'crm/main/oportunity?filter='.$filter;
+    	 
+  
     
     	 
+    	$urlOpCaptacion = $this->server.'crm/main/oportunity?filter='.$filter;
+    	 
+       	 
     	$apiOp = $this->SetupApi($urlOpCaptacion, $this->user, $this->pass);
     	$oportunityCaptacion = $apiOp->get();
     	$oportunityCaptacion = json_decode($oportunityCaptacion, true);
-    
-    	echo "\nOportunidades de captacion: ".$oportunityCaptacion['total'];
-    
     	 
-    
-    	$oportunity = $oportunityCaptacion['data'];
-    
+    	echo "\nOportunidades de captacion: ".$oportunityCaptacion['total'];
+    	 
+    	
+        	 
+        $oportunity = $oportunityCaptacion['data'];
+    	 
     	//$oportunity = $oportunityVentas['data'];
     	//print_r($oportunity);
-    
-    	//echo "\nTotal de oportunidades cerradas: ".count($oportunity)."\n";
     	 
+    	//echo "\nTotal de oportunidades cerradas: ".count($oportunity)."\n";
+   
     	$startTime= new \DateTime();
+        	 
+        	if(count($oportunity) > 0){
     
-    	if(count($oportunity) > 0){
+	        	for ($i = 0; $i < count($oportunity); $i++) {
+	        	 
+		        	$op = $oportunity[$i];
+		        	//echo "\naqui 2\n";
+		        	 
+		        	$oportunidadSF1 = $this->searchOportunidadSF1($conexion, $op['oportunityNumber']);
+		        	 
+		        	if(is_null($oportunidadSF1)){
+		    
+			        	if(($op['oportunityType']['value'] == 5)){
+			   
+			        		//echo "\n".$op['client']['identity']['number']."\n";
+			        		$clienteSF1 = $this->searchUsuarioSF1($conexion, $op['client']['identity']['number']);
+			    	
+			        		//print_r($clienteSF1);
+			        		if(is_null($clienteSF1)){
+			        			echo "\n Creando cliente en Sifinca1 ".$op['client']['identity']['number']."\n";
+			        												
+			        			
+			        			
+			        			$this->insertCliente($conexion, $op['client']);
+			    		
+			    			}
+			    
+			        	}
+		        	}
+			    
+	        	}
     
-    		for ($i = 0; $i < count($oportunity); $i++) {
-    			 
-    			$op = $oportunity[$i];
-    			//echo "\naqui 2\n";
+        	 
+        	}else{
+        		return ;
+        	}
+        	 
     
-    			$oportunidadSF1 = $this->searchOportunidadSF1($conexion, $op['oportunityNumber']);
+        	$finalTime = new \DateTime();
+        	$diff = $startTime->diff($finalTime);
     
-    			if(is_null($oportunidadSF1)){
-    
-    				if(($op['oportunityType']['value'] == 5)){
-    
-    					//echo "\n".$op['client']['identity']['number']."\n";
-    					$clienteSF1 = $this->searchUsuarioSF1($conexion, $op['client']['identity']['number']);
-    
-    					//print_r($clienteSF1);
-    					if(is_null($clienteSF1)){
-    						echo "\n Creando cliente en Sifinca1 ".$op['client']['identity']['number']."\n";
-    							
-    
-    
-    						$this->insertCliente($conexion, $op['client']);
-    						 
-    					}
-    					 
-    				}
-    			}
-    			 
-    		}
-    
-    
-    	}else{
-    		return ;
-    	}
-    
-    
-    	$finalTime = new \DateTime();
-    	$diff = $startTime->diff($finalTime);
-    
-    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
-    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
-    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
-    
+        	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
+        	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
+        	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
+        	 
     }
     
     
@@ -353,11 +356,7 @@ class OportunityMonteriaCommand extends Command
     	
     	
     	$naturaleza = 'N';
-    	
-    	print_r($cliente);
-    	
     	if($cliente['identity']['idType']['id'] == '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'){
-    		
     		$naturaleza = 'J';
     		
     		$param = array(
@@ -367,8 +366,8 @@ class OportunityMonteriaCommand extends Command
     				'nom_empresa' => $cliente['comercialName']
     				 
     		);
-    		$conexion->insertClienteJuridico($param);
     		
+    		$conexion->insertClienteJuridico($param);
     		
     	}else{
     		
@@ -383,8 +382,10 @@ class OportunityMonteriaCommand extends Command
     		);
     		
     		$conexion->insertCliente($param);
+    		
     	}
-    	    	
+    	
+    	
     
     }
     
@@ -436,7 +437,7 @@ class OportunityMonteriaCommand extends Command
     public function  searchSucursal($op){
     	
     	//echo "\nentro aqui sucursal\n";
-    	$urlapiMapper = $this->server.'admin/sifinca/mapper/target/propertyOffice.MON/'.$op['office']['id'];
+    	$urlapiMapper = $this->server.'admin/sifinca/mapper/target/propertyOffice.CTG/'.$op['office']['id'];
     	
     	//echo "\n".$urlapiMapper."\n";
     	$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
@@ -446,6 +447,10 @@ class OportunityMonteriaCommand extends Command
     	    		
     	 
     	$sucursal = $sucursalMapper['data']['0']['idSource'];
+    	
+    	if(is_null($sucursal)){
+    		$sucursal = '1';
+    	}
     	
     	return $sucursal;
     }

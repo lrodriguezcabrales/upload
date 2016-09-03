@@ -65,7 +65,7 @@ class MapperCartagenaCommand extends Command
 
         $conexion = new inmueblesCartagena($conn);
 
-        //$this->mapperTipoInmueble($inmueblesCtg);
+        $this->mapperTipoInmueble($inmueblesCtg);
         //$this->mapperTipoInscripcion($inmueblesCtg);
         //$this->mapperCiudades($inmueblesCtg);  
         //$this->mapperBarrios($inmueblesCtg);
@@ -78,8 +78,8 @@ class MapperCartagenaCommand extends Command
         //$this->mapperEstadosInmueble($inmueblesCtg);
         //$this->mapperTiposServicio($inmueblesCtg);
         
-        $inmuebles = $conexion->getInmuebles();
-	    $this->buildInmuebles($inmuebles, $conexion);
+//         $inmuebles = $conexion->getInmuebles();
+// 	    $this->buildInmuebles($inmuebles, $conexion);
 	   
        // $this->updateInmuebles($inmuebles, $inmueblesCtg);
               

@@ -31,8 +31,7 @@ class inmueblesCartagena {
     
         return $result;
     
-    }
-    
+    } 
     
     /**	
      * Inmuebles actaulizados en el dia
@@ -43,17 +42,28 @@ class inmueblesCartagena {
     	//echo "\n Fecha final: ".$currentDate->format('Y-m-d H:i:s')."\n";
     	$currentDate = $currentDate->format('Ymd');
     
-    	//echo "\n".$currentDate;
+    	//$currentDate = $currentDate." 00:00:00";
+		
+    	$currentDate = "20160902 00:00:00";
     	
-    	$currentDate = $currentDate." 00:00:00";
+//     	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll, 
+// 				  CAST(texto_inmu AS TEXT) AS descripcionAll
+//     			  FROM inmuebles
+//     			  WHERE tstamp > '$currentDate'
+//     			  ORDER BY tstamp DESC";
     	
-    	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll, 
-				  CAST(texto_inmu AS TEXT) AS descripcionAll
-    			  FROM inmuebles
-    			  WHERE tstamp > '$currentDate'
-    			  ORDER BY tstamp ASC";
-    	
+//     	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+//     	CAST(texto_inmu AS TEXT) AS descripcionAll
+//     	FROM inmuebles
+//     	WHERE promocion = 1
+//     	ORDER BY tstamp DESC";
     
+    	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+     	CAST(texto_inmu AS TEXT) AS descripcionAll
+     	FROM inmuebles
+     	WHERE id_inmueble = '35430'
+     	ORDER BY tstamp DESC";
+    	
     	$r = $this->_conn->_query($query);
     	$result = $this->_conn->_getData($r);
     
@@ -91,87 +101,67 @@ class inmueblesCartagena {
     
     }
     
-    public function getTiposInmuebles(){
+    /**
+     * Obtnener todos los inmuebles a los que se van a cargar fotos
+     */
+    public function getInmueblesFotos(){
     
-    	$query = "SELECT * FROM identificaciones";
+    	$query = "SELECT tstamp as  t, *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll
+    	FROM inmuebles
+    	WHERE tstamp > '20160801 08:00:00.00'
+    	AND promocion = 1
+    	ORDER BY id_inmueble DESC";
     
+    
+    	//echo "\n".$query."\n";
     	$r = $this->_conn->_query($query);
+    	$result = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	echo "Total inmuebles: ".count($result)."\n";
     
-    	$identificaciones = $this->_conn->_getData($r);
-    
-    	return $identificaciones;
+    	return $result;
     
     }
     
-    public function getCiudades(){
+    public function getInmueblesFotosRecientes(){
     
-    	$query = "SELECT * FROM ciudades";
-    
-    	$r = $this->_conn->_query($query);
-    
-    	$ciudades = $this->_conn->_getData($r);
-    
-    	print_r($ciudades);
-    	 
-    	return $ciudades;
-    }
-    
-    public function getBarrios(){
-    
-    	$query = "SELECT * FROM barrios";
-    
-    	$r = $this->_conn->_query($query);
-    
-    	$ciudades = $this->_conn->_getData($r);
-    
-    	//print_r($ciudades);
-    
-    	return $ciudades;
-    }
-    
-    
-    public function getCaracteristasDeInmueble($inmueble) {
     	
-    	//print_r($inmueble);
+    	$currentDate = new \DateTime();
+    	 
+    	$earlier = new \DateTime();
+    	$earlier = $earlier->modify('-30 minutes');
+    	 
+    	$currentDate = $currentDate->format('Ymd H:i:s');
     	
-    	$query = "SELECT * FROM caracteristicas_inmueble
-				  WHERE id_inmueble = ".$inmueble['id_inmueble'];
+    	$earlier = $earlier->format('Ymd H:i:s');
     	
-    	$r = $this->_conn->_query($query);
-    	
-    	$caracteristicas = $this->_conn->_getData($r);
-    	    	
-    	return $caracteristicas;
-    }
-    
-    
-    public function getServiciosDeInmueble($inmueble) {
-    	 
-    	 
-    	$query = "SELECT * FROM servicios
-				  WHERE id_inmueble = ".$inmueble['id_inmueble'];
-    	 
-    	$r = $this->_conn->_query($query);
-    	 
-    	$servicios = $this->_conn->_getData($r);
-    
-    	return $servicios;
-    }
-    
-    public function getFotosDeInmueble($inmueble) {
+    	$query = "SELECT tstamp as  t, *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll
+    			  FROM inmuebles
+    			  WHERE tstamp BETWEEN '$earlier' AND '$currentDate'
+    			  ORDER BY tstamp ASC";
         	
-    	//echo "\naqui\n";
-//     	$query = "SELECT id, tipo, descripcion, nkey, ext, fecha, publicar, publicada,
-//     			  fecha_publicada, orden, carpeta, slot, id_user
-//     			  FROM fotos
-//     			  WHERE(id = 34080) AND (tipo = 'I')";
-    	
+    	//echo "\n".$query."\n";
+    	$r = $this->_conn->_query($query);
+    	$result = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	echo "Total inmuebles: ".count($result)."\n";
+    
+    	return $result;
+    
+    }
+    
+    
+    /**
+     * Fotos de un inmueble
+     */ 
+    public function getFotosDeInmueble($inmueble) {
+        
     	$query = "SELECT id, tipo, descripcion, nkey, ext, fecha, publicar, publicada, 
     			  fecha_publicada, orden, carpeta, slot, id_user
     			  FROM fotos
     			  WHERE(id = ".$inmueble['consecutive'].") AND (tipo = 'I')";
     
-    	//echo "\n".$query."\n";
+    	echo "\n".$query."\n";
     	
     	$r = $this->_conn->_query($query);
     
@@ -251,6 +241,10 @@ class inmueblesCartagena {
 //     	                  WHERE tstamp > '20160812 08:00:00.00'
 //     	                  ORDER BY tstamp ASC";
     	
+//     	    	 $query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
+//     	    	 WHERE id_inmueble = 7160";
+    	
+    	
     	echo "\n".$query."\n";
     	
     	$r = $this->_conn->_query($query);
@@ -260,46 +254,66 @@ class inmueblesCartagena {
     
     }
     
-
-    public function getInmueblesUpdateMonteria(){
+    /**
+     * Inmuebles actaulizados en el dia
+     */
+    public function getInmueblesUpdatedDayMonteria(){
+    
+    	$currentDate = new \DateTime();
+    	//echo "\n Fecha final: ".$currentDate->format('Y-m-d H:i:s')."\n";
+    	$currentDate = $currentDate->format('Ymd');
+    	//echo "\n".$currentDate;
+    
+    	$currentDate = "20160301 00:00:00";
+    	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+    	CAST(texto_inmu AS TEXT) AS descripcionAll
+    	FROM inmuebles
+    	WHERE tstamp > '$currentDate'
+    	ORDER BY id_inmueble DESC";
     	 
-//     	 $query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-//     	 WHERE id_inmueble = 10163";
+    	//     	$currentDate = $currentDate." 00:00:00";
     
-    	//     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-    	//     			  ORDER BY id_inmueble ASC";
+    	//     	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+    	//     	CAST(texto_inmu AS TEXT) AS descripcionAll
+    	//     	FROM inmuebles
+    	//     	WHERE tstamp > '$currentDate'
+    	//     	ORDER BY tstamp ASC";
     
-    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-    			  WHERE tstamp > '20160701 08:00:00.00'
-    			  ORDER BY id_inmueble DESC";
+    	//     	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+    	//     	CAST(texto_inmu AS TEXT) AS descripcionAll
+    	//     	FROM inmuebles
+    	//     	WHERE promocion = 0
+    	//     	ORDER BY tstamp ASC";
+    
+    	//     	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+    	//     	CAST(texto_inmu AS TEXT) AS descripcionAll
+    	//     	FROM inmuebles
+    	//     	WHERE id_inmueble = '2475'
+    	//     	ORDER BY tstamp ASC";
     	 
-    	//     	$query = "SELECT *, CAST(linderos AS TEXT) FROM inmuebles
-    	//     	WHERE id_ciudad = 'CTG'
-    	//     	AND id_edificio IS NOT NULL";
-    	 
-    	//     	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll FROM inmuebles
-    	// AND tstamp > '2016-03-20 08:00:00.00'";
-    
-    
-    	//     	$query = "SELECT  promocion, * FROM inmuebles
-    	// 					WHERE promocion = 1
-    	// 					AND id_ciudad = 'CTG'";
-    
-    	//     	$query = "SELECT TOP 21661 * FROM inmuebles
-    	//  				  WHERE id_ciudad = 'CTG'
-    	//     			  AND (id_edificio IS NULL OR id_edificio = '')";
-    
-    
-    	//     	$query = "SELECT TOP 6000 * FROM inmuebles
-    	//   			      WHERE id_ciudad = 'CTG'
-    	//      			  AND (id_edificio IS NOT NULL)";
-    
     	$r = $this->_conn->_query($query);
-    	$clients = $this->_conn->_getData($r);
-    	//print_r($clients);
-    	//echo "Total clientes SF1: ".count($clients);
+    	$result = $this->_conn->_getData($r);
     
-    	return $clients;
+    	return $result;
+    
+    }
+    
+    
+    public function getInmueblesFotosMonteria(){
+    
+    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll
+    			  FROM inmuebles
+    			  WHERE promocion = 1
+    			  ORDER BY id_inmueble DESC";
+    
+    
+    	//echo "\n".$query."\n";
+    	$r = $this->_conn->_query($query);
+    	$result = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	echo "Total inmuebles: ".count($result)."\n";
+    
+    	return $result;
     
     }
     
@@ -310,21 +324,193 @@ class inmueblesCartagena {
     public function getInmueblesBogota(){
     
     	$currentDate = new \DateTime();
-    	//echo "\n Fecha final: ".$currentDate->format('Y-m-d H:i:s')."\n";
+
     	$currentDate = $currentDate->format('Ymd H:i:s');
-    
-    	$query = "SELECT *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll
-    			  FROM inmuebles
-    			  WHERE id_edificio IS NOT NULL
-				  ORDER BY id_inmueble ASC";
-    
+
+    	$query = "SELECT TOP 10 *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll
+    	    	  FROM inmuebles
+    			  ORDER BY id_inmueble DESC";
+    	
+    	echo "\n".$query."\n";
+
 		$r = $this->_conn->_query($query);
-    		$clients = $this->_conn->_getData($r);
+    	$result = $this->_conn->_getData($r);
     		//print_r($clients);
-    	echo "Total inmuebles inmuebles SF1: ".count($clients)."\n";
+    	echo "Total inmuebles inmuebles SF1: ".count($result)."\n";
     
-    	return $clients;
+    	return $result;
     
     }
+    
+    /**
+     * Inmuebles recientemente actualizados 5 min
+     */
+    public function getInmueblesUpdateRecienteBogota(){
+    
+    	$currentDate = new \DateTime();
+    	 
+    	$earlier = new \DateTime();
+    	$earlier = $earlier->modify('-5 minutes');
+    	 
+    	$currentDate = $currentDate->format('Ymd H:i:s');
+    
+    	$earlier = $earlier->format('Ymd H:i:s');
+    
+    	$query = "SELECT tstamp as  t, *, CAST(linderos AS TEXT) AS linderosAll,
+			      CAST(texto_inmu AS TEXT) AS descripcionAll
+			      FROM inmuebles
+			      WHERE tstamp BETWEEN '$earlier' AND '$currentDate'
+			      ORDER BY tstamp ASC";
+    
+    	echo "\n".$query."\n";
+    	 
+    	$r = $this->_conn->_query($query);
+    	$result = $this->_conn->_getData($r);
+    
+    	return $result;
+    
+    }
+    
+    
+
+    /**
+     * Inmuebles actaulizados en el dia
+     */
+    public function getInmueblesUpdatedDayBogota(){
+    
+    	$currentDate = new \DateTime();
+    	//echo "\n Fecha final: ".$currentDate->format('Y-m-d H:i:s')."\n";
+    	$currentDate = $currentDate->format('Ymd'); 
+    	//echo "\n".$currentDate;   	
+
+    	$currentDate = "20160801 00:00:00";
+    	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+    	CAST(texto_inmu AS TEXT) AS descripcionAll
+    	FROM inmuebles
+    	WHERE tstamp > '$currentDate'
+    	ORDER BY id_inmueble DESC";
+    	
+//     	$currentDate = $currentDate." 00:00:00";
+    	 
+//     	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+//     	CAST(texto_inmu AS TEXT) AS descripcionAll
+//     	FROM inmuebles
+//     	WHERE tstamp > '$currentDate'
+//     	ORDER BY tstamp ASC";
+    	 
+//     	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+//     	CAST(texto_inmu AS TEXT) AS descripcionAll
+//     	FROM inmuebles
+//     	WHERE promocion = 0
+//     	ORDER BY tstamp ASC";
+    
+//     	$query = "SELECT tstamp as fecha_actualizacion, *, CAST(linderos AS TEXT) AS linderosAll,
+//     	CAST(texto_inmu AS TEXT) AS descripcionAll
+//     	FROM inmuebles
+//     	WHERE id_inmueble = '2475'
+//     	ORDER BY tstamp ASC";
+    	
+    	$r = $this->_conn->_query($query);
+    	$result = $this->_conn->_getData($r);
+    
+    	return $result;
+    
+    }
+    
+    /**
+     * Obtnener todos los inmuebles a los que se van a cargar fotos
+     */
+    public function getInmueblesFotosBogota(){
+    
+    	$query = "SELECT tstamp as  t, *, CAST(linderos AS TEXT) AS linderosAll, CAST(texto_inmu AS TEXT) AS descripcionAll
+    	FROM inmuebles
+    	WHERE tstamp > '20160801 08:00:00.00'
+    	AND promocion = 1
+    	ORDER BY id_inmueble DESC";
+    
+    
+    	//echo "\n".$query."\n";
+    	$r = $this->_conn->_query($query);
+    	$result = $this->_conn->_getData($r);
+    	//print_r($clients);
+    	echo "Total inmuebles: ".count($result)."\n";
+    
+    	return $result;
+    
+    }
+    
+    
+    /**************************** FIN BOGOTA ***********************/
+    
+    
+    /****************** GENERAL PARA TODOS ************************/
+    public function getTiposInmuebles(){
+    
+    	$query = "SELECT * FROM identificaciones";
+    
+    	$r = $this->_conn->_query($query);
+    
+    	$identificaciones = $this->_conn->_getData($r);
+    
+    	return $identificaciones;
+    
+    }
+    
+    public function getCiudades(){
+    
+    	$query = "SELECT * FROM ciudades";
+    
+    	$r = $this->_conn->_query($query);
+    
+    	$ciudades = $this->_conn->_getData($r);
+    
+    	print_r($ciudades);
+    
+    	return $ciudades;
+    }
+    
+    public function getBarrios(){
+    
+    	$query = "SELECT * FROM barrios";
+    
+    	$r = $this->_conn->_query($query);
+    
+    	$ciudades = $this->_conn->_getData($r);
+    
+    	//print_r($ciudades);
+    
+    	return $ciudades;
+    }
+    
+    
+    public function getCaracteristasDeInmueble($inmueble) {
+    	 
+    	//print_r($inmueble);
+    	 
+    	$query = "SELECT * FROM caracteristicas_inmueble
+				  WHERE id_inmueble = ".$inmueble['id_inmueble'];
+    	 
+    	$r = $this->_conn->_query($query);
+    	 
+    	$caracteristicas = $this->_conn->_getData($r);
+    
+    	return $caracteristicas;
+    }
+    
+    
+    public function getServiciosDeInmueble($inmueble) {
+    
+    
+    	$query = "SELECT * FROM servicios
+				  WHERE id_inmueble = ".$inmueble['id_inmueble'];
+    
+    	$r = $this->_conn->_query($query);
+    
+    	$servicios = $this->_conn->_getData($r);
+    
+    	return $servicios;
+    }
+    
+    /****************** FIN GENERAL PARA TODOS ************************/
     
 }

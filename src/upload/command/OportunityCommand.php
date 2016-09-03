@@ -114,8 +114,8 @@ class OportunityCommand extends Command
     	$filterTwo = json_encode($filterTwo);
     	   	   	 
     	
-    	$urlOpArriendos = $this->server.'crm/main/oportunity?filter='.$filter;
-    	$urlOpVentas = $this->server.'crm/main/oportunity?filter='.$filterTwo;
+    	$urlOpArriendos = $this->server.'crm/main/oportunity?filter='.$filter.'&take=50&skip=0&page=1&pageSize=50&orderType=desc&sort=oportunityNumber';
+    	$urlOpVentas = $this->server.'crm/main/oportunity?filter='.$filterTwo.'&take=50&skip=0&page=1&pageSize=50&orderType=desc&sort=oportunityNumber';
     	
     	echo "\n".$urlOpArriendos."\n";
     	echo "\n".$urlOpVentas."\n";
@@ -153,10 +153,13 @@ class OportunityCommand extends Command
     			$op = $oportunity[$i];
     			//echo "\naqui 2\n";
     			
+    			echo "\n".$op['oportunityNumber']."\n";
+    			
     			$oportunidadSF1 = $this->searchOportunidadSF1($conexion, $op['oportunityNumber']);
     			
     			if(is_null($oportunidadSF1)){
-    				
+    				//if($op['oportunityNumber'] == '104775'){
+    					
     				if(($op['oportunityType']['value'] == 0) || ($op['oportunityType']['value'] == 1)){
     						
     					//$fechaIngreso = $op['entrydate'];
@@ -199,11 +202,12 @@ class OportunityCommand extends Command
     					echo "\n".$op['client']['identity']['number']."\n";
     					$clienteSF1 = $this->searchUsuarioSF1($conexion, $op['client']['identity']['number']);
     					
+    					$this->insertCliente($conexion, $op['client']);
     					//print_r($clienteSF1);
     					if(is_null($clienteSF1)){
     						echo "\n Creando cliente en Sifinca 1\n";
     							
-    						$this->insertCliente($conexion, $op['client']);
+    						//$this->insertCliente($conexion, $op['client']);
     							
     					}
     				
@@ -212,7 +216,7 @@ class OportunityCommand extends Command
     				}
     				
     			}else{
-    				//echo "\n La oportunidad ya esta creada ".$op['oportunityNumber']."\n";
+    				echo "\n La oportunidad ya esta creada ".$op['oportunityNumber']."\n";
     			}
     			    			
     		}

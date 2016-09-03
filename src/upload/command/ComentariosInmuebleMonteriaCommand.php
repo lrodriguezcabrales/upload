@@ -33,7 +33,7 @@ class ComentariosInmuebleMonteriaCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('comentariosinmueble')
+        $this->setName('comentariosInmuebleMonteria')
 		             ->setDescription('Comando para pasar comentarios de inmuebles');
 	}
 	

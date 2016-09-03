@@ -1,5 +1,5 @@
 <?php
-namespace upload\command\Bogota;
+namespace upload\command\Monteria;
 
 use upload\model\inmueblesCartagena;
 use upload\lib\data;
@@ -13,17 +13,17 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class InmueblesBogotaCommand extends Command
+class UpdateInmueblesDayMonteriaCommand extends Command
 {	
- 	public $server = 'http://www.sifinca.net/bogotaServer/web/app.php/';
+	
+ 	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';
  	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
-	public $token = null;	
-	
+		
 	public $colombia = '8701307b-d8bd-49f1-8a91-5d0f7b8046b3';
 	
 	public $idTypeCedula = '6f80343e-f629-492a-80d1-a7e197c7cf48';
@@ -39,132 +39,111 @@ class InmueblesBogotaCommand extends Command
 	
 	public $buildingTypeEdificio = '345bc0a2-4880-4f13-b06f-80cd7405805c';
 	
-	public $office = 'fad1de4e-f0f5-4e0c-9e90-e3c717d2ca63'; //Oficina Chico 
+	public $office = 'a989afd0-f14f-4e20-9c75-5e084070129c'; //Oficina Chico 
 
-	public $bogota = '551fccf7-db4e-4992-a8a4-f4f9a9d24c7a';
-	public $cundinamarca = 'dbb2a916-1093-4de6-b3e2-42757434b4a3';
+	public $bogota = 'cc036e72-6ee8-4513-a81a-c6b3c9724af7';
+	public $cundinamarca = 'e296f778-e194-495a-a07d-98a6cbba974a';
 	
     protected function configure()
     {
-        $this->setName('inmueblesBogota')
-		             ->setDescription('Comando para obtener datos de inmuebles SF1 - Bogota');
+        $this->setName('updateInmueblesDayMonteria')
+		             ->setDescription('Actulizar inmuebles modificados en el dia - Monteria');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
 							   \Symfony\Component\Console\Output\OutputInterface $output)
 	{
 
-        $output->writeln("Datos de inmuebles SF1 \n");
-
-        $conn = new data(array(
-            'server' =>'10.102.1.3'
-            ,'user' =>'hherrera'
-            ,'pass' =>'daniela201'
-            ,'database' =>'sifinca_bog' 
-            ,'engine'=>'mssql'
-        ));
+		$conn = new data(array(
+				'server' =>'192.168.100.1'
+				,'user' =>'sa'
+				,'pass' =>'75080508360'
+				,'database' =>'sifinca'
+				,'engine'=>'mssql'
+		));
 
         $conexion = new inmueblesCartagena($conn);
         
-        $inmuebles = $conexion->getInmueblesBogota();
-	    $this->buildInmuebles($inmuebles, $conexion);
+        $inmuebles = $conexion->getInmueblesUpdatedDayBogota();
 	   
-        
+        $this->updateInmuebles($inmuebles, $conexion);
+              
     }
- 
-    function searchProperty($propertySF1) {
-    
-    	$propertySF1 = $this->cleanString($propertySF1);
+
+    //Actualizacion de estado y comentarios
+    function updateInmuebles($inmuebles, $conexion) {
     	 
-    	$filter = array(
-    			'value' => $propertySF1,
-    			'operator' => '=',
-    			'property' => 'consecutive'
-    	);
-    	$filter = json_encode(array($filter));
-    
-    	$urlProperty = $this->server.'catchment/main/property?filter='.$filter;
-    
-    	$apiProperty = $this->SetupApi($urlProperty, $this->user, $this->pass);
-    
-    	$property = $apiProperty->get();
-    	$property = json_decode($property, true);
-    
-    	if($property['total'] > 0){
-    		 
-    		return true;
-    		 
-    	}else{
-    		return false;
-    	}
-    
-    }
-     
-    
-    
-    function buildInmuebles($inmuebles, $conexion) {
-    	
-    	$urlapiInmueble = $this->server.'catchment/main/property';
-    	 
-    	$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
-    	
-    	$officeCentro = array(
-    		'id' => $this->office
-    	);
-    	
     	$total = 0;
-    	
-    	//$totalInmueblesSF1 = count($inmuebles);
+    
     	$totalInmueblesSF1 = count($inmuebles);
-    	
-    	$startTime= new \DateTime();
-    	
+    	//$totalInmueblesSF1 = 30000;
+    	 
     	$porDonde = 0;
-    	
+    
+    	$startTime= new \DateTime();
+    
+    	echo "\nTotal de inmuebles a actualizar: ".$totalInmueblesSF1."\n";
+    
+    	//14586
     	for ($i = 0; $i < $totalInmueblesSF1; $i++) {
-    		
+    		 
     		$inmueble = $inmuebles[$i];
-    		    		    		    		
-    		$existe = $this->searchProperty($inmueble['id_inmueble']);
-    		
-    		if(!$existe){
-    			
+    
+    		//echo "\nInmueble SF1\n";
+    		//print_r($inmueble);
+    		//$urlapiInmueble = $this->server.'catchment/main/property/'.$inmueble['id_inmueble'].'/status/'.$inmueble['promocion'];
+    
+    		$propertySF2 = $this->searchPropertyToUpdate($inmueble['id_inmueble']);
+    
+    		if(!is_null($propertySF2)){
+    			 
+    			echo "\n Inmueble: ".$inmueble['id_inmueble']."\n";
+    			$urlapiInmueble = $this->server.'catchment/main/property/'.$propertySF2['id'];
+    			 
+    			echo "\n".$urlapiInmueble."\n";
+    			$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
+    			 
+    			 
     			$edificio = $this->searchEdificio($inmueble);
-    			
+    			 
     			$propertyType = $this->searchPropertyType($inmueble);
+    			echo "\nTipo de inmueble:";
+    			print_r($propertyType);
     			
     			$inscriptionType = $this->searchInscriptionType($inmueble);
-    			
+    			 
     			$destiny = $this->searchDestiny($inmueble);
+    			echo "\nDestino:";
+    			print_r($destiny); 
     			
     			$stratum = $this->searchStratum($inmueble);
-    			
+    			 
     			$office = $this->searchOffice($inmueble);
-    			
+    			 
     			$classification = $this->searchClassification($inmueble);
-    			
+    			 
     			$retirementReason = $this->searchRetirementReason($inmueble);
-    			
+    			 
     			$propertyStatus = $this->searchStatus($inmueble);
-    			
+    
     			$address = $this->buidDireccion($inmueble);
-    			
+    			 
     			//Caracteristicas del inmueble
     			$caracteristicas = $this->buildCaracteristicasInmueble($inmueble, $conexion);
-    			
+    			 
     			//Servicios publicos del inmueble
     			$servicios = $this->buildServicios($inmueble, $conexion);
-    			
+    			 
     			$consignmentdate = new \DateTime($inmueble['fecha_consignacion']);
     			$consignmentdate = $consignmentdate->format('Y-m-d');
-    			
+    			 
     			$dateAvailable = new \DateTime($inmueble['fecha_disponible']);
     			$dateAvailable = $dateAvailable->format('Y-m-d');
-    			
+    			 
     			$retirementDate= new \DateTime($inmueble['fecha_retiro']);
     			$retirementDate = $retirementDate->format('Y-m-d');
-    			
-    			$bInmueble = array(
+    			 
+    			$bupdate = array(
     					"consecutive" => $inmueble['id_inmueble'],
     					"cadastralReference" => $this->cleanString($inmueble['referencia_catastral']),
     					"folioRegistration" => $this->cleanString($inmueble['folio_matricula']),
@@ -200,56 +179,44 @@ class InmueblesBogotaCommand extends Command
     					"retirementDate" => $retirementDate,
     					"retirementReason" => $retirementReason,
     			);
-    		
-    			$json = json_encode($bInmueble);
-
-                 
-                $result = $apiInmueble->post($bInmueble);
-                
-                $result = json_decode($result, true);
-                
-                
-                if(isset($result['success'])){
-                	
-                	if($result['success'] == true){
-                
-	                    echo "\nOk";
-	                    $total++;
-	                    
-	                    $idInmuebleSF2 = $result['data'][0];
-                	}             
-                    
-                }else{
-                    echo "\nError\n";
-                    //print_r($result);
-                    
-                    $urlapiMapper = $this->server.'catchment/main/errorproperty';
-                    $apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-
-                    $error = array(
-                        'property' => $inmueble['id_inmueble'],
-                        'objectJson' => $json
-                    );
-                    
-                    $apiMapper->post($error);
-                    
-                }
-                
-              
-
-
-    		}else{
-
-                echo "\nInmueble - ".$inmueble['id_inmueble']." ya existe\n";
-
-            }
-    		
-            $porDonde++;
-            echo "\n\nVamos por: ".$porDonde."\n";
-    		
+    			 
+    			 
+    			 
+    			$json = json_encode($bupdate);
+    			 
+//     			echo "\n".$json."\n";
+    			 
+//     			return ;
+    			
+    			$result = $apiInmueble->put($bupdate);
+    			 
+    			$result = json_decode($result, true);
+    			 
+//     			echo "\nresult\n";
+//     			print_r($result);
+    			 
+    			 
+    			if($result['success'] == true){
+    				echo "\nOk - Inmueble ".$inmueble['id_inmueble']."\n";
+    				$total++;
+    				 
+    				//$idInmuebleSF2 = $result['data'][0];
+    				 
+    			}
+    			 
+    			if(isset($result['error'])){
+    				echo "\nError\n";
+    			}
+    			 
+    		}
+    
+    
+    		$porDonde++;
+    
+    		echo "\nvamos por : ".$porDonde."\n";
+    
     	}
-    	
-    	
+    	 
     	$finalTime = new \DateTime();
     	 
     	 
@@ -260,59 +227,125 @@ class InmueblesBogotaCommand extends Command
     	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
     	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
     	 
-    	
-    	echo "\n\nTotal inmuebles pasados ".$total."\n";
+    	echo "\ntotal de inmuebles actualizados: ".$total."\n";
+    }
+    
+    
+    /**	
+     * Busca si el inmueble existe o no en sifinca2
+     */
+    function searchProperty($propertySF1) {
+    
+    	$propertySF1 = $this->cleanString($propertySF1);
+    	 
+    	$filter = array(
+    			'value' => $propertySF1,
+    			'operator' => '=',
+    			'property' => 'consecutive'
+    	);
+    	$filter = json_encode(array($filter));
+    
+    	$urlProperty = $this->server.'catchment/main/property?filter='.$filter;
+    
+    	$apiProperty = $this->SetupApi($urlProperty, $this->user, $this->pass);
+    
+    	$property = $apiProperty->get();
+    	$property = json_decode($property, true);
+    	 
+    	if($property['total'] > 0){
+    		 
+    		return true;
+    		 
+    	}else{
+    		return false;
+    	}
+    
     }
     
     /**
+     * Busca el inmueble en sifinca2
+     */
+    function searchPropertyToUpdate($propertySF1) {
+    
+    	$propertySF1 = $this->cleanString($propertySF1);
+    
+    	$filter = array(
+    			'value' => $propertySF1,
+    			'operator' => '=',
+    			'property' => 'consecutive'
+    	);
+    	$filter = json_encode(array($filter));
+    
+    	$urlProperty = $this->server.'catchment/main/property?filter='.$filter;
+    
+    	$apiProperty = $this->SetupApi($urlProperty, $this->user, $this->pass);
+    
+    	$property = $apiProperty->get();
+    	$property = json_decode($property, true);
+    
+    	if($property['total'] > 0){
+    		 
+    		return $property['data'][0];
+    		 
+    	}else{
+    		return null;
+    	}
+    
+    }
+     
+    /**	
      * Buscar edificio a que pertene el inmueble
      */
-    function searchEdificio($inmueble) {
-    	 
-
+    function searchEdificio($inmueble) {    	
+    	
+    	//echo "\nEdificio: ".$inmueble['id_edificio']."\n";
     	if($inmueble['id_edificio']){
-    		
     		$filter = array(
     				'value' => $this->cleanString($inmueble['id_edificio']),
     				'operator' => 'equal',
     				'property' => 'idSifincaOne'
     		);
     		$filter = json_encode(array($filter));
-    
+    		
     		$urlBuildingSF2 = $this->server.'catchment/main/building?filter='.$filter;
-    
+    		
+    		//echo "\n".$urlBuildingSF2."\n";
+    		
     		$apiBuildingSF2 = $this->SetupApi($urlBuildingSF2, $this->user, $this->pass);
     		 
     		$buildingSF2 = $apiBuildingSF2->get();
     		 
     		$buildingSF2 = json_decode($buildingSF2, true);
     		 
+//     		print_r($buildingSF2);
+    		
+//     		return ;
+    		
     		if($buildingSF2['total'] > 0){
     			$edificio = array(
-    					'id'=>$buildingSF2['data'][0]['id'],
+    					'id'=>$buildingSF2['data'][0]['id'], 
     					'name' => $buildingSF2['data'][0]['name']
     			);
-        			 
+    		
+    			
     			return $edificio;
-    			
     		}else{
-    			
-    			$this->buildEdificios();
-    			
+    			return  null;
     		}
-    
+    		
     	}else{
     		return null;
     	}
-    	 
-    	 
+    	
+    	
     
     }
     
     public function searchPropertyType($inmueble) {
-    	 
-    	$urlPropertyType = $this->server.'admin/sifinca/mapper/propertyTypeCatchment.BOG/'.$inmueble['id_tipo_inmueble'];
+    	
+    	$urlPropertyType = $this->server.'admin/sifinca/mapper/propertyTypeCatchmentMON/'.$inmueble['id_tipo_inmueble'];
     	//echo "\n".$urlPropertyType."\n";
+    	
     	if($inmueble['id_tipo_inmueble'] == 0){
     		$propertyType = array('id'=>'a1edab94-0edc-44bd-a3be-35954e0af555'); //Edificio
     	}else{
@@ -335,15 +368,17 @@ class InmueblesBogotaCommand extends Command
     			}
     		}
     	}
-    	 
+    	
+    	
+    	
     	return $propertyType;
     }
     
     public function searchInscriptionType($inmueble) {
-    	 
+    	
     	$urlInscriptionType = $this->server.'admin/sifinca/mapper/propertyInscriptionType/'.$inmueble['tipo_inscripcion'];
     	$apiInscriptionType = $this->SetupApi($urlInscriptionType, $this->user, $this->pass);
-    
+    	 
     	$inscriptionTypeMapper = $apiInscriptionType->get();
     	$inscriptionTypeMapper = json_decode($inscriptionTypeMapper, true);
     	//print_r($inscriptionTypeMapper);
@@ -351,26 +386,26 @@ class InmueblesBogotaCommand extends Command
     	if($inscriptionTypeMapper['total'] > 0){
     		$inscriptionType = $inscriptionTypeMapper['data']['0']['idTarget'];
     		if(!is_null($inscriptionType)){
-    			 
+    	
     			$inscriptionType = array('id'=>$inscriptionType);
-    			 
+    	
     			if($inscriptionTypeMapper['total'] == 0){
     				$inscriptionType = null;
     			}
-    			 
+    	
     		}
     	}
-    	 
+    	
     	return $inscriptionType;
-    	 
+    	
     }
     
     public function searchDestiny($inmueble) {
-    	 
+    	
     	if($inmueble['id_destinacion'] == '0'){
     		$destiny = array('id'=>'169c9685-b58a-47e7-badc-20627583ca13');
     	}else{
-    		$urlDestiny = $this->server.'admin/sifinca/mapper/propertyDestiny.BOG/'.$inmueble['id_destinacion'];
+    		$urlDestiny = $this->server.'admin/sifinca/mapper/propertyDestiny.MON/'.$inmueble['id_destinacion'];
     		$apiDestiny = $this->SetupApi($urlDestiny, $this->user, $this->pass);
     		 
     		$destinyMapper = $apiDestiny->get();
@@ -380,22 +415,22 @@ class InmueblesBogotaCommand extends Command
     		if($destinyMapper['total'] > 0){
     			$destiny = $destinyMapper['data']['0']['idTarget'];
     			if(!is_null($destiny)){
-    				 
+    	
     				$destiny = array('id'=>$destiny);
-    				 
+    	
     				if($destinyMapper['total'] == 0){
     					$destiny = null;
     				}
-    				 
+    	
     			}
     		}
     	}
-    	 
+    	
     	return $destiny;
     }
     
     public function searchStratum($inmueble) {
-    	 
+    	
     	if(!empty($inmueble['estrato'])){
     		$urlStratum = $this->server.'admin/sifinca/mapper/stratum/'.$inmueble['estrato'];
     		//echo "\n".$urlStratum;
@@ -405,39 +440,39 @@ class InmueblesBogotaCommand extends Command
     		$stratumMapper = json_decode($stratumMapper, true);
     		//print_r($stratumMapper);
     		$stratum = null;
-    
+    		
     		if(isset($stratumMapper['total'])){
     			if($stratumMapper['total'] > 0){
     				$stratum = $stratumMapper['data']['0']['idTarget'];
     				if(!is_null($stratum)){
-    
+    					 
     					$stratum = array('id'=>$stratum);
-    
+    					 
     					if($stratumMapper['total'] == 0){
     						$stratum = null;
     					}
-    
+    					 
     				}
     			}
     		}
-    
+    		
     	}else{
     		$stratum = null;
     	}
-    	 
+    	
     	return $stratum;
     }
     
     public function searchOffice($inmueble) {
-    	 
+    	
     	$officeCentro = array(
     			'id' => $this->office
     	);
-    	 
-    	$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.BOG/'.$inmueble['id_sucursal'];
+    	
+    	$urlOffice = $this->server.'admin/sifinca/mapper/propertyOffice.MON/'.$inmueble['id_sucursal'];
     	//echo $urlStratum;
     	$apiOffice = $this->SetupApi($urlOffice, $this->user, $this->pass);
-    
+    	 
     	$officeMapper = $apiOffice->get();
     	$officeMapper = json_decode($officeMapper, true);
     	//print_r($stratumMapper);
@@ -445,27 +480,27 @@ class InmueblesBogotaCommand extends Command
     	if($officeMapper['total'] > 0){
     		$office = $officeMapper['data']['0']['idTarget'];
     		if(!is_null($office)){
-    			 
+    	
     			$office = array('id'=>$office);
-    			 
+    	
     			if($officeMapper['total'] == 0){
     				$office = null;
     			}
-    			 
+    	
     		}
     	}
-    	 
+    	
     	if(is_null($office)){
     		$office = $officeCentro;
     	}
-    	 
+    	
     	return $office;
     }
     
     function searchClassification($inmueble) {
-    	 
+    	
     	if(!empty($inmueble['clasificacion'])){
-    		 
+    	
     		$urlClassification = $this->server.'admin/sifinca/mapper/propertyClassification/'.$inmueble['clasificacion'];
     		//echo "\n".$urlClassification;
     		$apiClassification = $this->SetupApi($urlClassification, $this->user, $this->pass);
@@ -477,26 +512,26 @@ class InmueblesBogotaCommand extends Command
     		if($classificationMapper['total'] > 0){
     			$classification = $classificationMapper['data']['0']['idTarget'];
     			if(!is_null($classification)){
-    				 
+    	
     				$classification = array('id'=>$classification);
-    				 
+    	
     				if($classificationMapper['total'] == 0){
     					$classification = null;
     				}
-    				 
+    	
     			}
     		}
     	}else{
     		$classification = array('id' => 'd39ffd77-d68f-4ab0-8de4-0ae345c27b08'); // N/A
     	}
-    	 
+    	
     	return $classification;
     }
     
     function searchRetirementReason($inmueble) {
-    	 
+    	
     	if(!empty($inmueble['id_retiro'])){
-    		 
+    	
     		$urlRetirementReason = $this->server.'admin/sifinca/mapper/retirementReason/'.$inmueble['id_retiro'];
     		//echo $urlStratum;
     		$apiRetirementReason = $this->SetupApi($urlRetirementReason, $this->user, $this->pass);
@@ -507,305 +542,125 @@ class InmueblesBogotaCommand extends Command
     		//              print_r($retirementReasonMapper);
     		//              echo "\n--------------------\n";
     		$retirementReason = null;
-    		 
+    	
     		if($retirementReasonMapper['total'] > 0){
     			$retirementReason = $retirementReasonMapper['data']['0']['idTarget'];
     			if(!is_null($retirementReason)){
-    				 
+    	
     				$retirementReason = array('id'=>$retirementReason);
-    				 
+    	
     				if($retirementReasonMapper['total'] == 0){
     					$retirementReason = null;
     				}
-    				 
+    	
     			}
     		}
     	}else{
     		$retirementReason = null;
     	}
-    	 
+    	
     	return $retirementReason;
     }
     
     function searchStatus($inmueble) {
-    	 
+    	
     	//Retirado
     	if($inmueble['promocion'] == '0'){
     		$propertyStatus = array('id'=>'e3a87433-0439-47a8-a59f-62e511eb87d7');
     	}
-    	 
+    	
     	if($inmueble['promocion'] == '1'){
     		$propertyStatus = array('id'=>'49147d17-fc80-4eb1-ad34-90622938138e');
     	}
-    	 
+    	
     	return $propertyStatus;
     }
     
     
-    function buildEdificios($inmueblesCtg) {
+    
+    function buidDireccion($inmueble){
     	
-    	$edificiosSF1 = $inmueblesCtg->getEdificios();
+    	$deparment = null;
+    	    	
+    	$urlTown = $this->server.'admin/sifinca/mapper/propertyTown.MON/'.$inmueble['id_ciudad'];
+    	$apiTown= $this->SetupApi($urlTown, $this->user, $this->pass);
+    	 
+    	$townMapper = $apiTown->get();
+    	$townMapper = json_decode($townMapper, true);
+    	//print_r($maritalStatusMapper);
+    	$town = array('id'=>$this->bogota);
+    	$deparment = array('id' => $this->cundinamarca);
     	
-    	$urlEdificio = $this->server.'catchment/main/building';
-    	$apiEdificio = $this->SetupApi($urlEdificio, $this->user, $this->pass);
+    	if(isset($townMapper['total'])){
+	    	if($townMapper['total'] > 0){
+	    		$town = $townMapper['data']['0']['idTarget'];
+	    		if(!is_null($town)){
+	    	
+	    			$town = array('id'=>$town);
+	    			
+	    			$urlTownSF2 = $this->server.'crm/main/town/'.$town['id'];
+	    			//echo "\n".$urlTownSF2."\n";
+	    			$apiTownSF2 = $this->SetupApi($urlTownSF2, $this->user, $this->pass);
+	    			
+	    			$townSF2 = $apiTownSF2->get();
+	    			$townSF2 = json_decode($townSF2, true);
+	    			
+	    			$deparment = $townSF2['department'];
+	    			
+	    			//print_r($deparment);
+	    			
+	    			
+	    			if($townMapper['total'] == 0){
+	    				$town = array('id'=>$this->bogota);
+	    				$deparment = array('id' => $this->cundinamarca);
+	    			}
+	    	
+	    		}
+	    	}
+    	}
     	
-    	$totalEdificios = count($edificiosSF1);
+    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.MON/'.$inmueble['id_barrio'];
+    	//echo "\n".$urlDistrict."\n";
+    	$apiDistrict= $this->SetupApi($urlDistrict, $this->user, $this->pass);
     	
-    	$total = 0;
+    	$districtMapper = $apiDistrict->get();
+    	$districtMapper = json_decode($districtMapper, true);
     	
-    	for ($i = 0; $i < 1148; $i++) {
-    		$edificio = $edificiosSF1[$i];
+    	//print_r($districtMapper);
+    	
+    	$district = null;
+    	if(isset($districtMapper['total'])){
+    		if($districtMapper['total'] > 0){
+    			$district = $districtMapper['data']['0']['idTarget'];
+    			if(!is_null($district)){
     		
+    				$district = array('id'=>$district);
     		
-    		$urlBuildingType = $this->server.'admin/sifinca/mapper/buildingType/'.$edificio['id_tipo_edif'];
-    		//echo "\n".$urlPropertyType."\n";
-    		$apiBuildingType = $this->SetupApi($urlBuildingType, $this->user, $this->pass);
-    		 
-    		$buildingTypeMapper = $apiBuildingType->get();
-    		$buildingTypeMapper = json_decode($buildingTypeMapper, true);
-    		//print_r($propertyTypeMapper);
-    		//$buildingType =  array('id'=>$this->buildingTypeEdificio);
-    		$buildingType = null;
-
-    		if($buildingTypeMapper['total'] > 0){
-    			    			
-    			$buildingType = $buildingTypeMapper['data']['0']['idTarget'];
-    			;
-    			if(!is_null($buildingType)){
-    		
-    				$buildingType = array('id'=>$buildingType);
-    		
-    				if($buildingTypeMapper['total'] == 0){
-    					$buildingType = $this->buildingTypeEdificio;
+    				if($districtMapper['total'] == 0){
+    					$district = null;
     				}
     		
     			}
-    		}else{
-    			$buildingType =  array('id'=>$this->buildingTypeEdificio);
     		}
-    		
-    		$telefonos = array();
-    		$numeroTelefono = $this->cleanString($edificio['telefono']);
-    		if(strlen($numeroTelefono) > 0){
-    			$telefono = array(
-    					'number' => $this->cleanString($edificio['telefono']),
-    					'phoneType' => array('id' => '2f49f417-9db1-4cb6-98c6-7f7f6af21399'), //Fijo
-    					'country' => array('id' => $this->colombia)
-    						
-    			);
-    			$telefonos[] = $telefono;
-    		}
-    		
-    		
-    		
-    		//print_r($edificio);
-    		
-    		//return ;
-    		
-    		$direccion = array(
-    				'address' => $this->cleanString($edificio['direccion']),
-    				'country' => array('id' => $this->colombia),
-    				'department' => array('id' => $this->bogota),
-    				'town' => array('id' => $this->cundinamarca),
-    				'district' => null,
-    				'typeAddress' => array('id'=>$this->typeAddressCorrespondencia), //Correspondecia
-    		);
-
-    		
-    		$trimEncargado = trim($edificio['encargado']);
-    		
-    		if(strlen($trimEncargado) > 0){
-    			$contacto = array(
-    					'name' => $this->cleanString($edificio['encargado']),
-    					'phone' => $this->cleanString($edificio['telefono']),
-    					'position' => 'N/A',
-    					'contactType' => array('id'=> $this->contactTypeOther) //Otro
-    			);
-    		}else{
-    			$contacto = null;
-    		}
-    		
-    		
-    		 
-    		 
-    		$beneficiary = $this->searchClientSF2($edificio['ID_ADMIN']);
-    	
-     		//echo $beneficiary['id'];
-//     		return;
-     		$clienteSF1 = $this->searchClienteSF1($inmueblesCtg, $edificio['ID_ADMIN']);
-     		$clienteSF1 = $clienteSF1[0];
-     		if(!is_null($beneficiary) && !is_null($clienteSF1)){
-     			
-     		} 		
-     		
-     		//print_r($clienteSF1);
-     		
-    		$bank = $this->searchBank($clienteSF1['id_banco']);
-    		 
-    		$payType = $this->searchPayType($clienteSF1['pagos']);
-    		 
-    		$accountType = $this->searchAccountType($clienteSF1['tipo_cuenta']);
-    		 
-    		$payForm = array(
-    				'payType' => $payType,
-    				'bank' => $bank,
-    				'accountType' => $accountType,
-    				'accountNumber' => $this->cleanString($clienteSF1['no_cuenta']),
-    				'beneficiary' => $beneficiary
-    		);
-    		
-    		$idEdificio = $edificio['id_edificio'];
-    		$idEdificio = trim($idEdificio);
-    		
-    		$nombreEdificio = $this->cleanString($edificio['Nombre']);
-    		
-    		$bEdificio = array(
-    				'idSifincaOne' => $idEdificio,
-    				'name' => $nombreEdificio,
-    				'buildingType' => $buildingType,
-    				'address' => $direccion,
-    				//'description' => $edificio[''],
-    				'contact' => $contacto,
-    				'payForm' => $payForm,
-    				'phones' => $telefonos
-    		);
-    		
-    		
-    		$json = json_encode($bEdificio);
-    	
-//     		echo "\njson\n";
-//     		echo $json;
-    		
-    		$result = $apiEdificio->post($bEdificio);
-    		
-    		//echo "\nresult\n";
-    		//print_r($result);
-    		
-    		$result = json_decode($result, true);
-    		
-    		
-
-    		
-    		if(isset($result['success'])){
-    			if($result['success'] == true){
-    				echo "\nOk\n";
-    				$total++;
-    			}
-    		}else{
-    			echo "\nError\n";
-    				
-    			
-    				
-    			
-    			//echo $json;
-    			//echo "\nclient\n";
-    			//print_r($bClient);
-    				
-    			$urlapiMapper = $this->server.'catchment/main/errorbuilding';
-    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    		
-    			$error = array(
-    					'building' => $edificio['id_edificio'],
-    					'objectJson' => $json,
-    					'error' => $result['message']
-    			);
-    		
-    			$apiMapper->post($error);
-    		
-    		}
-    		 
-    		
     	}
     	
-    	echo "\n\nTotal edificios pasados ".$total."\n";
-    	
-	}
-    
+    		 
+    		 
 
-	function buidDireccion($inmueble){
-		 
-		$deparment = null;
-	
-		$urlTown = $this->server.'admin/sifinca/mapper/propertyTown.BOG/'.$inmueble['id_ciudad'];
-		$apiTown= $this->SetupApi($urlTown, $this->user, $this->pass);
-	
-		$townMapper = $apiTown->get();
-		$townMapper = json_decode($townMapper, true);
-		//print_r($maritalStatusMapper);
-		$town = array('id'=>$this->bogota);
-		$deparment = array('id' => $this->cundinamarca);
-		 
-		if(isset($townMapper['total'])){
-			if($townMapper['total'] > 0){
-				$town = $townMapper['data']['0']['idTarget'];
-				if(!is_null($town)){
-	
-					$town = array('id'=>$town);
-	
-					$urlTownSF2 = $this->server.'crm/main/town/'.$town['id'];
-					//echo "\n".$urlTownSF2."\n";
-					$apiTownSF2 = $this->SetupApi($urlTownSF2, $this->user, $this->pass);
-	
-					$townSF2 = $apiTownSF2->get();
-					$townSF2 = json_decode($townSF2, true);
-	
-					$deparment = $townSF2['department'];
-	
-					//print_r($deparment);
-	
-	
-					if($townMapper['total'] == 0){
-						$town = array('id'=>$this->bogota);
-						$deparment = array('id' => $this->cundinamarca);
-					}
-	
-				}
-			}
-		}
-		 
-		$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.BOG/'.$inmueble['id_barrio'];
-		//echo "\n".$urlDistrict."\n";
-		$apiDistrict= $this->SetupApi($urlDistrict, $this->user, $this->pass);
-		 
-		$districtMapper = $apiDistrict->get();
-		$districtMapper = json_decode($districtMapper, true);
-		 
-		//print_r($districtMapper);
-		 
-		$district = null;
-		if(isset($districtMapper['total'])){
-			if($districtMapper['total'] > 0){
-				$district = $districtMapper['data']['0']['idTarget'];
-				if(!is_null($district)){
-	
-					$district = array('id'=>$district);
-	
-					if($districtMapper['total'] == 0){
-						$district = null;
-					}
-	
-				}
-			}
-		}
-		 
-		 
-		 
-	
-		$bAddress = array(
-				'address' => $inmueble['direccion'],
-				'country' => array('id' => $this->colombia),
-				'department' => $deparment,
-				'town' => $town,
-				'district' => $district,
-				'typeAddress' => array('id'=>$this->typeAddressHome), //CASA
-				'latitude' => $inmueble['latitud'],
-				'longitude' => $inmueble['longitud']
-		);
-	
-	
-		return $bAddress;
-	}
-	 
+    	$bAddress = array(
+    		'address' => $inmueble['direccion'],
+    		'country' => array('id' => $this->colombia),
+    		'department' => $deparment,
+    		'town' => $town,
+    		'district' => $district,
+    		'typeAddress' => array('id'=>$this->typeAddressHome), //CASA
+    		'latitude' => $inmueble['latitud'],
+    		'longitude' => $inmueble['longitud']
+    	);
+    		
+
+    	return $bAddress;
+    }
     
     function buildCaracteristicasInmueble($inmueble, $inmueblesCtg) {
     	 
@@ -813,7 +668,7 @@ class InmueblesBogotaCommand extends Command
     	
     	$caracteristicas = null;
     	
-    	if($inmueble['alcobas'] > 0){
+        if($inmueble['alcobas'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['alcobas'],
     				"name" => 'Alcobas',
@@ -822,6 +677,7 @@ class InmueblesBogotaCommand extends Command
     				)
     		);
     		$caracteristicas[] = $bcarateristica;
+    		//print_r($bcarateristica);
     	}
     	 
     	//Baños
@@ -964,11 +820,8 @@ class InmueblesBogotaCommand extends Command
     	
     	
     }
-
+       
     function searchClientSF2($identificacion){
-    	    	
-//     	echo "\nidentificacion\n";
-//     	echo $identificacion."\n";
     	
     	$identificacion = trim($identificacion);
     	
@@ -1017,9 +870,7 @@ class InmueblesBogotaCommand extends Command
     	
     	$clienteSF1 = $inmueblesCtg->getCliente($id);
     	
-//     	echo "\nCliente\n";
-//     	print_r($clienteSF1);
-    	
+
     	return $clienteSF1;
     } 
     
@@ -1120,7 +971,7 @@ class InmueblesBogotaCommand extends Command
     	
     	return $accountType;
     }
-    
+
     /**
      * Eliminar espacios en blanco seguidos
      * @param unknown $string
@@ -1133,84 +984,46 @@ class InmueblesBogotaCommand extends Command
     	return $string;
     }
     
+    protected function SetupApi($urlapi,$user,$pass){
     
-    function login() {
-    	 
-    	if(is_null($this->token)){
-    
-    		echo "\nEntro a login\n";
-    
-    		$url= $this->server."login";
-    		$headers = array(
-    				'Accept: application/json',
-    				'Content-Type: application/json',
-    		);
-    		 
-    		$a = new api($url, $headers);
-    			
-    
-    		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
-    		$result = json_decode($result, true);
-    		 
-    		//print_r($result);
-    
-    		//echo "\n".$result['id']."\n";
-    
-    
-    		if(isset($result['code'])){
-    			if($result['code'] == 401){
-    
-    				$this->login();
-    			}
-    		}else{
-    
-    			if(isset($result['id'])){
-    
-    				$this->token = $result['id'];
-    			}else{
-    				echo "\nError en el login\n";
-    				$this->token = null;
-    			}
-    
-    		}
-    	}
-    	 
-    	 
-    }
-    
-    function SetupApi($urlapi,$user,$pass){
-    
+    	$url= $this->server."login";
     	$headers = array(
     			'Accept: application/json',
     			'Content-Type: application/json',
     	);
     
-    	$a = new api($urlapi, $headers);
+    	$a = new api($url, $headers);
     
-    	$this->login();
+    	//print_r($a);
+    	
+    	$result= $a->post(array("user"=>$user,"password"=>$pass));
+		
+//      	echo "\nAqui result\n";
+//     	print_r($result);
+
+    
     	 
-    	if(!is_null($this->token)){
+    	$data=json_decode($result);
     
-    		$headers = array(
-    				'Accept: application/json',
-    				'Content-Type: application/json',
-    				//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
-    				'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
-    		);
+    	//print_r($data);
+    	
+    	$token = $data->id;
     
-    		//     	print_r($headers);
+    	$headers = array(
+    			'Accept: application/json',
+    			'Content-Type: application/json',
+    			//'x-sifinca:SessionToken SessionID="56619d57ed060f8c57c1109d", Username="sifincauno@araujoysegovia.com"'
+    			'x-sifinca: SessionToken SessionID="'.$token.'", Username="'.$user.'"',
+    	);
     
-    		$a->set(array('url'=>$urlapi,'headers'=>$headers));
+//     	print_r($headers);
+    	
+    	$a->set(array('url'=>$urlapi,'headers'=>$headers));
     
-    		//print_r($a);
-    
-    		return $a;
-    
-    	}else{
-    		echo "\nToken no valido\n";
-    	}
-    	 
+    	//print_r($a);
+    	
+    	return $a;
     
     }
-        
+    
 }

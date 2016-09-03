@@ -68,13 +68,6 @@ class PropietariosBogotaCommand extends Command
      
     public function crearPropietarios($conexion) {
     	    	    	
-//     	$urlConvenio = $this->server.'catchment/main/agreement/only/ids';
-    	
-//     	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
-    	
-//     	$convenios = $apiConvenio->get();
-//     	$convenios = json_decode($convenios, true);
-    	//echo $convenios['total']
     	
     	$convenios = $conexion->getSoloConveniosBogota();
     	$totalConvenios = count($convenios);
@@ -101,7 +94,12 @@ class PropietariosBogotaCommand extends Command
     		//$propietariosSF1 = $conexion->getPropietariosDelConvenio($convenio['consecutive']); 		
     		$propietariosSF1 = $conexion->getPropietariosDelConvenioBogota($convenio['id_convenio']);
     		
+    		print_r($propietariosSF1);
+    		
     		$agreement = $this->searchConvenioSF2($convenio);
+    		
+    		//print_r($agreement);
+    		
     		
     		if(!is_null($agreement)){
     			
@@ -110,17 +108,25 @@ class PropietariosBogotaCommand extends Command
     				$ownerIdentificacion = $p['id_cliente'];
     				$ownerIdentificacion = $this->cleanString($ownerIdentificacion);
     			
+    				
     				$owner = $conexion->getCliente($ownerIdentificacion);
     			
+    				
+    				
+    				//print_r($owner);
+    				
     				$clientSF1 = $owner;
     				 
     				$client = $this->searchClientSF2($ownerIdentificacion);
     				$clientSF2 = $client;
     			
+    				
+    				//print_r($client);
+    				//return null;
     				if($client){
     			
     			
-    					$ownerSF2 = $this->searchPropietarioPorConvenioYcliente($client, $convenio);
+    					$ownerSF2 = $this->searchPropietarioPorConvenioYcliente($clientSF2, $convenio);
     			
     					if(is_null($ownerSF2)){
     			
@@ -804,7 +810,7 @@ class PropietariosBogotaCommand extends Command
     	$telefono_trabajo = $client['tel_trabajo'];
     	$telefono_trabajo = $this->validarTelefono($telefono_trabajo);
     	 
-    	$telefono_celular = $client['TEL_CELULAR'];
+    	$telefono_celular = $client['tel_celular'];
     	$telefono_celular = $this->validarTelefono($telefono_celular);
     
     	$telefono_residencia2 = $client['tel_residencia2'];
@@ -1446,31 +1452,25 @@ class PropietariosBogotaCommand extends Command
     }
     
     function searchClientSF2($identificacion){
-    
-    	//     	echo "\nidentificacion\n";
-    	//     	echo $identificacion."\n";
-    
+        
     	$identificacion = $this->cleanString($identificacion);
     
     	$filter = array(
     			'value' => $identificacion,
-    			'operator' => 'has',
+    			'operator' => 'equal',
     			'property' => 'identity.number'
     	);
     	$filter = json_encode(array($filter));
     
     
     	$urlClientSF2 = $this->server.'crm/main/client?filter='.$filter;
-    	//echo "\n".$urlClientSF2."\n";
-    
-    	//$urlClientSF2 = $this->server.'crm/main/zero/client';
+
     
     	$apiClientSF2 = $this->SetupApi($urlClientSF2, $this->user, $this->pass);
     
     
     	$clientSF2 = $apiClientSF2->get();
-    	//      	echo "\nbeneficiario\n";
-    	//  		echo $clientSF2;
+
     
     	$clientSF2 = json_decode($clientSF2, true);
     

@@ -315,38 +315,43 @@ class UpdateInmueblesRecientesCommand extends Command
     	}
   
     }
-    
+
+
     public function searchPropertyType($inmueble) {
-    	
-    	$urlPropertyType = $this->server.'admin/sifinca/mapper/propertyTypeCatchment/'.$inmueble['id_tipo_inmueble'];
+    
+    	$urlPropertyType = $this->server.'admin/sifinca/mapper/propertyTypeCatchmentCTG/'.$inmueble['id_tipo_inmueble'];
     	//echo "\n".$urlPropertyType."\n";
-    	$apiPropertyType = $this->SetupApi($urlPropertyType, $this->user, $this->pass);
-    	 
-    	$propertyTypeMapper = $apiPropertyType->get();
-    	$propertyTypeMapper = json_decode($propertyTypeMapper, true);
-    	//print_r($propertyTypeMapper);
-    	$propertyType = null;
-    	if($propertyTypeMapper['total'] > 0){
-    		$propertyType = $propertyTypeMapper['data']['0']['idTarget'];
-    		if(!is_null($propertyType)){
-    	
-    			$propertyType = array('id'=>$propertyType);
-    	
-    			if($propertyTypeMapper['total'] == 0){
-    				$propertyType = null;
+    	if($inmueble['id_tipo_inmueble'] == 0){
+    		$propertyType = array('id'=>'a1edab94-0edc-44bd-a3be-35954e0af555'); //Edificio
+    	}else{
+    		$apiPropertyType = $this->SetupApi($urlPropertyType, $this->user, $this->pass);
+    
+    		$propertyTypeMapper = $apiPropertyType->get();
+    		$propertyTypeMapper = json_decode($propertyTypeMapper, true);
+    		//print_r($propertyTypeMapper);
+    		$propertyType = null;
+    		if($propertyTypeMapper['total'] > 0){
+    			$propertyType = $propertyTypeMapper['data']['0']['idTarget'];
+    			if(!is_null($propertyType)){
+    					
+    				$propertyType = array('id'=>$propertyType);
+    					
+    				if($propertyTypeMapper['total'] == 0){
+    					$propertyType = null;
+    				}
+    					
     			}
-    	
     		}
     	}
-    	
+    
     	return $propertyType;
     }
     
     public function searchInscriptionType($inmueble) {
-    	
+    
     	$urlInscriptionType = $this->server.'admin/sifinca/mapper/propertyInscriptionType/'.$inmueble['tipo_inscripcion'];
     	$apiInscriptionType = $this->SetupApi($urlInscriptionType, $this->user, $this->pass);
-    	 
+    
     	$inscriptionTypeMapper = $apiInscriptionType->get();
     	$inscriptionTypeMapper = json_decode($inscriptionTypeMapper, true);
     	//print_r($inscriptionTypeMapper);
@@ -354,26 +359,26 @@ class UpdateInmueblesRecientesCommand extends Command
     	if($inscriptionTypeMapper['total'] > 0){
     		$inscriptionType = $inscriptionTypeMapper['data']['0']['idTarget'];
     		if(!is_null($inscriptionType)){
-    	
+    
     			$inscriptionType = array('id'=>$inscriptionType);
-    	
+    
     			if($inscriptionTypeMapper['total'] == 0){
     				$inscriptionType = null;
     			}
-    	
+    
     		}
     	}
-    	
+    
     	return $inscriptionType;
-    	
+    
     }
     
     public function searchDestiny($inmueble) {
-    	
+    
     	if($inmueble['id_destinacion'] == '0'){
     		$destiny = array('id'=>'169c9685-b58a-47e7-badc-20627583ca13');
     	}else{
-    		$urlDestiny = $this->server.'admin/sifinca/mapper/propertyDestiny/'.$inmueble['id_destinacion'];
+    		$urlDestiny = $this->server.'admin/sifinca/mapper/propertyDestiny.CTG/'.$inmueble['id_destinacion'];
     		$apiDestiny = $this->SetupApi($urlDestiny, $this->user, $this->pass);
     		 
     		$destinyMapper = $apiDestiny->get();
@@ -383,19 +388,20 @@ class UpdateInmueblesRecientesCommand extends Command
     		if($destinyMapper['total'] > 0){
     			$destiny = $destinyMapper['data']['0']['idTarget'];
     			if(!is_null($destiny)){
-    	
+    					
     				$destiny = array('id'=>$destiny);
-    	
+    					
     				if($destinyMapper['total'] == 0){
     					$destiny = null;
     				}
-    	
+    					
     			}
     		}
     	}
-    	
+    
     	return $destiny;
     }
+     
     
     public function searchStratum($inmueble) {
     	

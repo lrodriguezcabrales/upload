@@ -571,24 +571,28 @@ class UpdateInmueblesRecientesMonteriaCommand extends Command
     
     public function searchPropertyType($inmueble) {
     	
-    	$urlPropertyType = $this->server.'admin/sifinca/mapper/propertyTypeCatchment/'.$inmueble['id_tipo_inmueble'];
+    	$urlPropertyType = $this->server.'admin/sifinca/mapper/propertyTypeCatchmentMON/'.$inmueble['id_tipo_inmueble'];
     	//echo "\n".$urlPropertyType."\n";
-    	$apiPropertyType = $this->SetupApi($urlPropertyType, $this->user, $this->pass);
-    	 
-    	$propertyTypeMapper = $apiPropertyType->get();
-    	$propertyTypeMapper = json_decode($propertyTypeMapper, true);
-    	//print_r($propertyTypeMapper);
-    	$propertyType = null;
-    	if($propertyTypeMapper['total'] > 0){
-    		$propertyType = $propertyTypeMapper['data']['0']['idTarget'];
-    		if(!is_null($propertyType)){
-    	
-    			$propertyType = array('id'=>$propertyType);
-    	
-    			if($propertyTypeMapper['total'] == 0){
-    				$propertyType = null;
+    	if($inmueble['id_tipo_inmueble'] == 0){
+    		$propertyType = array('id'=>'a1edab94-0edc-44bd-a3be-35954e0af555'); //Edificio
+    	}else{
+    		$apiPropertyType = $this->SetupApi($urlPropertyType, $this->user, $this->pass);
+    		
+    		$propertyTypeMapper = $apiPropertyType->get();
+    		$propertyTypeMapper = json_decode($propertyTypeMapper, true);
+    		//print_r($propertyTypeMapper);
+    		$propertyType = null;
+    		if($propertyTypeMapper['total'] > 0){
+    			$propertyType = $propertyTypeMapper['data']['0']['idTarget'];
+    			if(!is_null($propertyType)){
+    				 
+    				$propertyType = array('id'=>$propertyType);
+    				 
+    				if($propertyTypeMapper['total'] == 0){
+    					$propertyType = null;
+    				}
+    				 
     			}
-    	
     		}
     	}
     	
@@ -626,7 +630,7 @@ class UpdateInmueblesRecientesMonteriaCommand extends Command
     	if($inmueble['id_destinacion'] == '0'){
     		$destiny = array('id'=>'169c9685-b58a-47e7-badc-20627583ca13');
     	}else{
-    		$urlDestiny = $this->server.'admin/sifinca/mapper/propertyDestiny/'.$inmueble['id_destinacion'];
+    		$urlDestiny = $this->server.'admin/sifinca/mapper/propertyDestiny.MON/'.$inmueble['id_destinacion'];
     		$apiDestiny = $this->SetupApi($urlDestiny, $this->user, $this->pass);
     		 
     		$destinyMapper = $apiDestiny->get();
@@ -1859,9 +1863,9 @@ class UpdateInmueblesRecientesMonteriaCommand extends Command
     			
     			}
     			
-    			if (array_key_exists("error",$result)){
-    				echo "\nerror\n";
-    			}
+//     			if (array_key_exists("error",$result)){
+//     				echo "\nerror\n";
+//     			}
     			
     		}
     		
