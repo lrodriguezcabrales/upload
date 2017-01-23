@@ -59,16 +59,20 @@ use upload\command\Monteria\DocumentMonteriaCommand;
 
 use upload\command\Monteria\UpdateClientesMonteriaCommand;
 
+use upload\command\Monteria\ContratoArriendoMonteriaCommand;
+use upload\command\Monteria\ArrendatariosMonteriaCommand;
+
+
 use upload\command\ClientsMonteriaCommand;
 use upload\command\UpdateInmuebleMonteriaCommand;
 
 
 use upload\command\OportunityMonteriaCommand;
-use upload\command\ContratoArriendoMonteriaCommand;
+
 use upload\command\ErrorInmuebleMongoMonteriaCommand;
 use upload\command\ErrorAgreementMonteriaCommand;
 use upload\command\PublicarInmuebleMonteriaCommand;
-use upload\command\ArrendatariosMonteriaCommand;
+
 use upload\command\ComentariosContratoArriendoMonteriaCommand;
 use upload\command\TiposDeDocumentosMonteriaCommand;
 use upload\command\ErrorClientMonteriaCommand;

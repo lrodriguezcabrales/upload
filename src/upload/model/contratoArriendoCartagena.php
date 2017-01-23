@@ -118,17 +118,18 @@ class contratoArriendoCartagena {
     public function getContratosArriendoMonteria(){
     
     
-    	$query = "SELECT C.id_contrato, CI.id_inmueble, U.email, * FROM contratos AS C
+    	$query = "SELECT TOP 500 C.id_contrato, CI.id_inmueble, U.email, * FROM contratos AS C
 				LEFT JOIN contratos_inmuebles AS CI ON C.id_contrato = CI.id_contrato
 				LEFT JOIN cobradores AS CO ON C.id_cobrador = CO.id_cobrador
 				LEFT JOIN usuarios AS U ON CO.usuario = U.id_user
-				ORDER BY C.id_contrato ASC";
-    
+				ORDER BY C.id_contrato DESC";
+    		
+    	 
     	$r = $this->_conn->_query($query);
     	$clients = $this->_conn->_getData($r);
     	//print_r($clients);
     	echo "Total contratos SF1: ".count($clients);
-    
+    	
     	return $clients;
     	 
     	 
