@@ -96,7 +96,7 @@ class DocumentCommand extends Command
                'pass',
                null,
                InputOption::VALUE_REQUIRED,
-               'Contrase–a ?'
+               'Contraseï¿½a ?'
             )     
                  ->addOption(
                'container',

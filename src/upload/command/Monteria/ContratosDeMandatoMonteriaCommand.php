@@ -334,12 +334,12 @@ class ContratosDeMandatoMonteriaCommand extends Command
     	$usuarioSF1 = $this->cleanString($usuarioSF1);
     	 
     	if($usuarioSF1 == 'inmobiliaria@araujoysegovia.com'){
-    		$user = array('id' => 203);
+    		$user = array('id' => 1);
     		return $user;
     	}
     	 
     	if($usuarioSF1 == 'hherrera@araujoysegovia.com'){
-    		$user = array('id' => 203);
+    		$user = array('id' => 1);
     		return $user;
     	}
     	 
@@ -364,7 +364,7 @@ class ContratosDeMandatoMonteriaCommand extends Command
     		return $user['data'][0];
     		 
     	}else{
-    		return $user = array('id' => 203);
+    		return $user = array('id' => 1);
     	}
     	 
     }

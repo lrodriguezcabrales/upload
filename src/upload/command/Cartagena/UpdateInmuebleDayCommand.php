@@ -101,7 +101,7 @@ class UpdateInmuebleDayCommand extends Command
     			$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
     			 
     			 
-    			$edificio = $this->searchEdificio($inmueble);
+    			$edificio = $this->searchEdificio($inmueble, $conexion);
     			 
     			$propertyType = $this->searchPropertyType($inmueble);
     			 
@@ -177,15 +177,15 @@ class UpdateInmuebleDayCommand extends Command
     			 
     			$json = json_encode($bupdate);
     			 
-    			//echo "\n".$json."\n";
+    			echo "\n".$json."\n";
     			 
     			$result = $apiInmueble->get();
     			$result = $apiInmueble->put($bupdate);
     			 
     			$result = json_decode($result, true);
     			 
-    			//     		echo "\nresult\n";
-    			//     		print_r($result);
+//     			     		echo "\nresult\n";
+//     			     		print_r($result);
     			 
     			//return ;
     			 
@@ -289,9 +289,11 @@ class UpdateInmuebleDayCommand extends Command
     /**	
      * Buscar edificio a que pertene el inmueble
      */
-    function searchEdificio($inmueble) {    	
+    function searchEdificio($inmueble, $conexion) {    	
     	
-    	//echo "\nEdificio: ".$inmueble['id_edificio']."\n";
+    	$edificio = null;
+    	
+    	
     	if($inmueble['id_edificio']){
     		$filter = array(
     				'value' => $this->cleanString($inmueble['id_edificio']),
@@ -310,9 +312,6 @@ class UpdateInmuebleDayCommand extends Command
     		 
     		$buildingSF2 = json_decode($buildingSF2, true);
     		 
-//     		print_r($buildingSF2);
-    		
-//     		return ;
     		
     		if($buildingSF2['total'] > 0){
     			$edificio = array(
@@ -320,17 +319,15 @@ class UpdateInmuebleDayCommand extends Command
     					'name' => $buildingSF2['data'][0]['name']
     			);
     		
-    			
-    			return $edificio;
     		}else{
-    			return  null;
+    			
+    			echo "\nCrear nuevo edificio\n";
+    			$edificio = $this->buildEdificio($inmueble, $conexion);
     		}
     		
-    	}else{
-    		return null;
     	}
     	
-    	
+    	return $edificio;
     
     }
 
@@ -568,33 +565,33 @@ class UpdateInmuebleDayCommand extends Command
     	return $propertyStatus;
     }
     
-    function buildEdificios($inmueblesCtg) {
+    function buildEdificio($inmueble, $conexion) {
     	
-    	$edificiosSF1 = $inmueblesCtg->getEdificios();
+    	$newEdificio = null;
     	
-    	$urlEdificio = $this->server.'catchment/main/building';
-    	$apiEdificio = $this->SetupApi($urlEdificio, $this->user, $this->pass);
+    	$edificioSF1 = $conexion->getEdificio($inmueble['id_edificio']);
+    	$edificioSF1 = $edificioSF1[0];
     	
-    	$total = 0;
-    	
-    	for ($i = 100; $i < 1148; $i++) {
-    		$edificio = $edificiosSF1[$i];
+    	if($edificioSF1){
     		
+    		$urlEdificio = $this->server.'catchment/main/building';
+    		$apiEdificio = $this->SetupApi($urlEdificio, $this->user, $this->pass);
     		
-    		$urlBuildingType = $this->server.'admin/sifinca/mapper/buildingType/'.$edificio['id_tipo_edif'];
-    		//echo "\n".$urlPropertyType."\n";
+    		print_r($edificioSF1);
+    		
+    		//Tipo de edificio 
+    		$urlBuildingType = $this->server.'admin/sifinca/mapper/buildingType/'.$edificioSF1['id_tipo_edif'];
     		$apiBuildingType = $this->SetupApi($urlBuildingType, $this->user, $this->pass);
     		 
     		$buildingTypeMapper = $apiBuildingType->get();
     		$buildingTypeMapper = json_decode($buildingTypeMapper, true);
-    		//print_r($propertyTypeMapper);
-    		//$buildingType =  array('id'=>$this->buildingTypeEdificio);
+    		
     		$buildingType = null;
-
+    		
     		if($buildingTypeMapper['total'] > 0){
-    			    			
+    		
     			$buildingType = $buildingTypeMapper['data']['0']['idTarget'];
-    			;
+    			
     			if(!is_null($buildingType)){
     		
     				$buildingType = array('id'=>$buildingType);
@@ -608,40 +605,29 @@ class UpdateInmuebleDayCommand extends Command
     			$buildingType =  array('id'=>$this->buildingTypeEdificio);
     		}
     		
+    		//Telefonos
     		$telefonos = array();
-    		$numeroTelefono = $this->cleanString($edificio['telefono']);
+    		$numeroTelefono = $this->cleanString($edificioSF1['telefono']);
     		if(strlen($numeroTelefono) > 0){
     			$telefono = array(
-    					'number' => $this->cleanString($edificio['telefono']),
+    					'number' => $this->cleanString($edificioSF1['telefono']),
     					'phoneType' => array('id' => '2f49f417-9db1-4cb6-98c6-7f7f6af21399'), //Fijo
     					'country' => array('id' => $this->colombia)
-    						
+    		
     			);
     			$telefonos[] = $telefono;
     		}
     		
+    		//Direccion
+			$direccion = $this->buidDireccionEdificio($edificioSF1);
     		
-    		
-    		//print_r($edificio);
-    		
-    		//return ;
-    		
-    		$direccion = array(
-    				'address' => $this->cleanString($edificio['direccion']),
-    				'country' => array('id' => $this->colombia),
-    				'department' => array('id' => $this->bolivar),
-    				'town' => array('id' => $this->cartagena),
-    				'district' => null,
-    				'typeAddress' => array('id'=>$this->typeAddressCorrespondencia), //Correspondecia
-    		);
-
-    		
-    		$trimEncargado = trim($edificio['encargado']);
+    		//Contacto
+    		$trimEncargado = trim($edificioSF1['encargado']);
     		
     		if(strlen($trimEncargado) > 0){
     			$contacto = array(
-    					'name' => $this->cleanString($edificio['encargado']),
-    					'phone' => $this->cleanString($edificio['telefono']),
+    					'name' => $this->cleanString($edificioSF1['encargado']),
+    					'phone' => $this->cleanString($edificioSF1['telefono']),
     					'position' => 'N/A',
     					'contactType' => array('id'=> $this->contactTypeOther) //Otro
     			);
@@ -650,20 +636,12 @@ class UpdateInmuebleDayCommand extends Command
     		}
     		
     		
+    		//Forma de pago
+    		$beneficiary = $this->searchClientSF2($edificioSF1['ID_ADMIN']);
     		 
-    		 
-    		$beneficiary = $this->searchClientSF2($edificio['ID_ADMIN']);
-    	
-     		//echo $beneficiary['id'];
-//     		return;
-     		$clienteSF1 = $this->searchClienteSF1($inmueblesCtg, $edificio['ID_ADMIN']);
-     		$clienteSF1 = $clienteSF1[0];
-     		if(!is_null($beneficiary) && !is_null($clienteSF1)){
-     			
-     		} 		
-     		
-     		//print_r($clienteSF1);
-     		
+    		$clienteSF1 = $this->searchClienteSF1($conexion, $edificioSF1['ID_ADMIN']);
+    		$clienteSF1 = $clienteSF1[0];
+    	    	    		 
     		$bank = $this->searchBank($clienteSF1['id_banco']);
     		 
     		$payType = $this->searchPayType($clienteSF1['pagos']);
@@ -678,10 +656,10 @@ class UpdateInmuebleDayCommand extends Command
     				'beneficiary' => $beneficiary
     		);
     		
-    		$idEdificio = $edificio['id_edificio'];
+    		$idEdificio = $edificioSF1['id_edificio'];
     		$idEdificio = trim($idEdificio);
     		
-    		$nombreEdificio = $this->cleanString($edificio['Nombre']);
+    		$nombreEdificio = $this->cleanString($edificioSF1['Nombre']);
     		
     		$bEdificio = array(
     				'idSifincaOne' => $idEdificio,
@@ -695,10 +673,9 @@ class UpdateInmuebleDayCommand extends Command
     		);
     		
     		
-    		$json = json_encode($bEdificio);
-    	
-//     		echo "\njson\n";
-//     		echo $json;
+    		$json = json_encode($bEdificio);		 
+    		//     		echo "\njson\n";
+
     		
     		$result = $apiEdificio->post($bEdificio);
     		
@@ -707,41 +684,26 @@ class UpdateInmuebleDayCommand extends Command
     		
     		$result = json_decode($result, true);
     		
-    		
-
-    		
     		if(isset($result['success'])){
     			if($result['success'] == true){
-    				echo "\nOk\n";
-    				$total++;
+    				echo "\nEdifico creado exitosamente\n";
+    				
+    				print_r($result);
+    				
+    				$ed = array('id' => $result['data'][0]);
+    				$newEdificio = $ed;
     			}
-    		}else{
-    			echo "\nError\n";
-    				
-    			
-    				
-    			
-    			//echo $json;
-    			//echo "\nclient\n";
-    			//print_r($bClient);
-    				
-    			$urlapiMapper = $this->server.'catchment/main/errorbuilding';
-    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    		
-    			$error = array(
-    					'building' => $edificio['id_edificio'],
-    					'objectJson' => $json,
-    					'error' => $result['message']
-    			);
-    		
-    			$apiMapper->post($error);
-    		
     		}
-    		 
+    		    		
     		
+    	}else{
+    		echo "\nEdificio no encontrado: ".$inmueble['id_edificio']."\n";
     	}
     	
-    	echo "\n\nTotal edificios pasados ".$total."\n";
+    	
+    	return $newEdificio;
+    	
+    
     	
 	}
     
@@ -812,7 +774,7 @@ class UpdateInmuebleDayCommand extends Command
     		'department' => $deparment,
     		'town' => $town,
     		'district' => $district,
-    		'typeAddress' => array('id'=>$this->typeAddressHome), //CASA
+    		'typeAddress' => array('id'=>$this->typeAddressCorrespondencia), //CASA
     		'latitude' => $inmueble['latitud'],
     		'longitude' => $inmueble['longitud']
     	);
@@ -821,18 +783,100 @@ class UpdateInmuebleDayCommand extends Command
     	return $bAddress;
     }
     
+    
+    function buidDireccionEdificio($edificio){
+    	 
+    	$deparment = null;
+    
+    	$urlTown = $this->server.'admin/sifinca/mapper/propertyTown.CTG/'.$edificio['id_ciudad'];
+    	$apiTown= $this->SetupApi($urlTown, $this->user, $this->pass);
+    
+    	$townMapper = $apiTown->get();
+    	$townMapper = json_decode($townMapper, true);
+    	//print_r($maritalStatusMapper);
+    	$town = null;
+    	if($townMapper['total'] > 0){
+    		$town = $townMapper['data']['0']['idTarget'];
+    		if(!is_null($town)){
+    			 
+    			$town = array('id'=>$town);
+    			 
+    			$urlTownSF2 = $this->server.'crm/main/town/'.$town['id'];
+    			//echo "\n".$urlTownSF2."\n";
+    			$apiTownSF2 = $this->SetupApi($urlTownSF2, $this->user, $this->pass);
+    			 
+    			$townSF2 = $apiTownSF2->get();
+    			$townSF2 = json_decode($townSF2, true);
+    			 
+    			$deparment = $townSF2['department'];
+    			 
+    			//print_r($deparment);
+    			 
+    			 
+    			if($townMapper['total'] == 0){
+    				$town = null;
+    			}
+    			 
+    		}
+    	}
+    	 
+    	$urlDistrict = $this->server.'admin/sifinca/mapper/propertyDistrict.CTG/'.$edificio['id_barrio'];
+    	//echo "\n".$urlDistrict."\n";
+    	$apiDistrict= $this->SetupApi($urlDistrict, $this->user, $this->pass);
+    	 
+    	$districtMapper = $apiDistrict->get();
+    	$districtMapper = json_decode($districtMapper, true);
+    	 
+    	//print_r($districtMapper);
+    	 
+    	$district = null;
+    	if($districtMapper['total'] > 0){
+    		$district = $districtMapper['data']['0']['idTarget'];
+    		if(!is_null($district)){
+    
+    			$district = array('id'=>$district);
+    
+    			if($districtMapper['total'] == 0){
+    				$district = null;
+    			}
+    
+    		}
+    	}
+    	 
+    	 
+    
+    	$bAddress = array(
+    			'address' => $edificio['direccion'],
+    			'country' => array('id' => $this->colombia),
+    			'department' => $deparment,
+    			'town' => $town,
+    			'district' => $district,
+    			'typeAddress' => array('id'=>$this->typeAddressCorrespondencia),
+    			'latitude' => $edificio['latitud'],
+    			'longitude' => $edificio['longitud']
+    	);
+    
+    
+    	return $bAddress;
+    }
+    
+    
     function buildCaracteristicasInmueble($inmueble, $inmueblesCtg) {
     	 
     	$caracteristicasSF1 = $inmueblesCtg->getCaracteristasDeInmueble($inmueble);
     	
     	$caracteristicas = null;
     	
+    	print_r($inmueble);
+    	
+    	
         if($inmueble['alcobas'] > 0){
     		$bcarateristica = array(
     				"amount" => $inmueble['alcobas'],
     				"name" => 'Alcobas',
     				"propertyAttribute" => array(
-    						'id' => $this->attributeAlcobas
+    						'id' => $this->attributeAlcobas,
+    						'name' => 'Alcobas'
     				)
     		);
     		$caracteristicas[] = $bcarateristica;
@@ -840,12 +884,13 @@ class UpdateInmuebleDayCommand extends Command
     	}
     	 
     	//Baños
-    	if($inmueble['43'] > 0){
+    	if($inmueble['44'] > 0){
     		$bcarateristica = array(
-    				"amount" => $inmueble['43'],
+    				"amount" => $inmueble['44'],
     				'name' => 'Banos',
     				"propertyAttribute" => array(
-    						'id' => $this->attributeBanos
+    						'id' => $this->attributeBanos,
+    						'name' => 'Banos'
     				)
     		);
     		$caracteristicas[] = $bcarateristica;
@@ -853,6 +898,7 @@ class UpdateInmuebleDayCommand extends Command
     	
     	foreach ($caracteristicasSF1 as $c) {
     		
+    		print_r($c);
     		$urlPropertyAttribute = $this->server.'admin/sifinca/mapper/propertyAttribute/'.$c['id_caracteristica'];
     		//echo $urlStratum;
     		$apiPropertyAttribute = $this->SetupApi($urlPropertyAttribute, $this->user, $this->pass);
@@ -883,6 +929,8 @@ class UpdateInmuebleDayCommand extends Command
     		$caracteristicas[] = $bcarateristica;
     		
     	}
+    	
+    	//return ;
     	
     	return $caracteristicas;
     }    

@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Monteria;
 
 use upload\model\tipoDocumento;
 use upload\lib\data;
@@ -13,7 +13,7 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class TiposDeDocumentosMonteriaCommand extends Command
+class MapperMonteriaCommand extends Command
 {	
 	
  	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';
@@ -28,8 +28,8 @@ class TiposDeDocumentosMonteriaCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('tipodocumentosMonteria')
-		             ->setDescription('Comando para tipos de documents');
+        $this->setName('mapperMonteria2')
+		             ->setDescription('Mapper monteria');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
@@ -49,59 +49,146 @@ class TiposDeDocumentosMonteriaCommand extends Command
       
         $conexion = new tipoDocumento($conn);
         
-	    $this->updateDocumentType($conexion);
+	    //$this->mapperTipoDocumento($conexion);
 	   
+        //$this->createDocumentType($conexion);
         
+        $this->mapperDocumentType($conexion);
     }
     
-    function updateDocumentType($conexion) {
+    function createDocumentType($conexion) {
     	
-    	$tipoDeDocumentoSF1 = $conexion->getTiposDeDocumentoMonteria();
-
-    	$tipoDeDocumentoSF2 = $this->searchDocumentType();
+    	$tipoDeDocumentoSF1 = $conexion->getTiposDeDocumentoAllMonteria();
     	
     	
-    	foreach ($tipoDeDocumentoSF2 as $tipo2) {
-    		foreach ($tipoDeDocumentoSF1 as $tipo1) {
+    	
+    	foreach ($tipoDeDocumentoSF1 as $td) {
+    		
+    		$tipoDeDocumentoSF2 = $this->searchDocumentType($td);
+    		    		
+    		if(is_null($tipoDeDocumentoSF2)){
     			
-    			if($tipo2['name'] == $tipo1['nombre']){
-    				$urlDocumentType = $this->server.'archive/main/documenttype/'.$tipo2['id'];
-    				
-    				//echo "\n".$urlBank."\n";
-    				
-    				$apiDocumentType = $this->SetupApi($urlDocumentType, $this->user, $this->pass);
-    				 
-    				$tipo2['code'] = $tipo1['id'];
-    				
-    				$result = $apiDocumentType->put($tipo2);
-    				    				
-    				$result = json_decode($result, true);
+    			$contentType = array();
+    			$contentType[] = array('id'=> 'ba977e1b-5292-43de-8c66-601f877c7729');
+    			$contentType[] = array('id'=> 'db0dab63-70c5-466e-9ca8-60c6753465cd');
+    			
+    			$bTipoDocumento = array(
+    					'code' => $td['id'],
+    					'codeName'=> $td['id']." - ".$td['nombre'],
+    					'name' => $td['nombre'],
+    					'container'=> array('id'=> '2e062689-3070-4758-9af5-4ee676b1fd58'), //arriendos
+    					'contentType' => $contentType
+    			);
+    			
+    			$json = json_encode($bTipoDocumento);
+    			
+    			echo "\n".$json."\n";
+    			
+    			
+    			$url = $this->server.'archive/main/documenttype';
+    			  
+    			echo "\n".$url."\n";
+    			
+    			$api = $this->SetupApi($url, $this->user, $this->pass);
+    			
+    			$result = $api->post($bTipoDocumento);
+    			    			
+    			$result = json_decode($result, true);
+    			
+    			
+    			
+    			
+    			if(isset($result['success'])){
     				 
     				if($result['success'] == true){
-    					echo "\nActualizado ".$tipo2['name']."\n";
-    					   					 
+    			
+    					echo "\nTipo de documento creado - ".$td['nombre']."\n";
+    					
+    				}
+    			
+    			}else{
+    				echo "\nError\n";
+    			
+    		}
+    		
+    	}
+    	
+    }
+    }
+    
+    function mapperDocumentType($conexion) {
+    	
+    	$tipoDeDocumentoSF1 = $conexion->getTiposDeDocumentoAllMonteria();
+
+    	foreach ($tipoDeDocumentoSF1 as $tipo1) {
+    		
+    		$tipo2  = $this->searchDocumentType($tipo1);
+    		
+    		if(!is_null($tipo2)){
+    			
+    			$bMapper = array(
+    					"name"=> "documentType",
+    					"idSource"=> $tipo1['id'],
+    					"idTarget"=> $tipo2['id'],
+    					"label"=> $tipo1['nombre']
+    			);
+    			
+    	
+    			
+    			$url = $this->server.'admin/sifinca/mapper';
+    				
+
+    			 
+    			$api = $this->SetupApi($url, $this->user, $this->pass);
+    			 
+    			$result = $api->post($bMapper);
+    			
+    			$result = json_decode($result, true);
+    			
+    			if(isset($result['success'])){
+    					
+    				if($result['success'] == true){
+    					 
+    					echo "\nTipo de documento mapeado - ".$td['nombre']."\n";
+    						
     				}
     				 
-    				if(isset($result['error'])){
-    					echo "\nerror\n";
-    				}
+    			}else{
+    				echo "\nError\n";
+    				 
     			}
+    			
     		}
+    		
     	}
     }
     
-    function searchDocumentType($containerName) {
+    function searchDocumentType($tipoDocumento) {
     	
-    	$filter = array(
-    			'value' => 'RRHH',
+    	$code = $tipoDocumento['id'];
+    	
+    	$filter1 = array(
+    			'value' => $code,
     			'operator' => 'equal',
+    			'property' => 'code'
+    	);
+    	
+    	$filter2 = array(
+    			'value' => 'rrhh',
+    			'operator' => 'has',
     			'property' => 'container.name'
     	);
-    	$filter = json_encode(array($filter));
+    	
+    	
+    	$filter = array();
+    	$filter[] = $filter1;
+    	$filter[] = $filter2;
+    	
+    	$filter = json_encode($filter);
     	
     	$urlDocumentType = $this->server.'archive/main/documenttype?filter='.$filter;
     	 
-    	//echo "\n".$urlBank."\n";
+    	echo "\n".$urlDocumentType."\n";
     	 
     	$apiDocumentType = $this->SetupApi($urlDocumentType, $this->user, $this->pass);
     	
@@ -111,68 +198,13 @@ class TiposDeDocumentosMonteriaCommand extends Command
     	
     	if($documentType['total'] > 0){
     		 
-    		return $documentType['data'];
+    		return $documentType['data'][0];
     		 
     	}else{
     		return null;
     	}
     }
     
-    function buildDocumentType($conexion) {
-    	
-    	$tipoDeDocumentoSF1 = $conexion->getTiposDeDocumentoMonteria();
-    	
-    	foreach ($tipoDeDocumentoSF1 as $tdSF1) {
-    		
-    		$exist = $this->searchDocumentTypeForCode('ARRIENDOS', $tdSF1['id']);
-    	}
-    	
-    }
-    
-    function searchDocumentTypeForCode($containerName, $code) {
-    	 
-    	$documentType = null;
-    	
-    	$f1 = array(
-    			'value' => $containerName,
-    			'operator' => 'equal',
-    			'property' => 'container.name'
-    	);
-    	
-    	$f2 = array(
-    			'value' => $code,
-    			'operator' => 'equal',
-    			'property' => 'code'
-    	);
-    	
-    	$filter = array();
-    	$filter[] = $f1;
-    	$filter[] = $f2;
-    	
-    	    	
-    	$filter = json_encode($filter);
-    	 
-    	$urlDocumentType = $this->server.'archive/main/documenttype?filter='.$filter;
-    
-    	//echo "\n".$urlBank."\n";
-    
-    	$apiDocumentType = $this->SetupApi($urlDocumentType, $this->user, $this->pass);
-    	 
-    
-    	$resultDocumentType = $apiDocumentType->get();
-    	$resultDocumentType = json_decode($resultDocumentType, true);
-    	 
-    	if(isset($documentType['data'])){
-    		if(count($documentType['data']) > 0){
-    			 
-    			$documentType = $resultDocumentType['data'][0];
-    			 
-    		}
-    	}
-    	
-    	return $documentType;
-    	
-    }
     
  
     /**

@@ -15,13 +15,11 @@ use Monolog\Handler\StreamHandler;
 
 class AvaluosCommand extends Command
 {	
-	
  	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
  	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
 	
-
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 	public $token = null;	
@@ -47,25 +45,20 @@ class AvaluosCommand extends Command
         ));
 
     
-        $oportunity = new oportunity($conn);
+        // $oportunity = new oportunity($conn);
         $conexion = new avaluo($conn);
          
-        $this->getAvaluosSF2($conexion,$oportunity);
+        $this->getAvaluosSF2($conexion);
 	   
-       // $this->updateInmuebles($inmuebles, $inmueblesCtg);
-              
-        //$this->buildFotos($inmueblesCtg);
-
-        //$this->subirInmueblesConError();
-
-        //$this->mapperTipoEdificio($inmueblesCtg);
-        //$this->buildEdificios($inmueblesCtg);
-        
+        // $this->updateInmuebles($inmuebles, $inmueblesCtg);         
+        // $this->buildFotos($inmueblesCtg);
+        // $this->subirInmueblesConError();
+        // $this->mapperTipoEdificio($inmueblesCtg);
+        // $this->buildEdificios($inmueblesCtg);        
     }
-    
-   
-    public  function getAvaluosSF2($avaluo,$oportunity){
-    	
+       
+    public  function getAvaluosSF2($avaluo)
+    {    	
     	$relaciones = array("client", "perito","propertyAddress");
     	$filter = array();
     	
@@ -74,10 +67,10 @@ class AvaluosCommand extends Command
     	$nuevafecha = date ( 'd-m-Y' , $nuevafecha );
     	
     	$filter[] = array(
-    			'value' => $nuevafecha,
-    			'operator' => '+>=',
-    			'property' => 'entrydate'
-    	);
+    		'value' => $nuevafecha,
+    		'operator' => '+>=',
+    		'property' => 'entrydate'
+    	);    	
     	
     	$filter = json_encode($filter);
     	$relaciones = json_encode($relaciones);    	   	   
@@ -85,40 +78,51 @@ class AvaluosCommand extends Command
     	
     	$urlOpArriendos = $this->server.'appraisals/main/zero/appraisals?relations='.$relaciones."&filter=".$filter;
     	
-    	
+    	echo "\n -----".$nuevafecha."----- \n";
     	echo "\n".$urlOpArriendos."\n";
-    	
-    	
+    	    	
     	$apiOp = $this->SetupApi($urlOpArriendos, $this->user, $this->pass);
     	$oportunityArriendos = $apiOp->get();
     	$oportunityArriendos = json_decode($oportunityArriendos, true);
     	
     	//print_r($oportunityArriendos);
-
-    	foreach ($oportunityArriendos['data'] as $kAppra => $vAppra){
-    		
-	    		$oneAppraisal = array();
-	    	
+    	foreach ($oportunityArriendos['data'] as $kAppra => $vAppra)
+    	{    		
+	    		$oneAppraisal = array();	    	
 	    		$oneAppraisal['id_avaluo'] =  $vAppra['appraisalNumber'];
-	    		if( $vAppra['entrydate']){
+	    		
+	    		if ($vAppra['entrydate'])
+	    		{
 	    			$date= $vAppra['entrydate']['date'];
-	    			$oneAppraisal['fecha_solicitud'] = date("d/m/Y", strtotime($date));
-	    		}	    		
+	    			$oneAppraisal['fecha_solicitud'] = date("Y-m-d H:i:s", strtotime($date));
+	    			
+	    			echo "\n------------------------------\n";
+	    			echo "Fecha soli ".$oneAppraisal['fecha_solicitud']."\n";
+	    		}
+	    			    		
 	    		$oneAppraisal['estado'] = 0;
 	    		//$oneAppraisal['address'] = $vAppra['propertyAddress'];
 	    		
-	    		if($vAppra['client']){
-	    			if($vAppra['client']['identity']){	   
+	    		if ($vAppra['client'])
+	    		{
+	    			if ($vAppra['client']['identity'])
+	    			{	   
 	    				$identificacionClient = $vAppra['client']['identity']['number'];
-	    				if($avaluo->exitClient($identificacionClient)){	    				
+	    				
+	    				if ($avaluo->exitClient($identificacionClient))
+	    				{	    				
 	    					//echo "\n\nEl cliente ".$vAppra['client']['name']." SI existe.\n\n";
-	    				}else {
-	    					$this->insertCliente($oportunity,$vAppra['client']);
+	    				}
+	    				else
+	    				{
+	    					$this->insertCliente($avaluo, $vAppra['client']);
 	    					//echo "\n\nEl cliente ".$vAppra['client']['name']." No existe.\n\n";
 	    				}
 	    				
-	    				if($avaluo->exitClient($identificacionClient)){	
-	    					echo "\n\n2.El cliente ".$vAppra['client']['name']." SI existe.\n\n";
+	    				if ($avaluo->exitClient($identificacionClient))
+	    				{
+	    					echo "\n\nEl cliente ".$vAppra['client']['name']." SI existe.";
+	    					
 		    				$identificationClient = $identificacionClient;
 				    		$oneAppraisal['id_cliente'] = $identificationClient;
 				    		$oneAppraisal['id_ciudad'] = "CTG";
@@ -128,149 +132,154 @@ class AvaluosCommand extends Command
 				    		$oneAppraisal['id_sector'] = "";
 				    		$oneAppraisal['id_barrio'] = "";
 				    		$oneAppraisal['direccion'] = "";
-				    		if($vAppra['propertyAddress']){
-				    			if($vAppra['propertyAddress']['district']){
+				    		
+				    		if ($vAppra['propertyAddress'])
+				    		{
+				    			if ($vAppra['propertyAddress']['district'])
+				    			{
 				    				$oneAppraisal['id_barrio'] = $vAppra['propertyAddress']['district']['code'];
-				    			}		
+				    			}
 				    			$oneAppraisal['direccion'] = $vAppra['propertyAddress']['address'];
 				    		}
-				    		if($vAppra['entrydate']){
+				    		
+				    		if ($vAppra['entrydate'])
+				    		{
 				    			$date= $vAppra['entrydate']['date'];
 				    			$oneAppraisal['fecha_new'] = date("d/m/Y", strtotime($date));
 				    		}
+				    		
 			    			$oneAppraisal['solicitante'] = $vAppra['client']['name'];
-			    			//print_r($oneAppraisal);
+			    			//print_r($oneAppraisal);		    				
 		    				
-		    				
-		    				if(!$avaluo->exitsAvaluo($vAppra['appraisalNumber'])){
+		    				if (!$avaluo->exitsAvaluo($vAppra['appraisalNumber']))
+		    				{
 		    					$avaluo->insertAvaluo($oneAppraisal);
-		    					echo "\n\nEl avaluo ".$vAppra['appraisalNumber']." NO existe.\n\n";
-		    				}else{
-		    					echo "\n\nEl avaluo ".$vAppra['appraisalNumber']." ya existe.\n\n";
+		    					echo "\n\nEl avaluo ".$vAppra['appraisalNumber']." NO existe.";
+		    				}
+		    				else
+		    				{
+		    					echo "\n\nEl avaluo ".$vAppra['appraisalNumber']." ya existe.";
 		    				}
 		    				
-		    				if(!$avaluo->exitsPuc($oneAppraisal)){
+		    				if (!$avaluo->exitsPuc($oneAppraisal))
+		    				{
 		    					$avaluo->insertPuc($oneAppraisal);
-		    					echo "\n\nEl puc ".$vAppra['appraisalNumber']." NO existe.\n\n";
-		    				}else{
-		    					echo "\n\nEl puc ".$vAppra['appraisalNumber']." ya existe.\n\n";
+		    					echo "\n\nEl puc ".$vAppra['appraisalNumber']." NO existe.";
+		    				}
+		    				else
+		    				{
+		    					echo "\n\nEl puc ".$vAppra['appraisalNumber']." ya existe.";
 		    				}
 		    				
-		    				if(!$avaluo->exitsSaldo($oneAppraisal)){
-		    					echo "\n\nEl saldo ".$vAppra['appraisalNumber']." No existe.\n\n";
+		    				if (!$avaluo->exitsSaldo($oneAppraisal))
+		    				{
+		    					echo "\n\nEl saldo ".$vAppra['appraisalNumber']." No existe.\n";
 		    					$avaluo->insertSaldo($oneAppraisal);
-		    				}else{
-		    					echo "\n\nEl saldo ".$vAppra['appraisalNumber']." ya existe.\n\n";
-		    				}   	
-		    					
-		    				
-	    				}else{
-	    					echo "\n\n2.El cliente ".$vAppra['client']['name']." No existe.\n\n";
+		    				}
+		    				else
+		    				{
+		    					echo "\n\nEl saldo ".$vAppra['appraisalNumber']." ya existe.\n";
+		    				}		    							    				
+	    				}
+	    				else
+	    				{
+	    					echo "\n\nEl cliente ".$vAppra['client']['name']." No existe.\n";
 	    				}
 			    			
 	    			}
-	    		}	    	  		
-    		
-    	}
-
-    	
-    }
-    
+	    		}    		
+    	}    
+    }    
     
     /**
      * Eliminar espacios en blanco seguidos
      * @param unknown $string
      * @return unknown
      */
-    function  cleanString($string){
+    function  cleanString($string)
+    {
     	$string = trim($string);
     	$string = str_replace('&nbsp;', ' ', $string);
     	$string = preg_replace('/\s\s+/', ' ', $string);
     	return $string;
-    }
+    }    
     
-    
-    function login() {
-    	 
-    	if(is_null($this->token)){
-    
+    function login()
+    {    
+    	if (is_null($this->token))
+    	{    
     		echo "\nEntro a login\n";
     
     		$url= $this->server."login";
     		$headers = array(
-    				'Accept: application/json',
-    				'Content-Type: application/json',
+    			'Accept: application/json',
+    			'Content-Type: application/json',
     		);
     		 
-    		$a = new api($url, $headers);
-    			
+    		$a = new api($url, $headers);    			
     
     		$result = $a->post(array("user"=>$this->user,"password"=>$this->pass));
     		$result = json_decode($result, true);
     		 
-    		//print_r($result);
-    
+    		//print_r($result);    
     		//echo "\n".$result['id']."\n";
-    
-    
-    		if(isset($result['code'])){
-    			if($result['code'] == 401){
-    
+        
+    		if (isset($result['code']))
+    		{
+    			if ($result['code'] == 401)
+    			{    
     				$this->login();
     			}
-    		}else{
-    
-    			if(isset($result['id'])){
-    
+    		}
+    		else
+    		{    
+    			if (isset($result['id']))
+    			{    
     				$this->token = $result['id'];
-    			}else{
+    			}
+    			else
+    			{
     				echo "\nError en el login\n";
     				$this->token = null;
-    			}
-    
+    			}    
     		}
-    	}
-    	 
-    	 
+    	}    	     	
     }
     
-    function SetupApi($urlapi,$user,$pass){
-    
+    function SetupApi($urlapi,$user,$pass)
+    {    
     	$headers = array(
-    			'Accept: application/json',
-    			'Content-Type: application/json',
+    		'Accept: application/json',
+    		'Content-Type: application/json',
     	);
     
     	$a = new api($urlapi, $headers);
     
     	$this->login();
     	 
-    	if(!is_null($this->token)){
-    
+    	if (!is_null($this->token))
+    	{    
     		$headers = array(
-    				'Accept: application/json',
-    				'Content-Type: application/json',
-    				//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
-    				'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
+    			'Accept: application/json',
+    			'Content-Type: application/json',
+    			//'x-sifinca: SessionToken SessionID="56cf041b296351db058b456e", Username="lrodriguez@araujoysegovia.net"'
+    			'x-sifinca: SessionToken SessionID="'.$this->token.'", Username="'.$this->user.'"',
     		);
     
-    		//     	print_r($headers);
-    
+    		//     	print_r($headers);    
     		$a->set(array('url'=>$urlapi,'headers'=>$headers));
     
-    		//print_r($a);
-    
-    		return $a;
-    
-    	}else{
-    		echo "\nToken no valido\n";
+    		//print_r($a);    
+    		return $a;    
     	}
-    	 
-    
+    	else
+    	{
+    		echo "\nToken no valido\n";
+    	}    
     }
     
-    public function insertCliente($conexion, $cliente){
-    
+    public function insertCliente($avaluo, $cliente)
+    {    
     	$tipoIdentificacion = null;
     	 
     	//print_r($cliente);
@@ -281,40 +290,33 @@ class AvaluosCommand extends Command
     	 
     	$idTypeMapper = $apiMapper->get();
     	$idTypeMapper = json_decode($idTypeMapper, true);
-    
-    	 
+        	
     	///print_r($idTypeMapper);
     	$idType = $idTypeMapper['data']['0']['idSource'];
-    	 
-    	 
-    	$naturaleza = 'N';
-    	if($cliente['identity']['idType']['id'] == '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'){
-    		$naturaleza = 'J';
-    
+    	    	
+    	if ($cliente['client_type'] == 3)
+    	{
     		$param = array(
-    				'id_cliente' => $cliente['identity']['number'],
-    				'id_identificacion' => $idType,
-    				'nat_juridica' => $naturaleza,
-    				'nom_empresa' => $cliente['comercialName']
-    					
+    			'id_cliente' => $cliente['identity']['number'],
+    			'id_identificacion' => $idType,
+    			'nat_juridica' => 'J',
+    			'nom_empresa' => $cliente['comercialName']    					
     		);
     
-    		$conexion->insertClienteJuridico($param);
-    
-    	}else{
-    
+    		$avaluo->insertClienteJuridico($param);    
+    	}
+    	else if ($cliente['client_type'] == 2)
+    	{    
     		$param = array(
-    				'id_cliente' => $cliente['identity']['number'],
-    				'id_identificacion' => $idType,
-    				'nat_juridica' => $naturaleza,
-    				'nombre' => $cliente['firstname']." ".$cliente['secondname'],
-    				'apellido'=> $cliente['lastname']." ".$cliente['secondLastname']    
-    					
+    			'id_cliente' => $cliente['identity']['number'],
+    			'id_identificacion' => $idType,
+    			'nat_juridica' => 'N',
+    			'nombre' => $cliente['firstName']." ".$cliente['secondName'],
+    			'apellido'=> $cliente['lastName']." ".$cliente['secondLastname']    					
     		);
     
-    		$conexion->insertCliente($param);
+    		$avaluo->insertCliente($param);
     
     	}    
-    }
-        
+    }        
 }

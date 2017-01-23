@@ -99,21 +99,21 @@ class UpdateInmuebleDayBogotaCommand extends Command
     			echo "\n Inmueble: ".$inmueble['id_inmueble']."\n";
     			$urlapiInmueble = $this->server.'catchment/main/property/'.$propertySF2['id'];
     			 
-    			echo "\n".$urlapiInmueble."\n";
+    			//echo "\n".$urlapiInmueble."\n";
     			$apiInmueble = $this->SetupApi($urlapiInmueble, $this->user, $this->pass);
     			 
     			 
     			$edificio = $this->searchEdificio($inmueble);
     			 
     			$propertyType = $this->searchPropertyType($inmueble);
-    			echo "\nTipo de inmueble:";
-    			print_r($propertyType);
+//     			echo "\nTipo de inmueble:";
+//     			print_r($propertyType);
     			
     			$inscriptionType = $this->searchInscriptionType($inmueble);
     			 
     			$destiny = $this->searchDestiny($inmueble);
-    			echo "\nDestino:";
-    			print_r($destiny); 
+//     			echo "\nDestino:";
+//     			print_r($destiny); 
     			
     			$stratum = $this->searchStratum($inmueble);
     			 

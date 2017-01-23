@@ -13,7 +13,7 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class ComentariosInmuebleCommand extends Command
+class ComentariosRecientesInmuebleCommand extends Command
 {	
 	
 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
@@ -28,7 +28,7 @@ class ComentariosInmuebleCommand extends Command
 	
     protected function configure()
     {
-        $this->setName('comentariosinmueble')
+        $this->setName('comentariosInmuebleRecientes')
 		             ->setDescription('Comando para pasar comentarios de inmuebles - Cartagena');
 	}
 	
@@ -56,7 +56,7 @@ class ComentariosInmuebleCommand extends Command
     function buildCometarios($conexion) {
     	
     	
-    	$inmuebles = $conexion->getInmuebles();
+    	$inmuebles = $conexion->getInmueblesRecientes();
     	$totalInmuebles = count($inmuebles);
     	
     	$startTime= new \DateTime();
@@ -66,7 +66,7 @@ class ComentariosInmuebleCommand extends Command
     	$total = 0;
     	
     	if($totalInmuebles > 0){
-    		for ($i = 15000; $i < $totalInmuebles; $i++) {
+    		for ($i = 0; $i < $totalInmuebles; $i++) {
     			
 	    		$inmueble = $inmuebles[$i];
 	    		

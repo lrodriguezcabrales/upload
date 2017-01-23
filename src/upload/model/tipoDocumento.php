@@ -57,4 +57,22 @@ class tipoDocumento {
     
     }
     
+    public function getTiposDeDocumentoAllMonteria(){
+    
+    
+    	$query = "SELECT * FROM tipo_doc
+    			WHERE id_archivador = 'RRHH'
+				ORDER BY nombre";
+    
+    	$r = $this->_conn->_query($query);
+    	$result = $this->_conn->_getData($r);
+    	//print_r($clients);
+    
+    
+    	return $result;
+    
+    
+    
+    }
+    
 }

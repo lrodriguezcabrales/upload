@@ -135,11 +135,75 @@ class avaluo {
     	//print_r($clients);
     	//echo "Total clientes inmuebles SF1: ".count($client)."\n";
     	 
-    	if(count($client)>0){
+    	if (count($client) > 0) {
     		$exist=true;
     	}
+    	
     	return $exist;
 
     }
     
+    public function insertCliente($param){
+    
+    	$query ="INSERT INTO clientes (id_cliente, id_identificacion, nat_juridica, nombre, apellido, dir_co) ";
+    
+    	$query =$query." values ( ";
+    	$query =$query."'". $param['id_cliente']."',";
+    	$query =$query."'".$param['id_identificacion']."',";
+    	$query =$query."'".$param['nat_juridica']."',";
+    	$query =$query."'".$param['nombre']."',";
+    	$query =$query."'". $param['apellido']."',";
+    	$query =$query."''";    	    	 
+    	$query =$query.")";
+    	
+    	echo "\nConsulta Cliente : ".$query."\n";
+    
+    	$r = $this->_conn->_query($query);
+    
+    	return 0;    
+    }
+    
+    public function insertClienteJuridico($param){
+    
+    	$query ="INSERT INTO clientes (id_cliente, id_identificacion, nat_juridica, nombre, nom_empresa) ";
+    
+    	$query =$query." values ( ";
+    	$query =$query."'". $param['id_cliente']."',";
+    	$query =$query."'".$param['id_identificacion']."',";
+    	$query =$query."'".$param['nat_juridica']."',";
+    	$query =$query."'".$param['nom_empresa']."',";
+    	$query =$query."'". $param['nom_empresa']."'";    
+    	$query =$query.")";
+    	
+    	echo "\nConsulta Cliente : ".$query."\n";
+    	
+    	$r = $this->_conn->_query($query);
+    
+    	return 0;    
+    }
+
+    public function updateClientes($param){
+    	
+    	$query = "UPDATE clientes SET ";
+    	
+    	$query = $query." nombre = '".$param['nombre']."',";
+    	$query = $query." apellido = '".$param['apellido']."'";    	
+    	$query = $query." WHERE id_cliente = '".$param['id_cliente']."'";
+    	
+    	$r = $this->_conn->_query($query);
+    	
+    	return 0;
+    }
+    
+    public function updateClientesJuridico($param){
+    	 
+    	$query = "UPDATE clientes SET ";
+    	    	
+    	$query = $query." nom_empresa = '".$param['nom_empresa']."'";    	 
+    	$query = $query." WHERE id_cliente = '".$param['id_cliente']."'";
+    	
+    	$r = $this->_conn->_query($query);
+    	 
+    	return 0;
+    }
 }

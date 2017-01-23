@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Monteria;
 
 use upload\model\comentariosInmuebleCartagena;
 use upload\lib\data;
@@ -16,131 +16,137 @@ use Monolog\Handler\StreamHandler;
 class ComentariosInmuebleMonteriaCommand extends Command
 {	
 	
-	public $server = 'http://104.130.11.91/sifinca/web/app_dev.php/';
-	public $serverRoot = 'http://104.130.11.91/';
+	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';
+	public $serverRoot = 'http://www.sifinca.net';
 	
 	public $localServer = 'http://10.102.1.22/';
-	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
-
-// 	public $server = 'http://104.130.12.152/sifinca/web/app_dev.php/';
-// 	public $serverRoot = 'http:/104.130.12.152/';
-	
+		
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
+	public $token = null;
 		
 	
     protected function configure()
     {
         $this->setName('comentariosInmuebleMonteria')
-		             ->setDescription('Comando para pasar comentarios de inmuebles');
+		             ->setDescription('Comando para pasar comentarios de inmuebles - Cartagena');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
 							   \Symfony\Component\Console\Output\OutputInterface $output)
 	{
 
-        $output->writeln("Datos de contrato SF1 \n");
+        $output->writeln("Comentarios inmuebles ---- SF1 \n");
 
         $conn = new data(array(
-            'server' =>'10.102.1.3'
-            ,'user' =>'hherrera'
-            ,'pass' =>'daniela201'
-            ,'database' =>'sifinca' 
-            ,'engine'=>'mssql'
+        		'server' =>'192.168.100.1'
+        		,'user' =>'sa'
+        		,'pass' =>'75080508360'
+        		,'database' =>'sifinca'
+        		,'engine'=>'mssql'
         ));
 
         $conexion = new comentariosInmuebleCartagena($conn);      
         
-		$comentarios = $conexion->getComentarios();
 		
-		$this->buildCometarios($conexion, $comentarios);
+		$this->buildCometarios($conexion);
 		
     }
     
-    function buildCometarios($conexion, $comentarios) {
+    function buildCometarios($conexion) {
     	
     	
-    	$total = 0;
+    	$inmuebles = $conexion->getInmuebles();
+    	$totalInmuebles = count($inmuebles);
     	
-    	$totalComentarios = count($comentarios);
-    	
-    	//$totalComentarios = 135000;
     	$startTime= new \DateTime();
     	
     	$porDonde = 0;
-    	for ($i = 166050; $i < $totalComentarios; $i++) {
-    		$comentario = $comentarios[$i];
+    	
+    	$total = 0;
+    	
+    	if($totalInmuebles > 0){
+    		for ($i = 20000; $i < $totalInmuebles; $i++) {
+    			
+	    		$inmueble = $inmuebles[$i];
+	    		
+	    		echo "\nInmueble: ".$inmueble['id_inmueble']."\n";
+	    		
+	    		$comentarios = $conexion->getComentariosPorInmueble($inmueble['id_inmueble']);
+	    		$total = 0;
+	    		$totalComentarios = count($comentarios);
+	    		    		 
+	    		
+	    		
+	    		if($totalComentarios > 0){
+	    		
+		    		for ($j = 0; $j < $totalComentarios; $j++) {
+		    			
+		    			
+		    			$comentario = $comentarios[$j];
+		    			$property = $this->searchProperty($comentario['clave']);
+		    			$usuario = $this->searchUsuario($comentario['email']);
+		    		
+		    			if(!is_null($property)){
+		    				 
+		    				
+		    				$existComment = $this->searchComentario($comentario, $property);
+		    				
+		    				if(!$existComment){
+		    					$bComentario = array(
+		    							'comment' => $this->cleanString($comentario['comentario']),
+		    							'idEntity' => $property['id'],
+		    							'user' => array('id'=>$usuario['id']),
+		    							'date' => $comentario['fecha'],
+		    							'nkey' => $comentario['NKEY'],
+		    							'sifincaOne' => true
+		    					);
+		    					 
+		    					 
+		    					$urlComentario = $this->server.'catchment/main/property/comment/'.$property['id'];
+		    					
+		    					 
+		    					$apiComentario = $this->SetupApi($urlComentario, $this->user, $this->pass);
+		    					 
+		    					$result = $apiComentario->post($bComentario);
+		    					 
+		    					$result = json_decode($result, true);
+		    					
+		    					$json = json_encode($bComentario);
+		    					
+		    					if($result[0]['success'] == true){
+		    						echo "\nOk\n";
+		    						$total++;
+		    					}else{
+		    						echo "\nError cometario\n";
+		    						//echo "\n\n".$json."\n\n";
+		    					
+		    						$urlapiMapper = $this->server.'admin/sifinca/errorcomment';
+		    						$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+		    					
+		    						$error = array(
+		    								'comment' => $comentario['NKEY'],
+		    								'objectJson' => $json
+		    						);
+		    					
+		    						$resultError = $apiMapper->post($error);
+		    					
+		    					}
+		    				}else{
+		    					echo "\nEl comentario ".$comentario['NKEY']." ya existe\n";
+		    				}
+		    				
 
-    		//print_r($comentario);
-    		
-    		$inmueble = $this->searchProperty($comentario['clave']);
-    		$usuario = $this->searchUsuario($comentario['email']);
-    		
-//     		echo "\ninmueble\n";
-     		
-    		
-    		if(!is_null($inmueble)){
-    			
-    			$bComentario = array(
-    					'comment' => $this->cleanString($comentario['comentario']),
-    					'idEntity' => $inmueble['id'],
-    					'user' => array('id'=>$usuario['id']),
-    					'date' => $comentario['fecha'],
-    					'nkey' => $comentario['NKEY'],
-    					'sifincaOne' => true
-    			);
-    			
-//     			$json = json_encode($bComentario);
-    			 
-    			//echo "\n".$json."\n";
-    			
-    			$urlComentario = $this->server.'catchment/main/property/comment/'.$inmueble['id'];
-    			 
-//     			echo "\n".$urlComentario."\n";
-    			
-    			$apiComentario = $this->SetupApi($urlComentario, $this->user, $this->pass);
-    			
-    			$result = $apiComentario->post($bComentario);
-    			
-    			$result = json_decode($result, true);
-    			
-    			
-
-    			$json = json_encode($bComentario);
-    			 
-// 	    		echo "\njson\n";
-// 	    		echo $json;
-    			
-    			
-//     			$porDonde++;
-//     			echo "\nPor donde: \n".$porDonde;
-    			if($result[0]['success'] == true){
-    				echo "\nOk\n";
-    				$total++;
-    			}else{
-    				echo "\nError cometario\n";
-    				//echo "\n\n".$json."\n\n";
-    				
-    				$urlapiMapper = $this->server.'admin/sifinca/errorcomment';
-    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    				
-    				$error = array(
-    						'comment' => $comentario['NKEY'], 
-    						'objectJson' => $json
-    				);
-    				 
-    				$resultError = $apiMapper->post($error);
-    				
-    				//print_r($resultError);
-    			}
-    			
-    			$porDonde++;
-    			echo "\n Por donde vamos: ".$porDonde."\n";
-    			
-    		}
-    		
+		    			}
+		    		
+		    		}
+	    		}
+	    		
+	    		$porDonde++;
+	    		echo "\nPor donde vamos: ".$porDonde."\n";
+	    		
+	    	}
+    	
     	}
     	
     	$finalTime = new \DateTime();
@@ -155,7 +161,7 @@ class ComentariosInmuebleMonteriaCommand extends Command
    
     	echo "\n Total de comentarios pasados: ".$total."\n";
     	
-    	echo "\n Indice final: ".$totalComentarios."\n";
+    	
     }
     
     
@@ -191,10 +197,38 @@ class ComentariosInmuebleMonteriaCommand extends Command
     
     }
     
+    function searchComentario($comentario, $property) {
+    	
+    	$nkey = $this->cleanString($comentario['NKEY']);
+    	
+    	$find = false;
+    	    	
+    	$url = $this->server.'catchment/main/property/comment/for/nkey/'.$nkey."/".$property['id'];
+    	
+        //echo "\n".$url."\n";
+
+    	$api = $this->SetupApi($url, $this->user, $this->pass);
+    	
+    	$comment = $api->get();
+    	$comment = json_decode($comment, true);
+    	
+    	if(isset($comment['total'])){
+    		if($comment['total'] >= 1){
+    			$find = true;
+    		}
+    	}
+    	
+    	return $find;
+    }
+    
+    /**	
+     * Buscar usuario sifinca2
+     */
     function searchUsuario($email) {
 
     	$email = $this->cleanString($email);
-
+		$email = strtolower($email);
+    	
     	if($email == 'hherrera@araujoysegovia.com'){
     		
     		return $user = array('id' => 203);
@@ -221,7 +255,7 @@ class ComentariosInmuebleMonteriaCommand extends Command
     		
     		return $user['data'][0];
     		 
-    	}else{
+    	}else{  		 		
     		return $user = array('id' => 203);
     	}
     

@@ -66,7 +66,7 @@ class OportunityCommand extends Command
     	
     	$this->getOportunitySF2($conexion);
     
-    	$this->clientesCaptacion($conexion);
+    	//$this->clientesCaptacion($conexion);
     	
     }
     
@@ -75,6 +75,12 @@ class OportunityCommand extends Command
     	
     	$relaciones = array("responsable", "client", "quote", "state", "oportunityType", "office", "lead", "creator", "closeReason", "unit", "property");
     	$relaciones = json_encode($relaciones);
+    	
+    	$today = new \DateTime();    	 
+    	$hoy = $today->format('d-m-Y');
+     	//$hoy = '21-12-2016';
+    	
+//     	echo "\n\n Fecha : ".$hoy."\n";
     	
     	//[{"value":"C","operator":" equal","property":"state.value"}]
     	$filter = array();
@@ -91,6 +97,13 @@ class OportunityCommand extends Command
     			'field' => 'oportunityType.value',
     			'property' => 'oportunityType.value'
     	);
+    	
+    	$filter[] = array(
+    			'value' => $hoy,
+    			'operator' => '>=',
+    			'property' => 'closeDate'
+    	);
+    	
     	
     	$filter = json_encode($filter);
     	
@@ -110,18 +123,31 @@ class OportunityCommand extends Command
     			'field' => 'oportunityType.value',
     			'property' => 'oportunityType.value'
     	);
-    	 
+    	
+    	$filterTwo[] = array(
+    			'value' => $hoy,
+    			'operator' => '>=',
+    			'property' => 'closeDate'
+    	);
+    	
     	$filterTwo = json_encode($filterTwo);
     	   	   	 
     	
-    	$urlOpArriendos = $this->server.'crm/main/oportunity?filter='.$filter.'&take=50&skip=0&page=1&pageSize=50&orderType=desc&sort=oportunityNumber';
-    	$urlOpVentas = $this->server.'crm/main/oportunity?filter='.$filterTwo.'&take=50&skip=0&page=1&pageSize=50&orderType=desc&sort=oportunityNumber';
+    	//$urlOpArriendos = $this->server.'crm/main/oportunity?filter='.$filter.'&take=100&skip=0&page=1&pageSize=100&orderType=desc&sort=oportunityNumber';
+    	 
     	
+    	$urlOpArriendos = $this->server.'crm/main/oportunity?filter='.$filter.'&take=100&skip=0&page=1&pageSize=100&orderType=desc&sort=oportunityNumber';
+    	$urlOpVentas = $this->server.'crm/main/oportunity?filter='.$filterTwo.'&take=100&skip=0&page=1&pageSize=100&orderType=desc&sort=oportunityNumber';
+    	
+    	
+    	//$urlOpArriendos = 'http://www.sifinca.net/sifinca/web/app.php/crm/main/zero/oportunity?relations=[%22responsable%22,%20%22client%22,%20%22quote%22,%20%22state%22,%20%22oportunityType%22,%20%22office%22,%20%22lead%22,%20%22creator%22,%20%22closeReason%22,%20%22unit%22,%20%22property%22]&take=10&skip=0&page=1&pageSize=10&filter=%5B%7B%22value%22%3A%22105948%22%2C%22operator%22%3A%22+equal%22%2C%22text%22%3A%22N%C3%BAmero%22%2C%22property%22%3A%22oportunityNumber%22%7D%5D&orderType=desc&sort=oportunityNumber';
+    	//$urlOpVentas = 'http://www.sifinca.net/sifinca/web/app.php/crm/main/oportunity?relations=[%22responsable%22,%20%22client%22,%20%22quote%22,%20%22state%22,%20%22oportunityType%22,%20%22office%22,%20%22lead%22,%20%22creator%22,%20%22closeReason%22,%20%22unit%22,%20%22property%22]&take=10&skip=0&page=1&pageSize=10&filter=%5B%7B%22operator%22%3A%22equal%22%2C%22value%22%3A%22105983%22%2C%22property%22%3A%22oportunityNumber%22%7D%2C%7B%22value%22%3A%22Cerrada%22%2C%22operator%22%3A%22+%3D%22%2C%22field%22%3A%22state.content%22%2C%22text%22%3A%22Estado%22%2C%22property%22%3A%22state.content%22%7D%5D&orderType=desc&sort=oportunityNumber';
+    	 
     	echo "\n".$urlOpArriendos."\n";
     	echo "\n".$urlOpVentas."\n";
     	
-//     	$urlOpArriendos = $this->server.'crm/main/zero/oportunity?relations='.$relaciones.'&filter='.$filter; 	
-//     	$urlOpVentas = $this->server.'crm/main/zero/oportunity?relations='.$relaciones.'&filter='.$filterTwo;
+     	//$urlOpArriendos = $this->server.'crm/main/zero/oportunity?relations=[%22responsable%22,%20%22client%22,%20%22quote%22,%20%22state%22,%20%22oportunityType%22,%20%22office%22,%20%22lead%22,%20%22creator%22,%20%22closeReason%22,%20%22unit%22,%20%22property%22]&take=50&skip=0&page=1&pageSize=50&filter=%5B%7B%22value%22%3A%22Cerrada%22%2C%22operator%22%3A%22+%3D%22%2C%22text%22%3A%22Estado%22%2C%22property%22%3A%22state.content%22%7D%2C%7B%22operator%22%3A%22equal%22%2C%22value%22%3A%22102407%22%2C%22property%22%3A%22oportunityNumber%22%7D%5D&orderType=desc&sort=oportunityNumber'; 	
+		//$urlOpVentas = $this->server.'crm/main/zero/oportunity?relations='.$relaciones.'&filter='.$filterTwo;
     	
     	$apiOp = $this->SetupApi($urlOpArriendos, $this->user, $this->pass);
     	$oportunityArriendos = $apiOp->get();
@@ -150,10 +176,10 @@ class OportunityCommand extends Command
     		
     		for ($i = 0; $i < count($oportunity); $i++) {
     			
+    			//$op = $oportunityArriendos['data'][$i];
     			$op = $oportunity[$i];
-    			//echo "\naqui 2\n";
     			
-    			echo "\n".$op['oportunityNumber']."\n";
+    			//echo "\n".$op['oportunityNumber']."\n";
     			
     			$oportunidadSF1 = $this->searchOportunidadSF1($conexion, $op['oportunityNumber']);
     			
@@ -202,21 +228,24 @@ class OportunityCommand extends Command
     					echo "\n".$op['client']['identity']['number']."\n";
     					$clienteSF1 = $this->searchUsuarioSF1($conexion, $op['client']['identity']['number']);
     					
-    					$this->insertCliente($conexion, $op['client']);
+    					
+    					//$this->insertCliente($conexion, $op['client']);
     					//print_r($clienteSF1);
     					if(is_null($clienteSF1)){
-    						echo "\n Creando cliente en Sifinca 1\n";
-    							
-    						//$this->insertCliente($conexion, $op['client']);
+    						    							
+    						$this->insertCliente($conexion, $op['client']);
     							
     					}
-    				
+    					
+    					
     					$this->insertOpotunidad($conexion, $param);
     				
     				}
     				
     			}else{
     				echo "\n La oportunidad ya esta creada ".$op['oportunityNumber']."\n";
+    				
+    				//$this->insertCliente($conexion, $op['client']);
     			}
     			    			
     		}
@@ -340,52 +369,61 @@ class OportunityCommand extends Command
     public function insertCliente($conexion, $cliente){
     
     	$tipoIdentificacion = null;
-    	
-    	//print_r($cliente);
-    	$urlapiMapper = $this->server.'admin/sifinca/mapper/target/idType/'.$cliente['identity']['idType']['id'];
-    	
-    	//echo "\n".$urlapiMapper."\n";
-    	$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    	
-    	$idTypeMapper = $apiMapper->get();
-    	$idTypeMapper = json_decode($idTypeMapper, true);
     	 
-    	
-    	///print_r($idTypeMapper);
-    	$idType = $idTypeMapper['data']['0']['idSource'];
-    	
-    	
-    	$naturaleza = 'N';
-    	if($cliente['identity']['idType']['id'] == '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'){
-    		$naturaleza = 'J';
-    		
-    		$param = array(
-    				'id_cliente' => $cliente['identity']['number'],
-    				'id_identificacion' => $idType,
-    				'nat_juridica' => $naturaleza,
-    				'nom_empresa' => $cliente['comercialName']
-    				 
-    		);
-    		
-    		$conexion->insertClienteJuridico($param);
-    		
-    	}else{
-    		
-    		$param = array(
-    				'id_cliente' => $cliente['identity']['number'],
-    				'id_identificacion' => $idType,
-    				'nat_juridica' => $naturaleza,
-    				'nombre' => $cliente['firstname']." ".$cliente['secondname'],
-    				'apellido'=> $cliente['lastname']." ".$cliente['secondLastname']
-    				
-    				 
-    		);
-    		
-    		$conexion->insertCliente($param);
-    		
+    	//print_r($cliente);
+    	 
+    	if($cliente){
+    
+    		echo "\n Creando cliente en Sifinca 1\n";
+    
+    		$urlapiMapper = $this->server.'admin/sifinca/mapper/target/idType/'.$cliente['identity']['idType']['id'];
+    		 
+    		//echo "\n".$urlapiMapper."\n";
+    		 
+    		$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    		 
+    		$idTypeMapper = $apiMapper->get();
+    		$idTypeMapper = json_decode($idTypeMapper, true);
+    
+    		 
+    		///print_r($idTypeMapper);
+    		$idType = $idTypeMapper['data']['0']['idSource'];
+    		 
+    		 
+    		$naturaleza = 'N';
+    		if($cliente['identity']['idType']['id'] == '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'){
+    			$naturaleza = 'J';
+    
+    			$param = array(
+    					'id_cliente' => $cliente['identity']['number'],
+    					'id_identificacion' => $idType,
+    					'nat_juridica' => $naturaleza,
+    					'nom_empresa' => $cliente['comercialName']
+    
+    			);
+    
+    			$conexion->insertClienteJuridico($param);
+    
+    		}else{
+    
+    			$param = array(
+    					'id_cliente' => $cliente['identity']['number'],
+    					'id_identificacion' => $idType,
+    					'nat_juridica' => $naturaleza,
+    					'nombre' => $cliente['firstname']." ".$cliente['secondname'],
+    					'apellido'=> $cliente['lastname']." ".$cliente['secondLastname']
+    
+    
+    			);
+    
+    			$conexion->insertCliente($param);
+    
+    		}
     	}
-    	
-    	
+    	 
+    
+    	 
+    	 
     
     }
     

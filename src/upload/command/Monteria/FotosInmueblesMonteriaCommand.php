@@ -16,7 +16,7 @@ use Monolog\Handler\StreamHandler;
 class FotosInmueblesMonteriaCommand extends Command
 {	
 	
- 	public $server = 'http://www.sifinca.net/bogotaServer/web/app.php/';
+ 	public $server = 'http://www.sifinca.net/monteriaServer/web/app.php/';
  	public $serverRoot = 'http://www.sifinca.net/';
 	
 	public $localServer = 'http://10.102.1.22/';
@@ -69,10 +69,8 @@ class FotosInmueblesMonteriaCommand extends Command
     		
     		echo "\nTotal inmuebles: ".$totalInmueblesSF2."\n";
     		
-    		for ($j = 200; $j < 500; $j++) {
-    		//foreach ($inmueblesSF2 as $inmueble) {
-    			
-    				//$inmueble = $inmueblesSF2['data'][$i];
+    		for ($j = 0; $j < $totalInmueblesSF2; $j++) {
+
     				$inmueble = $inmueblesSF2[$j];
     			
     				$property = $this->searchProperty($inmueble['id_inmueble']);
@@ -92,7 +90,7 @@ class FotosInmueblesMonteriaCommand extends Command
     					$urlInmueblesSF2 = $this->server.'catchment/main/property/'.$property['id'];
     						
     					//$urlFotoSF1 = 'http://10.102.1.3:81/publiweb/foto.php?key=C';
-    					$urlFotoSF1 = 'http://10.102.1.6/ws-img/foto.php?key=M';
+    					$urlFotoSF1 = 'http://190.242.98.98:81/publiweb/foto.php?key=M';
     					
     					$urlapiFile = $this->server."archive/main/file";
     						
@@ -106,106 +104,108 @@ class FotosInmueblesMonteriaCommand extends Command
     								
     							$foto = $fotos[$i];
     								
-    							$photoSF2 = $this->searchFoto($foto);
+    							$existPhoto = $this->searchFoto($foto);
+    							
+    							if(!$existPhoto){
     								
-    							//if(is_null($photoSF2)){
-    								
-    								
-    							$path = "/var/www/html/upload3/fotosinmuebleMonteria/".$foto['id']."/";
-    								
-    								
-    							if (!file_exists($path)) {
-    								//Crearlo
-    								mkdir($path);
-    							}
-    								
-    							///print_r($foto);
-    							$nkey = $foto['nkey'];
-    							$url = $urlFotoSF1.$nkey.'.jpg';
-    								
-    							//echo "url";
-    							echo "\n".$url."\n";
+    								$path = "/var/www/html/upload3/fotosinmuebleMonteria/".$foto['id']."/";
     								
     								
-    							$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
+    								if (!file_exists($path)) {
+    									//Crearlo
+    									mkdir($path);
+    								}
     								
-    							//echo "path";
-    							echo "\n".$pathFilename."\n\n";
+    								///print_r($foto);
+    								$nkey = $foto['nkey'];
+    								$url = $urlFotoSF1.$nkey.'.jpg';
     								
-    							//echo file_get_contents($url);
-    							//ini_set('max_execution_time', 5000);
-    					
-    							$profile_Image = $url; //image url
-    							//$userImage = 'myimg.jpg'; // renaming image
-    							$path = $pathFilename;  // your saving path
-    							$ch = curl_init($profile_Image);
-    							$fp = fopen($pathFilename, 'wb');
-    							curl_setopt($ch, CURLOPT_FILE, $fp);
-    							curl_setopt($ch, CURLOPT_HEADER, 0);
-    							$result = curl_exec($ch);
-    							curl_close($ch);
-    							fclose($fp);
-    					
-    					
-    							//file_put_contents($pathFilename, file_get_contents($url));
-    							imagecreatefromjpeg($url);
-    					
-    							$marcadeagua = "/var/www/html/upload/logoAyS6.png";
+    								//echo "url";
+    								echo "\n".$url."\n";
     								
-    							$margen = 20;
     								
-    							$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
+    								$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
     								
-    							//print_r($foto);
+    								//echo "path";
+    								echo "\n".$pathFilename."\n\n";
     								
-    							$entityId = $property['id'];
-    							$photoName = $foto['nkey'].".".$foto['ext'];
-    							$photoShow = $foto['publicar'];
-    							$showOrder = $foto['orden'];
-    							$description = $foto['descripcion'];
-    							$nkeysifincaone = $foto['nkey'].".".$foto['ext'];
+    								//echo file_get_contents($url);
+    								//ini_set('max_execution_time', 5000);
+    									
+    								$profile_Image = $url; //image url
+    								//$userImage = 'myimg.jpg'; // renaming image
+    								$path = $pathFilename;  // your saving path
+    								$ch = curl_init($profile_Image);
+    								$fp = fopen($pathFilename, 'wb');
+    								curl_setopt($ch, CURLOPT_FILE, $fp);
+    								curl_setopt($ch, CURLOPT_HEADER, 0);
+    								$result = curl_exec($ch);
+    								curl_close($ch);
+    								fclose($fp);
+    									
+    									
+    								//file_put_contents($pathFilename, file_get_contents($url));
+    								imagecreatefromjpeg($url);
+    									
+    								$marcadeagua = "/var/www/html/upload/logoAyS6.png";
     								
-    							//Subir foto a SF2
-    							$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description'  --form nkeysifincaone='$nkeysifincaone' -H '$h'   $urlapiFile";
+    								$margen = 20;
     								
-    							//echo "\n".$cmd."\n";
+    								$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
     								
-    							$result= shell_exec($cmd);
-    							$result = json_decode($result, true);
+    								//print_r($foto);
     								
-    							if(isset($result['0']['success'])){
-    								if($result['0']['success'] == true){
-    									echo "\nOk";
-    									$total++;
-    									$globalFotos++;
+    								$entityId = $property['id'];
+    								$photoName = $foto['nkey'].".".$foto['ext'];
+    								$photoShow = $foto['publicar'];
+    								$showOrder = $foto['orden'];
+    								$description = $foto['descripcion'];
+    								$nkeysifincaone = $foto['nkey'].".".$foto['ext'];
+    								
+    								//Subir foto a SF2
+    								$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description'  --form nkeysifincaone='$nkeysifincaone' -H '$h'   $urlapiFile";
+    								
+    								//echo "\n".$cmd."\n";
+    								
+    								$result= shell_exec($cmd);
+    								$result = json_decode($result, true);
+    								
+    								if(isset($result['0']['success'])){
+    									if($result['0']['success'] == true){
+    										echo "\nOk";
+    										$total++;
+    										$globalFotos++;
+    								
+    									}
+    								}else{
+    										
+    										
+    										
+    									if($result['message']){
+    								
+    										echo "\nYa existe\n";
+    								
+    									}else{
+    								
+    										echo "\nError -----\n";
+    								
+    										//print_r($result);
+    											
+//     										$urlapiMapper = $this->server.'catchment/main/errorphoto';
+//     										$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    								
+//     										$error = array(
+//     												'photo' => $foto['nkey'],
+//     												'objectJson' => $property['consecutive']
+//     										);
+    								
+//     										$apiMapper->post($error);
+    									}
+    										
     										
     								}
     							}else{
-    									
-    									
-    									
-    								if($result['message']){
-    										
-    									echo "\nYa existe\n";
-    										
-    								}else{
-    										
-    									echo "\nError -----\n";
-    										
-    									print_r($result);
-    									
-    									$urlapiMapper = $this->server.'catchment/main/errorphoto';
-    									$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    										
-    									$error = array(
-    											'photo' => $foto['nkey'],
-    											'objectJson' => $property['consecutive']
-    									);
-    										
-    									$apiMapper->post($error);
-    								}
-    									
-    									
+    								echo "\nLa foto ".$foto['nkey']." ya existe\n";
     							}
     								
     						}
@@ -216,13 +216,14 @@ class FotosInmueblesMonteriaCommand extends Command
     				
 
     				
-    			//echo "\nTotal fotos del inmueble ".$property['consecutive']." - ".$total."\n";
+    		echo "\nTotal fotos del inmueble ".$property['consecutive']." - ".$total."\n";
     				
-    			    			if(isset($path)){
-    			    				echo "\nBorrar carpeta: ".$path."\n";
-    			    				//rmdir($path);
-    			    				$this->rmdir_recursive($path);
-    			    			}
+//     		if(isset($path)){
+//     			echo "\nBorrar carpeta: ".$path."\n";
+//     			//rmdir($path);
+//     			$this->rmdir_recursive($path);
+//     			scandir(__DIR__ . '/snaps');
+//     		}
     				
     		$porDonde++;
     		echo "\nVamos por: ".$porDonde."\n";
@@ -274,8 +275,30 @@ class FotosInmueblesMonteriaCommand extends Command
     
     }
     
+    function searchPhoto($nkey) {
+    
+    	$nkey = $this->cleanString($nkey);
+    
+    	
+    	$urlPhoto = $this->server.'catchment/main/photos/nkey/'.$nkey;
+    
+    	$apiPhoto = $this->SetupApi($urlPhoto, $this->user, $this->pass);
+    
+    	$photo = $apiPhoto->get();
+    	$photo = json_decode($photo, true);
+    
+    	if($photo['total'] > 0){
+    		 
+    		return $photo['data'][0];
+    		 
+    	}else{
+    		return null;
+    	}
+    
+    }
+    
     function rmdir_recursive($dir) {
-    	foreach(scandir($dir) as $file) {
+    	foreach(scandir(__DIR__ . $dir) as $file) {
     		if ('.' === $file || '..' === $file) continue;
     		if (is_dir("$dir/$file")) rmdir_recursive("$dir/$file");
     		else unlink("$dir/$file");
@@ -294,7 +317,7 @@ class FotosInmueblesMonteriaCommand extends Command
     	$x = imagesx($im);
     	$y = imagesy($im);
     	    	    	
-    	//Establecer los m‡rgenes para la estampa y obtener el alto/ancho de la imagen de la estampa
+    	//Establecer los mï¿½rgenes para la estampa y obtener el alto/ancho de la imagen de la estampa
 
     	$sx = imagesx($estampa);
     	$sy = imagesy($estampa);
@@ -309,8 +332,8 @@ class FotosInmueblesMonteriaCommand extends Command
     	$margen_dcho = $m1;
     	$margen_inf = $m2;
     	
-    	// Copiar la imagen de la estampa sobre nuestra foto usando los ’ndices de m‡rgen y el
-    	// ancho de la foto para calcular la posici—n de la estampa.
+    	// Copiar la imagen de la estampa sobre nuestra foto usando los ï¿½ndices de mï¿½rgen y el
+    	// ancho de la foto para calcular la posiciï¿½n de la estampa.
     	imagecopy($im, $estampa, imagesx($im) - $sx - $margen_dcho, imagesy($im) - $sy - $margen_inf, 0, 0, imagesx($estampa), imagesy($estampa));
     	    	
     	// Guardar y liberar memoria
@@ -320,37 +343,36 @@ class FotosInmueblesMonteriaCommand extends Command
     }
 
     function searchFoto($foto) {
-    	
+    	 
     	$nkey = $this->cleanString($foto['nkey']);
-    	    	    	
+    	 
     	$filter = array(
     			'value' => $foto['nkey'].".".$foto['ext'],
     			'operator' => 'equal',
     			'property' => 'nKeySifincaOne'
     	);
     	$filter = json_encode(array($filter));
-    	 
+    
     	$urlPhoto = $this->server.'catchment/main/photos?filter='.$filter;
-    	 
+    
     	//ECHO "\n".$urlPhoto."\n";
     	$apiPhoto = $this->SetupApi($urlPhoto, $this->user, $this->pass);
-    	 
+    
     	$photo = $apiPhoto->get();
     	$photo = json_decode($photo, true);
+    
     	 
-    	
-    	if($photo['total'] > 0){
+    	if(count($photo['data']) > 0){
     		 
     		//ECHO "ENTRO 1";
-    		$c = array('id' => $photo['data'][0]['id']);
-    		return $c;
+    		return true;
     		 
     	}else{
-    		
+    
     		//ECHO "ENTRO 2";
-    		return null;
+    		return false;
     	}
-    	
+    	 
     }
     
     /**

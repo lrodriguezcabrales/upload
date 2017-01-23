@@ -19,7 +19,6 @@ class clientsCartagena {
 //     	WHERE id_cliente IS NOT NULL";
     	
     	$query = "SELECT fecha_ingreso AS ingreso, * FROM clientes
-				  WHERE fecha_ingreso BETWEEN '2016-01-01 00:00:00' AND '2016-08-02 00:00:00'
 				  ORDER BY fecha_ingreso ASC";
     	
         $r = $this->_conn->_query($query);
@@ -31,6 +30,26 @@ class clientsCartagena {
         return $clients;
 
     } 
+    
+    public function getClientesUpdate(){
+        	 
+    	$query = "SELECT fecha_ingreso AS ingreso, * FROM clientes
+				  ORDER BY log_modi DESC";
+    	 
+
+//     	$query = "SELECT fecha_ingreso AS ingreso, * FROM clientes
+//     			  WHERE id_cliente = '1047394935'
+// 				  ORDER BY log_modi DESC";
+    	
+    	$r = $this->_conn->_query($query);
+    
+    	$clients = $this->_conn->_getData($r);
+    	//print_r($clients);
+    
+    	return $clients;
+    
+    }
+    
 
     public function getIdentificacion(){
     

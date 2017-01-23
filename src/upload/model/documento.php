@@ -18,40 +18,26 @@ class documento {
         if(array_key_exists('id',$param)){
             
             ## obtener el radicado
-            echo "\n doc 1 \n";
+            echo "\ndoc 1 \n";
             $query="select * from documentos where archivador='".$this->_archivador."' and id ='".$param['id']."'";
 
-           
             
         }else{
             
             ## obtener todos los documentos
-        	echo "\n doc 2 \n";
-            //$query="select * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
+        	echo "\ndoc 2 \n";
+            $query="select top 34000 * from documentos where archivador='".$this->_archivador."'  order by nkey asc";
 
-        	//$query="select * from documentos where archivador='RRHH' and folio = 'RH1' order by radicacion asc";
-        	$query="select * from documentos where archivador='RRHH' and folio = 'RH1' and radicacion = 71";
         	
         }
         
-       // echo "\n".$query."\n";
+        //echo "\n".$query."\n";
  
-      
         
         $r = $this->_conn->_query($query);
                         
         $result=$this->_conn->_getData($r);
         
-
-//        foreach ($result as $key => $value) {
-            
-//         }
-        
-//         $metadata = $this->getMetadata($result['']);
-        
-        
-        
-        //print_r($result);
         
        return $result; 
         
@@ -59,46 +45,58 @@ class documento {
         
     }
     
+    
+    public function getOneDocument(){
+
+    	$query="select * from documentos where archivador='".$this->_archivador."' and radicacion = '12731'";
+    
+    	echo "\n".$query."\n";
+    	
+    	$r = $this->_conn->_query($query);
+    
+    	$result=$this->_conn->_getData($r);
+    
+    
+    
+    	return $result;
+    
+    
+    
+    }
+    
     public function getFile($id,$target) {
        
         ### buscar por nkey
-        
-         
-        
-        
+         $find = false;    
+    		
+    	
          $query="select  image, ext from doc_image where nkey =".$id;
             
+         //$query = "select  image, ext from doc_image where nkey =12775";
+         
+         echo "\n".$query."\n";
+         
          $r = $this->_conn->_query($query);
           
-         
-         $data = mssql_result($r, 0, 'image');
-               
-         $ext = mssql_result($r, 0, 'ext');
-          
-         file_put_contents($target, $data);
-        
-         
-         
-         
-         $result = $ext;
-         
-         /*foreach($data[0] as $k => $v){
-        
-             if($k!='image')   {
-                 $result[$k]=$v;
+         if (!mssql_num_rows($r)) {
+         	
+         	echo "\nNo se encontraron registros\n";
+         	
+         }else{
+         	
+         	$data = mssql_result($r, 0, 'image');
+         	 
+         	$ext = mssql_result($r, 0, 'ext');
+         	
+         	file_put_contents($target, $data);
+         	
+         	$result = $ext;
+         	 
+         	$find = true;
+         	//return $result;
          }
          
-         }
-          */
-         
-         
-         
-     ## devuelve array
-        return $result;
-        
-        
-        
-        ## retornar string 
+         return $find;
         
     }
     
@@ -122,6 +120,10 @@ class documento {
       $command= "tiff2pdf  -o $pdf $tif > /dev/null 2>&1 &";
       $salida = shell_exec($command);
     
+      echo $command;
+      
+      echo $salida;
+      
       return $salida;
       
   }

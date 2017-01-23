@@ -1,7 +1,7 @@
 <?php
-namespace upload\command;
+namespace upload\command\Cartagena;
 
-use upload\model\comentariosInmuebleCartagena;
+use upload\model\comentariosContratosArriendos;
 use upload\lib\data;
 use upload\lib\api;
 use Knp\Command\Command;
@@ -10,8 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use GearmanClient;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 
 class ComentariosContratoArriendoCommand extends Command
 {	
@@ -46,7 +44,7 @@ class ComentariosContratoArriendoCommand extends Command
             ,'engine'=>'mssql'
         ));
 
-        $conexion = new comentariosInmuebleCartagena($conn);      
+        $conexion = new comentariosContratosArriendos($conn);      
         
 		
 		
@@ -59,118 +57,103 @@ class ComentariosContratoArriendoCommand extends Command
     function crearComentarios($conexion) {
     	
     	
-    	
-    	$urlConArriendo = $this->server.'catchment/main/leasingcontract/only/ids';
-    	 
-    	$apiConArriendo = $this->SetupApi($urlConArriendo, $this->user, $this->pass);
-    	 
-    	$conArriendos = $apiConArriendo->get();
-    	$conArriendos = json_decode($conArriendos, true);
-    	//echo $conArriendos['total']
-
-    	 
-    	echo "\nTotal de contratos: ".count($conArriendos['data'])."\n";
-    	 
-    	$totalConArriendos = count($conArriendos['data']);
-    	
-    	$porDonde = 0;
-    	$total = 0;
-    	
     	$startTime= new \DateTime();
     	
-    	for ($i = 0; $i < $totalConArriendos; $i++) {
+    	$conArriendos = $conexion->getContratosArriendo();
+    	
+    	$total = 0;
+    	
+    	$porDonde = 0;
+    	
+    	for ($i = 0; $i < count($conArriendos); $i++) {
+    		
+    		$conArriendo = $conArriendos[$i];
+    		
+    		echo "\nContrato ".$conArriendo['id_contrato']."\n";
+    		
+    		$contratoSF2 = $this->searchContratoArriendo($conArriendo);
     		
     		
-    		$conArriendo = $conArriendos['data'][$i];
     		
-    		//print_r($conArriendo);
-    		echo "\nContrato ".$conArriendo['consecutive']."\n";
-    		
-    		$comentarios = $conexion->getComentariosContratosArriendo($this->cleanString($conArriendo['consecutive']));
-    		 
-    		
-    		 
-    		$totalComentarios = count($comentarios);
-    		 
-    		
-    		echo "\nTotal comentarios: ".$totalComentarios."\n";
-    		
-    		 
-    		
-    		
-    		for ($j = 0; $j < $totalComentarios; $j++) {
+    		if(!is_null($contratoSF2)){
     			
+    			$comentarios = $conexion->getComentariosContratosArriendo($this->cleanString($conArriendo['id_contrato']));
+    			 
+    			$totalComentarios = count($comentarios);
+    			     			
+    			echo "\nTotal comentarios: ".$totalComentarios."\n";
     			
-    			$comentario = $comentarios[$j];
-    		
-    			$commentS = $this->searchComment($comentario);
-    			
-    			if(!$commentS){
-    				
-    				//echo "\nEntro aqui\n";
-    				//print_r($comentario);
-    				
+    			for ($j = 0; $j < $totalComentarios; $j++) {
     				 
-    				$usuario = $this->searchUsuario($comentario['email']);
-    				
-    				//     		echo "\ninmueble\n";
-    				
-    				
+    				 
+    				$comentario = $comentarios[$j];
+    			
+    				 
+    				$commentS = $this->searchComment($comentario, $contratoSF2);
+    				 
+    				if(!$commentS){
+    						
+    					$usuario = $this->searchUsuario($comentario['email']);
+    			
     					$ccomment = $this->cleanString($comentario['comentarioAll']);
     						
-    					//echo "\n".$ccomment."\n";
-    					
     					$bComentario = array(
     							'comment' => $ccomment,
-    							'idEntity' => $conArriendo['id'],
+    							'idEntity' => $contratoSF2['id'],
     							'user' => array('id'=>$usuario['id']),
     							'date' => $comentario['fecha'],
     							'nkey' => $comentario['NKEY'],
     							'sifincaOne' => true
     					);
-    						
+    			
     					//$json = json_encode($bComentario);
-    				
+    			
     					//echo "\n".$json."\n";
-    						
-    					$urlComentario = $this->server.'catchment/main/leasingcontract/comment/'.$conArriendo['id'];
-    				
+    			
+    					$urlComentario = $this->server.'catchment/main/leasingcontract/comment/'.$contratoSF2['id'];
+    			
     					//echo "\n".$urlComentario."\n";
-    						
+    			
     					$apiComentario = $this->SetupApi($urlComentario, $this->user, $this->pass);
-    						
+    			
     					$result = $apiComentario->post($bComentario);
-    						
+    			
     					$result = json_decode($result, true);
-    						
-    						
-    				
+    			
+    			
+    			
     					$json = json_encode($bComentario);
-    				
-    						
+    			
+    			
     					if($result[0]['success'] == true){
-    						echo "\nOk\n";
+    						echo "\nOk contrato - ".$conArriendo['id_contrato']."\n";
     						$total++;
     					}else{
-    						echo "\nError cometario\n";
-    						
+    						echo "\nError cometario - contrato de arriendo: ".$conArriendo['id_contrato']."\n";
+    			
     					}
-    						
-    				
-    			}else{
-    				
-    				
-    				echo "\nEl comentario ya existe\n";
+    			
+    				}else{
+    			
+    					echo "\nEl comentario ya existe\n";
+    				}
+    				 
+    				 
+    				 
+    				 
+    			
     			}
     			
     			
     			
-    			
-    		
+    		}else{
+    			echo "\nContrato no encontrado - ".$conArriendo['id_contrato']."\n";
     		}
     		
     		$porDonde++;
     		echo "\n Por donde vamos: ".$porDonde."\n";
+    		
+    		
     		
     	}
     	
@@ -188,156 +171,63 @@ class ComentariosContratoArriendoCommand extends Command
    
     	echo "\nTotal de comentarios pasados: ".$total."\n";
     }
+     
     
-
-    function crearComentarioPorDemanda($conexion) {
-    
-    	$porDonde = 0;
-    	$total = 0;
-    
-    	$startTime= new \DateTime();
-    
-    	$comentarios = $conexion->getComentariosContratosArriendo($this->cleanString('998'));
+    function searchComment($comentario, $contrato) {
+    	
+    	$nkey = $this->cleanString($comentario['NKEY']);
     	 
-    	$totalComentarios = count($comentarios);
-    		
-    
-    	echo "\nTotal comentarios: ".$totalComentarios."\n";
-    
-    
-    
-    	for ($j = 0; $j < $totalComentarios; $j++) {
-    
-    
-    		$comentario = $comentarios[$j];
-    
-    		$commentS = $this->searchComment($comentario);
-    
-    		if(!$commentS){
-    
-    			//echo "\nEntro aqui\n";
-    			//print_r($comentario);
-    
-    				
-    			$usuario = $this->searchUsuario($comentario['email']);
-    
-    			//     		echo "\ninmueble\n";
-    
-    
-    			$ccomment = $this->cleanString($comentario['comentarioAll']);
-    
-    			//echo "\n".$ccomment."\n";
-    				
-    			$bComentario = array(
-    					'comment' => $ccomment,
-    					//'idEntity' => $conArriendo['id'],
-    					'idEntity' => '624f368a-b419-4412-893b-45f6a5d19944',
-    					'user' => array('id'=>$usuario['id']),
-    					'date' => $comentario['fecha'],
-    					'nkey' => $comentario['NKEY'],
-    					'sifincaOne' => true
-    			);
-    
-
-    
-    			//$urlComentario = $this->server.'catchment/main/leasingcontract/comment/'.$conArriendo['id'];
-    			$urlComentario = $this->server.'catchment/main/leasingcontract/comment/624f368a-b419-4412-893b-45f6a5d19944';
-    			
-    			//echo "\n".$urlComentario."\n";
-    
-    			$apiComentario = $this->SetupApi($urlComentario, $this->user, $this->pass);
-    
-    			$result = $apiComentario->post($bComentario);
-    
-    			$result = json_decode($result, true);
-    
-    
-    
-    			$json = json_encode($bComentario);
-    
-    
-    			//echo $json;
-    
-    
-    			//     			$porDonde++;
-    			//     			echo "\nPor donde: \n".$porDonde;
-    			if($result[0]['success'] == true){
-    				echo "\nOk\n";
-    				$total++;
-    			}else{
-    				echo "\nError cometario\n";
-    				//echo "\n\n".$json."\n\n";
-    
-    				$urlapiMapper = $this->server.'admin/sifinca/errorcomment';
-    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    
-    				$error = array(
-    						'comment' => $comentario['NKEY'],
-    						'objectJson' => $json
-    				);
-    
-    				$resultError = $apiMapper->post($error);
-    
-    				//print_r($resultError);
-    			}
-    
-    		}else{
-    
-    
-    			echo "\nEl comentario ya existe\n";
+    	$find = false;
+    	
+    	$url = $this->server.'catchment/main/property/comment/for/nkey/'.$nkey."/".$contrato['id'];
+    	 
+    	//echo "\n".$url."\n";
+    	
+    	$api = $this->SetupApi($url, $this->user, $this->pass);
+    	 
+    	$comment = $api->get();
+    	$comment = json_decode($comment, true);
+    	 
+    	if(isset($comment['total'])){
+    		if($comment['total'] >= 1){
+    			$find = true;
     		}
-    			
     	}
-    	$finalTime = new \DateTime();
-    
-    
-    	$diff = $startTime->diff($finalTime);
-    
-    
-    	echo "\n\n Fecha inicial: ".$startTime->format('Y-m-d H:i:s')."\n";
-    	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
-    	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
-    
-    	echo "\nTotal de comentarios pasados: ".$total."\n";
     	 
+    	return $find;
+    
     }
     
- 
+    function searchContratoArriendo($contrato) {
+    	 
+    	$codigoContrato = $this->cleanString($contrato['id_contrato']);
     
-    function searchComment($comentario) {
-    
+    	 
     	 
     	$filter = array(
-    			'value' => $this->cleanString($comentario['NKEY']),
+    			'value' => $codigoContrato,
     			'operator' => 'equal',
-    			'property' => 'nkey'
+    			'property' => 'consecutive'
     	);
-    	
     	$filter = json_encode(array($filter));
-    
-    	$urlComment = $this->server.'comment/comment?filter='.$filter;
-    
-    	//echo "\n".$urlComment."\n";
-    	
-    	$apiComment = $this->SetupApi($urlComment, $this->user, $this->pass);
-    
-    	$comment = $apiComment->get();
-    	$comment = json_decode($comment, true);
-    
-    	//     	echo "\n\nInmueble\n";
-    	//     	print_r($property['data'][0]);
     	 
-    	$totalComment = count($comment['data']);
-    	
-    	if($totalComment > 0){
+    	$urlContract = $this->server.'catchment/main/leasingcontract?filter='.$filter;
+    	 
+    	echo "\n".$urlContract."\n";
+    	 
+    	$apiContract = $this->SetupApi($urlContract, $this->user, $this->pass);
+    	 
+    	$contract = $apiContract->get();
+    	$contract = json_decode($contract, true);
+    	 
+    
+    	if($contract['total'] > 0){
     		 
-    		//echo "\nlo encontro\n";
-    		return true;
+    		$c = array('id' => $contract['data'][0]['id']);
+    		return $c;
     		 
     	}else{
-    		
-    		//echo "\nes nuevo \n";
-    		return false;
+    		return null;
     	}
     
     }
@@ -345,7 +235,8 @@ class ComentariosContratoArriendoCommand extends Command
     function searchUsuario($email) {
 
     	$email = $this->cleanString($email);
-
+    	$email = strtolower($email);
+    	
     	if($email == 'hherrera@araujoysegovia.com'){
     		
     		return $user = array('id' => 203);

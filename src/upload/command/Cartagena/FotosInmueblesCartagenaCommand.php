@@ -69,10 +69,8 @@ class FotosInmueblesCartagenaCommand extends Command
     		
     		echo "\nTotal inmuebles: ".$totalInmueblesSF2."\n";
     		
-    		for ($j = 19; $j < 50; $j++) {
-    		//foreach ($inmueblesSF2 as $inmueble) {
-    			
-    				//$inmueble = $inmueblesSF2['data'][$i];
+    		for ($j = 0; $j < $totalInmueblesSF2; $j++) {
+
     				$inmueble = $inmueblesSF2[$j];
     			
     				$property = $this->searchProperty($inmueble['id_inmueble']);
@@ -103,114 +101,115 @@ class FotosInmueblesCartagenaCommand extends Command
     					
     					if(count($fotos) > 0){
 
-    						
-    						
     						for ($i = 0; $i < count($fotos); $i++) {
     								
     							$foto = $fotos[$i];
     								
-    							$photoSF2 = $this->searchFoto($foto);
+    							$existPhoto = $this->searchFoto($foto);
     								
-    							//if(is_null($photoSF2)){
+    							if(!$existPhoto){
     								
-    								
-    							$path = "/var/www/html/upload3/fotosinmueble/".$foto['id']."/";
-    								
-    								
-    							if (!file_exists($path)) {
-    								//Crearlo
-    								mkdir($path);
-    							}
-    								
-    							///print_r($foto);
-    							$nkey = $foto['nkey'];
-    							$url = $urlFotoSF1.$nkey.'.jpg';
-    								
-    							//echo "url";
-    							echo "\n".$url."\n";
+    								$path = "/var/www/html/upload3/fotosinmueble/".$foto['id']."/";
     								
     								
-    							$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
-    								
-    							//echo "path";
-    							//echo "\n".$pathFilename."\n\n";
-    								
-    							//echo file_get_contents($url);
-    							//ini_set('max_execution_time', 5000);
-    					
-    							$profile_Image = $url; //image url
-    							//$userImage = 'myimg.jpg'; // renaming image
-    							$path = $pathFilename;  // your saving path
-    							$ch = curl_init($profile_Image);
-    							$fp = fopen($pathFilename, 'wb');
-    							curl_setopt($ch, CURLOPT_FILE, $fp);
-     							curl_setopt($ch, CURLOPT_HEADER, 0);
-
-    							$result = curl_exec($ch);
-    							curl_close($ch);
-    							fclose($fp);
-    							
-    							
-    					
-//     							file_put_contents($pathFilename, file_get_contents($url));
-    							imagecreatefromjpeg($url);
-    					
-    							$marcadeagua = "/var/www/html/upload/logoAyS6.png";
-    								
-    							$margen = 20;
-    								
-    							$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
-    								
-    							//print_r($foto);
-    								
-    							$entityId = $property['id'];
-    							$photoName = $foto['nkey'].".".$foto['ext'];
-    							$photoShow = $foto['publicar'];
-    							$showOrder = $foto['orden'];
-    							$description = $foto['descripcion'];
-    							$nkeysifincaone = $foto['nkey'].".".$foto['ext'];
-    								
-    							//Subir foto a SF2
-    							$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description'  --form nkeysifincaone='$nkeysifincaone' -H '$h'   $urlapiFile";
-    								
-    							//echo "\n".$cmd."\n";
-    								
-    							$result= shell_exec($cmd);
-    							$result = json_decode($result, true);
-    								
-    							if(isset($result['0']['success'])){
-    								if($result['0']['success'] == true){
-    									echo "\nOk";
-    									$total++;
-    									$globalFotos++;
-    										
+    								if (!file_exists($path)) {
+    									//Crearlo
+    									mkdir($path);
     								}
-    							}else{
+    								
+    								///print_r($foto);
+    								$nkey = $foto['nkey'];
+    								$url = $urlFotoSF1.$nkey.'.jpg';
+    								
+    								//echo "url";
+    								echo "\n".$url."\n";
+    								
+    								
+    								$pathFilename= $path.$foto['nkey'].".".$foto['ext'];
+    								
+    								//echo "path";
+    								//echo "\n".$pathFilename."\n\n";
+    								
+    								//echo file_get_contents($url);
+    								//ini_set('max_execution_time', 5000);
+    									
+    								$profile_Image = $url; //image url
+    								//$userImage = 'myimg.jpg'; // renaming image
+    								$path = $pathFilename;  // your saving path
+    								$ch = curl_init($profile_Image);
+    								$fp = fopen($pathFilename, 'wb');
+    								curl_setopt($ch, CURLOPT_FILE, $fp);
+    								curl_setopt($ch, CURLOPT_HEADER, 0);
+    								
+    								$result = curl_exec($ch);
+    								curl_close($ch);
+    								fclose($fp);
     									
     									
     									
-    								if($result['message']){
-    										
-    									echo "\nYa existe\n";
-    										
+    								//file_put_contents($pathFilename, file_get_contents($url));
+    								imagecreatefromjpeg($url);
+    									
+    								$marcadeagua = "/var/www/html/upload/logoAyS6.png";
+    								
+    								$margen = 20;
+    								
+    								$this->insertarmarcadeagua($pathFilename,$marcadeagua,$margen);
+    								
+    								//print_r($foto);
+    								
+    								$entityId = $property['id'];
+    								$photoName = $foto['nkey'].".".$foto['ext'];
+    								$photoShow = $foto['publicar'];
+    								$showOrder = $foto['orden'];
+    								$description = $foto['descripcion'];
+    								$nkeysifincaone = $foto['nkey'].".".$foto['ext'];
+    								
+    								//Subir foto a SF2
+    								$cmd="curl --form \"filename=@$pathFilename\" --form showForIndexed=false --form entity=Property --form entityId='$entityId' --form photoName='$photoName' --form photoShow='$photoShow' --form showOrder='$showOrder' --form description='$description'  --form nkeysifincaone='$nkeysifincaone' -H '$h'   $urlapiFile";
+    								
+    								//echo "\n".$cmd."\n";
+    								
+    								$result= shell_exec($cmd);
+    								$result = json_decode($result, true);
+    								
+    								if(isset($result['0']['success'])){
+    									if($result['0']['success'] == true){
+    										echo "\nOk";
+    										$total++;
+    										$globalFotos++;
+    								
+    									}
     								}else{
     										
-    									echo "\nError -----\n";
     										
-    									//print_r($result);
-    									
-    									$urlapiMapper = $this->server.'catchment/main/errorphoto';
-    									$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     										
-    									$error = array(
-    											'photo' => $foto['nkey'],
-    											'objectJson' => $property['consecutive']
-    									);
+    									if($result['message']){
+    								
+    										echo "\nYa existe\n";
+    								
+    									}else{
+    								
+    										echo "\nError -----\n";
+    								
+    										//     									//print_r($result);
+    											
+    										//     									$urlapiMapper = $this->server.'catchment/main/errorphoto';
+    										//     									$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    								
+    										//     									$error = array(
+    										//     											'photo' => $foto['nkey'],
+    										//     											'objectJson' => $property['consecutive']
+    										//     									);
+    								
+    										//     									$apiMapper->post($error);
+    									}
     										
-    									$apiMapper->post($error);
+    										
     								}
-    									
-    									
+    								
+    							}else{
+    								echo "\nLa foto ".$foto['nkey']." ya existe\n";
     							}
     								
     						}
@@ -299,7 +298,7 @@ class FotosInmueblesCartagenaCommand extends Command
     	$x = imagesx($im);
     	$y = imagesy($im);
     	    	    	
-    	//Establecer los m‡rgenes para la estampa y obtener el alto/ancho de la imagen de la estampa
+    	//Establecer los mï¿½rgenes para la estampa y obtener el alto/ancho de la imagen de la estampa
 
     	$sx = imagesx($estampa);
     	$sy = imagesy($estampa);
@@ -314,8 +313,8 @@ class FotosInmueblesCartagenaCommand extends Command
     	$margen_dcho = $m1;
     	$margen_inf = $m2;
     	
-    	// Copiar la imagen de la estampa sobre nuestra foto usando los ’ndices de m‡rgen y el
-    	// ancho de la foto para calcular la posici—n de la estampa.
+    	// Copiar la imagen de la estampa sobre nuestra foto usando los ï¿½ndices de mï¿½rgen y el
+    	// ancho de la foto para calcular la posiciï¿½n de la estampa.
     	imagecopy($im, $estampa, imagesx($im) - $sx - $margen_dcho, imagesy($im) - $sy - $margen_inf, 0, 0, imagesx($estampa), imagesy($estampa));
     	    	
     	// Guardar y liberar memoria
@@ -344,16 +343,15 @@ class FotosInmueblesCartagenaCommand extends Command
     	$photo = json_decode($photo, true);
     	 
     	
-    	if($photo['total'] > 0){
+    	if(count($photo['data']) > 0){
     		 
     		//ECHO "ENTRO 1";
-    		$c = array('id' => $photo['data'][0]['id']);
-    		return $c;
+    		return true;
     		 
     	}else{
     		
     		//ECHO "ENTRO 2";
-    		return null;
+    		return false;
     	}
     	
     }

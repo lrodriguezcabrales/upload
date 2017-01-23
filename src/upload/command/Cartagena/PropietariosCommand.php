@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Cartagena;
 
 use upload\model\conveniosCartagena;
 use upload\lib\data;
@@ -67,16 +67,9 @@ class PropietariosCommand extends Command
     }
      
     public function crearPropietarios($conexion) {
-    	    	    	
-//     	$urlConvenio = $this->server.'catchment/main/agreement/only/ids';
+    	    	    	    	
+    	$convenios = $conexion->getConveniosForPropietario();
     	
-//     	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
-    	
-//     	$convenios = $apiConvenio->get();
-//     	$convenios = json_decode($convenios, true);
-    	//echo $convenios['total']
-    	
-    	$convenios = $conexion->getSoloConvenios();
     	$totalConvenios = count($convenios);
     	
     	$urlapioOwner = $this->server.'catchment/main/owner';
@@ -84,29 +77,26 @@ class PropietariosCommand extends Command
     	$apiOwner = $this->SetupApi($urlapioOwner, $this->user, $this->pass);
     	
     	echo "\nTotal de convenios - propietarios: ".$totalConvenios."\n";
-    	
-    	//$totalConvenios = count($convenios['data']);
-    	
+    	    	
     	$porDonde = 0;
     	$startTime= new \DateTime();
     	
-    	//foreach ($convenios['data'] as $convenio) {
     	for ($i = 0; $i < $totalConvenios; $i++) {
     		
-    		//$convenio = $convenios['data'][$i];
     		$convenio = $convenios[$i];
     		
     		echo "\n---------------------------\n";
     		echo "\nConvenio: ".$convenio['id_convenio']."\n";
-    		//$propietariosSF1 = $conexion->getPropietariosDelConvenio($convenio['consecutive']); 		
-    		$propietariosSF1 = $conexion->getPropietariosDelConvenioMonteria($convenio['id_convenio']);
+    		
+    		$propietariosSF1 = $conexion->getPropietariosDelConvenio($convenio['id_convenio']); 		
     		
     		$agreement = $this->searchConvenioSF2($convenio);
-    		
+    		    		
     		if(!is_null($agreement)){
     			
     			foreach ($propietariosSF1 as $p) {
     			
+    				echo "\nPropiatarios\n";
     				$ownerIdentificacion = $p['id_cliente'];
     				$ownerIdentificacion = $this->cleanString($ownerIdentificacion);
     			
@@ -497,7 +487,7 @@ class PropietariosCommand extends Command
     			'secondname' => $secondname,
     			'lastname' => $lastname,
     			"secondLastname" => $secondLastname,
-    			//'client_type' => $clientType,
+    			'client_type' => 2,
     			'identity' => $identity,
     			'adress' => $direcciones,
     			'phones' => $telefonos,
@@ -532,7 +522,7 @@ class PropietariosCommand extends Command
     	$urlapiMapper = $this->server.'admin/sifinca/mapper/idType/'.$client['id_identificacion'];
     	$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     
-    	echo "\n".$urlapiMapper."\n";
+    	//echo "\n".$urlapiMapper."\n";
     	
     	$idTypeMapper = $apiMapper->get();
     	$idTypeMapper = json_decode($idTypeMapper, true);
@@ -540,7 +530,7 @@ class PropietariosCommand extends Command
     
     	//     		print_r($idTypeMapper["total"]);
     
-    	print_r($idTypeMapper['data']['0']);
+    	//print_r($idTypeMapper['data']['0']);
     	$idType = $idTypeMapper['data']['0']['idTarget'];
     
     
@@ -574,6 +564,7 @@ class PropietariosCommand extends Command
     	 
     	$bClient = array(
     			'identity' => $identity,
+    			'client_type' => 3,
     			'name' => $client['nombre'],
     			'comercialName' => $client['nombre'],
     			'socialReason' => $client['nombre'],
@@ -584,25 +575,7 @@ class PropietariosCommand extends Command
     			'legalRepresentativeClient' => $representateLegal,
     			'contributor' => $contribuyente
     	);
-    
-    	//print_r($bClient);
-    
-    	//     	$json = json_encode($bClient);
-    	//     	//echo "\n".$json."\n";
-    
-    	//     	$result = $apiClient->post($bClient);
-    	 
-    	//     	if(isset($result['message'])){
-    	//     		if($result['code'] == 500){
-    	//     			$result = $apiClient->put()
-    	//     		}
-    	//     	}
-    	 
-    	//print($result);
-    	 
-    	//echo "\nCliente creado\n";
-    
-    	//return $result;
+
     	 
     	return $bClient;
     }
@@ -985,12 +958,12 @@ class PropietariosCommand extends Command
     // array('gran_contribuyente'=>false, 'regimen_iva'=>'SIMPLIFICADO','retenedor'=>false,'exento_retencion'=>true,'autoretenedor'=>true)
     /**	
      *  TIPO_CONTRIBUYENTE	GA	Gran Contribuyente - AutoRetenedor
-     *	TIPO_CONTRIBUYENTE	RA	RŽgimen Comœn - Autoretenedor
+     *	TIPO_CONTRIBUYENTE	RA	Rï¿½gimen Comï¿½n - Autoretenedor
      *	TIPO_CONTRIBUYENTE	GN	Gran Contribuyente - No Autoretenedor
-     *	TIPO_CONTRIBUYENTE	RN	RŽgimen Comœn - No Autoretenedor
-     *	TIPO_CONTRIBUYENTE	RS	RŽgimen Simplificado
+     *	TIPO_CONTRIBUYENTE	RN	Rï¿½gimen Comï¿½n - No Autoretenedor
+     *	TIPO_CONTRIBUYENTE	RS	Rï¿½gimen Simplificado
      *	TIPO_CONTRIBUYENTE	CE	Cliente Extranjero
-     *	TIPO_CONTRIBUYENTE	EX	Exento retenci—n (Sin animo de lucro)
+     *	TIPO_CONTRIBUYENTE	EX	Exento retenciï¿½n (Sin animo de lucro)
      * @param unknown $cliente
      * @return Ambigous <NULL, multitype:NULL >
      */
@@ -1270,6 +1243,8 @@ class PropietariosCommand extends Command
     	$filter = json_encode(array($filter));
     	
     	$urlAgreement = $this->server.'catchment/main/agreement?filter='.$filter;
+    	
+    	//echo "\n".$urlAgreement."\n";
     	
     	$apiAgreement = $this->SetupApi($urlAgreement, $this->user, $this->pass);
     	

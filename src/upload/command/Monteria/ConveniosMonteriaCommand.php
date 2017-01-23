@@ -225,12 +225,12 @@ class ConveniosMonteriaCommand extends Command
     	$email = $this->cleanString($email);
     
     	if($email == 'inmobiliaria@araujoysegovia.com'){
-    		$user = array('id' => 203);
+    		$user = array('id' => 1);
     		return $user;
     	}
     
     	if($email == 'hherrera@araujoysegovia.com'){
-    		$user = array('id' => 203);
+    		$user = array('id' => 1);
     		return $user;
     	}
     
@@ -255,7 +255,7 @@ class ConveniosMonteriaCommand extends Command
     		return $user['data'][0];
     		 
     	}else{
-    		return $user = array('id' => 203);
+    		return $user = array('id' => 1);
     	}
     
     }

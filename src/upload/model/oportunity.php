@@ -119,7 +119,7 @@ class oportunity {
     	$query = "SELECT * FROM crmoportunidades
 				  WHERE id = '".$idOportunidad."'" ;
     
-    	echo "\n".$query."\n";
+    	//echo "\n".$query."\n";
     	$r = $this->_conn->_query($query);
     	$result = $this->_conn->_getData($r);
     	//print_r($clients);

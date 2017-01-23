@@ -41,8 +41,8 @@ class InmueblesMonteriaCommand extends Command
 	
 	public $office = 'a989afd0-f14f-4e20-9c75-5e084070129c'; //Oficina Chico 
 
-	public $bogota = 'e296f778-e194-495a-a07d-98a6cbba974a';
-	public $cundinamarca = 'cc036e72-6ee8-4513-a81a-c6b3c9724af7';
+	public $monteria = 'cc036e72-6ee8-4513-a81a-c6b3c9724af7';
+	public $cordoba = 'e296f778-e194-495a-a07d-98a6cbba974a';
 	
     protected function configure()
     {
@@ -732,8 +732,8 @@ class InmueblesMonteriaCommand extends Command
 		$townMapper = $apiTown->get();
 		$townMapper = json_decode($townMapper, true);
 		//print_r($maritalStatusMapper);
-		$town = array('id'=>$this->bogota);
-		$deparment = array('id' => $this->cundinamarca);
+		$town = array('id'=>$this->monteria);
+		$deparment = array('id' => $this->cordoba);
 		 
 		if(isset($townMapper['total'])){
 			if($townMapper['total'] > 0){
@@ -755,8 +755,8 @@ class InmueblesMonteriaCommand extends Command
 	
 	
 					if($townMapper['total'] == 0){
-						$town = array('id'=>$this->bogota);
-						$deparment = array('id' => $this->cundinamarca);
+						$town = array('id'=>$this->monteria);
+						$deparment = array('id' => $this->cordoba);
 					}
 	
 				}
@@ -838,7 +838,7 @@ class InmueblesMonteriaCommand extends Command
     	
     	foreach ($caracteristicasSF1 as $c) {
     		
-    		$urlPropertyAttribute = $this->server.'admin/sifinca/mapper/propertyAttribute/'.$c['id_caracteristica'];
+    		$urlPropertyAttribute = $this->server.'admin/sifinca/mapper/propertyAttribute.MON/'.$c['id_caracteristica'];
     		//echo $urlStratum;
     		$apiPropertyAttribute = $this->SetupApi($urlPropertyAttribute, $this->user, $this->pass);
     		 

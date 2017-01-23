@@ -45,20 +45,20 @@ class PropietariosMonteriaCommand extends Command
     protected function configure()
     {
         $this->setName('propietariosMonteria')
-		             ->setDescription('Comando para pasar propietarios - Monteria');
+		             ->setDescription('Comando para pasar propietarios - Cartagena');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
 							   \Symfony\Component\Console\Output\OutputInterface $output)
 	{
 
-        $conn = new data(array(
-            'server' =>'192.168.100.1'
-            ,'user' =>'sa'
-            ,'pass' =>'75080508360'
-            ,'database' =>'sifinca' 
-            ,'engine'=>'mssql'
-        ));
+		$conn = new data(array(
+				'server' =>'192.168.100.1'
+				,'user' =>'sa'
+				,'pass' =>'75080508360'
+				,'database' =>'sifinca'
+				,'engine'=>'mssql'
+		));
 
         $conexion = new conveniosCartagena($conn);
              
@@ -67,16 +67,9 @@ class PropietariosMonteriaCommand extends Command
     }
      
     public function crearPropietarios($conexion) {
-    	    	    	
-//     	$urlConvenio = $this->server.'catchment/main/agreement/only/ids';
+    	    	    	    	
+    	$convenios = $conexion->getConveniosForPropietarioMonteria();
     	
-//     	$apiConvenio = $this->SetupApi($urlConvenio, $this->user, $this->pass);
-    	
-//     	$convenios = $apiConvenio->get();
-//     	$convenios = json_decode($convenios, true);
-    	//echo $convenios['total']
-    	
-    	$convenios = $conexion->getSoloConveniosMonteria();
     	$totalConvenios = count($convenios);
     	
     	$urlapioOwner = $this->server.'catchment/main/owner';
@@ -84,22 +77,18 @@ class PropietariosMonteriaCommand extends Command
     	$apiOwner = $this->SetupApi($urlapioOwner, $this->user, $this->pass);
     	
     	echo "\nTotal de convenios - propietarios: ".$totalConvenios."\n";
-    	
-    	//$totalConvenios = count($convenios['data']);
-    	
+    	    	
     	$porDonde = 0;
     	$startTime= new \DateTime();
     	
-    	//foreach ($convenios['data'] as $convenio) {
     	for ($i = 0; $i < $totalConvenios; $i++) {
     		
-    		//$convenio = $convenios['data'][$i];
     		$convenio = $convenios[$i];
     		
     		echo "\n---------------------------\n";
     		echo "\nConvenio: ".$convenio['id_convenio']."\n";
-    		//$propietariosSF1 = $conexion->getPropietariosDelConvenio($convenio['consecutive']); 		
-    		$propietariosSF1 = $conexion->getPropietariosDelConvenioMonteria($convenio['id_convenio']);
+    		
+    		$propietariosSF1 = $conexion->getPropietariosDelConvenioMonteria($convenio['id_convenio']); 		
     		
     		$agreement = $this->searchConvenioSF2($convenio);
     		
@@ -438,10 +427,6 @@ class PropietariosMonteriaCommand extends Command
     
     			$levelStudy = array('id'=>$levelStudy);
     
-    			if($levelStudy['total'] == 0){
-    				$levelStudy = null;
-    			}
-    
     		}
     	}
     	 
@@ -497,7 +482,7 @@ class PropietariosMonteriaCommand extends Command
     			'secondname' => $secondname,
     			'lastname' => $lastname,
     			"secondLastname" => $secondLastname,
-    			//'client_type' => $clientType,
+    			'client_type' => 2,
     			'identity' => $identity,
     			'adress' => $direcciones,
     			'phones' => $telefonos,
@@ -532,7 +517,7 @@ class PropietariosMonteriaCommand extends Command
     	$urlapiMapper = $this->server.'admin/sifinca/mapper/idType/'.$client['id_identificacion'];
     	$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     
-    	echo "\n".$urlapiMapper."\n";
+    	//echo "\n".$urlapiMapper."\n";
     	
     	$idTypeMapper = $apiMapper->get();
     	$idTypeMapper = json_decode($idTypeMapper, true);
@@ -540,7 +525,7 @@ class PropietariosMonteriaCommand extends Command
     
     	//     		print_r($idTypeMapper["total"]);
     
-    	print_r($idTypeMapper['data']['0']);
+    	//print_r($idTypeMapper['data']['0']);
     	$idType = $idTypeMapper['data']['0']['idTarget'];
     
     
@@ -574,6 +559,7 @@ class PropietariosMonteriaCommand extends Command
     	 
     	$bClient = array(
     			'identity' => $identity,
+    			'client_type' => 3,
     			'name' => $client['nombre'],
     			'comercialName' => $client['nombre'],
     			'socialReason' => $client['nombre'],
@@ -584,25 +570,7 @@ class PropietariosMonteriaCommand extends Command
     			'legalRepresentativeClient' => $representateLegal,
     			'contributor' => $contribuyente
     	);
-    
-    	//print_r($bClient);
-    
-    	//     	$json = json_encode($bClient);
-    	//     	//echo "\n".$json."\n";
-    
-    	//     	$result = $apiClient->post($bClient);
-    	 
-    	//     	if(isset($result['message'])){
-    	//     		if($result['code'] == 500){
-    	//     			$result = $apiClient->put()
-    	//     		}
-    	//     	}
-    	 
-    	//print($result);
-    	 
-    	//echo "\nCliente creado\n";
-    
-    	//return $result;
+
     	 
     	return $bClient;
     }
@@ -622,14 +590,14 @@ class PropietariosMonteriaCommand extends Command
     		$address = $client['dir_residencia'].", ".$client['barrio_residencia'].", ".$client['edificio_residencia'];
     
     		//$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.BOG/'.$client['pais_residencia'];
-    		$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.MON/'.$client['pais_residencia'];
+    		$urlapiMapperCountry = $this->server.'admin/sifinca/mapper/country.CTG/'.$client['pais_residencia'];
     		$apiMapper = $this->SetupApi($urlapiMapperCountry, $this->user, $this->pass);
     		 
     		$country = $apiMapper->get();
     		$country = json_decode($country, true);
     
     		//$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.BOG/'.$client['ciudad_residencia'];
-    		$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.MON/'.$client['ciudad_residencia'];
+    		$urlapiMapperTown = $this->server.'admin/sifinca/mapper/town.CTG/'.$client['ciudad_residencia'];
     		$apiMapper = $this->SetupApi($urlapiMapperTown, $this->user, $this->pass);
     		 
     		$town = $apiMapper->get();
@@ -837,7 +805,7 @@ class PropietariosMonteriaCommand extends Command
     function buildTelefonosContacto($client) {
     	 
     	//echo "Entro aqui";
-    	$telefonoContacto1 = $client['TEL_CO'];
+    	$telefonoContacto1 = $client['teL_co'];
     	$telefonoContacto1 = $this->validarTelefono($telefonoContacto1);
     
     	$telefonoContacto2 = $client['tel_co2'];
@@ -846,7 +814,7 @@ class PropietariosMonteriaCommand extends Command
     	$telefonoContacto3 = $client['tel_cto'];
     	$telefonoContacto3 = $this->validarTelefono($telefonoContacto3);
     	 
-    	$telefonoContacto4 = $client['tel_celular_cto'];
+    	$telefonoContacto4 = $client['teL_celular_cto'];
     	$telefonoContacto4 = $this->validarTelefono($telefonoContacto4);
     	 
     	$telefonos = array();
@@ -985,12 +953,12 @@ class PropietariosMonteriaCommand extends Command
     // array('gran_contribuyente'=>false, 'regimen_iva'=>'SIMPLIFICADO','retenedor'=>false,'exento_retencion'=>true,'autoretenedor'=>true)
     /**	
      *  TIPO_CONTRIBUYENTE	GA	Gran Contribuyente - AutoRetenedor
-     *	TIPO_CONTRIBUYENTE	RA	RŽgimen Comœn - Autoretenedor
+     *	TIPO_CONTRIBUYENTE	RA	Rï¿½gimen Comï¿½n - Autoretenedor
      *	TIPO_CONTRIBUYENTE	GN	Gran Contribuyente - No Autoretenedor
-     *	TIPO_CONTRIBUYENTE	RN	RŽgimen Comœn - No Autoretenedor
-     *	TIPO_CONTRIBUYENTE	RS	RŽgimen Simplificado
+     *	TIPO_CONTRIBUYENTE	RN	Rï¿½gimen Comï¿½n - No Autoretenedor
+     *	TIPO_CONTRIBUYENTE	RS	Rï¿½gimen Simplificado
      *	TIPO_CONTRIBUYENTE	CE	Cliente Extranjero
-     *	TIPO_CONTRIBUYENTE	EX	Exento retenci—n (Sin animo de lucro)
+     *	TIPO_CONTRIBUYENTE	EX	Exento retenciï¿½n (Sin animo de lucro)
      * @param unknown $cliente
      * @return Ambigous <NULL, multitype:NULL >
      */

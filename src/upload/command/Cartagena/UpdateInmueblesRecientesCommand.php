@@ -182,7 +182,7 @@ class UpdateInmueblesRecientesCommand extends Command
 
                 
                 if($result['success'] == true){
-                    echo "\nOk";
+                    echo "\nOk - ".$inmueble['id_inmueble']."\n";
                     $total++;
                 
                 }
@@ -821,9 +821,9 @@ class UpdateInmueblesRecientesCommand extends Command
     	}
     	 
     	//Baños
-    	if($inmueble['43'] > 0){
+    	if($inmueble['44'] > 0){
     		$bcarateristica = array(
-    				"amount" => $inmueble['43'],
+    				"amount" => $inmueble['44'],
     				'name' => 'Banos',
     				"propertyAttribute" => array(
     						'id' => $this->attributeBanos

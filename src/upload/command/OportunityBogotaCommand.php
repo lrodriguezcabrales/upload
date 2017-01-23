@@ -76,6 +76,10 @@ class OportunityBogotaCommand extends Command
     	$relaciones = array("responsable", "client", "quote", "state", "oportunityType", "office", "lead", "creator", "closeReason", "unit", "property");
     	$relaciones = json_encode($relaciones);
     	
+    	$today = new \DateTime();
+    	$hoy = $today->format('d-m-Y');
+    	//$hoy = '21-12-2016';
+    	
     	//[{"value":"C","operator":" equal","property":"state.value"}]
     	$filter = array();
     	
@@ -90,6 +94,12 @@ class OportunityBogotaCommand extends Command
     			'operator' => '=',
     			'field' => 'oportunityType.value',
     			'property' => 'oportunityType.value'
+    	);
+    	
+    	$filter[] = array(
+    			'value' => $hoy,
+    			'operator' => '>=',
+    			'property' => 'closeDate'
     	);
     	
     	$filter = json_encode($filter);
@@ -109,6 +119,12 @@ class OportunityBogotaCommand extends Command
     			'operator' => '=',
     			'field' => 'oportunityType.value',
     			'property' => 'oportunityType.value'
+    	);
+    	
+    	$filterTwo[] = array(
+    			'value' => $hoy,
+    			'operator' => '>=',
+    			'property' => 'closeDate'
     	);
     	 
     	$filterTwo = json_encode($filterTwo);
@@ -205,8 +221,6 @@ class OportunityBogotaCommand extends Command
     					//$this->insertCliente($conexion, $op['client']);
     					//print_r($clienteSF1);
     					if(is_null($clienteSF1)){
-    						echo "\n Creando cliente en Sifinca 1\n";
-    							
     						$this->insertCliente($conexion, $op['client']);
     							
     					}
@@ -342,48 +356,57 @@ class OportunityBogotaCommand extends Command
     	$tipoIdentificacion = null;
     	
     	//print_r($cliente);
-    	$urlapiMapper = $this->server.'admin/sifinca/mapper/target/idType/'.$cliente['identity']['idType']['id'];
     	
-    	//echo "\n".$urlapiMapper."\n";
-    	$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    	
-    	$idTypeMapper = $apiMapper->get();
-    	$idTypeMapper = json_decode($idTypeMapper, true);
-    	 
-    	
-    	///print_r($idTypeMapper);
-    	$idType = $idTypeMapper['data']['0']['idSource'];
-    	
-    	
-    	$naturaleza = 'N';
-    	if($cliente['identity']['idType']['id'] == '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'){
-    		$naturaleza = 'J';
+    	if($cliente){
     		
-    		$param = array(
-    				'id_cliente' => $cliente['identity']['number'],
-    				'id_identificacion' => $idType,
-    				'nat_juridica' => $naturaleza,
-    				'nom_empresa' => $cliente['comercialName']
-    				 
-    		);
+    		echo "\n Creando cliente en Sifinca 1\n";
     		
-    		$conexion->insertClienteJuridico($param);
+    		$urlapiMapper = $this->server.'admin/sifinca/mapper/target/idType/'.$cliente['identity']['idType']['id'];
+    		 
+    		//echo "\n".$urlapiMapper."\n";
+    		 
+    		$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    		 
+    		$idTypeMapper = $apiMapper->get();
+    		$idTypeMapper = json_decode($idTypeMapper, true);
     		
-    	}else{
+    		 
+    		///print_r($idTypeMapper);
+    		$idType = $idTypeMapper['data']['0']['idSource'];
+    		 
+    		 
+    		$naturaleza = 'N';
+    		if($cliente['identity']['idType']['id'] == '6c29bc74-a33a-42ed-8d24-1d86e31dce9f'){
+    			$naturaleza = 'J';
     		
-    		$param = array(
-    				'id_cliente' => $cliente['identity']['number'],
-    				'id_identificacion' => $idType,
-    				'nat_juridica' => $naturaleza,
-    				'nombre' => $cliente['firstname']." ".$cliente['secondname'],
-    				'apellido'=> $cliente['lastname']." ".$cliente['secondLastname']
-    				
-    				 
-    		);
+    			$param = array(
+    					'id_cliente' => $cliente['identity']['number'],
+    					'id_identificacion' => $idType,
+    					'nat_juridica' => $naturaleza,
+    					'nom_empresa' => $cliente['comercialName']
+    						
+    			);
     		
-    		$conexion->insertCliente($param);
+    			$conexion->insertClienteJuridico($param);
     		
+    		}else{
+    		
+    			$param = array(
+    					'id_cliente' => $cliente['identity']['number'],
+    					'id_identificacion' => $idType,
+    					'nat_juridica' => $naturaleza,
+    					'nombre' => $cliente['firstname']." ".$cliente['secondname'],
+    					'apellido'=> $cliente['lastname']." ".$cliente['secondLastname']
+    		
+    						
+    			);
+    		
+    			$conexion->insertCliente($param);
+    		
+    		}
     	}
+    	
+
     	
     	
     

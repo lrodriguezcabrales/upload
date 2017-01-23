@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Cartagena;
 
 use upload\model\contratoArriendoCartagena;
 use upload\lib\data;
@@ -20,13 +20,7 @@ class ArrendatariosCommand extends Command
 	public $serverRoot = 'http://www.sifinca.net';
 	
 	public $localServer = 'http://10.102.1.22/';
-	
-// 	public $server = 'http://10.102.1.22/sifinca/web/app.php/';
-// 	public $serverRoot = 'http:/10.102.1.22/';
-
-// 	public $server = 'http://104.130.12.152/sifinca/web/app_dev.php/';
-// 	public $serverRoot = 'http:/104.130.12.152/';
-	
+		
 	public $user= "sifincauno@araujoysegovia.com";
 	public $pass="araujo123";
 	public $token = null;
@@ -74,14 +68,9 @@ class ArrendatariosCommand extends Command
     }
      
     public function crearArrendatarios($conexion) {
-    	    	    	
-    	$urlConArriendo = $this->server.'catchment/main/leasingcontract/only/ids';
+    	    	    	    	
+    	$conArriendos = $conexion->getContratosArriendo();
     	
-    	$apiConArriendo = $this->SetupApi($urlConArriendo, $this->user, $this->pass);
-    	
-    	$conArriendos = $apiConArriendo->get();
-    	$conArriendos = json_decode($conArriendos, true);
-    	//echo $conArriendos['total']
     	
     	$urlapiLease = $this->server.'catchment/main/lease';
     	
@@ -89,21 +78,26 @@ class ArrendatariosCommand extends Command
     	
     	echo "\nTotal de contratos - arrendatarios: ".count($conArriendos['data'])."\n";
     	
-    	$totalConArriendos = count($conArriendos['data']);
+    	//$totalConArriendos = count($conArriendos['data']);
+    	$totalConArriendos = count($conArriendos);
     	
     	$porDonde = 0;
     	$startTime= new \DateTime();
     	
     	//foreach ($conArriendos['data'] as $conArriendo) {
-    	for ($i = 0; $i < 50; $i++) {
+    	for ($i = 0; $i < $totalConArriendos; $i++) {
     		
-    		$conArriendo = $conArriendos['data'][$i];
+    		$conArriendo = $conArriendos[$i];
     		
-    		$arrendatariosSF1 = $conexion->getArrendatoriosPorContrato($conArriendo['consecutive']); 		
+    		$arrendatariosSF1 = $conexion->getArrendatoriosPorContrato($conArriendo['id_contrato']); 		
+    		
+    		$contratoSF2 = $this->searchContratoArriendo($conArriendo);
     		
     		foreach ($arrendatariosSF1 as $p) {
     		
-    			echo "\nConvenio - ".$conArriendo['consecutive']."\n";
+    			echo "\nContrato - ".$conArriendo['id_contrato']."\n";
+    			
+    			
     			
     			$leaseIdentificacion = $p['id_cliente'];
     			$leaseIdentificacion = $this->cleanString($leaseIdentificacion);
@@ -122,7 +116,7 @@ class ArrendatariosCommand extends Command
     				
     				if(is_null($ownerSF2)){
     				
-    					echo "\nYa tenemos el cliente, creando propietario\n";
+    					echo "\nYa tenemos el cliente, creando arrendatario\n";
     					
     					$leaseType = $this->tipoArrendatario($p['tipo_relacion']);
     						
@@ -133,15 +127,13 @@ class ArrendatariosCommand extends Command
     					$bLease = array(
     							'client' => array('id'=>$client['id'], 'name'=>$client['name']),
     							'typeLease' => $leaseType,
-    							//'percentageIncomeDivision' => $p['participacion'], //% Participacion de renta
-    							//'taxPercentage' => null, // % tributario
-    							//'payForm' => $payForm,
-    							'leasingContract' => array('id'=>$conArriendo['id'])
+    							'leasingContract' => array('id'=>$contratoSF2['id'])
     					);
     						
     						
     					$json = json_encode($bLease);
-    					//     		//echo "\n\n".$json."\n\n";
+    					
+    					echo "\n\n".$json."\n\n";
     					
     						
     					$result = $apiLease->post($bLease);
@@ -164,7 +156,7 @@ class ArrendatariosCommand extends Command
     						
     						$error = array(
     								'lease' => $client['id'],
-    								'leasingContract'=> $conArriendo['consecutive'],
+    								'leasingContract'=> $conArriendo['id_contrato'],
     								'objectJson' => $json
     						);
     						
@@ -174,7 +166,7 @@ class ArrendatariosCommand extends Command
     						
     				}else{
     						
-    					echo "\nEl propietario ya existe en este contrato de arriendo\n";
+    					echo "\nEl arrendatario ya existe en este contrato de arriendo\n";
     				}
     				
     			}else{
@@ -214,7 +206,7 @@ class ArrendatariosCommand extends Command
     					}	
     					else{
     				    	
-    						echo "\nEl propietario ya existe\n";
+    						echo "\nEl arrendatario ya existe\n";
 							
     						
     					}
@@ -244,6 +236,40 @@ class ArrendatariosCommand extends Command
     	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
     	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
     	
+    }
+    
+    function searchContratoArriendo($contrato) {
+    	 
+    	$codigoContrato = $this->cleanString($contrato['id_contrato']);
+    
+    	 
+    	 
+    	$filter = array(
+    			'value' => $codigoContrato,
+    			'operator' => 'equal',
+    			'property' => 'consecutive'
+    	);
+    	$filter = json_encode(array($filter));
+    	 
+    	$urlContract = $this->server.'catchment/main/leasingcontract?filter='.$filter;
+    	 
+    	echo "\n".$urlContract."\n";
+    	 
+    	$apiContract = $this->SetupApi($urlContract, $this->user, $this->pass);
+    	 
+    	$contract = $apiContract->get();
+    	$contract = json_decode($contract, true);
+    	 
+    
+    	if($contract['total'] > 0){
+    		 
+    		$c = array('id' => $contract['data'][0]['id']);
+    		return $c;
+    		 
+    	}else{
+    		return null;
+    	}
+    
     }
     
     
@@ -431,127 +457,126 @@ class ArrendatariosCommand extends Command
     	 
     }
     
-    
-    /**	
+    /**
      * Crear cliente
      * @param unknown $clients
      */
     function buildClient($client) {
-    	 
+    
     	//echo count($clients);
-    	 
+    
     	$clientErrors = array();
-    	 
+    
     
     	$clientType = null;
     
-    		//echo "\nTipo de cliente: ".$client['nat_juridica'];
+    	//echo "\nTipo de cliente: ".$client['nat_juridica'];
     
     	//print_r($client);
-    		if($client['nat_juridica'] == 'N'){
-    			$clientType = 2;
+    	if($client['nat_juridica'] == 'N'){
+    		$clientType = 2;
     
-    			 
-    			$urlapiClient = $this->server.'crm/main/clientperson';
     
-    			 
-    			$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
-    			 
-    			 
-    			$bClient = $this->buildClintePersona($client);
+    		$urlapiClient = $this->server.'crm/main/clientperson';
     
-    			$result = $apiClient->post($bClient);
-    			 
-    			$result = json_decode($result, true);
-    			 
-    			 
-    			 
-    			if(isset($result['success'])){
-    				if($result['success'] == true){
+    
+    		$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
+    
+    
+    		$bClient = $this->buildClintePersona($client);
+    
+    		$result = $apiClient->post($bClient);
+    
+    		$result = json_decode($result, true);
+    
+    
+    
+    		if(isset($result['success'])){
+    			if($result['success'] == true){
     					
-    					return $client['id_cliente'];
-    				}
-    			}else{
-    				echo "\nError creando cliente\n";
-    					
-    					
-    				$urlapiMapper = $this->server.'crm/main/errorclient';
-    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    
-    				$msj = null;
-    				if(isset($result['message'])){
-    					$msj = $result['message'];
-    				}
+    				return $client['id_cliente'];
+    			}
+    		}else{
+    			echo "\nError creando cliente\n";
     				
-    				$error = array(
-    						'client' => $client['id_cliente'],
-    						'objectJson' => json_encode($bClient),
-    						'error' => $msj
-    				);
-    
-    				$apiMapper->post($error);
     				
-    				return null;
+    			$urlapiMapper = $this->server.'crm/main/errorclient';
+    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     
+    			$msj = null;
+    			if(isset($result['message'])){
+    				$msj = $result['message'];
+    			}
+    
+    			$error = array(
+    					'client' => $client['id_cliente'],
+    					'objectJson' => json_encode($bClient),
+    					'error' => $msj
+    			);
+    
+    			$apiMapper->post($error);
+    
+    			return null;
+    
+    		}
+    
+    
+    
+    	}else if($client['nat_juridica'] == 'J'){
+    		//echo "\nCliente juridico\n";
+    		$clientType = 3;
+    
+    		$urlapiClient = $this->server.'crm/main/clientcompany';
+    		 
+    		 
+    		$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
+    		 
+    		 
+    		$bClient = $this->buildClintePersonaJuridica($client);
+    		 
+    		$result = $apiClient->post($bClient);
+    		 
+    		$result = json_decode($result, true);
+    
+    		//print_r($result);
+    
+    		if(isset($result['success'])){
+    			if($result['success'] == true){
+    					
+    				return $client['id_cliente'];
+    			}
+    		}else{
+    			echo "\nError cliente juridico\n";
+    
+    			$urlapiMapper = $this->server.'crm/main/errorclient';
+    			$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
+    
+    			$msj = null;
+    			if(isset($result['message'])){
+    				$msj = $result['message'];
     			}
     			 
-    			 
-    			 
-    		}else if($client['nat_juridica'] == 'J'){
-    			//echo "\nCliente juridico\n";
-    			$clientType = 3;
-    			 
-    			$urlapiClient = $this->server.'crm/main/clientcompany';
-    			
-    			
-    			$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
-    			
-    			
-    			$bClient = $this->buildClintePersonaJuridica($client);
-    			
-    			$result = $apiClient->post($bClient);
-    			
-    			$result = json_decode($result, true);
-    			 
-    			//print_r($result);
-    			 
-    			if(isset($result['success'])){
-    				if($result['success'] == true){
-    					
-    					return $client['id_cliente'];
-    				}
-    			}else{
-    				echo "\nError cliente juridico\n";
-
-    				$urlapiMapper = $this->server.'crm/main/errorclient';
-    				$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    
-    				$msj = null;
-    				if(isset($result['message'])){
-    					$msj = $result['message'];
-    				}
-    			
-    				$error = array(
+    			$error = array(
     					'client' => $client['id_cliente'],
     					'type' => 'J',
     					'objectJson' => json_encode($bClient),
     					'error' => $msj
-    				);
-    						
-    				$apiMapper->post($error);
-    				
-    				return null;
+    			);
     
-    			}
+    			$apiMapper->post($error);
+    
+    			return null;
+    
     		}
+    	}
     
-
+    
     }
     
     function buildClintePersona($client) {
-    	 
+    
     	$urlapiClient = $this->server.'crm/main/clientperson';
-    	 
+    
     	$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
     
     	$urlapiMapper = $this->server.'admin/sifinca/mapper/idType/'.$client['id_identificacion'];
@@ -560,9 +585,9 @@ class ArrendatariosCommand extends Command
     	$idTypeMapper = $apiMapper->get();
     	$idTypeMapper = json_decode($idTypeMapper, true);
     	//     		print_r($idTypeMapper);
-    	 
+    
     	//     		print_r($idTypeMapper["total"]);
-    	 
+    
     	$idType = $idTypeMapper['data']['0']['idTarget'];
     
     
@@ -570,14 +595,14 @@ class ArrendatariosCommand extends Command
     			'number' => $client['id_cliente'],
     			'idType' => array('id'=>$idType)
     	);
-    	 
+    
     	//$company = array('id'=>'19dc5e46-ec2a-4b09-a671-f18c2d90b48c');
-    	 
+    
     	$direcciones = $this->buildDirecciones($client);
-    	 
+    
     	$telefonos = $this->buildTelefonos($client);
-    	 
-    	 
+    
+    
     	//echo "\n Estado civil: ".$client['estado_civil']."\n";
     	$urlapiMaritalStatus = $this->server.'admin/sifinca/mapper/maritalStatus/'.$client['estado_civil'];
     	$apiMapperMaritalStatus = $this->SetupApi($urlapiMaritalStatus, $this->user, $this->pass);
@@ -600,34 +625,35 @@ class ArrendatariosCommand extends Command
     		}
     	}
     
-    
-    	//echo "maritalStatus".$maritalStatus;
-    
-    	//----aad
+
     	$urlapiLevelStudy = $this->server.'admin/sifinca/mapper/levelStudy/'.$client['nivel_estudios'];
     	$apiLevelStudy = $this->SetupApi($urlapiLevelStudy, $this->user, $this->pass);
-    	 
+    
     	$levelStudyMapper = $apiLevelStudy->get();
     	$levelStudyMapper = json_decode($levelStudyMapper, true);
-    	//print_r($maritalStatusMapper);
     	$levelStudy = null;
     	if($levelStudyMapper['total'] > 0){
     		$levelStudy = $levelStudyMapper['data']['0']['idTarget'];
     		if(!is_null($levelStudy)){
     
     			$levelStudy = array('id'=>$levelStudy);
-    
-    			if($levelStudy['total'] == 0){
+    			
+    			if(isset($levelStudy['total'])){
+    				if($levelStudy['total'] == 0){
+    					$levelStudy = null;
+    				}
+    			}else{
     				$levelStudy = null;
     			}
+    			
     
     		}
     	}
-    	 
-    	 
-    	 
+    
+    
+    
     	$email = null;
-    	 
+    
     	if(!empty($client['e_mail'])){
     
     		$trimmed = trim($client['e_mail'], " ");
@@ -641,20 +667,20 @@ class ArrendatariosCommand extends Command
     		}
     
     	}
-    	 
-    	 
+    
+    
     	$contribuyente = $this->buildTipoContribuyente($client);
-    	 
+    
     	$explodeName = explode(" ", $client['nombre']);
     	$explodeApellido = explode(" ", $client['apellido']);
-    	 
+    
     	$firstname = $client['nombre'];
     	$lastname = $client['apellido'];
-    	 
+    
     	$secondname = '';
     	$secondLastname = '';
-    	 
-    	 
+    
+    
     	if(count($explodeName) > 0){
     		$firstname = $explodeName[0];
     		if(isset($explodeName[1])){
@@ -662,7 +688,7 @@ class ArrendatariosCommand extends Command
     		}
     
     	}
-    	 
+    
     	if(count($explodeApellido) > 0){
     		$lastname = $explodeApellido[0];
     		if(isset($explodeApellido[1])){
@@ -670,13 +696,13 @@ class ArrendatariosCommand extends Command
     		}
     
     	}
-    	 
+    
     	$bClient = array(
     			'firstname' => $firstname,
     			'secondname' => $secondname,
     			'lastname' => $lastname,
     			"secondLastname" => $secondLastname,
-    			//'client_type' => $clientType,
+    			'client_type' => 2,
     			'identity' => $identity,
     			'adress' => $direcciones,
     			'phones' => $telefonos,
@@ -685,18 +711,18 @@ class ArrendatariosCommand extends Command
     			'profession' => $levelStudy,
     			'contributor' => $contribuyente
     	);
-    	 
-    	 
+    
+    
     	//     	//print_r($bClient);
-    	 
+    
     	//     	$json = json_encode($bClient);
     	//     	//echo "\n".$json."\n";
-    	 
+    
     	//     	$result = $apiClient->post($bClient);
-    	 
+    
     
     	//     	return $result;
-    	 
+    
     	return $bClient;
     }
     
@@ -705,14 +731,14 @@ class ArrendatariosCommand extends Command
     	$urlapiClient = $this->server.'crm/main/clientcompany';
     
     	//echo "\n".$urlapiClient."\n";
-    	 
+    
     	$apiClient = $this->SetupApi($urlapiClient, $this->user, $this->pass);
     
     	$urlapiMapper = $this->server.'admin/sifinca/mapper/idType/'.$client['id_identificacion'];
     	$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
     
     	echo "\n".$urlapiMapper."\n";
-    	
+    	 
     	$idTypeMapper = $apiMapper->get();
     	$idTypeMapper = json_decode($idTypeMapper, true);
     	//     		print_r($idTypeMapper);
@@ -745,14 +771,15 @@ class ArrendatariosCommand extends Command
     	}else{
     		$contacto = null;
     	}
-    	 
-    	 
+    
+    
     	$representateLegal = $this->buildRepresentanteLegal($client);
-    	 
+    
     	$contribuyente = $this->buildTipoContribuyente($client);
-    	 
+    
     	$bClient = array(
     			'identity' => $identity,
+    			'client_type' => 3,
     			'name' => $client['nombre'],
     			'comercialName' => $client['nombre'],
     			'socialReason' => $client['nombre'],
@@ -770,22 +797,22 @@ class ArrendatariosCommand extends Command
     	//     	//echo "\n".$json."\n";
     
     	//     	$result = $apiClient->post($bClient);
-    	 
+    
     	//     	if(isset($result['message'])){
     	//     		if($result['code'] == 500){
     	//     			$result = $apiClient->put()
-    	//     		}
-    	//     	}
-    	 
-    	//print($result);
-    	 
-    	//echo "\nCliente creado\n";
+    		//     		}
+    		//     	}
     
-    	//return $result;
-    	 
-    	return $bClient;
+    		//print($result);
+    
+    		//echo "\nCliente creado\n";
+    
+    		//return $result;
+    
+    		return $bClient;
     }
-     
+   
     function buildDirecciones($client) {
     
     	$direccionesSF1 = array();
@@ -793,8 +820,8 @@ class ArrendatariosCommand extends Command
     	$dirResidencia = null;
     	$dirTrabajo = null;
     
-    	 
-    	 
+    
+    
     	if($client['dir_residencia']){
     
     
@@ -834,9 +861,9 @@ class ArrendatariosCommand extends Command
     				$town = null;
     				$deparment = null;
     			}
-    			 
-    			 
-    			 
+    
+    
+    
     			if(strlen($address) > 7 ){
     				$dirResidencia = array(
     						'address' => $address,
@@ -851,7 +878,7 @@ class ArrendatariosCommand extends Command
     	}
     
     	//print_r($dirResidencia);
-    	 
+    
     	if($client['dir_trabajo']){
     
     
@@ -870,11 +897,11 @@ class ArrendatariosCommand extends Command
     		$town = json_decode($town, true);
     
     		if(isset($country['total'])){
-    			 
+    
     			if($country['total'] == 1){
-    				 
+    					
     				if(isset($town['total'])){
-    						
+    
     					if($town['total'] == 1){
     						$town = array('id' => $town['data'][0]['idTarget']);
     							
@@ -893,7 +920,7 @@ class ArrendatariosCommand extends Command
     						$town = null;
     						$deparment = null;
     					}
-    						
+    
     				}else{
     					$town = null;
     					$deparment = null;
@@ -914,7 +941,7 @@ class ArrendatariosCommand extends Command
     
     					
     			}
-    			 
+    
     		}else{
     
     			if(isset($town['total'])){
@@ -940,7 +967,7 @@ class ArrendatariosCommand extends Command
     				$town = null;
     				$deparment = null;
     			}
-    			 
+    
     
     			if(strlen($address) > 7){
     				$dirTrabajo = array(
@@ -952,50 +979,50 @@ class ArrendatariosCommand extends Command
     						'typeAddress' => array('id'=>'26f76dc7-4204-4972-9d47-30360735514b') //OFICINA
     				);
     			}
-    			 
+    
     		}
     
     
     	}
     
     	//print_r($dirTrabajo);
-    	 
+    
     	if(!is_null($dirResidencia)){
     		$direccionesSF1[] = $dirResidencia;
     	}
-    	 
+    
     	if(!is_null($dirTrabajo)){
     		$direccionesSF1[] = $dirTrabajo;
     	}
-    	 
+    
     	return $direccionesSF1;
     
     }
     
     function buildTelefonos($client) {
-    	 
+    
     	//print_r($client);
-    	 
+    
     	//echo "Entro aqui";
     	$telefono_residencia = $client['teL_residencia'];
     	$telefono_residencia = $this->validarTelefono($telefono_residencia);
-    	 
+    
     	$telefono_trabajo = $client['tel_trabajo'];
     	$telefono_trabajo = $this->validarTelefono($telefono_trabajo);
-    	 
+    
     	$telefono_celular = $client['tel_celular'];
     	$telefono_celular = $this->validarTelefono($telefono_celular);
     
     	$telefono_residencia2 = $client['tel_residencia2'];
     	$telefono_residencia2 = $this->validarTelefono($telefono_residencia2);
     
-    	 
+    
     	$telefonos = array();
-    	 
+    
     	if(!is_null($telefono_residencia)){
     		$telefonos[] = $telefono_residencia;
     	}
-    	 
+    
     	if(!is_null($telefono_trabajo)){
     		$telefonos[] = $telefono_trabajo;
     	}
@@ -1009,12 +1036,12 @@ class ArrendatariosCommand extends Command
     	}
     
     	//$telefonos = array_unique($telefonos);
-    	 
+    
     	return $telefonos;
     }
     
     function buildTelefonosContacto($client) {
-    	 
+    
     	//echo "Entro aqui";
     	$telefonoContacto1 = $client['teL_co'];
     	$telefonoContacto1 = $this->validarTelefono($telefonoContacto1);
@@ -1024,10 +1051,10 @@ class ArrendatariosCommand extends Command
     
     	$telefonoContacto3 = $client['tel_cto'];
     	$telefonoContacto3 = $this->validarTelefono($telefonoContacto3);
-    	 
+    
     	$telefonoContacto4 = $client['teL_celular_cto'];
     	$telefonoContacto4 = $this->validarTelefono($telefonoContacto4);
-    	 
+    
     	$telefonos = array();
     
     	if(!is_null($telefonoContacto1)){
@@ -1037,26 +1064,26 @@ class ArrendatariosCommand extends Command
     	if(!is_null($telefonoContacto2)){
     		$telefonos[] = $telefonoContacto2;
     	}
-    	 
+    
     	if(!is_null($telefonoContacto3)){
     		$telefonos[] = $telefonoContacto3;
     	}
-    	 
+    
     	if(!is_null($telefonoContacto4)){
     		$telefonos[] = $telefonoContacto4;
     	}
-    	 
+    
     	//$telefonos = array_unique($telefonos);
     
     	return $telefonos;
     }
     
     function validarTelefono($telefono) {
-    	 
+    
     	$phone = null;
-    	 
+    
     	//echo "\nTelefono: ".$telefono."\n";
-    	 
+    
     	if(!is_null($telefono) && (strlen($telefono) > 1)){
     
     		$telefono = preg_replace("[\s+]", "", $telefono); //Quitar espacios en blanco
@@ -1068,7 +1095,7 @@ class ArrendatariosCommand extends Command
     					'number' => $telefono,
     					'phoneType' => array('id' => '0b2981d1-f038-4391-9258-015f95b2bf0f'), //Id phoneType SF2, movil
     					'country' => array('id' => $this->colombia)
-    						
+    
     			);
     		}
     
@@ -1077,36 +1104,36 @@ class ArrendatariosCommand extends Command
     					'number' => $telefono,
     					'phoneType' => array('id' => '2f49f417-9db1-4cb6-98c6-7f7f6af21399'), //Id phoneType SF2, fijo
     					'country' => array('id' => $this->colombia)
-    						
+    
     			);
     		}
     	}
-    	 
+    
     	return $phone;
     }
     
     function buildRepresentanteLegal($client) {
-    	 
+    
     	$representateLegal = null;
     
     	//     	echo "\nId representante".$client['id_representante'];
     	//     	echo "\nrepresentante".$client['representante_legal'];
-    	 
+    
     	//     	echo "\n".strlen($client['id_representante']);
     	//     	echo "\n".strlen($client['representante_legal']);
-    	 
+    
     	//if(($client['representante_legal'] != '') && ($client['id_representante'] != '')){
-    	 
+    
     	if(($client['representante_legal'] != '') && ($client['id_representante'] != '')){
     
     
     		if($client['id_representante'] != 0){
-    			 
+    
     			//     			echo "\n".$client['id_representante']."\n";
     			$clientSF2 = $this->searchClientSF2($client['id_representante']);
-    			 
-    			 
-    			 
+    
+    
+    
     			if(is_null($clientSF2)){
     				//echo "\nentro aqui";
     				$name = explode(" ", $client['representante_legal']);
@@ -1154,22 +1181,23 @@ class ArrendatariosCommand extends Command
     			}else{
     				$representateLegal = array('id'=> $clientSF2['id']);
     			}
-    			 
+    
     		}
     	}
-    	 
+    
     	return $representateLegal;
     }
+    
     
     // array('gran_contribuyente'=>false, 'regimen_iva'=>'SIMPLIFICADO','retenedor'=>false,'exento_retencion'=>true,'autoretenedor'=>true)
     /**	
      *  TIPO_CONTRIBUYENTE	GA	Gran Contribuyente - AutoRetenedor
-     *	TIPO_CONTRIBUYENTE	RA	RŽgimen Comœn - Autoretenedor
+     *	TIPO_CONTRIBUYENTE	RA	Rï¿½gimen Comï¿½n - Autoretenedor
      *	TIPO_CONTRIBUYENTE	GN	Gran Contribuyente - No Autoretenedor
-     *	TIPO_CONTRIBUYENTE	RN	RŽgimen Comœn - No Autoretenedor
-     *	TIPO_CONTRIBUYENTE	RS	RŽgimen Simplificado
+     *	TIPO_CONTRIBUYENTE	RN	Rï¿½gimen Comï¿½n - No Autoretenedor
+     *	TIPO_CONTRIBUYENTE	RS	Rï¿½gimen Simplificado
      *	TIPO_CONTRIBUYENTE	CE	Cliente Extranjero
-     *	TIPO_CONTRIBUYENTE	EX	Exento retenci—n (Sin animo de lucro)
+     *	TIPO_CONTRIBUYENTE	EX	Exento retenciï¿½n (Sin animo de lucro)
      * @param unknown $cliente
      * @return Ambigous <NULL, multitype:NULL >
      */
@@ -1746,7 +1774,7 @@ class ArrendatariosCommand extends Command
     function searchArrendatarioPorConArriendoYcliente($client, $conArriendo) {
     	
     	//print_r($conArriendo);
-    	$codigoConArriendo = $this->cleanString($conArriendo['consecutive']);
+    	$codigoConArriendo = $this->cleanString($conArriendo['id_contrato']);
     	 
     	$filter = array();
     	

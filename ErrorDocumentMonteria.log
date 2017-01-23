@@ -1,0 +1,1329 @@
+[Wed, 04 Jan 2017 14:55:43 -0500] Error 002: 
+ERROR:  
+
+[Wed, 04 Jan 2017 14:55:43 -0500] Error 002: 
+ERROR:  
+
+[Wed, 04 Jan 2017 14:55:43 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/4831.pdf
+
+
+[Wed, 04 Jan 2017 16:09:40 -0500] Error 002: 
+ERROR:  
+
+[Wed, 04 Jan 2017 16:09:40 -0500] Error 002: 
+ERROR:  
+
+[Wed, 04 Jan 2017 16:09:40 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/6017.pdf
+
+
+[Wed, 04 Jan 2017 16:21:09 -0500] Error 002: 
+ERROR:  
+
+[Wed, 04 Jan 2017 16:21:09 -0500] Error 002: 
+ERROR:  
+
+[Wed, 04 Jan 2017 16:21:09 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/6206.pdf
+
+
+[Wed, 04 Jan 2017 17:06:19 -0500] Error 002: 
+ERROR:  
+
+[Wed, 04 Jan 2017 17:06:19 -0500] Error 002: 
+ERROR:  
+
+[Wed, 04 Jan 2017 17:06:19 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/6875.pdf
+
+
+[Thu, 05 Jan 2017 09:03:46 -0500] Error 002: 
+ERROR:  
+
+[Thu, 05 Jan 2017 09:03:46 -0500] Error 002: 
+ERROR:  
+
+[Thu, 05 Jan 2017 09:03:46 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/3116.pdf
+
+
+[Thu, 05 Jan 2017 09:58:27 -0500] Error 002: 
+ERROR:  
+
+[Thu, 05 Jan 2017 09:58:27 -0500] Error 002: 
+ERROR:  
+
+[Thu, 05 Jan 2017 09:58:27 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/10280.pdf
+
+
+[Thu, 05 Jan 2017 10:49:57 -0500] Error 002: 
+ERROR:  
+
+[Thu, 05 Jan 2017 10:49:57 -0500] Error 002: 
+ERROR:  
+
+[Thu, 05 Jan 2017 10:49:57 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/10874.pdf
+
+
+[Thu, 05 Jan 2017 11:07:23 -0500] Error 001: 
+ERROR: 502180 
+
+[Thu, 05 Jan 2017 11:07:23 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 11:07:23\", \"2017-01-05 11:07:23\", 1, \"70a6b5b5-156f-44e3-9991-ee7a78565422\", 1, false, \"\", \"\", \"502180.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 11:07:23 -0500] Error 001: 
+ERROR: {"nameDocument":"502156","dateDocument":"2008-04-07","tags":[[{"Contract":" "},{"Own":"BURGOS VELLOJIN BELEN LUCIA DEL SOCORRO"},{"Agreement":"1544"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:05","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:05","timezone_type":3,"timezone":"America\/Bogota"},"id":"eff49f12-935d-414e-b8cb-80fd702a6b7b","name":"Autorizaci\u00f3n Desocupacion Propietario","description":null,"monthsValidaty":null,"code":"197","codeName":"197 - Autorizaci\u00f3n Desocupacion Propietario"},"file":[{"id":"288ec4a9-a958-4449-9ffa-6b170abe8dbf"}],"additional":"ARR22","virtual":false} 
+
+[Thu, 05 Jan 2017 11:33:37 -0500] Error 001: 
+ERROR: 11678 
+
+[Thu, 05 Jan 2017 11:33:37 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 11:33:37\", \"2017-01-05 11:33:37\", 1, \"d11b8b88-ef56-49b0-8f20-e26b061671f4\", 1, false, \"\", \"\", \"11678.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 11:33:37 -0500] Error 001: 
+ERROR: {"nameDocument":"11677","dateDocument":"2007-08-09","tags":[[{"Contract":"5385"},{"Own":"INVERSIONES USME ALARCON"},{"Agreement":"463"},{"Client":"KERGUELEN DE CABRALES SONIA MARGARITA"},{"property":"1572"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"86a2acec-0d47-451a-b3b5-2847bd2153f3"}],"additional":"ARR24","virtual":false} 
+
+[Thu, 05 Jan 2017 12:10:23 -0500] Error 002: 
+ERROR: 11678 
+
+[Thu, 05 Jan 2017 12:10:23 -0500] Error 002: 
+ERROR: {"nameDocument":"11677","dateDocument":"2007-08-09","tags":[[{"Contract":"5385"},{"Own":"INVERSIONES USME ALARCON"},{"Agreement":"463"},{"Client":"KERGUELEN DE CABRALES SONIA MARGARITA"},{"property":"1572"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"86a2acec-0d47-451a-b3b5-2847bd2153f3"}],"additional":"ARR24","virtual":false} 
+
+[Thu, 05 Jan 2017 12:10:23 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/12209.pdf
+
+
+[Thu, 05 Jan 2017 12:34:50 -0500] Error 002: 
+ERROR: 11678 
+
+[Thu, 05 Jan 2017 12:34:50 -0500] Error 002: 
+ERROR: {"nameDocument":"11677","dateDocument":"2007-08-09","tags":[[{"Contract":"5385"},{"Own":"INVERSIONES USME ALARCON"},{"Agreement":"463"},{"Client":"KERGUELEN DE CABRALES SONIA MARGARITA"},{"property":"1572"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"86a2acec-0d47-451a-b3b5-2847bd2153f3"}],"additional":"ARR24","virtual":false} 
+
+[Thu, 05 Jan 2017 12:34:50 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/502639.pdf
+
+
+[Thu, 05 Jan 2017 12:36:36 -0500] Error 001: 
+ERROR: 12139 
+
+[Thu, 05 Jan 2017 12:36:36 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 12:36:36\", \"2017-01-05 12:36:36\", 1, \"a48c64f4-a97f-4ba9-aa55-c2e14ddc1787\", 1, false, \"\", \"\", \"12139.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 12:36:36 -0500] Error 001: 
+ERROR: {"nameDocument":"12138","dateDocument":"2008-04-04","tags":[[{"Contract":" "},{"Own":"BECHARA DE GANEM MERY"},{"Agreement":"331"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"87a3534c-bc50-4400-b48b-bee9bc9457d7"}],"additional":"ARR26","virtual":false} 
+
+[Thu, 05 Jan 2017 12:37:01 -0500] Error 001: 
+ERROR: 12142 
+
+[Thu, 05 Jan 2017 12:37:01 -0500] Error 001: 
+ERROR: {"message":"The configured bucket \"monteria-files\" does not exist.","code":500} 
+
+[Thu, 05 Jan 2017 12:37:01 -0500] Error 001: 
+ERROR: {"nameDocument":"12141","dateDocument":"2007-12-04","tags":[[{"Contract":"4861"},{"Own":"LAKAH NOVA LUISANA DE JESUS"},{"Agreement":"2119"},{"Client":"IPS SALUD NORTE LTDA"},{"property":"4420"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:19","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:19","timezone_type":3,"timezone":"America\/Bogota"},"id":"3f1f3588-d290-4f09-b6a6-d8f72f7aab7d","name":"Comunicaci\u00f3n general de Cartera","description":null,"monthsValidaty":null,"code":"138","codeName":"138 - Comunicaci\u00f3n general de Cartera"},"file":[{"id":"b3c03e8a-9e8a-4168-8626-076d7dc498a1"}],"additional":"ARR26","virtual":false} 
+
+[Thu, 05 Jan 2017 14:49:17 -0500] Error 001: 
+ERROR: 16460 
+
+[Thu, 05 Jan 2017 14:49:17 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 14:49:17\", \"2017-01-05 14:49:17\", 1, \"38f18483-a7a9-4c64-ac43-f3c4135029a6\", 1, false, \"\", \"\", \"16460.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 14:49:17 -0500] Error 001: 
+ERROR: {"nameDocument":"16459","dateDocument":"1999-09-01","tags":[[{"Contract":"293"},{"Own":"OSORIO DE SALLEG HAZYADE"},{"Agreement":"865"},{"Client":"BRI\u00d1EZ MIRANDA NORIS DEL CARMEN"},{"property":"293"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:16:16","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:16:16","timezone_type":3,"timezone":"America\/Bogota"},"id":"81476e4e-4084-4340-b3b4-e36ffd778552","name":"Referencia Bancaria - Familiar - Personal - Comercial            ","description":null,"monthsValidaty":null,"code":"187","codeName":"187 - Referencia Bancaria - Familiar - Personal - Comercial            "},"file":[{"id":"0ac85b63-419c-4af0-815f-cf0a086f180d"}],"additional":"VIRTUAL5","virtual":false} 
+
+[Thu, 05 Jan 2017 15:11:24 -0500] Error 001: 
+ERROR: 504189 
+
+[Thu, 05 Jan 2017 15:11:24 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 15:11:24\", \"2017-01-05 15:11:24\", 1, \"58913252-af18-452f-ac73-1e39b82ef93e\", 1, false, \"\", \"\", \"504189.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 15:11:24 -0500] Error 001: 
+ERROR: {"nameDocument":"504188","dateDocument":"2008-08-21","tags":[[{"Contract":" "},{"Own":"MARIA MELENDEZ DE GARCIA JAIRO GARCIA CAUSIL Y"},{"Agreement":"360"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"id":"c8faf117-e9aa-4961-bd74-08bc2000d0c8","name":"Finalizaci\u00f3n Contrato - Inquilino","description":null,"monthsValidaty":null,"code":"161","codeName":"161 - Finalizaci\u00f3n Contrato - Inquilino"},"file":[{"id":"365f1e22-10f3-47a5-8ec6-cc89e99c1973"}],"additional":"ARR37","virtual":false} 
+
+[Thu, 05 Jan 2017 15:16:14 -0500] Error 001: 
+ERROR: 504190 
+
+[Thu, 05 Jan 2017 15:16:14 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 15:16:14\", \"2017-01-05 15:16:14\", 1, \"ac8500e5-b759-483e-b0e2-7fb193fad381\", 1, false, \"\", \"\", \"504190.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 15:16:14 -0500] Error 001: 
+ERROR: {"nameDocument":"504188","dateDocument":"2008-08-21","tags":[[{"Contract":" "},{"Own":"MARIA MELENDEZ DE GARCIA JAIRO GARCIA CAUSIL Y"},{"Agreement":"360"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"id":"c8faf117-e9aa-4961-bd74-08bc2000d0c8","name":"Finalizaci\u00f3n Contrato - Inquilino","description":null,"monthsValidaty":null,"code":"161","codeName":"161 - Finalizaci\u00f3n Contrato - Inquilino"},"file":[{"id":"365f1e22-10f3-47a5-8ec6-cc89e99c1973"}],"additional":"ARR37","virtual":false} 
+
+[Thu, 05 Jan 2017 15:24:55 -0500] Error 001: 
+ERROR: 17089 
+
+[Thu, 05 Jan 2017 15:24:55 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 15:24:55\", \"2017-01-05 15:24:55\", 1, \"c8f983d4-a5c6-4e88-bb52-870c95f5c761\", 1, false, \"\", \"\", \"17089.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 15:24:55 -0500] Error 001: 
+ERROR: {"nameDocument":"17088","dateDocument":"2008-05-15","tags":[[{"Contract":" "},{"Own":"REVUELTAS TOBIAS ENRIQUE"},{"Agreement":"786"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"573a6d13-44f1-43bf-af59-9dc07b7d1723"}],"additional":"ARR38","virtual":false} 
+
+[Thu, 05 Jan 2017 15:37:44 -0500] Error 001: 
+ERROR: 17030 
+
+[Thu, 05 Jan 2017 15:37:44 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 15:37:44\", \"2017-01-05 15:37:44\", 1, \"3b7ebb06-0722-438f-81c2-b5217ef47192\", 1, false, \"\", \"\", \"17030.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 15:37:44 -0500] Error 001: 
+ERROR: {"nameDocument":"17024","dateDocument":"2005-11-03","tags":[[{"Contract":"175"},{"Own":"VELASQUEZ DE CABALLERO LUZ AMALIA"},{"Agreement":"123"},{"Client":"AT & T COLOMBIA S.A."},{"property":"175"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:33","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:33","timezone_type":3,"timezone":"America\/Bogota"},"id":"a3cc8318-260a-4079-8852-880404557203","name":"Carta de Intermediaci\u00f3n","description":null,"monthsValidaty":null,"code":"184","codeName":"184 - Carta de Intermediaci\u00f3n"},"file":[{"id":"2d9a0680-3816-4ac2-a64a-799a8e5935f5"}],"additional":"ARR39","virtual":false} 
+
+[Thu, 05 Jan 2017 15:43:06 -0500] Error 001: 
+ERROR: 504315 
+
+[Thu, 05 Jan 2017 15:43:06 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 15:43:06\", \"2017-01-05 15:43:06\", 1, \"8eb3d503-3e33-443f-a9f6-35e7740e8ae7\", 1, false, \"\", \"\", \"504315.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 15:43:06 -0500] Error 001: 
+ERROR: {"nameDocument":"504314","dateDocument":"2008-08-28","tags":[[{"Contract":"3701"},{"Own":"GARCES DE LOMBANA ISABEL CRISTINA"},{"Agreement":"506"},{"Client":"GOMEZ PALMERA GIOVANNY GERMAN"},{"property":"622"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"d437a50b-6eee-44a8-8d7f-e06af5f57727"}],"additional":"ARR39","virtual":false} 
+
+[Thu, 05 Jan 2017 15:56:19 -0500] Error 002: 
+ERROR: 504315 
+
+[Thu, 05 Jan 2017 15:56:19 -0500] Error 002: 
+ERROR: {"nameDocument":"504314","dateDocument":"2008-08-28","tags":[[{"Contract":"3701"},{"Own":"GARCES DE LOMBANA ISABEL CRISTINA"},{"Agreement":"506"},{"Client":"GOMEZ PALMERA GIOVANNY GERMAN"},{"property":"622"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"d437a50b-6eee-44a8-8d7f-e06af5f57727"}],"additional":"ARR39","virtual":false} 
+
+[Thu, 05 Jan 2017 15:56:19 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/17643.pdf
+
+
+[Thu, 05 Jan 2017 16:07:05 -0500] Error 001: 
+ERROR: 17773 
+
+[Thu, 05 Jan 2017 16:07:05 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 16:07:05\", \"2017-01-05 16:07:05\", 1, \"140d21a7-d744-4fc6-9664-3358c3d2b4bf\", 1, false, \"\", \"\", \"17773.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 16:07:05 -0500] Error 001: 
+ERROR: {"nameDocument":"17772","dateDocument":"2008-07-10","tags":[[{"Contract":"1735"},{"Own":"OLIER DE CASTELLANOS EMERITA"},{"Agreement":"163"},{"Client":"PONQUE RAMO DE ANTIOQUIA"},{"property":"1735"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"id":"c8faf117-e9aa-4961-bd74-08bc2000d0c8","name":"Finalizaci\u00f3n Contrato - Inquilino","description":null,"monthsValidaty":null,"code":"161","codeName":"161 - Finalizaci\u00f3n Contrato - Inquilino"},"file":[{"id":"a6c59459-0831-4497-aa41-ccecf9bb77f1"}],"additional":"ARR40","virtual":false} 
+
+[Thu, 05 Jan 2017 16:27:42 -0500] Error 001: 
+ERROR: 18128 
+
+[Thu, 05 Jan 2017 16:27:42 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 16:27:42\", \"2017-01-05 16:27:42\", 1, \"74bdc94b-e773-4139-a8a6-2055fd08f7df\", 1, false, \"\", \"\", \"18128.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 16:27:42 -0500] Error 001: 
+ERROR: {"nameDocument":"18127","dateDocument":"1998-01-15","tags":[[{"Contract":"180"},{"Own":"VALLEJO VILLALBA LILIAM CECILIA"},{"Agreement":"1675"},{"Client":"AVILEZ VERGARA JUAN BAUTISTA"},{"property":"180"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:32","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:32","timezone_type":3,"timezone":"America\/Bogota"},"id":"2ac7b48d-1ba5-4a6e-a0ad-cc7fa47984ef","name":"Fotocopia Escrituras                                             ","description":null,"monthsValidaty":null,"code":"165","codeName":"165 - Fotocopia Escrituras                                             "},"file":[{"id":"f95add70-ae3b-461f-b1b0-34ab1cb0b0a8"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:31:14 -0500] Error 001: 
+ERROR: 18129 
+
+[Thu, 05 Jan 2017 16:31:14 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 16:31:14\", \"2017-01-05 16:31:14\", 1, \"405e5599-d0d7-4141-8840-3dc70d883dbd\", 1, false, \"\", \"\", \"18129.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 16:31:14 -0500] Error 001: 
+ERROR: {"nameDocument":"18127","dateDocument":"1998-01-15","tags":[[{"Contract":"180"},{"Own":"VALLEJO VILLALBA LILIAM CECILIA"},{"Agreement":"1675"},{"Client":"AVILEZ VERGARA JUAN BAUTISTA"},{"property":"180"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:32","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:32","timezone_type":3,"timezone":"America\/Bogota"},"id":"2ac7b48d-1ba5-4a6e-a0ad-cc7fa47984ef","name":"Fotocopia Escrituras                                             ","description":null,"monthsValidaty":null,"code":"165","codeName":"165 - Fotocopia Escrituras                                             "},"file":[{"id":"f95add70-ae3b-461f-b1b0-34ab1cb0b0a8"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:32:51 -0500] Error 001: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:32:51 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 16:32:50\", \"2017-01-05 16:32:50\", 1, \"1d7713c3-ecdc-4236-a672-446990f47d7d\", 1, false, \"\", \"\", \"18136.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 16:32:51 -0500] Error 001: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:32 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:32 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:32 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504419.pdf
+
+
+[Thu, 05 Jan 2017 16:39:32 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:32 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:32 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504418.pdf
+
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504417.pdf
+
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504416.pdf
+
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:33 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504415.pdf
+
+
+[Thu, 05 Jan 2017 16:39:34 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:34 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:34 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504411.pdf
+
+
+[Thu, 05 Jan 2017 16:39:34 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:34 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:34 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504410.pdf
+
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504409.pdf
+
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504408.pdf
+
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:35 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504407.pdf
+
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504406.pdf
+
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504421.pdf
+
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:36 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504422.pdf
+
+
+[Thu, 05 Jan 2017 16:39:37 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:37 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:37 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504423.pdf
+
+
+[Thu, 05 Jan 2017 16:39:37 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:37 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:37 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504424.pdf
+
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504425.pdf
+
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504426.pdf
+
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:38 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504427.pdf
+
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504428.pdf
+
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504429.pdf
+
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:39 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504430.pdf
+
+
+[Thu, 05 Jan 2017 16:39:40 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:40 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:40 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504431.pdf
+
+
+[Thu, 05 Jan 2017 16:39:40 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:40 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:40 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504432.pdf
+
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504433.pdf
+
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504434.pdf
+
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:41 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504435.pdf
+
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504436.pdf
+
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504437.pdf
+
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:42 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504438.pdf
+
+
+[Thu, 05 Jan 2017 16:39:43 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:43 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:43 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504439.pdf
+
+
+[Thu, 05 Jan 2017 16:39:43 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:43 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:43 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504440.pdf
+
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504441.pdf
+
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504442.pdf
+
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:44 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504443.pdf
+
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504444.pdf
+
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504445.pdf
+
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:45 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504446.pdf
+
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/504447.pdf
+
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18139.pdf
+
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:46 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18140.pdf
+
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18141.pdf
+
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18142.pdf
+
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:47 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18143.pdf
+
+
+[Thu, 05 Jan 2017 16:39:48 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:48 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:48 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18144.pdf
+
+
+[Thu, 05 Jan 2017 16:39:48 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:48 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:48 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18145.pdf
+
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18146.pdf
+
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18147.pdf
+
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:49 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18149.pdf
+
+
+[Thu, 05 Jan 2017 16:39:50 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:50 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:50 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18150.pdf
+
+
+[Thu, 05 Jan 2017 16:39:50 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:50 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:50 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18151.pdf
+
+
+[Thu, 05 Jan 2017 16:39:51 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:51 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:51 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18152.pdf
+
+
+[Thu, 05 Jan 2017 16:39:51 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:51 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:51 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18153.pdf
+
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18154.pdf
+
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18155.pdf
+
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:52 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18156.pdf
+
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18157.pdf
+
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18158.pdf
+
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: {"nameDocument":"18135","dateDocument":"2008-08-28","tags":[[{"Contract":"6171"},{"Own":"MONTES NEGRETE CARMELO"},{"Agreement":"617"},{"Client":"MERCADO PALENCIA MILENA MARIA"},{"property":"5368"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:10","timezone_type":3,"timezone":"America\/Bogota"},"id":"f2a2acf0-e501-4f7b-9190-c64338aa523d","name":"Factura Servicios publicos no canceladas o copias canceladas","description":null,"monthsValidaty":null,"code":"162","codeName":"162 - Factura Servicios publicos no canceladas o copias canceladas"},"file":[{"id":"d2db7e0f-1810-4e89-9aa7-0621b7ab2aef"}],"additional":"VIRTUAL6","virtual":false} 
+
+[Thu, 05 Jan 2017 16:39:53 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/18159.pdf
+
+
+[Thu, 05 Jan 2017 17:36:08 -0500] Error 001: 
+ERROR: 16460 
+
+[Thu, 05 Jan 2017 17:36:08 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:36:08\", \"2017-01-05 17:36:08\", 1, \"9e081ce7-2f46-4c86-b5e0-0e2581563c91\", 1, false, \"\", \"\", \"16460.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:36:08 -0500] Error 001: 
+ERROR: null 
+
+[Thu, 05 Jan 2017 17:39:17 -0500] Error 001: 
+ERROR: 504189 
+
+[Thu, 05 Jan 2017 17:39:17 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:39:16\", \"2017-01-05 17:39:16\", 1, \"a55cbf04-1b0e-4061-8d23-124b156ad0e2\", 1, false, \"\", \"\", \"504189.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:39:17 -0500] Error 001: 
+ERROR: null 
+
+[Thu, 05 Jan 2017 17:41:33 -0500] Error 001: 
+ERROR: 504190 
+
+[Thu, 05 Jan 2017 17:41:33 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:41:33\", \"2017-01-05 17:41:33\", 1, \"f78f2cd9-1973-49ef-9b33-b037ea8c7f29\", 1, false, \"\", \"\", \"504190.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:41:33 -0500] Error 001: 
+ERROR: null 
+
+[Thu, 05 Jan 2017 17:47:42 -0500] Error 001: 
+ERROR: 17030 
+
+[Thu, 05 Jan 2017 17:47:42 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:47:42\", \"2017-01-05 17:47:42\", 1, \"df7f6bfd-9449-4759-8ef9-ca63e8dd5b92\", 1, false, \"\", \"\", \"17030.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:47:42 -0500] Error 001: 
+ERROR: {"nameDocument":"17089","dateDocument":"2008-05-15","tags":[[{"Contract":" "},{"Own":"ARBELAEZ GOMEZ JULIO HERNAN"},{"Agreement":"38"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"3a465c3e-d0bd-468f-a80c-41dc32ba14ea"}],"additional":"ARR38","virtual":false} 
+
+[Thu, 05 Jan 2017 17:49:13 -0500] Error 001: 
+ERROR: 504315 
+
+[Thu, 05 Jan 2017 17:49:13 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:49:13\", \"2017-01-05 17:49:13\", 1, \"b819861c-c0d2-44b9-b13b-4f40085c8346\", 1, false, \"\", \"\", \"504315.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:49:13 -0500] Error 001: 
+ERROR: {"nameDocument":"17089","dateDocument":"2008-05-15","tags":[[{"Contract":" "},{"Own":"ARBELAEZ GOMEZ JULIO HERNAN"},{"Agreement":"38"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"3a465c3e-d0bd-468f-a80c-41dc32ba14ea"}],"additional":"ARR38","virtual":false} 
+
+[Thu, 05 Jan 2017 17:51:33 -0500] Error 001: 
+ERROR: 17773 
+
+[Thu, 05 Jan 2017 17:51:33 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:51:33\", \"2017-01-05 17:51:33\", 1, \"2fb3d951-5eba-4adf-b795-9706d731e0a8\", 1, false, \"\", \"\", \"17773.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:51:33 -0500] Error 001: 
+ERROR: {"nameDocument":"17089","dateDocument":"2008-05-15","tags":[[{"Contract":" "},{"Own":"ARBELAEZ GOMEZ JULIO HERNAN"},{"Agreement":"38"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"3a465c3e-d0bd-468f-a80c-41dc32ba14ea"}],"additional":"ARR38","virtual":false} 
+
+[Thu, 05 Jan 2017 17:53:46 -0500] Error 001: 
+ERROR: 18128 
+
+[Thu, 05 Jan 2017 17:53:46 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:53:46\", \"2017-01-05 17:53:46\", 1, \"dea907cf-d156-415b-b4bc-8541f139c4d8\", 1, false, \"\", \"\", \"18128.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:53:46 -0500] Error 001: 
+ERROR: {"nameDocument":"17089","dateDocument":"2008-05-15","tags":[[{"Contract":" "},{"Own":"ARBELAEZ GOMEZ JULIO HERNAN"},{"Agreement":"38"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"3a465c3e-d0bd-468f-a80c-41dc32ba14ea"}],"additional":"ARR38","virtual":false} 
+
+[Thu, 05 Jan 2017 17:57:01 -0500] Error 001: 
+ERROR: 18129 
+
+[Thu, 05 Jan 2017 17:57:01 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:57:01\", \"2017-01-05 17:57:01\", 1, \"1a4e39ff-7816-4594-90fa-ca9a53df348f\", 1, false, \"\", \"\", \"18129.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:57:01 -0500] Error 001: 
+ERROR: {"nameDocument":"17089","dateDocument":"2008-05-15","tags":[[{"Contract":" "},{"Own":"ARBELAEZ GOMEZ JULIO HERNAN"},{"Agreement":"38"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"3a465c3e-d0bd-468f-a80c-41dc32ba14ea"}],"additional":"ARR38","virtual":false} 
+
+[Thu, 05 Jan 2017 17:57:44 -0500] Error 001: 
+ERROR: 18136 
+
+[Thu, 05 Jan 2017 17:57:44 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 17:57:44\", \"2017-01-05 17:57:44\", 1, \"319d9825-69bf-4d56-af92-3dd3cf877bc0\", 1, false, \"\", \"\", \"18136.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 17:57:44 -0500] Error 001: 
+ERROR: {"nameDocument":"17089","dateDocument":"2008-05-15","tags":[[{"Contract":" "},{"Own":"ARBELAEZ GOMEZ JULIO HERNAN"},{"Agreement":"38"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"3a465c3e-d0bd-468f-a80c-41dc32ba14ea"}],"additional":"ARR38","virtual":false} 
+
+[Thu, 05 Jan 2017 18:02:20 -0500] Error 001: 
+ERROR: 18164 
+
+[Thu, 05 Jan 2017 18:02:20 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 18:02:20\", \"2017-01-05 18:02:20\", 1, \"09ffa537-6281-4c58-85bf-2015cb3e444d\", 1, false, \"\", \"\", \"18164.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 18:02:20 -0500] Error 001: 
+ERROR: {"nameDocument":"18163","dateDocument":"2008-07-24","tags":[[{"Contract":"5813"},{"Own":"CALUME MONTALVO ROBERTO"},{"Agreement":"1016"},{"Client":"SOLUCION DE CONFLICTOS CENTRO MUNDIAL DE INVESTIGA"},{"property":"2273"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:12:58","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:12:58","timezone_type":3,"timezone":"America\/Bogota"},"id":"6f2132fe-9cc5-47c4-912e-8871f4509c7c","name":"Acta Revisi\u00f3n Empresas de Servicios Publicos","description":null,"monthsValidaty":null,"code":"239","codeName":"239 - Acta Revisi\u00f3n Empresas de Servicios Publicos"},"file":[{"id":"367a72c1-044e-49d4-ae70-e6b6977a1ed7"}],"additional":"ARR42","virtual":false} 
+
+[Thu, 05 Jan 2017 18:04:47 -0500] Error 001: 
+ERROR: 18250 
+
+[Thu, 05 Jan 2017 18:04:47 -0500] Error 001: 
+ERROR: {"message":"Could not write the \"\/tmp\/phpJnl0Np\" key content.","code":500} 
+
+[Thu, 05 Jan 2017 18:04:47 -0500] Error 001: 
+ERROR: {"nameDocument":"18249","dateDocument":"2004-06-22","tags":[[{"Contract":"2591"},{"Own":"ABUCHAR RUMIE ELIZABETH"},{"Agreement":"1286"},{"Client":"CORPORACION DE EDUCACION SUPERIOR INSTITUTO DE ADM"},{"property":"2663"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:26","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:26","timezone_type":3,"timezone":"America\/Bogota"},"id":"5874cab9-eb17-4648-a9b2-eff4bee88667","name":"Carta Bienvenida Inquilino","description":null,"monthsValidaty":null,"code":"268","codeName":"268 - Carta Bienvenida Inquilino"},"file":[{"id":"5ccfdb82-0a68-4d2b-83d1-4fd0efb6c159"}],"additional":"ARR42","virtual":false} 
+
+[Thu, 05 Jan 2017 18:15:59 -0500] Error 001: 
+ERROR: 18421 
+
+[Thu, 05 Jan 2017 18:15:59 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 18:15:59\", \"2017-01-05 18:15:59\", 1, \"a0f3728b-5e40-47a1-b312-a3a16d29c391\", 1, false, \"\", \"\", \"18421.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 18:15:59 -0500] Error 001: 
+ERROR: {"nameDocument":"18114","dateDocument":"1989-03-30","tags":[[{"Contract":"180"},{"Own":"VALLEJO VILLALBA LILIAM CECILIA"},{"Agreement":"1675"},{"Client":"AVILEZ VERGARA JUAN BAUTISTA"},{"property":"180"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:35","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:35","timezone_type":3,"timezone":"America\/Bogota"},"id":"623cd6c0-5bf7-4aaf-a9f2-aea902710b3f","name":"Carta de Reajuste                                                ","description":null,"monthsValidaty":null,"code":"124","codeName":"124 - Carta de Reajuste                                                "},"file":[{"id":"fbaadffe-ab06-41a3-8079-0ab866bc167e"}],"additional":"ARR42","virtual":false} 
+
+[Thu, 05 Jan 2017 18:44:53 -0500] Error 001: 
+ERROR: 504694 
+
+[Thu, 05 Jan 2017 18:44:53 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 18:44:53\", \"2017-01-05 18:44:53\", 1, \"a5415abc-7345-4da2-8428-43660165733d\", 1, false, \"\", \"\", \"504694.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 18:44:53 -0500] Error 001: 
+ERROR: {"nameDocument":"504693","dateDocument":"2008-09-23","tags":[[{"Contract":" "},{"Own":"BECHARA GHISAYS CAROLINA"},{"Agreement":"2067"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:41","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:41","timezone_type":3,"timezone":"America\/Bogota"},"id":"3d3f0daf-fc21-495f-9133-799310e0d365","name":"Carta Solicitud de mantenimiento","description":null,"monthsValidaty":null,"code":"262","codeName":"262 - Carta Solicitud de mantenimiento"},"file":[{"id":"0d1d53d7-2645-4c70-a47d-08a57697cc60"}],"additional":"ARR44","virtual":false} 
+
+[Thu, 05 Jan 2017 19:10:31 -0500] Error 002: 
+ERROR: 504694 
+
+[Thu, 05 Jan 2017 19:10:31 -0500] Error 002: 
+ERROR: {"nameDocument":"504693","dateDocument":"2008-09-23","tags":[[{"Contract":" "},{"Own":"BECHARA GHISAYS CAROLINA"},{"Agreement":"2067"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:41","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:41","timezone_type":3,"timezone":"America\/Bogota"},"id":"3d3f0daf-fc21-495f-9133-799310e0d365","name":"Carta Solicitud de mantenimiento","description":null,"monthsValidaty":null,"code":"262","codeName":"262 - Carta Solicitud de mantenimiento"},"file":[{"id":"0d1d53d7-2645-4c70-a47d-08a57697cc60"}],"additional":"ARR44","virtual":false} 
+
+[Thu, 05 Jan 2017 19:10:31 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/19174.pdf
+
+
+[Thu, 05 Jan 2017 19:15:29 -0500] Error 001: 
+ERROR: 19274 
+
+[Thu, 05 Jan 2017 19:15:29 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:15:29\", \"2017-01-05 19:15:29\", 1, \"cca4a54a-df8d-4a72-85e4-671c12f09fd9\", 1, false, \"\", \"\", \"19274.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:15:29 -0500] Error 001: 
+ERROR: {"nameDocument":"19273","dateDocument":"2008-08-20","tags":[[{"Contract":"5835"},{"Own":"MOLINA DE RICARDO PETRONA"},{"Agreement":"794"},{"Client":"BANDA SANCHEZ HECTOR MANUEL"},{"property":"2187"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:09","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:09","timezone_type":3,"timezone":"America\/Bogota"},"id":"78939bd3-95f4-4ab6-a452-9d975632f271","name":"Factura Servicio P\u00fablico Canceladas                                         ","description":null,"monthsValidaty":null,"code":"159","codeName":"159 - Factura Servicio P\u00fablico Canceladas                                         "},"file":[{"id":"5dece9ca-56dc-4a1d-ab0e-676e9eeea2fe"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:19:12 -0500] Error 001: 
+ERROR: 19287 
+
+[Thu, 05 Jan 2017 19:19:12 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:19:11\", \"2017-01-05 19:19:11\", 1, \"ed3104ea-0cc0-42e8-ac30-b184d6e89e3d\", 1, false, \"\", \"\", \"19287.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:19:12 -0500] Error 001: 
+ERROR: {"nameDocument":"19286","dateDocument":"2008-02-11","tags":[[{"Contract":"5835"},{"Own":"MOLINA DE RICARDO PETRONA"},{"Agreement":"794"},{"Client":"BANDA SANCHEZ HECTOR MANUEL"},{"property":"2187"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:12:58","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:12:58","timezone_type":3,"timezone":"America\/Bogota"},"id":"6f2132fe-9cc5-47c4-912e-8871f4509c7c","name":"Acta Revisi\u00f3n Empresas de Servicios Publicos","description":null,"monthsValidaty":null,"code":"239","codeName":"239 - Acta Revisi\u00f3n Empresas de Servicios Publicos"},"file":[{"id":"a4b14cdb-3f92-4d4b-81d4-374aeb903cf2"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:23:33 -0500] Error 001: 
+ERROR: 504831 
+
+[Thu, 05 Jan 2017 19:23:33 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:23:33\", \"2017-01-05 19:23:33\", 1, \"14b18125-4218-4018-a409-65a06e18b427\", 1, false, \"\", \"\", \"504831.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:23:33 -0500] Error 001: 
+ERROR: {"nameDocument":"504827","dateDocument":"2008-10-03","tags":[[{"Contract":"5312"},{"Own":"SOFAN SALLEG ANTONIO"},{"Agreement":"917"},{"Client":"RAMIREZ GOMEZ LIVIA DEL SOCORRO"},{"property":"4768"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"6ed791ed-e9c7-4d75-bba2-9f10029e0bd6"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:24:42 -0500] Error 001: 
+ERROR: 504835 
+
+[Thu, 05 Jan 2017 19:24:42 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:24:42\", \"2017-01-05 19:24:42\", 1, \"34c28ce8-f8ae-4ec7-b02c-eafe72932f16\", 1, false, \"\", \"\", \"504835.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:24:42 -0500] Error 001: 
+ERROR: {"nameDocument":"504834","dateDocument":"2008-10-03","tags":[[{"Contract":" "},{"Own":"RODRIGUEZ DE PE\u00d1A CARMEN"},{"Agreement":"710"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:54","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:54","timezone_type":3,"timezone":"America\/Bogota"},"id":"465254f5-e385-4341-b4e3-4db52d110faa","name":"Deshaucio","description":null,"monthsValidaty":null,"code":"150","codeName":"150 - Deshaucio"},"file":[{"id":"130c4e93-5e56-4079-927f-03a65f853bbb"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:25:22 -0500] Error 001: 
+ERROR: 504837 
+
+[Thu, 05 Jan 2017 19:25:22 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:25:22\", \"2017-01-05 19:25:22\", 1, \"0169d38b-f06b-4d23-afbd-2add116e7a45\", 1, false, \"\", \"\", \"504837.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:25:22 -0500] Error 001: 
+ERROR: {"nameDocument":"504836","dateDocument":"2008-10-03","tags":[[{"Contract":"5573"},{"Own":"PUCHE MENDOZA JORGE DARIO"},{"Agreement":"2171"},{"Client":"MARIN ANGULO MARINA CECILIA"},{"property":"4518"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"id":"c8faf117-e9aa-4961-bd74-08bc2000d0c8","name":"Finalizaci\u00f3n Contrato - Inquilino","description":null,"monthsValidaty":null,"code":"161","codeName":"161 - Finalizaci\u00f3n Contrato - Inquilino"},"file":[{"id":"9c760eb0-fc9b-456b-aacf-22093dff41ad"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:26:19 -0500] Error 001: 
+ERROR: 504828 
+
+[Thu, 05 Jan 2017 19:26:19 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:26:19\", \"2017-01-05 19:26:19\", 1, \"3b966ec7-0084-4e91-8c08-d72769f7e981\", 1, false, \"\", \"\", \"504828.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:26:19 -0500] Error 001: 
+ERROR: {"nameDocument":"504838","dateDocument":"2008-10-03","tags":[[{"Contract":"2510"},{"Own":"DE CASTRO DEL CASTILLO NELLY DEL CARMEN"},{"Agreement":"214"},{"Client":"FADUL PEREZ ROSALYS DE JESUS"},{"property":"1344"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"b77a8d06-7c28-477d-9fb3-baf16b286447"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:28:09 -0500] Error 001: 
+ERROR: 504840 
+
+[Thu, 05 Jan 2017 19:28:09 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:28:09\", \"2017-01-05 19:28:09\", 1, \"eda48649-9b7b-4678-a946-242e3f898d80\", 1, false, \"\", \"\", \"504840.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:28:09 -0500] Error 001: 
+ERROR: {"nameDocument":"504839","dateDocument":"2008-10-03","tags":[[{"Contract":"4784"},{"Own":"ORDO\u00d1EZ GOMEZ GLORIA"},{"Agreement":"666"},{"Client":"BA\u00d1OL GRAJALES ANGELICA MARIA"},{"property":"1580"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:12","timezone_type":3,"timezone":"America\/Bogota"},"id":"c8faf117-e9aa-4961-bd74-08bc2000d0c8","name":"Finalizaci\u00f3n Contrato - Inquilino","description":null,"monthsValidaty":null,"code":"161","codeName":"161 - Finalizaci\u00f3n Contrato - Inquilino"},"file":[{"id":"b9f12823-5223-4842-9752-045fa3d7de74"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:29:28 -0500] Error 001: 
+ERROR: 19398 
+
+[Thu, 05 Jan 2017 19:29:28 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:29:28\", \"2017-01-05 19:29:28\", 1, \"1e787db5-bf69-4fc3-9339-9c82a0fb0daf\", 1, false, \"\", \"\", \"19398.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:29:28 -0500] Error 001: 
+ERROR: {"nameDocument":"19396","dateDocument":"2007-02-05","tags":[[{"Contract":"5285"},{"Own":"SOCIEDAD AGRICOLA Y GANADERA LUYMA LTDA"},{"Agreement":"1488"},{"Client":"GLOBAL T.V COMUNICACIONES  S.A."},{"property":"874"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:52","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:52","timezone_type":3,"timezone":"America\/Bogota"},"id":"3d8b0993-6319-499e-b8af-550e6f8a6d39","name":"Certificado Camara Comercio","description":null,"monthsValidaty":null,"code":"130","codeName":"130 - Certificado Camara Comercio"},"file":[{"id":"4291a19d-826b-425f-bfce-a1aa1086d7b5"}],"additional":"VIRTUAL8","virtual":false} 
+
+[Thu, 05 Jan 2017 19:38:20 -0500] Error 001: 
+ERROR: 19401 
+
+[Thu, 05 Jan 2017 19:38:20 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:38:20\", \"2017-01-05 19:38:20\", 1, \"8ed6d2f2-65b5-4d0e-acce-5044f6e2564c\", 1, false, \"\", \"\", \"19401.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:38:20 -0500] Error 001: 
+ERROR: {"nameDocument":"19400","dateDocument":"2006-11-09","tags":[[{"Contract":"5285"},{"Own":"SOCIEDAD AGRICOLA Y GANADERA LUYMA LTDA"},{"Agreement":"1488"},{"Client":"GLOBAL T.V COMUNICACIONES  S.A."},{"property":"874"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:16:16","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:16:16","timezone_type":3,"timezone":"America\/Bogota"},"id":"81476e4e-4084-4340-b3b4-e36ffd778552","name":"Referencia Bancaria - Familiar - Personal - Comercial            ","description":null,"monthsValidaty":null,"code":"187","codeName":"187 - Referencia Bancaria - Familiar - Personal - Comercial            "},"file":[{"id":"1f04b62d-3bdf-4675-94e5-ced059f7faa5"}],"additional":"VIRTUAL8","virtual":false} 
+
+[Thu, 05 Jan 2017 19:39:02 -0500] Error 001: 
+ERROR: 19405 
+
+[Thu, 05 Jan 2017 19:39:02 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:39:02\", \"2017-01-05 19:39:02\", 1, \"4f213f7d-0bbd-4e90-9a60-b1d327c5def6\", 1, false, \"\", \"\", \"19405.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:39:02 -0500] Error 001: 
+ERROR: {"nameDocument":"19404","dateDocument":"2007-04-30","tags":[[{"Contract":"5285"},{"Own":"SOCIEDAD AGRICOLA Y GANADERA LUYMA LTDA"},{"Agreement":"1488"},{"Client":"GLOBAL T.V COMUNICACIONES  S.A."},{"property":"874"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:16:16","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:16:16","timezone_type":3,"timezone":"America\/Bogota"},"id":"81476e4e-4084-4340-b3b4-e36ffd778552","name":"Referencia Bancaria - Familiar - Personal - Comercial            ","description":null,"monthsValidaty":null,"code":"187","codeName":"187 - Referencia Bancaria - Familiar - Personal - Comercial            "},"file":[{"id":"9d208605-960b-474e-97f7-e3617ef760b4"}],"additional":"VIRTUAL8","virtual":false} 
+
+[Thu, 05 Jan 2017 19:39:48 -0500] Error 001: 
+ERROR: 504844 
+
+[Thu, 05 Jan 2017 19:39:48 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:39:48\", \"2017-01-05 19:39:48\", 1, \"edfe91f3-843d-4add-8838-3e794378f877\", 1, false, \"\", \"\", \"504844.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:39:48 -0500] Error 001: 
+ERROR: {"nameDocument":"19415","dateDocument":"2005-02-05","tags":[[{"Contract":"2989"},{"Own":"NORYS VISBAL SIMANCA Y CIA S EN C"},{"Agreement":"1451"},{"Client":"CORPORACION UNIVERSITARIA DEL CARIBE"},{"property":"2954"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:15:31","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:15:31","timezone_type":3,"timezone":"America\/Bogota"},"id":"f380860c-ad2c-4be9-8286-5760839409c9","name":"Fotocopia C\u00e9dula - Nit                                           ","description":null,"monthsValidaty":null,"code":"164","codeName":"164 - Fotocopia C\u00e9dula - Nit                                           "},"file":[{"id":"4d1ba779-87fb-42ca-9350-a05929dca03b"}],"additional":"VIRTUAL8","virtual":false} 
+
+[Thu, 05 Jan 2017 19:41:50 -0500] Error 001: 
+ERROR: 504849 
+
+[Thu, 05 Jan 2017 19:41:50 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:41:50\", \"2017-01-05 19:41:50\", 1, \"b56a7293-5c3a-463d-bccd-d7815ade33e3\", 1, false, \"\", \"\", \"504849.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:41:50 -0500] Error 001: 
+ERROR: {"nameDocument":"504847","dateDocument":"2008-10-04","tags":[[{"Contract":"5482"},{"Own":"BEHAINE ABDALLA MARIA BERNARDA"},{"Agreement":"2139"},{"Client":"CASTILLO BOTERO CARLOS ANDRES"},{"property":"4464"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"70546f25-58f9-44b8-a72c-3b659195ec06"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:44:48 -0500] Error 001: 
+ERROR: 19468 
+
+[Thu, 05 Jan 2017 19:44:48 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:44:48\", \"2017-01-05 19:44:48\", 1, \"40097477-7f5e-468b-a0b3-e4c98bb14890\", 1, false, \"\", \"\", \"19468.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:44:48 -0500] Error 001: 
+ERROR: {"nameDocument":"19467","dateDocument":"2008-09-30","tags":[[{"Contract":"5509"},{"Own":"SUCESORES DE EMIGDIA PUPO DE FONNEGRA"},{"Agreement":"314"},{"Client":"COOPERATIVA FINANCIERA DE ANTIOQUIA"},{"property":"4697"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:37","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:37","timezone_type":3,"timezone":"America\/Bogota"},"id":"736cc601-87af-404d-8cb3-94b506319f18","name":"Carta remisoria Copia de Contrato a Inquino y Fiadores","description":null,"monthsValidaty":null,"code":"143","codeName":"143 - Carta remisoria Copia de Contrato a Inquino y Fiadores"},"file":[{"id":"08f8e207-b1cc-434e-8641-3b68b7fdc5da"}],"additional":"ARR45","virtual":false} 
+
+[Thu, 05 Jan 2017 19:56:31 -0500] Error 001: 
+ERROR: 504961 
+
+[Thu, 05 Jan 2017 19:56:31 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:56:31\", \"2017-01-05 19:56:31\", 1, \"4d14f018-bd60-4ba2-b319-c2fb112e81fc\", 1, false, \"\", \"\", \"504961.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:56:31 -0500] Error 001: 
+ERROR: {"nameDocument":"504960","dateDocument":"2008-10-10","tags":[[{"Contract":" "},{"Own":"ARGUMEDO SOTO LESBIA CARMELA"},{"Agreement":"2406"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"83a7dcff-f1d0-4189-8e73-44d016ab14f1"}],"additional":"ARR46","virtual":false} 
+
+[Thu, 05 Jan 2017 19:59:53 -0500] Error 001: 
+ERROR: 19717 
+
+[Thu, 05 Jan 2017 19:59:53 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 19:59:53\", \"2017-01-05 19:59:53\", 1, \"881d03f2-ca4d-4337-97bb-52dd3a97aa7b\", 1, false, \"\", \"\", \"19717.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 19:59:53 -0500] Error 001: 
+ERROR: {"nameDocument":"19716","dateDocument":"2008-09-17","tags":[[{"Contract":"3607"},{"Own":"PEREZ ARANGO CARLOS ALBERTO"},{"Agreement":"717"},{"Client":"ZEA TELLEZ JOSE MANUEL"},{"property":"3463"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"17e1fcb6-10db-4284-827d-6825cbbf5b0b"}],"additional":"ARR46","virtual":false} 
+
+[Thu, 05 Jan 2017 20:04:21 -0500] Error 001: 
+ERROR: 504964 
+
+[Thu, 05 Jan 2017 20:04:21 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 20:04:21\", \"2017-01-05 20:04:21\", 1, \"5e06986b-cba2-4acf-b981-eeea154da5eb\", 1, false, \"\", \"\", \"504964.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 20:04:21 -0500] Error 001: 
+ERROR: {"nameDocument":"504965","dateDocument":"2008-10-11","tags":[[{"Contract":" "},{"Own":"HERRERA MILANES ALBERTO"},{"Agreement":"445"},{"Client":" "},{"property":" "},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:54","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:54","timezone_type":3,"timezone":"America\/Bogota"},"id":"465254f5-e385-4341-b4e3-4db52d110faa","name":"Deshaucio","description":null,"monthsValidaty":null,"code":"150","codeName":"150 - Deshaucio"},"file":[{"id":"fead7efa-a56f-4230-bc0c-8db7798ba89c"}],"additional":"ARR46","virtual":false} 
+
+[Thu, 05 Jan 2017 20:05:15 -0500] Error 001: 
+ERROR: 504968 
+
+[Thu, 05 Jan 2017 20:05:15 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 20:05:15\", \"2017-01-05 20:05:15\", 1, \"5557ab22-4575-4cfc-ab71-cf70773c4aa6\", 1, false, \"\", \"\", \"504968.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 20:05:15 -0500] Error 001: 
+ERROR: {"nameDocument":"504967","dateDocument":"2008-10-11","tags":[[{"Contract":"3126"},{"Own":"GRACIA DE OGAZZA ZOILA"},{"Agreement":"664"},{"Client":"MORALES ANA TERESA"},{"property":"1353"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"f5c45f1a-fda7-4c68-b893-f36b03a5cea3"}],"additional":"ARR46","virtual":false} 
+
+[Thu, 05 Jan 2017 20:09:43 -0500] Error 001: 
+ERROR: 504990 
+
+[Thu, 05 Jan 2017 20:09:43 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 20:09:43\", \"2017-01-05 20:09:43\", 1, \"2a0b7ba2-8e9b-490a-bf57-576c21c6e9f2\", 1, false, \"\", \"\", \"504990.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 20:09:43 -0500] Error 001: 
+ERROR: {"nameDocument":"19844","dateDocument":"2008-08-15","tags":[[{"Contract":"4808"},{"Own":"VLADIMIR ANTONIO PADRON ATENCIO"},{"Agreement":"2674"},{"Client":"BURGOS ORDOSGOITIA VIVIANA DEL CARMEN"},{"property":"155"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:18","timezone_type":3,"timezone":"America\/Bogota"},"id":"c0c49094-be32-40d1-bfa0-4fb5487bfa02","name":"Comunicaci\u00f3n General de Arrendatarios","description":null,"monthsValidaty":null,"code":"203","codeName":"203 - Comunicaci\u00f3n General de Arrendatarios"},"file":[{"id":"cfb677ac-ce19-40ae-bcbf-1e9e65ac3022"}],"additional":"ARR47","virtual":false} 
+
+[Thu, 05 Jan 2017 20:12:49 -0500] Error 001: 
+ERROR: 505011 
+
+[Thu, 05 Jan 2017 20:12:49 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-05 20:12:49\", \"2017-01-05 20:12:49\", 1, \"f60a4529-6378-43aa-b012-b91d97d37d5d\", 1, false, \"\", \"\", \"505011.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Thu, 05 Jan 2017 20:12:49 -0500] Error 001: 
+ERROR: {"nameDocument":"505010","dateDocument":"2008-10-14","tags":[[{"Contract":"6157"},{"Own":"JARAMILLO GOMEZ LUIS CARLOS"},{"Agreement":"470"},{"Client":"FIGUEROA BUELVAS CESAR AUGUSTO"},{"property":"2127"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:13:45","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:13:45","timezone_type":3,"timezone":"America\/Bogota"},"id":"c1cef4aa-3327-4492-ab86-203e5938cc17","name":"Cartas Servicios P\u00fablicos","description":null,"monthsValidaty":null,"code":"186","codeName":"186 - Cartas Servicios P\u00fablicos"},"file":[{"id":"76e499db-f8b9-43fc-a48f-b32561e05227"}],"additional":"ARR47","virtual":false} 
+
+[Fri, 06 Jan 2017 08:44:13 -0500] Error 002: 
+ERROR:  
+
+[Fri, 06 Jan 2017 08:44:13 -0500] Error 002: 
+ERROR:  
+
+[Fri, 06 Jan 2017 08:44:13 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/6206.pdf
+
+
+[Fri, 06 Jan 2017 08:58:49 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 08:58:49 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:18:02 -0500] Error 002: 
+ERROR:  
+
+[Fri, 06 Jan 2017 09:18:02 -0500] Error 002: 
+ERROR:  
+
+[Fri, 06 Jan 2017 09:18:02 -0500] Error 002: 
+ERROR: Success: false -> /var/www/html/upload3/src/upload/command/Monteria/files/ARRIENDOS/6206.pdf
+
+
+[Fri, 06 Jan 2017 09:33:54 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:33:54 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:34:16 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:34:16 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:34:25 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:34:25 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:34:56 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:34:56 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:35:57 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:35:57 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:40:54 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:40:54 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:41:24 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:41:24 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:41:32 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:41:32 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:42:03 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:42:03 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:50:52 -0500] Error 001: 
+ERROR: 502802 
+
+[Fri, 06 Jan 2017 09:50:52 -0500] Error 001: 
+ERROR: {"message":"An exception occurred while executing 'INSERT INTO arc_file (deleted, entrydate, lastupdate, creator_id, id, version, hash, path, fileName, originalName, size, encryptKey, isSecuredRecord, entity, entityId, indexed, folios, destinyUser, showForIndexed, principal, fileManager_id, contentType_id, company_id, user_id, parent_id, typeview_id, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [0, \"2017-01-06 09:50:51\", \"2017-01-06 09:50:51\", 1, \"d0189301-01b0-478a-a014-0695f2057471\", 1, false, \"\", \"\", \"502802.pdf\", false, null, 0, null, null, 0, null, \"sifinca@araujoysegovia.com\", null, 1, \"f5744a7c-20c8-4295-812f-37579f6764f6\", \"db0dab63-70c5-466e-9ca8-60c6753465cd\", \"2f964723-e763-4a7b-9c81-5b544ebf24e2\", 1, null, null, 1]:\n\nSQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: \"\"","code":500} 
+
+[Fri, 06 Jan 2017 09:50:52 -0500] Error 001: 
+ERROR: {"nameDocument":"502742","dateDocument":"2008-05-16","tags":[[{"Contract":"5743"},{"Own":"ARBELAEZ GOMEZ JULIO HERNAN"},{"Agreement":"38"},{"Client":"MONTOYA URIBE CLAUDIA MARCELA"},{"property":"4941"},{"ref1":" "},{"ref2":" "},{"ref3":" "},{"id_soli":null},{"doc_soli":null}]],"documentType":{"deleted":false,"entrydate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"lastupdate":{"date":"2016-11-28 14:14:17","timezone_type":3,"timezone":"America\/Bogota"},"id":"604a7825-8bf7-4d9a-b0ad-467e59a75ecb","name":"Comunicaci\u00f3n General","description":null,"monthsValidaty":null,"code":"201","codeName":"201 - Comunicaci\u00f3n General"},"file":[{"id":"c07ed6c4-4774-4437-8ca6-74b82918169d"}],"additional":"ARR27","virtual":false} 
+
+[Fri, 06 Jan 2017 09:52:12 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:52:12 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:53:31 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:53:31 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:54:25 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:54:25 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:54:45 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:54:45 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:57:42 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:57:42 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:58:21 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:58:21 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 09:59:16 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 09:59:16 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 11:33:08 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 11:33:08 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:07:27 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 14:07:27 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:08:37 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 14:08:37 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:08:54 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 14:08:54 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:10:40 -0500] Error 002: 
+ERROR: 4831 
+
+[Fri, 06 Jan 2017 14:10:40 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:12:27 -0500] Error 002: 
+ERROR: 4831 
+
+[Fri, 06 Jan 2017 14:12:27 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:15:05 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 14:15:05 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:20:56 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 14:20:56 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:21:40 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 14:21:40 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:22:53 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 14:22:53 -0500] Error 002: 
+ERROR: null
+
+
+[Fri, 06 Jan 2017 14:24:18 -0500] Error 002: 
+ERROR: 6206 
+
+[Fri, 06 Jan 2017 14:24:18 -0500] Error 002: 
+ERROR: null
+
+

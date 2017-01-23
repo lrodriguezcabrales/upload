@@ -1,5 +1,5 @@
 <?php
-namespace upload\command;
+namespace upload\command\Cartagena;
 
 use upload\model\contratoArriendoCartagena;
 use upload\lib\data;
@@ -13,7 +13,7 @@ use GearmanClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class UpdateContratoArriendoCommand extends Command
+class UpdateContratosArriendoCommand extends Command
 {	
 	
 	public $server = 'http://www.sifinca.net/sifinca/web/app.php/';
@@ -26,8 +26,8 @@ class UpdateContratoArriendoCommand extends Command
 		
     protected function configure()
     {
-        $this->setName('updatecontratoarriendo')
-		             ->setDescription('Comando para actualizar contratos arriendo');
+        $this->setName('updateContratoArriendo')
+		             ->setDescription('Comando para pasar contratos arriendo');
 	}
 	
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, 
@@ -46,12 +46,12 @@ class UpdateContratoArriendoCommand extends Command
 
         $conexion = new contratoArriendoCartagena($conn);      
         		
-		$this->crearContratoArriendo($conexion);
+		$this->updateContratoArriendo($conexion);
 		
     }
     
     
-    function crearContratoArriendo($conexion) {
+    function updateContratoArriendo($conexion) {
     	    	
     	$contratos = $conexion->updateContratosArriendo();
     	    	
@@ -70,16 +70,15 @@ class UpdateContratoArriendoCommand extends Command
     		
     		$contratoSF2 = $this->searchContratoArriendo($contrato);
     		
-    		
     		if(!is_null($contratoSF2)){
-    			    			
-    			//echo "\nActualizar\n";
     			
     			$urlContrato = $this->server.'catchment/main/leasingcontract/'.$contratoSF2['id'];
+    			
+    			//echo "\n".$urlContrato."\n";
+    			 
     			$apiContrato = $this->SetupApi($urlContrato, $this->user, $this->pass);
     			
-    			echo "\n".$urlContrato."\n";
-    			
+    			//echo "\nNuevo\n";
     			$datacredito = null;
     			if($contrato['datacredito'] == 'S'){
     				$datacredito = true;
@@ -110,80 +109,82 @@ class UpdateContratoArriendoCommand extends Command
     			//echo "\npaso6\n";
     			$sucursal = $this->searchOffice($contrato['id_sucursal']);
     			
+    			//$arrendatarios = $this->buildArrendatarios($conexion, $contrato);
     			
     			$datetime1 = new \DateTime($contrato['fecha_contrato']);
     			$datetime2 = new \DateTime($contrato['fecha_vencimiento']);
     			$interval = $datetime1->diff($datetime2);
-    			    			    			
+
+    			    			
     			if(!is_null($inmueble)){
-    				 
-    				//echo "\nPor aqui\n";
     				
-    				$bContrato = array(
-    						"consecutive" => $contrato['id_contrato'],
-    						"contractDate" => $contrato['fecha_contrato'],
-    						"occupationDate" => $contrato['fecha_ocupacion'],
-    						"expirationDate" => $contrato['fecha_vencimiento'],
-    						"term"=> $contrato['termino'],
-    						"canon"=> $contrato['canon'],
-    						"expenseValue"=> $contrato['admi'],
-    						"warrantyStatus"=> $contrato['aseg_canon'],
-    						"warrantyfee"=> $contrato['por_seguro'],  //Comision garantia
-    						"nameEstablishment"=> $this->cleanString($contrato['denominacion']),
-    						"businessActivities"=> $this->cleanString($contrato['actividades']),
-    						"additionalClauses"=> $this->cleanString($contrato['CLAUSULA']),
-    						"casesAndRelatedUses"=> null,
-    						"suretyCode"=> $this->cleanString($contrato['cod_aseguradora']),
-    						"eviction"=> $contrato['deshaucio'],
-    						"dateEviction"=> $contrato['fecha_deshaucio'],
-    						"reportToRiskCentrals"=> $datacredito,
-    						"companyWarranty"=> $aseguradora,
-    						"application"=> null,
-    						"property"=> $inmueble,
-    						//"lease"=> $arrendatarios,
-    						//"nameValue"=> null,
-    						"renewal"=> null,
-    						"inventory"=> null,
-    						"statusLeasingContract"=> $estado,
-    						"contractTypeLeasingContract" => $tipocontrato,
-    						"warrantyType"=> $tipoGarantia,
-    						"accoutExecutive"=> $ejecutivocuenta,
-    						"office"=> $sucursal
-    			
-    				);
-    				 
-    				 
-    				$json = json_encode($bContrato);
-    			
-    				//echo "\n\n".$json."\n\n";
-    			
-    				$result = $apiContrato->put($bContrato);
-    				 
-    				$result = json_decode($result, true);
-    				 
-    				 
-    				 
-    				if($result['success'] == true){
-    					echo "\nOk\n";
-    					
-    					//echo "\n\n".$json."\n\n";
-    					
-    					//$total++;
-    				}else{
-    					echo "\nError contrato\n";
-    					//echo "\n\n".$json."\n\n";
-    					 
-    					$urlapiMapper = $this->server.'catchment/main/errorleasingcontract';
-    					$apiMapper = $this->SetupApi($urlapiMapper, $this->user, $this->pass);
-    					 
-    					$error = array(
-    							'leasingContract' => $contrato['id_contrato'],
-    							'objectJson' => $json
-    					);
-    						
-    					$resultError = $apiMapper->post($error);
-    				}
-    				 
+    				if(!is_null($contrato['id_contrato'])){
+    					    				
+	    				$bContrato = array(
+	    						"consecutive" => $contrato['id_contrato'],
+	    						"contractDate" => $contrato['fecha_contrato'],
+	    						"occupationDate" => $contrato['fecha_ocupacion'],
+	    						"expirationDate" => $contrato['fecha_vencimiento'],
+	    						"term"=> $contrato['termino'],
+	    						"canon"=> $contrato['canon'],
+	    						"expenseValue"=> $contrato['admi'],
+	    						"warrantyStatus"=> $contrato['aseg_canon'],
+	    						"warrantyfee"=> $contrato['por_seguro'],  //Comision garantia
+	    						"nameEstablishment"=> $this->cleanString($contrato['denominacion']),
+	    						"businessActivities"=> $this->cleanString($contrato['actividades']),
+	    						"additionalClauses"=> $this->cleanString($contrato['CLAUSULA']),
+	    						"casesAndRelatedUses"=> null,
+	    						"suretyCode"=> $this->cleanString($contrato['cod_aseguradora']),
+	    						"eviction"=> $contrato['deshaucio'],
+	    						"dateEviction"=> $contrato['fecha_deshaucio'],
+	    						"reportToRiskCentrals"=> $datacredito,
+	    						"companyWarranty"=> $aseguradora,
+	    						"application"=> null,
+	    						"property"=> $inmueble,
+	    						//"lease"=> $arrendatarios,
+	    						//"nameValue"=> null,
+	    						"renewal"=> null,
+	    						"inventory"=> null,
+	    						"statusLeasingContract"=> $estado,
+	    						"contractTypeLeasingContract" => $tipocontrato,
+	    						"warrantyType"=> $tipoGarantia,
+	    						"accoutExecutive"=> $ejecutivocuenta,
+	    						"office"=> $sucursal
+	    			
+	    				);
+	    				 
+	    				 
+	    				$json = json_encode($bContrato);
+	    			
+	    				//echo "\n\n".$json."\n\n";
+	    			
+	    				$result = $apiContrato->put($bContrato);
+	    				 
+	    				$result = json_decode($result, true);
+	    				 
+	    				 
+	    				 
+	    				if($result['success'] == true){
+	    					echo "\nOk - ".$contrato["id_contrato"]."\n";
+	    				}else{
+	    					echo "\nError contrato - ".$contrato['id_contrato']."\n";
+	    					
+	    					$dateError = $dateError->format('Y-m-d H:i:s');
+	    					
+	    					$arrayError = array(
+	    							'date' => $dateError,
+	    							'error' => '001',
+	    							'contrato' => $contrato['id_contrato'],
+	    							'dataError' => $bContrato
+	    					);
+	    						
+	    					$jsonError = json_encode($arrayError);
+	    					
+	    					$this->errorJson($jsonError.",");
+	    					
+	    				}
+	    				 
+	    			}
     			}else{
     				"\n El inmuebles no esta registrado: ".$contrato['id_inmueble'];
     			}
@@ -191,10 +192,8 @@ class UpdateContratoArriendoCommand extends Command
     			
     		}else{
     			
-    			echo "\n El contrato ya existe: ".$contrato['id_contrato']."\n";
+    			echo "\n El contrato no existe: ".$contrato['id_contrato']."\n";
     		}
-    		
-    	
     		
    			
    			$porDonde++;
@@ -212,7 +211,6 @@ class UpdateContratoArriendoCommand extends Command
     	echo "\n Fecha final: ".$finalTime->format('Y-m-d H:i:s')."\n";
     	echo "\n Diferencia: ".$diff->format('%h:%i:%s')."\n";
     	
-//     	echo "\n Total de contrato: ".$totalContratos."\n";
     	
     }
 
@@ -268,62 +266,7 @@ class UpdateContratoArriendoCommand extends Command
     	}
     	
     }
-    
-    function searchClientSF2($identificacion){
-    
-    	//     	echo "\nidentificacion\n";
-    	//     	echo $identificacion."\n";
-    
-    	$identificacion = $this->cleanString($identificacion);
-    
-    	if(strlen($identificacion) > 1){
-    		$relations = array(
-    				'identity',
-    				'phones'
-    		);
-    		$relations = json_encode($relations);
-    		
-    		$filter = array(
-    				'value' => $identificacion,
-    				'operator' => 'equal',
-    				'property' => 'identity.number'
-    		);
-    		$filter = json_encode(array($filter));
-    		
-    		
-    		$urlClientSF2 = $this->server.'crm/main/zero/client?relations='.$relations.'&filter='.$filter;
-    		//echo "\n".$urlClientSF2."\n";
-    		
-    		//$urlClientSF2 = $this->server.'crm/main/zero/client';
-    		
-    		$apiClientSF2 = $this->SetupApi($urlClientSF2, $this->user, $this->pass);
-    		
-    		
-    		$clientSF2 = $apiClientSF2->get();
-    		//      	echo "\nbeneficiario\n";
-    		//  		echo $clientSF2;
-    		
-    		$clientSF2 = json_decode($clientSF2, true);
-    		
-    		//echo $clientSF2['total'];
-    		
-    		if($clientSF2['total'] > 0){
-    		
-    			$c = array(
-    				'id' => $clientSF2['data'][0]['id'],
-    				'name' => $clientSF2['data'][0]['name']
-    			);
-    			return $c;
-    		
-    		}else{
-    			return null;
-    		}
-    	}else{
-    		return null;
-    	} 
-    
-    }
-      
+     
     function searchProperty($propertySF1) {
     	 
     	$propertySF1 = $this->cleanString($propertySF1);
@@ -537,7 +480,6 @@ class UpdateContratoArriendoCommand extends Command
     	
     }
     
-    
     function searchContratoArriendo($contrato) {
     	
     	$codigoContrato = $this->cleanString($contrato['id_contrato']);
@@ -552,7 +494,8 @@ class UpdateContratoArriendoCommand extends Command
     	$filter = json_encode(array($filter));
     	
     	$urlContract = $this->server.'catchment/main/leasingcontract?filter='.$filter;
-    	//echo "\n".$urlContract."\n";
+    	
+    	echo "\n".$urlContract."\n";
     	
     	$apiContract = $this->SetupApi($urlContract, $this->user, $this->pass);
     	
@@ -570,6 +513,8 @@ class UpdateContratoArriendoCommand extends Command
     	}
     	    	
     }
+        
+    
     /**
      * Eliminar espacios en blanco seguidos
      * @param unknown $string
@@ -580,6 +525,19 @@ class UpdateContratoArriendoCommand extends Command
     	$string = str_replace('&nbsp;', ' ', $string);
     	$string = preg_replace('/\s\s+/', ' ', $string);
     	return $string;
+    }   
+
+    /**
+     * Log Error
+     * @param unknown $numero
+     * @param unknown $texto
+     */
+    function errorJson($texto){
+    
+    	$ddf = fopen('/var/www/html/upload3/errorlog/ErrorUpdateContratoArriendo.log','a');
+    	fwrite($ddf,"$texto\r\n");
+    	fclose($ddf);
+    
     }
     
     function login() {
@@ -661,7 +619,6 @@ class UpdateContratoArriendoCommand extends Command
     		echo "\nToken no valido\n";
     	}
     
-    
     }
-         
+    
 }
